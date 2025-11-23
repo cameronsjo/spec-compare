@@ -30,20 +30,22 @@ This repository contains in-depth research comparing six major specification-dri
 
 ## Documentation
 
-The complete analysis is available in:
+The research is organized into focused, digestible documents:
 
-```
-docs/spec-driven-development-tools-comparison.md
-```
+### Individual Tool Profiles
+- [GitHub Spec-Kit](docs/tools/spec-kit.md) - Open-source CLI toolkit
+- [Spec Kitty](docs/tools/spec-kitty.md) - Community fork with worktree support
+- [BMad Method](docs/tools/bmad-method.md) - Enterprise framework with 19 agents
+- [OpenSpec](docs/tools/openspec.md) - Lightweight change management
+- [Kiro](docs/tools/kiro.md) - AWS-backed agentic IDE
+- [Tessl](docs/tools/tessl.md) - Experimental spec-as-source platform
 
-This document includes:
-- Detailed tool overviews with installation instructions
-- Comprehensive comparison matrices
-- Git worktree support analysis
-- Architectural approaches and philosophies
-- Critical analysis and concerns
-- Decision frameworks and recommendations
-- Industry trends and future outlook
+### Analysis & Recommendations
+- [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons
+- [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis
+- [Recommendations](docs/recommendations.md) - Decision frameworks by use case
+- [Critical Analysis](docs/critical-analysis.md) - Concerns, critiques, and future outlook
+- [Sources](docs/sources.md) - All citations and references
 
 ## Quick Comparison
 
@@ -107,7 +109,7 @@ All research is compiled from publicly available sources including:
 - Comparative analyses from Martin Fowler, Medium, and others
 - Critical perspectives from Marmelab, RedMonk, and Thoughtworks
 
-Full source citations are included in the comprehensive comparison document.
+Full source citations are available in [docs/sources.md](docs/sources.md).
 
 ## Contact
 
