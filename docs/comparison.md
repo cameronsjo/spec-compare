@@ -46,6 +46,9 @@
 | **Dashboard** | ❌ | ✅ | ❌ | ⚠️ | ✅ (IDE) | ❌ |
 | **Brownfield** | ⚠️ | ✅ | ⚠️ | ✅ | ⚠️ | ❌ |
 | **Greenfield** | ✅ | ✅ | ✅ | ⚠️ | ✅ | ✅ |
+| **Trivial Modifications** | ⚠️ | ⚠️ | ❌ | ✅ | ❌ | ✅ |
+| **Spec Modifications** | ⚠️ | ⚠️ | ❌ | ✅ | ⚠️ | ✅ |
+| **Iterative Changes** | ⚠️ | ⚠️ | ❌ | ✅ | ⚠️ | ✅ |
 | **Learning Curve** | Medium | High | High | Low | Medium | Medium |
 | **Complexity** | Medium | High | Very High | Low | Medium | High |
 | **MCP Support** | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
@@ -182,8 +185,24 @@ Spec Registry → Framework → Generated Code (Tessl)
 - Vendor lock-in risk
 - Experimental approaches
 
+## Use Case Scoring
+
+For detailed scoring across 12 real-world scenarios (button color changes, greenfield features, bug fixes, etc.), see:
+
+**[Use Case Scoring Matrix](use-case-scoring.md)**
+
+Includes practical grades for:
+- Trivial modifications (change button color)
+- Medium refactoring
+- Greenfield features
+- Emergency hotfixes
+- Parallel development
+- And more
+
 ## Related
 
+- [Use Case Scoring](use-case-scoring.md) - Practical scenario-based grades
+- [Iterative Development](iterative-development.md) - Deep dive on spec modifications
 - [Git Worktree Support](git-worktree-support.md)
 - [Recommendations](recommendations.md)
 - [Critical Analysis](critical-analysis.md)

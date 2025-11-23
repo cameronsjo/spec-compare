@@ -15,6 +15,17 @@ This repository contains in-depth research comparing six major specification-dri
 
 ## Key Findings
 
+### The Modification Problem (NEW)
+
+**Critical Gap:** Most SDD tools excel when requirements are clear upfront but struggle with iterative changes like "change button from blue to green."
+
+- **OpenSpec** - Purpose-built for modifications with delta format (ADDED, MODIFIED, REMOVED)
+- **Tessl** - Spec-as-source enables edit-and-regenerate (but closed beta)
+- **Spec-Kit** - Requires `/speckit.clarify` workaround, not optimized for small changes
+- **Kiro/BMad** - "Sledgehammer to crack a nut" problem for trivial changes
+
+See [Iterative Development Analysis](docs/iterative-development.md) and [Use Case Scoring](docs/use-case-scoring.md) for details.
+
 ### Git Worktree Support
 
 **Spec Kitty is the only tool with built-in git worktree support**, enabling:
@@ -42,6 +53,8 @@ The research is organized into focused, digestible documents:
 
 ### Analysis & Recommendations
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons
+- [Use Case Scoring](docs/use-case-scoring.md) - **NEW:** 12 real-world scenarios graded
+- [Iterative Development](docs/iterative-development.md) - **NEW:** Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
 - [Critical Analysis](docs/critical-analysis.md) - Concerns, critiques, and future outlook
