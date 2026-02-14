@@ -34,6 +34,26 @@
 | **Change Management** | Basic | Advanced | Advanced | Excellent | Basic | Experimental |
 | **API Focus** | No | No | Yes | No | No | No |
 | **IDE Integration** | No | No | No | No | Yes | No |
+| **AGENTS.md** | ✅ Generated | ✅ Generated | ✅ Generated | ⚠️ Pre-1.0 only | ❌ | ❌ |
+| **CLAUDE.md** | ✅ Generated | ✅ Generated | ✅ Generated | ⚠️ Pre-1.0 only | ❌ | ❌ |
+| **SKILL.md** | ❌ | ❌ | ❌ | ✅ v1.0 | ❌ | ❌ |
+| **Slash Commands** | ✅ 8 | ✅ 13 | ✅ 50+ workflows | ✅ 10 (`/opsx:`) | ❌ | ❌ |
+
+## Agent Configuration Support
+
+How each tool communicates instructions to AI coding agents:
+
+| Tool | Primary Mechanism | AGENTS.md | CLAUDE.md | .cursorrules | SKILL.md | Slash Commands |
+|------|-------------------|-----------|-----------|--------------|----------|----------------|
+| **Spec-Kit** | Slash commands in `.claude/commands/` | ✅ | ✅ | ✅ | ❌ | 8 commands |
+| **Spec Kitty** | Slash commands in agent-specific dirs | ✅ | ✅ | ✅ | ❌ | 13 commands |
+| **BMad** | Agent configs in `.bmad/` + tool dirs | ✅ | ✅ | ✅ | ❌ | 50+ workflows |
+| **OpenSpec** (pre-1.0) | Scattered config files | ✅ | ✅ | ✅ | ❌ | 3 commands |
+| **OpenSpec** (v1.0) | Unified skills directory | ❌ (removed) | ❌ (removed) | ❌ (removed) | ✅ 10 skills | 10 actions |
+| **Kiro** | Proprietary IDE hooks | ❌ | ❌ | ❌ | ❌ | IDE-native |
+| **Tessl** | Proprietary platform | ❌ | ❌ | ❌ | ❌ | CLI-native |
+
+**Key finding:** OpenSpec v1.0 is the only tool that migrated from AGENTS.md/CLAUDE.md to the newer SKILL.md standard. All other open-source tools still generate AGENTS.md. The AGENTS.md standard itself (28.64% runtime reduction in evaluations) continues to gain adoption — OpenAI Codex ships 88 AGENTS.md files in its own repo.
 
 ## Capability Matrix
 

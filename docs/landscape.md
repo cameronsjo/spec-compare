@@ -75,11 +75,45 @@ Tools for executing multiple agents in parallel with isolation and coordination.
 | **Gas Town** (Yegge) | Beads + Agent Mail agent village; Mad Max terminology | Git worktrees | [github](https://github.com/steveyegge/gastown) |
 | **VS Code Agent HQ** | Native multi-agent hub in VS Code v1.109+ | Workspaces | Built into VS Code |
 
-### Hidden: Claude Code TeammateTool
+### Claude Code Agent Teams (Experimental Preview)
 
-A fully-implemented multi-agent orchestration system discovered inside Claude Code's binary, feature-flagged off. 13 operations with defined schemas, directory structures, and environment variables. Represents Anthropic's unreleased vision for native multi-agent Claude Code.
+Originally discovered as a hidden feature ("TeammateTool") inside Claude Code's binary in December 2025, Agent Teams shipped as an experimental preview alongside Opus 4.6 on February 5, 2026.
 
-Source: [paddo.dev — Claude Code Hidden Swarm](https://paddo.dev/blog/claude-code-hidden-swarm/)
+**How it works:** A lead agent spawns teammate agents — each a full, independent Claude Code instance with its own context window. Coordination happens through two file-system mechanisms:
+
+- **Shared task list** (`~/.claude/tasks/<team>/`) — JSON files with status tracking, ownership, and dependency management. File locking prevents double-claims.
+- **Inbox-based messaging** (`~/.claude/teams/<team>/inboxes/`) — Peer-to-peer JSON messages. Unlike sub-agents (fire-and-forget), teammates message each other directly.
+
+**13 operations** across three categories:
+- **Lifecycle:** `spawnTeam`, `spawn`, `requestJoin`, `approveJoin`
+- **Coordination:** `broadcast`, `SendMessage`, `TaskCreate`, `TaskUpdate`, `TaskList`
+- **Shutdown:** `requestShutdown`, `cleanup`
+
+**Orchestration patterns:** Leader/Follower, Swarm (self-assign from queue), Pipeline (dependency handoffs), Competing Hypotheses, Watchdog.
+
+**UX modes:**
+- **In-process** — All teammates in one terminal (Shift+Up/Down to navigate)
+- **Split-pane** — Each teammate in its own tmux/iTerm2 pane
+- **Delegate mode** (Shift+Tab) — Restricts lead to coordination only (can't write code itself)
+
+**Enable:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in `~/.claude/settings.json`
+
+**Scale:** 2–5 teammates recommended. Stress-tested at 16 agents building a 100,000-line C compiler ($20K in API costs, 99% on GCC torture test suite).
+
+| Aspect | Sub-agents (Task tool) | Agent Teams |
+|---|---|---|
+| Communication | Fire-and-forget to parent | Peer-to-peer messaging |
+| Context | Runs within parent's session | Each teammate gets full context window |
+| Independence | Cannot talk to each other | Direct inter-agent messaging |
+| User interaction | Only through parent | Interact with individuals directly |
+| Token cost | Lower (shared session) | Higher (~200K per teammate) |
+| Best for | Quick isolated tasks | Complex collaborative work |
+
+**Sources:**
+- [Claude Code Agent Teams Docs](https://code.claude.com/docs/en/agent-teams)
+- [Building a C compiler with parallel Claudes — Anthropic Engineering](https://www.anthropic.com/engineering/building-c-compiler)
+- [paddo.dev — Original Discovery](https://paddo.dev/blog/claude-code-hidden-swarm/)
+- [paddo.dev — The Switch Got Flipped](https://paddo.dev/blog/agent-teams-the-switch-got-flipped/)
 
 ---
 
