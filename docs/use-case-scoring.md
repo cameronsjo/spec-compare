@@ -269,6 +269,41 @@ This document grades each spec-driven development tool against real-world scenar
 | **Kiro** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.6** |
 | **Tessl** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | **3.0** |
 
+### Expanded Heatmap (Including New Tools)
+
+Numeric scores (1–5) for quick visual comparison across all tools. Includes the five frameworks from the [gaps analysis](gaps.md).
+
+```
+                    Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
+                    ───────  ──────  ─────  ────────  ─────────  ────  ────────────  ───────
+OpenSpec v1.0        5        5       3      3         2          4     2             3.4
+Spec-Kit             3        4       5      2         1          3     2             2.9
+Spec Kitty           2        3       4      5         1          2     2             2.7
+BMad v6              1        2       5      2         1          1     2             2.0
+Kiro                 2        3       4      2         1          3     2             2.4
+Tessl                4        4       3      2         1          2     2             2.6
+GSD                  4        4       4      4         2          5     4             3.9
+Ralph Loop           3        3       4      3         2          4     5             3.4
+Zencoder/Zenflow     3        4       5      5         1          1     3             3.1
+Kilo Code            3        3       4      4         2          3     4             3.3
+Conductor            1        1       2      5         1          2     2             2.0
+```
+
+**Reading the heatmap:**
+- **5** = purpose-built for this scenario
+- **4** = works well with minor adjustments
+- **3** = functional but noticeable overhead
+- **2** = significant friction
+- **1** = avoid for this use case
+
+**Context Mgmt** = how well the tool handles agent memory, context window management, and multi-session persistence. GSD (wave-based context management), Ralph Loop (stateless fresh context per iteration), and Kilo Code (Memory Bank) score highest.
+
+**Key shifts from original rankings:**
+- GSD scores highest overall (3.9) due to its balance across all categories — it's the closest to a generalist
+- Ralph Loop ties OpenSpec (3.4) by excelling at context management and solo use
+- Zencoder/Zenflow matches Spec Kitty for parallel work (5) but with commercial polish
+- Conductor is pure parallel execution — scores 1 everywhere except parallel work
+
 ### Best Tool by Use Case
 
 | Use Case | Best Tool | Runner-Up | Avoid |
