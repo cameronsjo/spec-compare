@@ -262,12 +262,12 @@ This document grades each spec-driven development tool against real-world scenar
 
 | Tool | Trivial Changes | Medium Changes | Large Features | Parallel Work | Emergency | Overall |
 |------|----------------|----------------|----------------|---------------|-----------|---------|
-| **OpenSpec** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | **4.2** |
-| **Spec-Kit** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **3.4** |
-| **Spec Kitty** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ | **3.2** |
-| **BMad** | ⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.4** |
-| **Kiro** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.6** |
-| **Tessl** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | **3.0** |
+| **OpenSpec** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | **3.6** |
+| **Spec-Kit** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **3.0** |
+| **Spec Kitty** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ | **3.0** |
+| **BMad** | ⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.2** |
+| **Kiro** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.4** |
+| **Tessl** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | **2.8** |
 
 ### Expanded Heatmap (Including New Tools)
 

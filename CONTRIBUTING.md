@@ -126,12 +126,29 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ```
 spec-compare/
-├── README.md                  # Project overview
-├── CONTRIBUTING.md            # This file
-├── CHANGELOG.md              # Version history
-├── LICENSE                   # License information
+├── README.md                           # Project overview
+├── CONTRIBUTING.md                     # This file
+├── CHANGELOG.md                        # Version history
+├── LICENSE                             # License information
 └── docs/
-    └── spec-driven-development-tools-comparison.md  # Main comparison
+    ├── comparison.md                   # Side-by-side feature matrices
+    ├── use-case-scoring.md             # 12 use cases graded + heatmap
+    ├── iterative-development.md        # Spec modification workflows
+    ├── recommendations.md              # Decision frameworks
+    ├── critical-analysis.md            # Concerns and critiques
+    ├── sources.md                      # All citations
+    ├── landscape.md                    # 30+ orchestration tools
+    ├── beads.md                        # Agent memory layer
+    ├── gaps.md                         # Newly discovered frameworks
+    ├── git-worktree-support.md         # Worktree analysis
+    ├── cheatsheet-beads-openspec.md    # Practical workflow guide
+    └── tools/
+        ├── spec-kit.md
+        ├── spec-kitty.md
+        ├── bmad-method.md
+        ├── openspec.md
+        ├── kiro.md
+        └── tessl.md
 ```
 
 ## Questions?

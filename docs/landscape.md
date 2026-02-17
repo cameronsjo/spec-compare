@@ -84,7 +84,7 @@ Originally discovered as a hidden feature ("TeammateTool") inside Claude Code's 
 - **Shared task list** (`~/.claude/tasks/<team>/`) — JSON files with status tracking, ownership, and dependency management. File locking prevents double-claims.
 - **Inbox-based messaging** (`~/.claude/teams/<team>/inboxes/`) — Peer-to-peer JSON messages. Unlike sub-agents (fire-and-forget), teammates message each other directly.
 
-**13 operations** across three categories:
+**11 operations** across three categories:
 - **Lifecycle:** `spawnTeam`, `spawn`, `requestJoin`, `approveJoin`
 - **Coordination:** `broadcast`, `SendMessage`, `TaskCreate`, `TaskUpdate`, `TaskList`
 - **Shutdown:** `requestShutdown`, `cleanup`
