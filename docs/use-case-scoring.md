@@ -450,6 +450,9 @@ Question 4: Is this enterprise-scale?
 ## Related
 
 - [Iterative Development Analysis](iterative-development.md)
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide
+- [Gaps: New Frameworks](gaps.md) — Details on GSD, Ralph Loop, Zencoder, Kilo Code, Conductor
+- [Orchestration Landscape](landscape.md) — Agent Teams and multi-agent tools
 - [Comparison Matrices](comparison.md)
 - [Recommendations](recommendations.md)
 - [Tool Profiles](tools/)

@@ -207,6 +207,9 @@ Beads is not an SDD tool itself — it's an execution and memory layer. But it h
 
 ## Related
 
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical setup and daily workflow
 - [Git Worktree Support](git-worktree-support.md)
+- [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools
 - [Comparison Matrix](comparison.md)
 - [Gaps: Newly Discovered Frameworks](gaps.md)
+- [Recommendations](recommendations.md)

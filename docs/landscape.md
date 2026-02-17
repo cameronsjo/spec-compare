@@ -389,10 +389,14 @@ Co-founded by Anthropic, Block, OpenAI. Supported by Google, Microsoft, AWS, Clo
 - [A2A Protocol](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)
 - [AGENTS.md](https://agents.md/)
 - [paddo.dev — Claude Code Hidden Swarm](https://paddo.dev/blog/claude-code-hidden-swarm/)
+- [paddo.dev — Agent Teams: The Switch Got Flipped](https://paddo.dev/blog/agent-teams-the-switch-got-flipped/)
 
 ## Related
 
-- [Comparison Matrix](comparison.md) — Deep comparison of six SDD tools
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical multi-agent workflow
+- [Comparison Matrix](comparison.md) — Deep comparison of six SDD tools (incl. AGENTS.md support)
+- [Use Case Scoring](use-case-scoring.md) — Expanded 11-tool heatmap
 - [Gaps Analysis](gaps.md) — Five additional SDD frameworks
 - [Beads, Agent Mail, and Gas Town](beads.md) — Agent memory and coordination
+- [Git Worktree Support](git-worktree-support.md) — Worktree ecosystem analysis
 - [Recommendations](recommendations.md) — Which tool for which use case

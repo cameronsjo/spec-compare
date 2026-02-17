@@ -4,7 +4,9 @@ A comprehensive research and comparison of spec-driven development (SDD) tools f
 
 ## Overview
 
-This repository contains in-depth research comparing six major specification-driven development tools:
+This repository contains in-depth research comparing spec-driven development tools, agent orchestration, and the emerging execution layer for AI-assisted coding.
+
+### Core SDD Tools (Original Comparison)
 
 - **GitHub Spec-Kit** - Open-source CLI toolkit for greenfield projects
 - **Spec Kitty** - Community fork with built-in git worktree orchestration
@@ -12,6 +14,14 @@ This repository contains in-depth research comparing six major specification-dri
 - **OpenSpec** - Lightweight change-management for brownfield projects
 - **Kiro** - AWS-backed agentic IDE with multimodal input
 - **Tessl** - Experimental spec-as-source platform
+
+### Newly Discovered (February 2026)
+
+- **GSD** - Meta-prompting SDD system with wave-based context management (11.9K stars)
+- **Ralph Loop** - Stateless iterative execution pattern
+- **Zencoder/Zenflow** - Commercial SDD-as-a-Service platform
+- **Kilo Code** - Open-source agentic platform with Memory Bank ($8M seed, 1.5M users)
+- **Conductor** - macOS parallel agent runner using git worktrees
 
 ## Key Findings
 
@@ -52,13 +62,19 @@ The research is organized into focused, digestible documents:
 - [Tessl](docs/tools/tessl.md) - Experimental spec-as-source platform
 
 ### Analysis & Recommendations
-- [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons
-- [Use Case Scoring](docs/use-case-scoring.md) - **NEW:** 12 real-world scenarios graded
-- [Iterative Development](docs/iterative-development.md) - **NEW:** Spec modification workflows
-- [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis
+- [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 11-tool heatmap
+- [Iterative Development](docs/iterative-development.md) - Spec modification workflows
+- [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
 - [Critical Analysis](docs/critical-analysis.md) - Concerns, critiques, and future outlook
 - [Sources](docs/sources.md) - All citations and references
+
+### Orchestration & Execution Layer (NEW)
+- [Orchestration Landscape](docs/landscape.md) - 30+ multi-agent tools surveyed, including Claude Code Agent Teams
+- [Beads, Agent Mail & Gas Town](docs/beads.md) - Agent memory, messaging, and multi-agent villages
+- [Gaps: New Frameworks](docs/gaps.md) - GSD, Ralph Loop, Zencoder, Kilo Code, Conductor
+- [Beads + OpenSpec Cheatsheet](docs/cheatsheet-beads-openspec.md) - Practical setup and daily workflow
 
 ## Quick Comparison
 
@@ -130,4 +146,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2025-11-23
+**Last Updated:** 2026-02-17

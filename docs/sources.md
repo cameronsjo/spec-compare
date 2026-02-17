@@ -84,6 +84,73 @@ All research is compiled from publicly available sources. Full citations are pro
 - [GitHub Spec Kit: A Guide to Spec-Driven AI Development - IntuitionLabs](https://intuitionlabs.ai/articles/spec-driven-development-spec-kit)
 - [How to Use GitHub Spec Kit - Geeky Gadgets](https://www.geeky-gadgets.com/github-spec-kit-specification-driven-development-framework/)
 
+## Agent Orchestration & Execution Layer
+
+### Claude Code Agent Teams
+- [Claude Code Agent Teams Docs](https://code.claude.com/docs/en/agent-teams)
+- [Building a C compiler with a team of parallel Claudes — Anthropic Engineering](https://www.anthropic.com/engineering/building-c-compiler)
+- [Claude Code's Hidden Multi-Agent System — paddo.dev](https://paddo.dev/blog/claude-code-hidden-swarm/)
+- [Agent Teams: The Switch Got Flipped — paddo.dev](https://paddo.dev/blog/agent-teams-the-switch-got-flipped/)
+- [Claude Code Swarms — AddyOsmani.com](https://addyosmani.com/blog/claude-code-agent-teams/)
+- [From Tasks to Swarms: Agent Teams in Claude Code — alexop.dev](https://alexop.dev/posts/from-tasks-to-swarms-agent-teams-in-claude-code/)
+- [Anthropic releases Opus 4.6 with Agent Teams — TechCrunch](https://techcrunch.com/2026/02/05/anthropic-releases-opus-4-6-with-new-agent-teams/)
+
+### Beads
+- [The Beads Revolution — Steve Yegge (Medium)](https://steve-yegge.medium.com/the-beads-revolution-how-i-built-the-todo-system-that-ai-agents-actually-want-to-use-228a5f9be2a9)
+- [Beads Best Practices — Steve Yegge (Medium)](https://steve-yegge.medium.com/beads-best-practices-2db636b9760c)
+- [The Future of Coding Agents — Steve Yegge (Medium)](https://steve-yegge.medium.com/the-future-of-coding-agents-e9451a84207c)
+- [steveyegge/beads (GitHub)](https://github.com/steveyegge/beads)
+- [Beads Worktrees Documentation](https://github.com/steveyegge/beads/blob/main/docs/WORKTREES.md)
+- [From Beads to Tasks: Anthropic Productizes Agent Memory — paddo.dev](https://paddo.dev/blog/from-beads-to-tasks/)
+- [Beads + Spec-Kit Discussion #1381](https://github.com/github/spec-kit/discussions/1381)
+
+### MCP Agent Mail
+- [Dicklesworthstone/mcp_agent_mail (GitHub)](https://github.com/Dicklesworthstone/mcp_agent_mail)
+- [MCP Agent Mail Official Site](https://mcpagentmail.com/)
+
+### Gas Town
+- [Welcome to Gas Town — Steve Yegge (Medium)](https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04)
+- [steveyegge/gastown (GitHub)](https://github.com/steveyegge/gastown)
+
+## Newly Discovered SDD Frameworks (February 2026)
+
+### GSD (Get Shit Done)
+- [gsd.build](https://gsd.build)
+- [GitHub: glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done)
+- [GSD Framework Deep Dive](https://ccforeveryone.com/gsd)
+
+### Ralph Loop
+- [Everything is a Ralph Loop — Geoffrey Huntley](https://ghuntley.com/loop/)
+- [GitHub: awesome-ralph](https://github.com/snwfdhmp/awesome-ralph)
+- [Ralph Wiggum AI Loop Technique](https://awesomeclaude.ai/ralph-wiggum)
+
+### Zencoder / Zenflow
+- [Zencoder](https://zencoder.ai/)
+- [Zenflow](https://zencoder.ai/zenflow)
+- [Zencoder SDD Guide](https://docs.zencoder.ai/user-guides/tutorials/spec-driven-development-guide)
+
+### Kilo Code
+- [kilo.ai](https://kilo.ai/)
+- [GitHub: Kilo-Org/kilocode](https://github.com/Kilo-Org/kilocode)
+- [Inside Kilo Code — Tessl blog](https://tessl.io/blog/inside-kilo-code-an-open-source-ai-coding-agent-with-plans-to-reshape-software-development/)
+
+### Conductor
+- [conductor.build](https://www.conductor.build/)
+- [Conductor Docs](https://docs.conductor.build)
+- [Hands-On Review — The New Stack](https://thenewstack.io/a-hands-on-review-of-conductor-an-ai-parallel-runner-app/)
+
+## Open Standards & Organizations
+
+### AGENTS.md
+- [AGENTS.md Official Site](https://agents.md/)
+
+### AI-Native Development Foundation
+- [Foundation Website](https://ainativedev.io/foundation)
+- Co-founded by Anthropic, Block, OpenAI. Supported by Google, Microsoft, AWS, Cloudflare, Bloomberg
+
+### Academic
+- [Spec-Driven Development: From Code to Contract — ArXiv](https://arxiv.org/abs/2602.00180) (Deepak Babu Piskala, January 2026)
+
 ## Research Methodology
 
 This comparison was compiled through:
@@ -93,7 +160,7 @@ This comparison was compiled through:
 4. Examination of critical perspectives from established tech publications
 5. Synthesis of market trends and predictions from industry leaders
 
-All information is current as of November 2025 and represents publicly available data at the time of compilation.
+All information is current as of February 2026 and represents publicly available data at the time of compilation.
 
 ## License
 
@@ -104,3 +171,6 @@ This research is provided under CC0 1.0 Universal (Public Domain). All linked so
 - [Comparison Matrix](comparison.md)
 - [Critical Analysis](critical-analysis.md)
 - [Recommendations](recommendations.md)
+- [Orchestration Landscape](landscape.md)
+- [Beads, Agent Mail & Gas Town](beads.md)
+- [Gaps: New Frameworks](gaps.md)

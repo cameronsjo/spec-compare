@@ -161,6 +161,10 @@ This paper provides practitioners with a comprehensive guide to SDD, covering pr
 
 ## Related
 
-- [Beads](beads.md) - Agent memory layer
-- [Git Worktree Support](git-worktree-support.md) - Updated worktree analysis
-- [Comparison Matrix](comparison.md) - Original six-tool comparison
+- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 11-tool scoring matrix including these frameworks
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow combining OpenSpec with Beads
+- [Beads](beads.md) — Agent memory layer
+- [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools
+- [Git Worktree Support](git-worktree-support.md) — Updated worktree analysis
+- [Comparison Matrix](comparison.md) — Original six-tool comparison
+- [Recommendations](recommendations.md) — Decision frameworks including new tools

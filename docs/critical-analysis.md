@@ -247,4 +247,6 @@ Spec-driven development represents a significant shift in AI-assisted coding, mo
 
 - [Comparison Matrix](comparison.md)
 - [Recommendations](recommendations.md)
+- [Orchestration Landscape](landscape.md) — Multi-agent coordination tools
+- [Beads](beads.md) — Agent memory addressing context loss
 - [Sources](sources.md)

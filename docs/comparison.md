@@ -221,8 +221,11 @@ Includes practical grades for:
 
 ## Related
 
-- [Use Case Scoring](use-case-scoring.md) - Practical scenario-based grades
-- [Iterative Development](iterative-development.md) - Deep dive on spec modifications
+- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 11-tool heatmap
+- [Iterative Development](iterative-development.md) — Deep dive on spec modifications
+- [Orchestration Landscape](landscape.md) — Agent Teams and 30+ multi-agent tools
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide
+- [Gaps: New Frameworks](gaps.md) — GSD, Ralph Loop, Zencoder, Kilo Code, Conductor
 - [Git Worktree Support](git-worktree-support.md)
 - [Recommendations](recommendations.md)
 - [Critical Analysis](critical-analysis.md)

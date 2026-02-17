@@ -564,6 +564,8 @@ Most tools still struggle with:
 
 ## Related
 
+- [Use Case Scoring](use-case-scoring.md) — 12 real-world scenarios graded + expanded heatmap
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical iterative workflow
 - [Comparison Matrix](comparison.md)
 - [Recommendations](recommendations.md)
 - [OpenSpec Deep Dive](tools/openspec.md)
