@@ -25,7 +25,7 @@ This repository contains in-depth research comparing spec-driven development too
 
 ## Key Findings
 
-### The Modification Problem (NEW)
+### The Modification Problem
 
 **Critical Gap:** Most SDD tools excel when requirements are clear upfront but struggle with iterative changes like "change button from blue to green."
 
@@ -70,7 +70,7 @@ The research is organized into focused, digestible documents:
 - [Critical Analysis](docs/critical-analysis.md) - Concerns, critiques, and future outlook
 - [Sources](docs/sources.md) - All citations and references
 
-### Orchestration & Execution Layer (NEW)
+### Orchestration & Execution Layer
 - [Orchestration Landscape](docs/landscape.md) - 30+ multi-agent tools surveyed, including Claude Code Agent Teams
 - [Beads, Agent Mail & Gas Town](docs/beads.md) - Agent memory, messaging, and multi-agent villages
 - [Gaps: New Frameworks](docs/gaps.md) - GSD, Ralph Loop, Zencoder, Kilo Code, Conductor

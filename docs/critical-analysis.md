@@ -239,7 +239,7 @@ Industry swings between structure and flexibility. SDD may be the pendulum swing
 
 ## Conclusion
 
-Spec-driven development represents a significant shift in AI-assisted coding, moving from informal "vibe coding" to structured, specification-first approaches. The landscape now includes over a dozen tools and frameworks, each with distinct philosophies and trade-offs.
+Spec-driven development represents a significant shift in AI-assisted coding, moving from informal "vibe coding" to structured, specification-first approaches. The landscape now includes nearly a dozen tools and frameworks, each with distinct philosophies and trade-offs.
 
 **The Fundamental Question:** Is SDD the future of software development, or is it waterfall dressed in AI clothing? The answer remains unclear, but the tools are here, battle-tested, and ready for evaluation.
 

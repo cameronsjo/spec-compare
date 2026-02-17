@@ -16,8 +16,8 @@ Categories:
 6. [Full-Stack Builders](#6-full-stack-builders) — Vibe-coding platforms
 7. [Workflow Engines](#7-workflow-engines) — Infrastructure for durable agent execution
 8. [Commercial Platforms](#8-commercial-platforms) — Cloud-hosted agent services
-9. [Protocols & Standards](#9-protocols--standards) — Interoperability layers
-10. [Context & Memory](#10-context--memory) — Persistent agent state
+9. [Protocols & Standards](#9-protocols-standards) — Interoperability layers
+10. [Context & Memory](#10-context-memory) — Persistent agent state
 11. [Orchestration Paradigms](#11-orchestration-paradigms) — Architectural patterns
 12. [Observability](#12-observability) — Monitoring and evaluation
 13. [Emerging Patterns](#13-emerging-patterns) — What's next

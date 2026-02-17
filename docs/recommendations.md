@@ -232,7 +232,7 @@ git worktree remove ../myproject-feature-x
 
 ---
 
-## Execution Layer Recommendations (NEW)
+## Execution Layer Recommendations
 
 The following tools operate below the SDD layer — they handle memory, coordination, and parallel execution rather than specification authoring.
 
