@@ -16,8 +16,8 @@ Categories:
 6. [Full-Stack Builders](#6-full-stack-builders) — Vibe-coding platforms
 7. [Workflow Engines](#7-workflow-engines) — Infrastructure for durable agent execution
 8. [Commercial Platforms](#8-commercial-platforms) — Cloud-hosted agent services
-9. [Protocols & Standards](#9-protocols--standards) — Interoperability layers
-10. [Context & Memory](#10-context--memory) — Persistent agent state
+9. [Protocols & Standards](#9-protocols-standards) — Interoperability layers
+10. [Context & Memory](#10-context-memory) — Persistent agent state
 11. [Orchestration Paradigms](#11-orchestration-paradigms) — Architectural patterns
 12. [Observability](#12-observability) — Monitoring and evaluation
 13. [Emerging Patterns](#13-emerging-patterns) — What's next
@@ -84,7 +84,7 @@ Originally discovered as a hidden feature ("TeammateTool") inside Claude Code's 
 - **Shared task list** (`~/.claude/tasks/<team>/`) — JSON files with status tracking, ownership, and dependency management. File locking prevents double-claims.
 - **Inbox-based messaging** (`~/.claude/teams/<team>/inboxes/`) — Peer-to-peer JSON messages. Unlike sub-agents (fire-and-forget), teammates message each other directly.
 
-**13 operations** across three categories:
+**11 operations** across three categories:
 - **Lifecycle:** `spawnTeam`, `spawn`, `requestJoin`, `approveJoin`
 - **Coordination:** `broadcast`, `SendMessage`, `TaskCreate`, `TaskUpdate`, `TaskList`
 - **Shutdown:** `requestShutdown`, `cleanup`
@@ -389,10 +389,14 @@ Co-founded by Anthropic, Block, OpenAI. Supported by Google, Microsoft, AWS, Clo
 - [A2A Protocol](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)
 - [AGENTS.md](https://agents.md/)
 - [paddo.dev — Claude Code Hidden Swarm](https://paddo.dev/blog/claude-code-hidden-swarm/)
+- [paddo.dev — Agent Teams: The Switch Got Flipped](https://paddo.dev/blog/agent-teams-the-switch-got-flipped/)
 
 ## Related
 
-- [Comparison Matrix](comparison.md) — Deep comparison of six SDD tools
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical multi-agent workflow
+- [Comparison Matrix](comparison.md) — Deep comparison of six SDD tools (incl. AGENTS.md support)
+- [Use Case Scoring](use-case-scoring.md) — Expanded 11-tool heatmap
 - [Gaps Analysis](gaps.md) — Five additional SDD frameworks
 - [Beads, Agent Mail, and Gas Town](beads.md) — Agent memory and coordination
+- [Git Worktree Support](git-worktree-support.md) — Worktree ecosystem analysis
 - [Recommendations](recommendations.md) — Which tool for which use case

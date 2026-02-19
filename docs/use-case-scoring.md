@@ -262,12 +262,12 @@ This document grades each spec-driven development tool against real-world scenar
 
 | Tool | Trivial Changes | Medium Changes | Large Features | Parallel Work | Emergency | Overall |
 |------|----------------|----------------|----------------|---------------|-----------|---------|
-| **OpenSpec** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | **4.2** |
-| **Spec-Kit** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **3.4** |
-| **Spec Kitty** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ | **3.2** |
-| **BMad** | ⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.4** |
-| **Kiro** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.6** |
-| **Tessl** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | **3.0** |
+| **OpenSpec** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | **3.6** |
+| **Spec-Kit** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **3.0** |
+| **Spec Kitty** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ | **3.0** |
+| **BMad** | ⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.2** |
+| **Kiro** | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐ | **2.4** |
+| **Tessl** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | **2.8** |
 
 ### Expanded Heatmap (Including New Tools)
 
@@ -450,6 +450,9 @@ Question 4: Is this enterprise-scale?
 ## Related
 
 - [Iterative Development Analysis](iterative-development.md)
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide
+- [Gaps: New Frameworks](gaps.md) — Details on GSD, Ralph Loop, Zencoder, Kilo Code, Conductor
+- [Orchestration Landscape](landscape.md) — Agent Teams and multi-agent tools
 - [Comparison Matrices](comparison.md)
 - [Recommendations](recommendations.md)
 - [Tool Profiles](tools/)

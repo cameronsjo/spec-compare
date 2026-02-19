@@ -133,8 +133,10 @@ For simpler needs, manual worktrees + [OpenSpec](tools/openspec.md) provides lig
 
 ## Related
 
-- [Beads](beads.md) - Agent memory with worktree support
-- [Spec Kitty](tools/spec-kitty.md) - Full tool details
-- [Gaps: Newly Discovered Frameworks](gaps.md) - Other new tools
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical worktree setup with Beads and OpenSpec
+- [Beads](beads.md) — Agent memory with worktree support
+- [Orchestration Landscape](landscape.md) — Agent Teams and 30+ multi-agent tools
+- [Spec Kitty](tools/spec-kitty.md) — Full tool details
+- [Gaps: Newly Discovered Frameworks](gaps.md) — Other new tools
 - [Comparison Matrix](comparison.md)
 - [Recommendations](recommendations.md)

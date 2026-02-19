@@ -230,8 +230,90 @@ git merge feature-x
 git worktree remove ../myproject-feature-x
 ```
 
+---
+
+## Execution Layer Recommendations
+
+The following tools operate below the SDD layer — they handle memory, coordination, and parallel execution rather than specification authoring.
+
+### Add [Beads](beads.md) If You:
+
+- Need agent memory that persists across sessions
+- Run multiple agents on the same project
+- Use git worktrees (Beads shares its database across worktrees)
+- Want dependency-aware task graphs (not flat TODO lists)
+- Need a lightweight issue tracker that agents can read/write
+
+**Combines with:** Any SDD tool. See [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) for a practical setup guide.
+
+**Skip if:** Single-session work, trivial tasks, or you already have a persistent task system.
+
+---
+
+### Use [Claude Code Agent Teams](landscape.md#claude-code-agent-teams-experimental-preview) If You:
+
+- Need multiple agents coordinating on the same codebase
+- Want peer-to-peer messaging between agents (not just fire-and-forget sub-agents)
+- Are comfortable with experimental/preview features
+- Have complex tasks that benefit from parallel specialists
+
+**Key difference from sub-agents:** Agent Teams teammates are full Claude Code instances with their own context windows and can message each other directly.
+
+**Skip if:** The Task tool (sub-agents) handles your parallelism needs, or you need session resumption with teammates.
+
+---
+
+### Consider [GSD](gaps.md#gsd-get-shit-done) If You:
+
+- Are a solo developer using Claude Code
+- Find BMad/Spec-Kit too ceremonial
+- Care about context window management (wave-based parallelization, context rot prevention)
+- Want SDD without sprint ceremonies or story points
+
+**Skip if:** You need enterprise governance or multi-team coordination.
+
+---
+
+### Consider [Conductor](gaps.md#conductor) If You:
+
+- Run multiple Claude Code agents in parallel on macOS
+- Want automatic git worktree isolation per agent
+- Need a unified diff-based review interface
+
+**Skip if:** Not on macOS, or already using Agent Teams/Gas Town for coordination.
+
+---
+
+## Recommended Stacks (February 2026)
+
+### Solo Developer, Brownfield
+1. **OpenSpec** for change management
+2. **Beads** for persistent memory
+3. **GSD** if you want context management on top
+4. See [cheatsheet](cheatsheet-beads-openspec.md) for setup
+
+### Team, Greenfield
+1. **Spec-Kit** for specification workflow
+2. **Beads** for execution tracking
+3. **Claude Code Agent Teams** for parallel work (experimental)
+
+### Enterprise, Large Codebase
+1. **BMad** for comprehensive planning
+2. **Beads** for cross-agent memory
+3. **Spec Kitty** or **Conductor** for worktree-based parallel execution
+
+### Parallel Multi-Agent
+1. **Agent Teams** or **Conductor** for agent orchestration
+2. **Beads + Agent Mail** for memory and messaging
+3. Any SDD tool for the specification layer
+
 ## Related
 
 - [Comparison Matrix](comparison.md)
 - [Git Worktree Support](git-worktree-support.md)
 - [Critical Analysis](critical-analysis.md)
+- [Orchestration Landscape](landscape.md)
+- [Beads, Agent Mail & Gas Town](beads.md)
+- [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md)
+- [Gaps: New Frameworks](gaps.md)
+- [Use Case Scoring](use-case-scoring.md)
