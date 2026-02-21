@@ -120,11 +120,11 @@ Created by Jeffrey Emanuel. AI-friendly task analysis tool with robot flags:
 
 ---
 
-## Part 2: MCP Agent Mail — Async Agent Coordination
+## Part 2: MCP Agent Mail — Decoupled Async Messaging
 
 ### What It Is
 
-MCP Agent Mail is an asynchronous coordination layer for AI coding agents — "Gmail for your coding agents." Created by Jeffrey Emanuel, it's exposed as an HTTP-only FastMCP server implementing the Model Context Protocol.
+MCP Agent Mail is an asynchronous messaging and audit layer for AI coding agents — "Gmail for your coding agents." Created by Jeffrey Emanuel, it's exposed as an HTTP-only FastMCP server implementing the Model Context Protocol.
 
 - **Repository:** [Dicklesworthstone/mcp_agent_mail](https://github.com/Dicklesworthstone/mcp_agent_mail) (1,700+ stars)
 - **Website:** [mcpagentmail.com](https://mcpagentmail.com/)
@@ -132,13 +132,25 @@ MCP Agent Mail is an asynchronous coordination layer for AI coding agents — "G
 - **License:** MIT
 - **Compatibility:** Claude Code, Cursor, Windsurf, Codex CLI, Gemini CLI, OpenCode — any MCP-compatible client
 
+### Why Decoupled (Not Just Coordinated)
+
+Agent Mail is commonly framed as a multi-agent coordination tool, but its real power for solo/sequential workflows is as a **message drop and audit trail between decoupled sessions**:
+
+1. **Session-to-session handoffs** — An agent finishes work, leaves a threaded message about what was done, what's unresolved, blockers hit, and what's next. The next session's agent checks the inbox and picks up with rich context beyond what Beads status fields capture.
+2. **Cross-repo breadcrumbs** — Your skill repo and any other repo can leave messages for each other via `macro_contact_handshake` + shared thread IDs. No agents need to run simultaneously.
+3. **Decision audit trail** — Every architectural decision, trade-off, and workaround gets threaded onto a bead ID. Months later, an agent (or you) can FTS5-search the mail history to understand *why* something was done — not just *what*.
+4. **In-flight intent declarations** — File reservations aren't just collision prevention. They declare "this was being actively worked on" so a future session knows what was in-flight and can either resume or clean up.
+5. **Structured context that survives compaction** — When `bd compact` summarizes old beads to save context, the threaded mail history preserves the full narrative. Beads gives you the "what"; mail gives you the "why and how it went."
+
+**Beads = persistent task state. Agent Mail = persistent conversation state. Together they reconstruct full session context for any future agent.**
+
 ### What Agents Get
 
-- **Identities** — Memorable adjective+noun codenames (auto-generated)
-- **Inboxes/outboxes** — Per-agent, per-project messaging
-- **Threaded conversations** — GitHub-flavored Markdown support
-- **File reservations** — Advisory leases to prevent edit conflicts
-- **Searchable history** — SQLite FTS5 full-text search
+- **Identities** — Memorable adjective+noun codenames (auto-generated), persistent across sessions
+- **Inboxes/outboxes** — Per-agent, per-project message stores (survive indefinitely in git)
+- **Threaded conversations** — GitHub-flavored Markdown, keyed to bead IDs
+- **File reservations** — Advisory leases declaring intent (not hard locks)
+- **Searchable history** — SQLite FTS5 full-text search across all messages
 - **Web UI** — Browse at `http://127.0.0.1:8765/mail`
 
 ### Installation
@@ -225,28 +237,38 @@ file_reservation_paths(
 - Conflicts trigger **negotiation through the message system** (not blocking)
 - Optional pre-commit guard enforces reservations locally
 
-### Agent Coordination Flow
+### Decoupled Session Flow
 
 ```
+SESSION START:
 1. register_agent(project_key="/path/to/repo")
-   → Agent gets identity (e.g., "swift-falcon")
+   → Agent gets identity (e.g., "swift-falcon"), or resumes existing one
 
-2. file_reservation_paths(paths=["src/api/**"], exclusive=true)
-   → Declares file domain, gets lease
+2. fetch_inbox()
+   → Check for messages left by previous sessions
+   → Understand context: what was done, what's unresolved, what's next
 
-3. send_message(thread_id="bd-a1b2", subject="[bd-a1b2] Starting API work", ...)
-   → Announces work to other agents
+3. acknowledge_message(id)
+   → Mark handoff messages as received
 
-4. fetch_inbox() → acknowledge_message()
-   → Polls for messages, confirms receipt
+4. file_reservation_paths(paths=["src/api/**"], exclusive=true, reason="bd-a1b2")
+   → Declare intent: "I'm actively working on these files for this bead"
 
-5. release_file_reservations()
-   → Frees files when done
+DURING WORK:
+5. send_message(thread_id="bd-a1b2", subject="[bd-a1b2] Decision: chose JWT over sessions", ...)
+   → Document decisions, blockers, trade-offs as threaded messages on the bead
+
+SESSION END:
+6. send_message(thread_id="bd-a1b2", subject="[bd-a1b2] Handoff: API done, frontend next", ...)
+   → Leave a handoff message for the next session with full context
+
+7. release_file_reservations()
+   → Clear in-flight declarations (or leave them if work is paused mid-task)
 ```
 
-### Cross-Repo Coordination
+### Cross-Repo Breadcrumbs
 
-Use `macro_contact_handshake` to establish communication links between agents in different repos, then shared `thread_id` values across repos.
+Use `macro_contact_handshake` to establish communication links between agents in different repos. Then shared `thread_id` values let messages flow across repo boundaries — no agents need to run at the same time. A future session in repo B can read what an agent in repo A left weeks ago.
 
 ### Configuration
 
@@ -259,27 +281,36 @@ Use `macro_contact_handshake` to establish communication links between agents in
 | `LLM_ENABLED` | `true` | Enable AI summaries |
 | `HTTP_BEARER_TOKEN` | auto-generated | API authentication |
 
-### Known Limitation: Message Checking
+### Solving the "Forgot to Check Mail" Problem
 
-Agents sometimes forget to check their messages. Emanuel addressed this by adding **automated hooks** for Claude Code that remind agents to poll their inbox. This is solved via Claude Code hooks configuration.
+Agents sometimes forget to check their messages. Emanuel addressed this by adding **automated hooks** for Claude Code that remind agents to poll their inbox at session start. For decoupled workflows this is critical — the whole point is that messages from previous sessions are waiting. A session-start hook that runs `fetch_inbox()` ensures nothing gets missed.
 
 ---
 
 ## Part 3: How Beads + Agent Mail Work Together
 
+### Two Layers of Persistent Memory
+
+| Layer | Tool | What It Stores | Survives |
+|-------|------|----------------|----------|
+| **Task state** | Beads | Status, dependencies, priority, spec links | Git (always) |
+| **Conversation state** | Agent Mail | Decisions, trade-offs, blockers, handoff notes | Git + SQLite |
+
+Beads tells a future agent *what* needs doing. Agent Mail tells it *why things are the way they are* and *what the last agent was thinking*.
+
 ### The Integration Convention
 
-Use **Beads issue IDs as Agent Mail thread IDs**:
+Use **Beads issue IDs as Agent Mail thread IDs** — this ties conversation history directly to tasks:
 
 ```
 send_message(
     thread_id="bd-a1b2",
-    subject="[bd-a1b2] API types ready for frontend",
-    body="Completed the API endpoint. Types exported from src/api/types.ts"
+    subject="[bd-a1b2] Decision: chose JWT over sessions",
+    body="Evaluated both approaches. JWT chosen because..."
 )
 ```
 
-When starting a Beads task, call `file_reservation_paths()` with the issue ID in the reason field:
+When starting a Beads task, declare intent with the issue ID:
 
 ```
 file_reservation_paths(
@@ -289,25 +320,22 @@ file_reservation_paths(
 )
 ```
 
-### Gas Town: The Agent Village Pattern
+### Why This Matters for Decoupled Workflows
 
-Steve Yegge's Gas Town formalizes the emergent pattern that Jeffrey Emanuel discovered — agents naturally collaborate when given Beads (memory) + Agent Mail (messaging):
+When `bd compact` runs to save context window space, it summarizes old beads into compressed forms. The detailed *narrative* — decisions, false starts, workarounds — lives in the Agent Mail thread. A future agent can:
 
-**Architecture:**
-- Beads = shared memory (what needs doing)
-- Agent Mail = messaging (how agents coordinate)
-- Git worktrees = isolation (each agent gets its own workspace)
+1. `bd ready --json` → See what's available (Beads)
+2. `fetch_inbox()` → Read handoff messages from last session (Agent Mail)
+3. Search mail by thread ID → Get full history on a specific bead
+4. Start working with context that would otherwise be lost
 
-**Roles (Mad Max-inspired):**
-- **The Mayor** — Primary AI coordinator
-- **Polecats** — Ephemeral worker agents
-- **The Refinery** — Merge queue agent
+### Gas Town: The Agent Village Pattern (Background)
 
-**Key Insight:** "There's no ego, so they quickly decide on a leader and just split things up."
+For reference, Steve Yegge's Gas Town formalizes a *concurrent* multi-agent pattern built on the same primitives (Beads + Agent Mail + worktrees). While the target here is decoupled workflows, the underlying tools are the same — the difference is whether agents run simultaneously or sequentially.
 
 ### Rule of Five
 
-Emanuel's observation adopted by Gas Town: making an LLM review something **5 times** with different focus areas each pass produces convergent, superior outcomes:
+Emanuel's observation (adopted by Gas Town): making an LLM review something **5 times** with different focus areas each pass produces convergent, superior outcomes. Useful even in solo/sequential agent workflows:
 
 1. Initial implementation
 2. Review pass: **Correctness**
@@ -333,10 +361,10 @@ Phase 2: CONVERT (Beads)
   bd create "Task 2" --epic feature-name --depends-on bd-xxxx
   (Delete tasks.md after converting — Beads is now the execution truth)
 
-Phase 3: COORDINATE (Agent Mail, if multi-agent)
+Phase 3: CONTEXT (Agent Mail — session continuity)
   register_agent(project_key="/path/to/repo")
-  file_reservation_paths(paths=[...], exclusive=true, reason="bd-xxxx")
-  send_message(thread_id="bd-xxxx", subject="[bd-xxxx] Starting work", ...)
+  fetch_inbox()                              → Read handoff notes from prior sessions
+  file_reservation_paths(paths=[...], reason="bd-xxxx")  → Declare intent
 
 Phase 4: EXECUTE (Beads-driven)
   bd ready                → Find next unblocked task
@@ -344,7 +372,12 @@ Phase 4: EXECUTE (Beads-driven)
   ... implement per spec-id ...
   bd update bd-xxxx --status done
 
-Phase 5: VERIFY (OpenSpec)
+Phase 5: HANDOFF (Agent Mail — session end)
+  send_message(thread_id="bd-xxxx", subject="[bd-xxxx] Handoff", body="...")
+                                             → Document what was done, what's next
+  release_file_reservations()                → Clear in-flight declarations
+
+Phase 6: VERIFY (OpenSpec)
   /opsx:verify       → Validate implementation against specs
   /opsx:sync         → Merge delta specs into main specs
   /opsx:archive      → Finalize completed change
@@ -371,13 +404,14 @@ rules:
 A skill integrating these tools should handle:
 
 1. **Initialization** — `bd init --quiet` + Agent Mail server start (`am`)
-2. **Planning to execution bridge** — Converting OpenSpec tasks.md → Beads issues with `--spec-id` and `--depends-on`
-3. **Ready work detection** — `bd ready --json` to find next unblocked task
-4. **Status tracking** — `bd update` for in-progress/done transitions
-5. **Compaction** — `bd compact` to manage context window budget
-6. **Session discipline** — "Landing the plane" protocol at session end
-7. **Multi-agent messaging** — Agent Mail registration, file reservations, threaded messages keyed to bead IDs
-8. **Verification loop** — `/opsx:verify` after implementation, before archiving
+2. **Session start context loading** — `fetch_inbox()` to read handoff notes from prior sessions, then `bd ready --json` to find next unblocked task
+3. **Planning to execution bridge** — Converting OpenSpec tasks.md → Beads issues with `--spec-id` and `--depends-on`
+4. **Intent declaration** — `file_reservation_paths()` with bead ID when starting work on files
+5. **Decision journaling** — `send_message()` threaded on bead ID for architectural decisions, blockers, trade-offs
+6. **Status tracking** — `bd update` for in-progress/done transitions
+7. **Compaction** — `bd compact` to manage context window budget (mail threads preserve the full narrative)
+8. **Session end handoff** — `send_message()` with handoff summary + `release_file_reservations()` + "land the plane" protocol
+9. **Verification loop** — `/opsx:verify` after implementation, before archiving
 
 ---
 
@@ -385,37 +419,49 @@ A skill integrating these tools should handle:
 
 ### What a Skill Needs to Provide
 
-1. **Agent Instructions Block** — Tell the agent about Beads commands, Agent Mail tools, and the workflow
-2. **Session Start Hook** — Auto-run `bd ready --json` to show available work
-3. **Session End Hook** — "Land the plane" protocol (sync, push, clean state)
+1. **Agent Instructions Block** — Tell the agent about Beads commands, Agent Mail tools, and the decoupled session workflow
+2. **Session Start Hook** — `fetch_inbox()` for handoff context, then `bd ready --json` for available work
+3. **Session End Hook** — Handoff message via Agent Mail + "land the plane" protocol (sync, push, clean state)
 4. **OpenSpec Integration** — If already using OpenSpec, add the Beads bridge step
-5. **Multi-Agent Awareness** — File reservation conventions, thread ID conventions
+5. **Decoupled Session Conventions** — Thread IDs = bead IDs, file reservations = intent declarations, handoff messages = session context
 
 ### Minimal CLAUDE.md / SKILL.md Additions
 
 ```markdown
-## Beads Integration
+## Beads Integration (Task Memory)
 
-This project uses Beads for task tracking. At session start:
+This project uses Beads for persistent task tracking across sessions.
+
+At session start:
 1. Run `bd ready --json` to see available work
 2. Pick an issue and run `bd update <id> --status in-progress`
 
+During work:
+- File discovered work: `bd create "..." --deps discovered-from:<id>`
+- Never use `bd edit` (interactive). Use `bd update <id> --flag value`.
+
 At session end:
 1. Close completed issues: `bd close <id>`
-2. File new issues for discovered work: `bd create "..." --deps discovered-from:<id>`
-3. Run `bd sync` then `git push`
+2. Run `bd sync` then `git push`
 
-Never use `bd edit` (interactive editor). Use `bd update <id> --flag value` instead.
+## Agent Mail Integration (Session Continuity)
 
-## Agent Mail Integration (Multi-Agent)
+This project uses Agent Mail for persistent conversation context across sessions.
 
-When coordinating with other agents:
-1. Start server: `am`
+At session start:
+1. Ensure server is running: `am`
 2. Register: `register_agent(project_key="<repo-path>")`
-3. Reserve files before editing: `file_reservation_paths(paths=[...], exclusive=true)`
-4. Use Beads issue IDs as thread_id for messages: `send_message(thread_id="bd-xxxx", ...)`
-5. Poll inbox periodically: `fetch_inbox()`
-6. Release reservations when done: `release_file_reservations()`
+3. Check for handoff messages: `fetch_inbox()` — read and acknowledge
+4. Declare intent: `file_reservation_paths(paths=[...], reason="bd-xxxx")`
+
+During work:
+- Document decisions on the bead thread: `send_message(thread_id="bd-xxxx", ...)`
+- Decisions, trade-offs, and blockers go here (not just in code comments)
+
+At session end:
+1. Write handoff message: `send_message(thread_id="bd-xxxx", subject="[bd-xxxx] Handoff: ...")`
+   Include: what was done, what's unresolved, what's next, any gotchas
+2. Release reservations: `release_file_reservations()`
 ```
 
 ### Key Dependencies
@@ -427,17 +473,18 @@ When coordinating with other agents:
 | `mcp-agent-mail` | `pip install mcp-agent-mail` or one-line installer | Agent coordination |
 | OpenSpec | `npm install -g @fission-ai/openspec@latest` | Spec-driven planning |
 
-### Architectural Decision: Single-Agent vs Multi-Agent
+### Architectural Decision: When to Add Agent Mail
 
-| Scenario | Use Just Beads | Add Agent Mail |
-|----------|---------------|----------------|
-| Solo dev, one agent | Yes | No |
-| Solo dev, sequential agents (context loss) | Yes | No |
-| Multiple concurrent agents, same repo | Yes | Yes |
-| Multiple repos, coordinated work | Yes | Yes |
-| Team with multiple human+agent pairs | Yes | Yes |
+| Scenario | Use Just Beads | Add Agent Mail | Why |
+|----------|---------------|----------------|-----|
+| Solo dev, one-shot tasks | Yes | No | No session continuity needed |
+| Solo dev, sequential sessions on same feature | Yes | **Yes** | Handoff notes preserve context between sessions |
+| Long-running feature across days/weeks | Yes | **Yes** | Decision audit trail + handoff = full narrative |
+| Cross-repo workflows | Yes | **Yes** | Breadcrumbs between repos via contact handshake |
+| Multiple concurrent agents | Yes | **Yes** | Real-time coordination (Gas Town pattern) |
+| Post-compaction context recovery | Yes | **Yes** | Mail threads survive bead compaction |
 
-**Bottom line:** Beads is always useful (memory). Agent Mail is needed when agents need to talk to each other.
+**Bottom line:** Beads is always useful (task state). Agent Mail is useful whenever you care about *why* and *how* across session boundaries — not just *what*.
 
 ---
 
