@@ -5,6 +5,7 @@
 **Repository:** https://github.com/kirodotdev/Kiro
 **Status:** Free during preview (AWS-backed)
 **License:** Proprietary (free preview)
+**Current Version:** IDE v0.9.40 (February 12, 2026)
 
 ## Core Approach
 
@@ -42,6 +43,7 @@ The process:
 ## AI Models
 
 Users can select:
+- **Claude Sonnet 4.6** (added February 17, 2026) for advanced reasoning approaching Opus 4.6 intelligence
 - **Claude Sonnet 4.5** for advanced reasoning
 - **Auto mode** - Balances quality, latency, and cost using frontier models with intelligent caching
 
@@ -82,6 +84,25 @@ Available on macOS and Linux, with authentication through:
 - Less clear long-term maintenance strategy for specs
 - No explicit git worktree support mentioned
 - Terminal/IDE only (no web interface)
+
+## Recent Changes (v0.9.x, February 2026)
+
+### IDE v0.9.40
+- Sign in with Okta or Microsoft Entra ID credentials alongside AWS IAM Identity Center
+- Enterprise flexibility for managing user access with corporate credentials
+
+### IDE v0.9
+- Define custom specialized subagents
+- Import portable skill packages from the community
+- New hook triggers for intercepting tool invocations
+- Pro-tier web tools access control via AWS console
+- Private extension registry support (point to your organization's vetted extensions)
+
+### Platform Updates
+- **AWS GovCloud Support** (Feb 18, 2026): Available in GovCloud (US-East) and GovCloud (US-West) regions
+- **Claude Sonnet 4.6** (Feb 17, 2026): Full upgrade from Sonnet 4.5, excels at iterative development
+- **Kiro Powers**: AWS IAM Policy Autopilot (Feb 23) and AWS HealthOmics (Feb 9) now available as Kiro Powers
+- **CLI Updates** (Jan 2026): Granular URL allowlists/blocklists for web fetch, keyboard shortcuts for custom agents, enhanced diff views
 
 ## Related
 

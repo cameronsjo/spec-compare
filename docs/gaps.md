@@ -18,7 +18,9 @@
 
 **Traction:** 11.9K+ GitHub stars. Trusted by engineers at Amazon, Google, and Shopify.
 
-**Install:** `npx get-shit-done-cc --global`
+**Current Version:** v1.20.6 (February 23, 2026). Recent additions include context window monitor hooks with WARNING/CRITICAL alerts, Nyquist validation layer for plan-phase quality checks, refactored installer into 11 domain modules, and support for Gemini CLI and Codex runtimes.
+
+**Install:** `npx get-shit-done-cc@latest`
 
 **Gap assessment:** GSD occupies a niche between OpenSpec (lightweight) and Spec-Kit (structured). Its focus on context management and solo developer ergonomics is not represented by any tool in the current comparison.
 
@@ -87,14 +89,17 @@
 
 **Why it matters:** Founded by GitLab co-founder Sid Sijbrandij with $8M in seed funding. Currently #1 on OpenRouter with 1.5M+ users and 25T+ tokens processed.
 
+**Current Version:** VS Code extension v4.148.1 (January 17, 2026). Kilo CLI launched February 3, 2026 (`npm install -g @kilocode/cli`). Kilo Code Reviewer launched January 27, 2026 for automated AI-powered PR reviews.
+
 **Key differentiators:**
 - **Structured Modes:** Ask, Architect, Code, Debug, Orchestrator, and Custom modes — each tuned to a different development phase
 - **Memory Bank:** Durable, project-level recall via structured markdown files (architectural decisions, conventions, historical notes)
 - **Model Agnostic:** OpenAI, Anthropic, Google, Mistral, Meta Llama, self-hosted — 500+ models
-- **Multi-Platform:** VS Code, JetBrains, Cursor, Windsurf, and standalone CLI
+- **Multi-Platform:** VS Code, JetBrains, Cursor, Windsurf, and standalone CLI (new)
 - **Parallel Agents:** Run multiple AI agents simultaneously
+- **CLI:** Production-ready model-agnostic CLI for agentic code generation, with `--auto` flag for CI/CD pipelines
 
-**Gap assessment:** Kilo Code isn't strictly an SDD tool, but its Architect mode and Memory Bank overlap with SDD concerns. Its structured mode system (especially Architect → Code → Debug) mirrors the SDD workflow of specify → plan → implement. Worth monitoring as it scales.
+**Gap assessment:** Kilo Code isn't strictly an SDD tool, but its Architect mode and Memory Bank overlap with SDD concerns. Its structured mode system (especially Architect → Code → Debug) mirrors the SDD workflow of specify → plan → implement. The new CLI launch and Code Reviewer make it increasingly relevant as a full platform.
 
 **Sources:**
 - [kilo.ai](https://kilo.ai/)
@@ -115,7 +120,9 @@
 - **Local-First:** Runs entirely on your Mac
 - **Free:** No additional cost beyond existing Claude Code/Codex subscriptions
 
-**Limitations:** macOS (Apple Silicon) only. No enterprise features (Jira, signed commits, multi-user coordination).
+**Current Version:** v0.36.3 (February 23, 2026). Recent additions include integrated terminal respecting tool version managers (mise, asdf, rbenv), submitting prompts to coding agents within Conductor, git panel file grouping (Uncommitted/Committed sections), diff commenting with GitHub synchronization, and updated Anthropic Agent SDK to 2.1.50.
+
+**Limitations:** macOS (Apple Silicon) only. No enterprise features (Jira, signed commits, multi-user coordination). Intel Mac support under development; Windows and Linux not supported.
 
 **Gap assessment:** Conductor is not an SDD tool — it's an agent runner. But it's the most mature solution for the parallel worktree execution that Spec Kitty's workflow assumes. Relevant to the [Git Worktree Support](git-worktree-support.md) analysis.
 
@@ -128,26 +135,33 @@
 
 ## Updates to Existing Tools
 
-### BMad Method → V6
+### BMad Method → V6 Stable (v6.0.2)
 
-The BMad Method has released V6 since our last analysis, representing a complete architectural revolution from the v4 version we originally reviewed:
+BMad Method V6 has reached stable (no longer alpha/beta) as of February 2026:
 
 - Now **21 specialized agents** (up from 19) across 4 official modules
 - **50+ guided workflows** (up from prior count)
 - **BMad Builder** via NPX for custom standalone agents, workflows, and modules
 - **AI-assisted help** (`/bmad-help`) for guided onboarding
-- Community marketplace coming with final V6 release
+- Cross-File Reference Validator preventing ~25% of historical bugs
+- New PRD workflow steps for vision/differentiators and executive summaries
+- Community marketplace and Skills Architecture on roadmap
 
-**Source:** [github.com/bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD)
+**Source:** [github.com/bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [npm: bmad-method](https://www.npmjs.com/package/bmad-method)
 
-### OpenSpec → v1.0 with Artifact-Guided Workflow
+### OpenSpec → v1.2.0 (Profiles, Pi & Kiro Support)
 
-OpenSpec has shipped v1.0 (January 2026) with a rebuilt workflow:
+OpenSpec has reached v1.2.0 (February 2026), building on the v1.0 foundation:
 
-- **Action-based workflow:** Replaced rigid proposal → apply → archive with flexible actions
-- **Dynamic instructions:** AI instructions assembled from three layers (context, rules, templates)
-- **Semantic spec syncing:** Delta specs parsed at the requirement level, not brittle header matching
-- **Agent Skills:** Single `.claude/skills/` directory replaces 8+ scattered config files
+- **Action-based workflow:** Replaced rigid proposal → apply → archive with flexible actions (v1.0)
+- **Dynamic instructions:** AI instructions assembled from three layers (context, rules, templates) (v1.0)
+- **Semantic spec syncing:** Delta specs parsed at the requirement level, not brittle header matching (v1.0)
+- **Agent Skills:** Single `.claude/skills/` directory replaces 8+ scattered config files (v1.0)
+- **Profiles:** Core (4 workflows) or custom subset selection (v1.2.0)
+- **Propose Workflow:** One-shot change proposal generation (v1.2.0)
+- **Pi & Kiro support:** Two new AI tools added alongside existing 21 (v1.2.0)
+- **AI Tool Auto-Detection:** `openspec init` scans for existing tool directories (v1.2.0)
+- 25,217 GitHub stars
 
 **Source:** [openspec.dev](https://openspec.dev/), [GitHub Releases](https://github.com/Fission-AI/OpenSpec/releases)
 

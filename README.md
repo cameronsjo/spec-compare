@@ -82,7 +82,7 @@ The research is organized into focused, digestible documents:
 |------|---------|---------------|----------|----------|
 | **Spec-Kit** | Open Source | No | Greenfield projects | Production |
 | **Spec Kitty** | Open Source | **Yes** | Parallel development | Active Dev |
-| **BMad Method** | Open Source | No | Enterprise workflows | Alpha/Stable |
+| **BMad Method** | Open Source | No | Enterprise workflows | Stable (v6.0.2) |
 | **OpenSpec** | MIT | No | Brownfield changes | Production |
 | **Kiro** | Proprietary | No | IDE experience | Preview |
 | **Tessl** | Proprietary | No | Spec-as-source | Beta |
@@ -146,4 +146,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-02-17
+**Last Updated:** 2026-02-24

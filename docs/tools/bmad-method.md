@@ -3,8 +3,9 @@
 **Type:** Comprehensive AI-driven agile framework
 **Repository:** https://github.com/bmad-code-org/BMAD-METHOD
 **Website:** https://bmadcodes.com/
-**Status:** v6 Alpha (v4 stable)
+**Status:** v6 Stable
 **License:** Open source
+**Current Version:** v6.0.2 (February 2026)
 
 ## Core Approach
 
@@ -42,10 +43,7 @@ BMad Method runs on BMad Core, described as a "Collaboration Optimized Reflectio
 ## Installation
 
 ```bash
-# v6 Alpha
-npx bmad-method@alpha install
-
-# v4 Stable
+# v6 Stable (current)
 npx bmad-method install
 ```
 
@@ -85,6 +83,21 @@ The Architect Agent creates a technical architecture including API specs (e.g., 
 - May be overkill for small projects
 - No explicit git worktree support mentioned
 - Requires Node.js 20+
+
+## Recent Changes (v6.0.x, February 2026)
+
+- **V6 is now stable** — end of beta/alpha period
+- New PRD workflow steps 2b (vision/differentiators) and 2c (executive summary)
+- New `bmad uninstall` command with interactive and non-interactive modes
+- Dedicated GitHub Copilot installer
+- TEA browser automation prerequisite prompts
+- Cross-File Reference Validator preventing ~25% of historical bugs (59 known issues)
+- New AutocompleteMultiselect prompt
+- Centralized `BMAD_FOLDER_NAME` reducing hardcoded strings
+- Refactored documentation using Diataxis principles
+- Restored `generate-project-context` workflow for brownfield project analysis
+- Cross Platform Agent Team and Sub Agent inclusion on roadmap
+- Skills Architecture and BMad Builder v1 in progress
 
 ## Related
 

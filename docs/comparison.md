@@ -6,7 +6,7 @@
 |------|---------|---------------|----------|----------|
 | [Spec-Kit](tools/spec-kit.md) | Open Source | No | Greenfield projects | Production |
 | [Spec Kitty](tools/spec-kitty.md) | Open Source | **Yes** | Parallel development | Active Dev |
-| [BMad Method](tools/bmad-method.md) | Open Source | No | Enterprise workflows | Alpha/Stable |
+| [BMad Method](tools/bmad-method.md) | Open Source | No | Enterprise workflows | Stable (v6.0.2) |
 | [OpenSpec](tools/openspec.md) | MIT | No | Brownfield changes | Production |
 | [Kiro](tools/kiro.md) | Proprietary | No | IDE experience | Preview |
 | [Tessl](tools/tessl.md) | Proprietary | No | Spec-as-source | Beta |
@@ -15,7 +15,7 @@
 
 | Feature | Spec-Kit | Spec Kitty | BMad | OpenSpec | Kiro | Tessl |
 |---------|----------|------------|------|----------|------|-------|
-| **Maturity** | Production | Active Dev | Alpha/Stable | Production | Preview | Beta |
+| **Maturity** | Production (v0.1.5) | Active Dev (v0.13.5) | Stable (v6.0.2) | Production (v1.2.0) | Preview (v0.9.40) | Beta |
 | **License** | Open Source | Open Source | Open Source | MIT | Proprietary | Proprietary |
 | **Primary Use** | Greenfield | Orchestration | Enterprise | Brownfield | IDE Experience | Spec-as-Source |
 | **Git Worktrees** | No | **Yes** | No | No | No | No |
