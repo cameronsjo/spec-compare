@@ -116,13 +116,25 @@ All research is compiled from publicly available sources. Full citations are pro
 
 ### GSD (Get Shit Done)
 - [gsd.build](https://gsd.build)
-- [GitHub: glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done)
-- [GSD Framework Deep Dive](https://ccforeveryone.com/gsd)
+- [GitHub: gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done)
+- [GSD Framework Deep Dive — Claude Code for Everyone](https://ccforeveryone.com/gsd)
+- [DeepWiki: GSD Architecture](https://deepwiki.com/gsd-build/get-shit-done)
+- [GSD Framework: The System Revolutionizing Development](https://pasqualepillitteri.it/en/news/169/gsd-framework-claude-code-ai-development)
+- [GSD Multi Fork](https://github.com/shoootyou/get-shit-done-multi/)
 
 ### Ralph Loop
-- [Everything is a Ralph Loop — Geoffrey Huntley](https://ghuntley.com/loop/)
-- [GitHub: awesome-ralph](https://github.com/snwfdhmp/awesome-ralph)
-- [Ralph Wiggum AI Loop Technique](https://awesomeclaude.ai/ralph-wiggum)
+- [Ralph Wiggum as a Software Engineer — Geoffrey Huntley](https://ghuntley.com/ralph/)
+- [Ralph Wiggum — Official Site](https://ralph-wiggum.ai/)
+- [awesome-ralph — Curated Resource List](https://github.com/snwfdhmp/awesome-ralph)
+- [Ralph Loop Tutorial — Goose](https://block.github.io/goose/docs/tutorials/ralph-loop/)
+- [Mastering Ralph Loops — LinearB](https://linearb.io/blog/ralph-loop-agentic-engineering-geoffrey-huntley)
+- [2026: The Year of the Ralph Loop Agent — DEV Community](https://dev.to/alexandergekov/2026-the-year-of-the-ralph-loop-agent-1gkj)
+- [open-ralph-wiggum](https://github.com/Th0rgal/open-ralph-wiggum)
+- [Ralph Wiggum Loop vs Open Spec](https://redreamality.com/blog/ralph-wiggum-loop-vs-open-spec/)
+
+### PromptX
+- [GitHub: Deepractice/PromptX](https://github.com/Deepractice/PromptX)
+- [SDD Framework Comparison: BMAD vs spec-kit vs OpenSpec vs PromptX](https://redreamality.com/blog/-sddbmad-vs-spec-kit-vs-openspec-vs-promptx/)
 
 ### Zencoder / Zenflow
 - [Zencoder](https://zencoder.ai/)
