@@ -6,56 +6,13 @@
 
 ### GSD (Get Shit Done)
 
-**What it is:** A meta-prompting, context engineering, and spec-driven development system for Claude Code, OpenCode, and Gemini CLI.
-
-**Why it matters:** GSD was born as a reaction to the perceived complexity of BMad and Spec-Kit. Its creator explicitly states: "I'm a solo developer. I don't write code — Claude Code does. But other SDD tools seem to complicate everything with sprint ceremonies, story points, retrospectives and Jira workflows."
-
-**Key differentiators:**
-- **Thin Orchestrator Architecture:** Each orchestrator maintains 30-40% context by spawning subagents via the Task() tool. Each subagent operates with a fresh 200k context window
-- **Wave-based Parallelization:** Pre-computed wave assignments during planning. The planner analyzes dependencies and file conflicts, assigns wave numbers in `PLAN.md` frontmatter
-- **Context Rot Solution:** Addresses quality degradation as context windows fill (0-30% = peak quality; 50%+ = starts rushing; 70%+ = hallucinations)
-- **File Artifact System:** `.planning/` directory serves as persistent memory and single source of truth
-
-**Traction:** 11.9K+ GitHub stars. Trusted by engineers at Amazon, Google, and Shopify.
-
-**Current Version:** v1.20.6 (February 23, 2026). Recent additions include context window monitor hooks with WARNING/CRITICAL alerts, Nyquist validation layer for plan-phase quality checks, refactored installer into 11 domain modules, and support for Gemini CLI and Codex runtimes.
-
-**Install:** `npx get-shit-done-cc@latest`
-
-**Gap assessment:** GSD occupies a niche between OpenSpec (lightweight) and Spec-Kit (structured). Its focus on context management and solo developer ergonomics is not represented by any tool in the current comparison.
-
-**Sources:**
-- [gsd.build](https://gsd.build)
-- [GitHub: glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done)
-- [GSD Framework Deep Dive](https://ccforeveryone.com/gsd)
+Promoted to full tool profile. See [GSD Tool Profile](tools/gsd.md).
 
 ---
 
 ### Ralph Loop (Ralph Wiggum Technique)
 
-**What it is:** An iterative AI development methodology by Geoffrey Huntley that runs AI agents in automated loops until specifications are met. Each iteration spawns a new agent process with a clean context window.
-
-**Why it matters:** Ralph addresses a fundamentally different problem than other SDD tools — it's an execution pattern, not a planning system. Named after the Simpsons character, it embodies persistent iteration despite setbacks.
-
-**Key differentiators:**
-- **Stateless Execution:** Each loop iteration starts fresh with no memory of previous runs. All state lives on disk and in git
-- **One Task Per Loop:** Agent reads specs, picks top task from implementation plan, implements, validates (tests/lint/types), marks done, commits, exits
-- **Spec as Source of Truth:** Because the AI's memory is transient, the specification file (`SPEC.md`) must serve as the absolute reference
-- **Complementary to OpenSpec:** "Ralph Wiggum without Open Spec is chaos. Open Spec without Ralph Wiggum is fragile."
-
-**Notable results:**
-- Geoffrey Huntley built "Cursed" — a complete programming language — via a 3-month continuous loop
-- YC hackathon teams shipped 6+ repositories overnight for ~$297 in API costs
-
-**Official plugin:** An Anthropic Claude Code plugin exists for creating autonomous development loops.
-
-**Gap assessment:** Ralph Loop is an execution technique that could be combined with any SDD tool in the current comparison. Its approach of clean context windows per iteration is philosophically opposed to Beads' persistent memory — representing a "fresh start" vs "continuous memory" design tension worth documenting.
-
-**Sources:**
-- [Everything is a Ralph Loop — Geoffrey Huntley](https://ghuntley.com/loop/)
-- [GitHub: awesome-ralph](https://github.com/snwfdhmp/awesome-ralph)
-- [Ralph Wiggum AI Loop Technique](https://awesomeclaude.ai/ralph-wiggum)
-- [What is Ralph Loop? — Medium](https://medium.com/@tentenco/what-is-ralph-loop-a-new-era-of-autonomous-coding-96a4bb3e2ac8)
+Promoted to full tool profile. See [Ralph Loop Tool Profile](tools/ralph-loop.md).
 
 ---
 
@@ -130,6 +87,26 @@
 - [conductor.build](https://www.conductor.build/)
 - [Conductor Docs](https://docs.conductor.build)
 - [Hands-On Review — The New Stack](https://thenewstack.io/a-hands-on-review-of-conductor-an-ai-parallel-runner-app/)
+
+---
+
+### PromptX (Deepractice)
+
+**What it is:** An AI agent context platform that provides structured context engineering for AI coding assistants. Accepted by WWW Companion '26 with a paper titled "PromptX: A Cognitive Agent Platform with Long-term Memory."
+
+**Why it matters:** PromptX takes a different approach from other SDD tools — rather than defining a workflow (specify → plan → implement), it focuses on providing rich, structured context to any existing AI coding workflow. It supercharges existing tools (Cursor, Claude Code, etc.) via MCP rather than replacing them.
+
+**Key differentiators:**
+- **Context Platform:** Provides structured context layers (knowledge, capabilities, persona) to AI agents rather than prescribing a development workflow
+- **MCP-Native:** Integrates as an MCP server, augmenting any compatible coding assistant
+- **Cognitive Architecture:** Three components — Nuwa (knowledge), Luban (power), Writer (soul) — model different aspects of agent capability
+- **Long-term Memory:** Research-backed approach to persistent agent context across sessions
+
+**Gap assessment:** PromptX occupies a unique position as a context augmentation layer rather than a standalone SDD framework. For teams already satisfied with their AI coding tool but needing deeper, custom context, PromptX fills a gap that no other tool in this comparison addresses. It could complement any SDD tool by enriching the context available during planning and implementation phases.
+
+**Sources:**
+- [GitHub: Deepractice/PromptX](https://github.com/Deepractice/PromptX)
+- [SDD Framework Comparison including PromptX](https://redreamality.com/blog/-sddbmad-vs-spec-kit-vs-openspec-vs-promptx/)
 
 ---
 

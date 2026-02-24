@@ -15,13 +15,14 @@ This repository contains in-depth research comparing spec-driven development too
 - **Kiro** - AWS-backed agentic IDE with multimodal input
 - **Tessl** - Experimental spec-as-source platform
 
-### Newly Discovered (February 2026)
+### Additional SDD Tools (February 2026)
 
 - **GSD** - Meta-prompting SDD system with wave-based context management (11.9K stars)
-- **Ralph Loop** - Stateless iterative execution pattern
+- **Ralph Loop** - Stateless iterative execution pattern by Geoffrey Huntley
 - **Zencoder/Zenflow** - Commercial SDD-as-a-Service platform
 - **Kilo Code** - Open-source agentic platform with Memory Bank ($8M seed, 1.5M users)
 - **Conductor** - macOS parallel agent runner using git worktrees
+- **PromptX** - AI agent context platform via MCP (gap entry)
 
 ## Key Findings
 
@@ -60,6 +61,8 @@ The research is organized into focused, digestible documents:
 - [OpenSpec](docs/tools/openspec.md) - Lightweight change management
 - [Kiro](docs/tools/kiro.md) - AWS-backed agentic IDE
 - [Tessl](docs/tools/tessl.md) - Experimental spec-as-source platform
+- [GSD (Get Shit Done)](docs/tools/gsd.md) - Context-engineered SDD for solo developers
+- [Ralph Loop](docs/tools/ralph-loop.md) - Stateless iterative execution pattern
 
 ### Analysis & Recommendations
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
@@ -73,7 +76,7 @@ The research is organized into focused, digestible documents:
 ### Orchestration & Execution Layer
 - [Orchestration Landscape](docs/landscape.md) - 30+ multi-agent tools surveyed, including Claude Code Agent Teams
 - [Beads, Agent Mail & Gas Town](docs/beads.md) - Agent memory, messaging, and multi-agent villages
-- [Gaps: New Frameworks](docs/gaps.md) - GSD, Ralph Loop, Zencoder, Kilo Code, Conductor
+- [Gaps: New Frameworks](docs/gaps.md) - Zencoder, Kilo Code, Conductor, PromptX (GSD & Ralph Loop promoted to full profiles)
 - [Beads + OpenSpec Cheatsheet](docs/cheatsheet-beads-openspec.md) - Practical setup and daily workflow
 
 ## Quick Comparison
