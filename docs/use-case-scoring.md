@@ -25,7 +25,7 @@ This document grades each spec-driven development tool against real-world scenar
 | **Spec-Kit** | ⭐⭐⭐ | Must use `/speckit.clarify` workaround. `/speckit.specify` wants to create new feature. Requires regenerate plan/tasks. |
 | **Spec Kitty** | ⭐⭐ | Same Spec-Kit issues + worktree overhead excessive for one-line change. |
 | **Kiro** | ⭐⭐ | Generates 5-page spec for trivial change. "Sledgehammer to crack a nut" problem. |
-| **BMad** | ⭐ | 19 agents, 30+ minute workflow for button color. Massive overkill. |
+| **BMad** | ⭐ | 21 agents, 30+ minute workflow for button color. Massive overkill. |
 
 **Winner:** OpenSpec
 **Avoid:** BMad, Kiro
@@ -41,7 +41,7 @@ This document grades each spec-driven development tool against real-world scenar
 | Tool | Score | Reasoning |
 |------|-------|-----------|
 | **Spec-Kit** | ⭐⭐⭐⭐⭐ | Constitution-driven governance. Specify → Plan → Tasks → Implement workflow purpose-built for greenfield. |
-| **BMad** | ⭐⭐⭐⭐⭐ | 19 specialized agents (PM, Architect, Security Expert). Comprehensive enterprise workflows. |
+| **BMad** | ⭐⭐⭐⭐⭐ | 21 specialized agents (PM, Architect, Security Expert). Comprehensive enterprise workflows. |
 | **Spec Kitty** | ⭐⭐⭐⭐ | Spec-Kit workflow + worktree isolation. Good for larger features. |
 | **Kiro** | ⭐⭐⭐⭐ | Three-step Requirements → Design → Tasks works well for greenfield. |
 | **Tessl** | ⭐⭐⭐ | Spec-as-source works but one-to-one mapping may limit architecture. Closed beta. |
@@ -124,7 +124,7 @@ This document grades each spec-driven development tool against real-world scenar
 | **Spec Kitty** | ⭐⭐⭐⭐⭐ | Built-in worktree strategy. Kanban dashboard. Designed for this scenario. |
 | **OpenSpec** | ⭐⭐⭐ | Can use manual worktrees. Change isolation works but no orchestration. |
 | **Spec-Kit** | ⭐⭐ | Branch-based, no parallel isolation. Coordination manual. |
-| **BMad** | ⭐⭐ | 19 agents but no worktree support. Complex coordination. |
+| **BMad** | ⭐⭐ | 21 agents but no worktree support. Complex coordination. |
 | **Kiro** | ⭐⭐ | No multi-agent orchestration for parallel work. |
 | **Tessl** | ⭐⭐ | No parallel feature support mentioned. |
 
@@ -183,7 +183,7 @@ This document grades each spec-driven development tool against real-world scenar
 | Tool | Score | Reasoning |
 |------|-------|-----------|
 | **Spec-Kit** | ⭐⭐⭐⭐⭐ | Constitution enforces design system principles. Comprehensive specification workflow. |
-| **BMad** | ⭐⭐⭐⭐⭐ | 19 agents including UX Designer, Architect. Enterprise-scale planning. |
+| **BMad** | ⭐⭐⭐⭐⭐ | 21 agents including UX Designer, Architect. Enterprise-scale planning. |
 | **Spec Kitty** | ⭐⭐⭐⭐ | Spec-Kit workflow + visual tracking. Good for large projects. |
 | **OpenSpec** | ⭐⭐⭐ | Better for updates than initial build. |
 | **Kiro** | ⭐⭐⭐ | Three-step workflow works but less comprehensive. |
@@ -249,7 +249,7 @@ This document grades each spec-driven development tool against real-world scenar
 | **None** | ⭐⭐⭐⭐ | **Vibe coding** perfectly fine for solo side projects. |
 | **Spec Kitty** | ⭐⭐ | Dashboard overhead unnecessary for solo work. |
 | **Tessl** | ⭐⭐ | Closed beta, unproven. Not for side projects yet. |
-| **BMad** | ⭐ | 19 agents completely excessive for solo developer. |
+| **BMad** | ⭐ | 21 agents completely excessive for solo developer. |
 
 **Winner:** OpenSpec or no SDD
 **Alternative:** Spec-Kit, Kiro
@@ -276,7 +276,7 @@ Numeric scores (1–5) for quick visual comparison across all tools. Includes th
 ```
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
                     ───────  ──────  ─────  ────────  ─────────  ────  ────────────  ───────
-OpenSpec v1.0        5        5       3      3         2          4     2             3.4
+OpenSpec v1.2        5        5       3      3         2          4     2             3.4
 Spec-Kit             3        4       5      2         1          3     2             2.9
 Spec Kitty           2        3       4      5         1          2     2             2.7
 BMad v6              1        2       5      2         1          1     2             2.0
@@ -395,7 +395,7 @@ Question 4: Is this enterprise-scale?
 
 ### Using BMad for Trivial Changes
 
-**Problem:** 19 agents for button color
+**Problem:** 21 agents for button color
 **Cost:** 30+ minutes
 **Alternative:** OpenSpec (2 minutes)
 

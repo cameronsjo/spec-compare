@@ -9,13 +9,13 @@
 
 ## Core Approach
 
-"Breakthrough Method for Agile AI-Driven Development" - provides 19 specialized AI agents with 50+ guided workflows. Built on BMad Core, a "Collaboration Optimized Reflection Engine."
+"Breakthrough Method for Agile AI-Driven Development" - provides 21 specialized AI agents with 50+ guided workflows. Built on BMad Core, a "Collaboration Optimized Reflection Engine."
 
 Unlike generic coding assistants, BMad positions itself through "structured, battle-tested workflows" with specialized agent roles.
 
 ## Key Features
 
-- **19 Specialized Agents:** PM, Architect, Developer, UX Designer, Test Architect, QA Engineer, Tech Lead, Security Expert, Data Scientist, DevOps Engineer, etc.
+- **21 Specialized Agents:** PM, Architect, Developer, UX Designer, Test Architect, QA Engineer, Tech Lead, Security Expert, Data Scientist, DevOps Engineer, etc.
 - **50+ Guided Workflows:** Scale from bug fixes to enterprise systems
 - **Four-Phase Methodology:** Analysis → Planning → Solutioning → Implementation
 - **Scale-Adaptive Planning:** Adjusts complexity based on project scope
@@ -77,7 +77,7 @@ The Architect Agent creates a technical architecture including API specs (e.g., 
 
 ## Limitations
 
-- Steeper learning curve with 19+ agents
+- Steeper learning curve with 21 agents
 - More complex than simpler SDD tools
 - 30+ minute initialization time
 - May be overkill for small projects

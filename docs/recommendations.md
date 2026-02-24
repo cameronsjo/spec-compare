@@ -36,7 +36,7 @@
 ### Choose [BMad Method](tools/bmad-method.md) If You:
 
 - Need comprehensive enterprise workflows
-- Want 19 specialized agent roles
+- Want 21 specialized agent roles
 - Require scale-adaptive planning
 - Value structured, battle-tested processes
 - Building API-driven architectures
@@ -44,7 +44,7 @@
 - Can invest in 30+ minute setup
 - Working on large enterprise projects
 
-**Skip if:** Small projects, prefer simplicity, find 19 agents overwhelming.
+**Skip if:** Small projects, prefer simplicity, find 21 agents overwhelming.
 
 ---
 
@@ -116,7 +116,7 @@
 ### Solo Developers
 
 **Start with:** [OpenSpec](tools/openspec.md) or [Spec-Kit](tools/spec-kit.md) for simplicity
-**Avoid:** Spec Kitty's orchestration overhead, BMad's 19 agents
+**Avoid:** Spec Kitty's orchestration overhead, BMad's 21 agents
 
 **Rationale:** Solo developers don't need multi-agent coordination or kanban dashboards. Keep it simple.
 

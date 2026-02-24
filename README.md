@@ -10,7 +10,7 @@ This repository contains in-depth research comparing spec-driven development too
 
 - **GitHub Spec-Kit** - Open-source CLI toolkit for greenfield projects
 - **Spec Kitty** - Community fork with built-in git worktree orchestration
-- **BMad Method** - Enterprise framework with 19 specialized AI agents
+- **BMad Method** - Enterprise framework with 21 specialized AI agents
 - **OpenSpec** - Lightweight change-management for brownfield projects
 - **Kiro** - AWS-backed agentic IDE with multimodal input
 - **Tessl** - Experimental spec-as-source platform
@@ -56,7 +56,7 @@ The research is organized into focused, digestible documents:
 ### Individual Tool Profiles
 - [GitHub Spec-Kit](docs/tools/spec-kit.md) - Open-source CLI toolkit
 - [Spec Kitty](docs/tools/spec-kitty.md) - Community fork with worktree support
-- [BMad Method](docs/tools/bmad-method.md) - Enterprise framework with 19 agents
+- [BMad Method](docs/tools/bmad-method.md) - Enterprise framework with 21 agents
 - [OpenSpec](docs/tools/openspec.md) - Lightweight change management
 - [Kiro](docs/tools/kiro.md) - AWS-backed agentic IDE
 - [Tessl](docs/tools/tessl.md) - Experimental spec-as-source platform
@@ -96,7 +96,7 @@ The research is organized into focused, digestible documents:
 **Use OpenSpec** - Lightweight change management without excessive overhead.
 
 ### For Enterprise
-**Use BMad Method** - Comprehensive workflows with 19 specialized agents.
+**Use BMad Method** - Comprehensive workflows with 21 specialized agents.
 
 ### For Greenfield Projects
 **Use Spec-Kit** - Battle-tested, constitution-driven development.

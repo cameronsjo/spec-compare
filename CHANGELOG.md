@@ -21,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Latest version sweep (February 24, 2026)** — Updated all tool profiles and cross-references with current versions:
+  - Spec-Kit v0.1.5, Spec Kitty v0.13.5, BMad v6.0.2 (now stable), OpenSpec v1.2.0, Kiro v0.9.40, Tessl registry updates
+  - GSD v1.20.6, Kilo Code v4.148.1 + CLI launch, Conductor v0.36.3
+  - BMad agent count corrected from 19 → 21 across all docs
+  - BMad Production Ready status updated from ⚠️ to ✅ in capability matrix
+  - Kiro AI Models updated with Claude Sonnet 4.6 support
+  - Heatmap updated to OpenSpec v1.2
 - **OpenSpec v1.0 rewrite** (`docs/tools/openspec.md`) — Documented action-based workflow, three-layer dynamic instructions, semantic spec syncing, and unified skills directory
 - **Execution layer recommendations** (`docs/recommendations.md`) — New section for Beads, Agent Teams, GSD, Conductor; four recommended stacks by team type
 - **Sources expanded** (`docs/sources.md`) — 40+ new citations across Agent Teams, Beads, Agent Mail, Gas Town, GSD, Ralph Loop, Zencoder, Kilo Code, Conductor, AGENTS.md, and ArXiv paper

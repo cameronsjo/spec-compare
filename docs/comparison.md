@@ -19,7 +19,7 @@
 | **License** | Open Source | Open Source | Open Source | MIT | Proprietary | Proprietary |
 | **Primary Use** | Greenfield | Orchestration | Enterprise | Brownfield | IDE Experience | Spec-as-Source |
 | **Git Worktrees** | No | **Yes** | No | No | No | No |
-| **Agents Supported** | 15+ | 11+ | Built-in 19 | Multiple | Built-in | Multiple |
+| **Agents Supported** | 15+ | 11+ | Built-in 21 | Multiple | Built-in | Multiple |
 | **Dashboard** | No | Yes (Kanban) | No | CLI | IDE | No |
 | **Installation** | CLI | CLI + Dashboard | CLI | CLI | CLI/IDE | CLI |
 | **Complexity** | Medium | High | Very High | Low | Medium | High |
@@ -61,7 +61,7 @@ How each tool communicates instructions to AI coding agents:
 |--------|----------|------------|------|----------|------|-------|
 | **Git Worktrees** | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Open Source** | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
-| **Production Ready** | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ | ❌ |
+| **Production Ready** | ✅ | ⚠️ | ✅ | ✅ | ⚠️ | ❌ |
 | **Multi-Agent** | ❌ | ✅ | ✅ | ❌ | ⚠️ | ❌ |
 | **Dashboard** | ❌ | ✅ | ❌ | ⚠️ | ✅ (IDE) | ❌ |
 | **Brownfield** | ⚠️ | ✅ | ⚠️ | ✅ | ⚠️ | ❌ |
