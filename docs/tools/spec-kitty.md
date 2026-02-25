@@ -3,8 +3,9 @@
 **Type:** Community fork with orchestration layer
 **Repository:** https://github.com/Priivacy-ai/spec-kitty
 **Website:** https://priivacy-ai.github.io/spec-kitty/
-**Status:** Active development (v0.4.9+)
+**Status:** Active development
 **License:** Community-maintained fork (retains original Spec-Kit attribution)
+**Current Version:** v0.13.5 (February 2026)
 
 ## Core Approach
 
@@ -116,6 +117,15 @@ The real-time dashboard provides:
 ## Relationship to Spec-Kit
 
 As a community-maintained fork, Spec Kitty "retains the original attribution per the Spec Kit license while evolving the toolkit under the Spec Kitty banner." It extends rather than replaces Spec Kit, offering more sophisticated orchestration for distributed AI coding workflows.
+
+## Recent Changes (v0.13.x, February 2026)
+
+- Replaced manual detection logic with `spec-kitty agent feature check-prerequisites` matching the pattern used across templates
+- Automatic migration (`m_0_13_5_fix_clarify_template.py`) updates all 12 agent directories on upgrade
+- New migration to remove blocking `.gitignore` entries preventing `create-feature` commits (v0.12.1)
+- Tracks 1.x prereleases from main; 2.x remains the experimental stream
+- Install stable: `pip install spec-kitty-cli`; prerelease: `pip install --pre spec-kitty-cli`
+- 234 GitHub stars, 20 forks
 
 ## Related
 

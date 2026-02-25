@@ -5,7 +5,7 @@
 **Website:** https://openspec.dev/
 **Status:** Production-ready
 **License:** MIT
-**Current Version:** v1.0.0 ("The OPSX Release", January 2026)
+**Current Version:** v1.2.0 ("Profiles, Pi & Kiro Support", February 2026)
 
 ## Core Approach
 
@@ -199,10 +199,28 @@ The initialization process creates:
 - No explicit multi-agent coordination
 - No built-in git worktree support (standard git workflow)
 
+## Recent Changes (v1.1.0–v1.2.0, February 2026)
+
+### v1.2.0 — Profiles, Pi & Kiro Support
+- **Profiles:** Choose between core (4 essential workflows) and custom (pick any subset) via `openspec config profile`
+- **Propose Workflow:** Create a complete change proposal (design, specs, tasks) from a single request
+- **Pi Support:** Pi (pi.dev) coding agent now supported with prompt and skill generation
+- **Kiro Support:** AWS Kiro IDE now supported with prompt and skill generation
+- **AI Tool Auto-Detection:** `openspec init` scans for existing tool directories (`.claude/`, `.cursor/`, etc.) and pre-selects
+- **Sync Improvements:** `openspec update` removes command files and skill directories for deselected workflows
+- Config drift warning in `openspec config list`
+
+### v1.1.0
+- Cross-platform fixes and Nix improvements
+
+### Stats
+- 25,217 GitHub stars, 1,676 forks (as of February 2026)
+
 ## Sources
 
 - [OpenSpec GitHub Repository](https://github.com/Fission-AI/OpenSpec)
 - [openspec.dev](https://openspec.dev/)
+- [Release v1.2.0 — Profiles, Pi & Kiro Support](https://github.com/Fission-AI/OpenSpec/releases/tag/v1.2.0)
 - [Release v1.0.0 — The OPSX Release](https://github.com/Fission-AI/OpenSpec/releases/tag/v1.0.0)
 - [OPSX System Documentation](https://github.com/Fission-AI/OpenSpec/blob/main/docs/opsx.md)
 - [Migration Guide](https://github.com/Fission-AI/OpenSpec/blob/main/docs/migration-guide.md)

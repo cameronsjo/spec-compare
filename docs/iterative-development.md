@@ -269,7 +269,7 @@ Kiro might generate:
 
 **Rating:** ⭐⭐ (Poor)
 
-**Approach:** 19 specialized agents with comprehensive workflows
+**Approach:** 21 specialized agents with comprehensive workflows
 
 **How It Works:**
 - Four-phase methodology: Analysis → Planning → Solutioning → Implementation
@@ -287,7 +287,7 @@ Kiro might generate:
 
 **Weaknesses:**
 - **Massive overkill for small changes**
-- 19 agents for a button color change
+- 21 agents for a button color change
 - 30+ minute setup time
 - Designed for large projects, not iterations
 
@@ -323,7 +323,7 @@ Kiro might generate:
 
 **Large Changes** (new feature, major refactor):
 1. **Spec Kitty** - Full workflow with orchestration
-2. **BMad** - 19 agents, comprehensive coverage
+2. **BMad** - 21 agents, comprehensive coverage
 3. **Spec-Kit** - Constitution-driven approach
 
 ## The Modification Workflow Spectrum
@@ -345,7 +345,7 @@ OpenSpec → Tessl → Spec-Kit → Spec Kitty → Kiro → BMad
 Most SDD tools are optimized for **creating** features, not **modifying** them:
 - `/speckit.specify` creates new features
 - Kiro's three-step workflow assumes greenfield
-- BMad's 19 agents assume comprehensive planning
+- BMad's 21 agents assume comprehensive planning
 
 Only **OpenSpec** explicitly separates "current state" from "proposed changes."
 

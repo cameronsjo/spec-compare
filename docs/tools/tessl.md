@@ -91,6 +91,16 @@ The platform automatically:
 - Requires significant mindset shift (specs as source)
 - Not clear how it handles non-deterministic LLM outputs
 
+## Recent Changes (February 2026)
+
+- **Spec Registry:** Open beta with 10,000+ specs. Now "the package manager for agent skills" — versioned and verified skills for professional developers
+- **Task Evals:** Built-in measurement for whether a skill actually steers agent behavior — compares outcomes with and without a skill
+- **Steering Rules:** Tiles can now define agent behavior rules via a `steering` section in manifests, auto-aggregated into RULES.md
+- **Local Tile Sources:** Install tiles from local directories via `source` field in tessl.json
+- **Framework Initialization:** Choose "full-framework" (closed beta, login required) or "registry only" modes
+- **SDD Tile v1.0.5:** `tessl-labs/spec-driven-development@1.0.5` available in the registry
+- Install/update: `npm i -g @tessl/cli`
+
 ## Related
 
 - [Comparison Matrix](../comparison.md)

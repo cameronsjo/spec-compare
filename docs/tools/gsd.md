@@ -5,6 +5,7 @@
 **Website:** https://gsd.build
 **Status:** Production-ready
 **License:** Open source
+**Current Version:** v1.20.6 (February 23, 2026)
 **Traction:** 11.9K+ GitHub stars. Used by engineers at Amazon, Google, and Shopify.
 
 ## Core Approach
@@ -47,10 +48,10 @@ A community fork called **GSD Multi** (`shoootyou/get-shit-done-multi`) extends 
 
 ```bash
 # Global install
-npx get-shit-done-cc --global
+npx get-shit-done-cc@latest --global
 
 # Local (project) install
-npx get-shit-done-cc --local
+npx get-shit-done-cc@latest --local
 ```
 
 ## How It Compares
@@ -83,6 +84,14 @@ npx get-shit-done-cc --local
 
 - An industrial automation company used GSD to develop predictive maintenance algorithms for CNC machinery, with 3 developers producing output equivalent to a team of 8
 - One user completed 23 plans across 4 phases in ~4 days, with each task getting Claude's full attention without context degradation
+
+## Recent Changes (v1.20.x, February 2026)
+
+- Context window monitor hooks with WARNING/CRITICAL alerts
+- Nyquist validation layer for plan-phase quality checks
+- Refactored installer into 11 domain modules
+- Added support for Gemini CLI and Codex runtimes
+- GSD Multi fork extends to additional platforms with template-based installer
 
 ## Sources
 

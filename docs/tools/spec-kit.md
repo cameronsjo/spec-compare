@@ -4,6 +4,7 @@
 **Repository:** https://github.com/github/spec-kit
 **Status:** Production-ready
 **License:** Open source
+**Current Version:** v0.1.5 (February 21, 2026)
 
 ## Core Approach
 
@@ -70,6 +71,14 @@ uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME
 - Can feel like "sledgehammer to crack a nut" for small changes
 - No built-in git worktree management
 - Branch-based workflow assumes linear development
+
+## Recent Changes (v0.1.5, February 2026)
+
+- Added `commands_subdir` field to support non-standard agent directory structures
+- Added GitHub issue templates for contributor workflow
+- Added V-Model Extension Pack to community catalog (v0.2.0)
+- Removed OpenAPI/GraphQL bias from templates
+- Renamed Qoder AGENT_CONFIG key from 'qoder' to 'qodercli' to match actual CLI executable
 
 ## Related
 
