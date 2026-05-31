@@ -134,7 +134,7 @@ This simple requirement reveals a fundamental tension: most SDD tools are optimi
 - No separate change management needed
 
 **Weaknesses:**
-- **Closed beta** (limited access to Framework)
+- **Spec-as-source still maturing** (Framework + Registry public, but the pure edit-and-regenerate loop is unproven)
 - Unproven at scale
 - One-to-one spec-to-code mapping may not fit all architectures
 - Non-deterministic LLM outputs could cause drift
@@ -410,7 +410,7 @@ Most software development is **brownfield** (1→n), not greenfield (0→1):
 
 **Good:** [Tessl](tools/tessl.md) (theoretical)
 - Spec-as-source elegance
-- But closed beta
+- But the regenerate loop is still maturing
 
 **Moderate:** [Spec-Kit](tools/spec-kit.md)
 - Can use `/speckit.clarify` workaround

@@ -87,7 +87,7 @@
 - Willing to adopt radical new approach
 - Have complex library dependency management
 - Want to prevent API hallucinations
-- Can wait for closed beta access (framework)
+- Want the spec-as-source workflow (public Framework + Registry, rapidly evolving)
 
 **Skip if:** Need production-ready tools, avoid proprietary platforms, unproven approaches concern you.
 
@@ -178,7 +178,7 @@
 
 ### Experimentation & Learning
 
-**Try:** [Kiro](tools/kiro.md) (free preview) or [Tessl](tools/tessl.md) Registry (open beta)
+**Try:** [Kiro](tools/kiro.md) (GA — free tier + paid) or [Tessl](tools/tessl.md) (public Framework + Registry)
 **Avoid:** Enterprise commitments before understanding SDD
 
 **Rationale:** Explore cutting-edge approaches without long-term commitment. Learn by doing.
@@ -198,7 +198,7 @@
 
 **Primary Recommendation: [Spec Kitty](tools/spec-kitty.md)**
 
-Spec Kitty is the only tool with built-in git worktree support, directly addressing needs for:
+Spec Kitty has the most complete built-in git worktree support among SDD tools (Superpowers, Conductor, and Zencoder/Zenflow also automate worktrees), directly addressing needs for:
 
 **Why Spec Kitty:**
 - **Automatic worktree management:** `/spec-kitty.specify` creates feature branch AND worktree

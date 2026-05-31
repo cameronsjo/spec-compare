@@ -3,9 +3,9 @@
 **Type:** Agentic IDE and CLI
 **Website:** https://kiro.dev
 **Repository:** https://github.com/kirodotdev/Kiro
-**Status:** Free during preview (AWS-backed)
-**License:** Proprietary (free preview)
-**Current Version:** IDE v0.9.40 (February 12, 2026)
+**Status:** Generally available (AWS-backed; paid tiers + free tier)
+**License:** Proprietary (paid tiers + free tier)
+**Current Version:** IDE v0.12.263 (May 28, 2026); GA since Nov 17, 2025
 
 ## Core Approach
 

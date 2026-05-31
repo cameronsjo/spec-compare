@@ -21,7 +21,7 @@ This document grades each spec-driven development tool against real-world scenar
 | Tool | Score | Reasoning |
 |------|-------|-----------|
 | **OpenSpec** | ⭐⭐⭐⭐⭐ | Lightweight delta format. Create `changes/button-color/` with MODIFIED section. Minimal overhead. |
-| **Tessl** | ⭐⭐⭐⭐ | Edit spec directly, regenerate code. Elegant but closed beta limits access. |
+| **Tessl** | ⭐⭐⭐⭐ | Edit spec directly, regenerate code. Elegant; Framework now public. |
 | **Spec-Kit** | ⭐⭐⭐ | Must use `/speckit.clarify` workaround. `/speckit.specify` wants to create new feature. Requires regenerate plan/tasks. |
 | **Spec Kitty** | ⭐⭐ | Same Spec-Kit issues + worktree overhead excessive for one-line change. |
 | **Kiro** | ⭐⭐ | Generates 5-page spec for trivial change. "Sledgehammer to crack a nut" problem. |
@@ -44,7 +44,7 @@ This document grades each spec-driven development tool against real-world scenar
 | **BMad** | ⭐⭐⭐⭐⭐ | 21 specialized agents (PM, Architect, Security Expert). Comprehensive enterprise workflows. |
 | **Spec Kitty** | ⭐⭐⭐⭐ | Spec-Kit workflow + worktree isolation. Good for larger features. |
 | **Kiro** | ⭐⭐⭐⭐ | Three-step Requirements → Design → Tasks works well for greenfield. |
-| **Tessl** | ⭐⭐⭐ | Spec-as-source works but one-to-one mapping may limit architecture. Closed beta. |
+| **Tessl** | ⭐⭐⭐ | Spec-as-source works but one-to-one mapping may limit architecture. |
 | **OpenSpec** | ⭐⭐⭐ | Lightweight, better suited for modifications than greenfield. |
 
 **Winner:** Spec-Kit, BMad (tie)
@@ -245,10 +245,10 @@ This document grades each spec-driven development tool against real-world scenar
 |------|-------|-----------|
 | **OpenSpec** | ⭐⭐⭐⭐ | Lightweight, minimal overhead, easy to use solo. |
 | **Spec-Kit** | ⭐⭐⭐ | Good structure but may feel like overhead for solo project. |
-| **Kiro** | ⭐⭐⭐ | Free preview, integrated IDE. Good for solo developers. |
+| **Kiro** | ⭐⭐⭐ | GA with a free tier, integrated IDE. Good for solo developers. |
 | **None** | ⭐⭐⭐⭐ | **Vibe coding** perfectly fine for solo side projects. |
 | **Spec Kitty** | ⭐⭐ | Dashboard overhead unnecessary for solo work. |
-| **Tessl** | ⭐⭐ | Closed beta, unproven. Not for side projects yet. |
+| **Tessl** | ⭐⭐ | Public Framework, but spec-as-source still unproven for side projects. |
 | **BMad** | ⭐ | 21 agents completely excessive for solo developer. |
 
 **Winner:** OpenSpec or no SDD
@@ -353,7 +353,7 @@ Spec Kitty uniquely wins parallel feature development:
 - Kanban dashboard
 - Multi-agent coordination
 
-**Why:** Only tool with explicit parallel feature support.
+**Why:** The SDD tool that pairs worktree isolation, a kanban board, and multi-agent coordination in one workflow (Superpowers, Conductor, and Zencoder/Zenflow also automate worktrees, but without the spec workflow + board).
 
 ### 4. No SDD Tool Wins Emergencies
 

@@ -5,7 +5,7 @@
 **Website:** https://bmadcodes.com/
 **Status:** v6 Stable
 **License:** Open source
-**Current Version:** v6.0.2 (February 2026)
+**Current Version:** v6.8.0 (May 25, 2026)
 
 ## Core Approach
 

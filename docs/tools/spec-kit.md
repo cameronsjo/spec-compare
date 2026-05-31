@@ -4,7 +4,7 @@
 **Repository:** https://github.com/github/spec-kit
 **Status:** Production-ready
 **License:** Open source
-**Current Version:** v0.1.5 (February 21, 2026)
+**Current Version:** v0.8.18 (May 29, 2026)
 
 ## Core Approach
 

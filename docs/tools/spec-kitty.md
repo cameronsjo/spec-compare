@@ -5,7 +5,7 @@
 **Website:** https://priivacy-ai.github.io/spec-kitty/
 **Status:** Active development
 **License:** Community-maintained fork (retains original Spec-Kit attribution)
-**Current Version:** v0.13.5 (February 2026)
+**Current Version:** v3.1.9 (May 2026)
 
 ## Core Approach
 

@@ -73,7 +73,7 @@ See [Iterative Development Analysis](docs/iterative-development.md) and [Use Cas
 
 ### Git Worktree Support
 
-**Spec Kitty is the only tool with built-in git worktree support**, enabling:
+**Spec Kitty pioneered built-in git worktree support among SDD tools** (Superpowers, Conductor, and Zencoder/Zenflow now automate worktrees too), enabling:
 - Automatic worktree creation per feature
 - Parallel feature isolation without branch switching
 - Automated cleanup on merge
@@ -132,7 +132,7 @@ The research is organized into focused, digestible documents:
 ## Recommendations
 
 ### For Git Worktree Users
-**Use Spec Kitty** - Only tool with built-in worktree management and parallel feature isolation.
+**Use Spec Kitty** - The most complete built-in worktree management + parallel feature isolation among SDD tools (Superpowers also automates worktrees via its skill).
 
 ### For Simplicity
 **Use OpenSpec** - Lightweight change management without excessive overhead.
@@ -144,7 +144,7 @@ The research is organized into focused, digestible documents:
 **Use Spec-Kit** - Battle-tested, constitution-driven development.
 
 ### For Experimentation
-**Try Kiro or Tessl** - Cutting-edge approaches with free preview/beta access.
+**Try Kiro or Tessl** - Kiro is GA (free tier + paid); Tessl's Framework + Registry is now public.
 
 ## Critical Perspectives
 
