@@ -4,13 +4,13 @@
   "vendor": "AWS",
   "repo": "https://github.com/kirodotdev/Kiro",
   "website": "https://kiro.dev",
-  "version": "v0.9.40",
-  "license": "Proprietary (free preview)",
-  "maturity": "Preview",
+  "version": "v0.12.263",
+  "license": "Proprietary (paid tiers + free tier)",
+  "maturity": "Production",
   "tier": "core",
   "philosophy": "context",
   "specMaturity": "Spec-First",
-  "tagline": "Agentic IDE: Requirements → Design → Tasks.",
+  "tagline": "GA agentic IDE: Requirements → Design → Tasks.",
   "bestFor": "IDE experience",
   "complexity": "Medium",
   "learningCurve": "Moderate",
@@ -21,7 +21,7 @@
     "mcp": true,
     "ideIntegration": true,
     "openSource": false,
-    "parallel": false
+    "parallel": true
   },
   "agentConfig": { "agentsMd": "no", "claudeMd": "no", "skillMd": "no", "slashCommands": 0 },
   "phases": [
@@ -47,14 +47,16 @@
   "keyFeatures": [
     "VS Code-based agentic IDE; EARS-notation acceptance criteria",
     "Three-step workflow: Requirements → Design → Tasks",
-    "Autopilot mode for autonomous task execution",
+    "GA since Nov 2025: team support (IAM Identity Center) + Kiro CLI",
+    "v0.12 adds Parallel Task Execution, Quick Plan, Requirements Analysis",
+    "Checkpointing (rewind agent edits) + property-based spec tests",
     "Agent hooks: background automation on file save / custom events",
     "Native MCP integration; multimodal input (images, whiteboards)",
-    "Steering files (memory bank) for project-specific context"
+    "Auto model router (Sonnet/Opus/Haiku) + steering files (memory bank)"
   ],
   "limitations": [
     "Proprietary platform (vendor lock-in risk)",
-    "Currently free; future pricing unknown",
+    "Credit-based paid tiers: Pro $20 / Pro+ $40 / Power $200 per month",
     "Can generate excessive specs for small changes",
     "Unclear long-term spec-maintenance strategy",
     "Terminal / IDE only — no web interface"
