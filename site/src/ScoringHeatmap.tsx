@@ -51,21 +51,31 @@ function popStyle(r: Active['rect']): CSSProperties {
   return { '--pop-x': `${cx}px`, '--pop-y': `${y}px` } as CSSProperties
 }
 
-// Map plot geometry (SVG user units). Axes run 1–5.
+// Map plot geometry (SVG user units). Axes fit the data range, not a fixed 1–5 —
+// the numeric scale stays honest (real tick values) but empty bands are squeezed out.
 const PLOT = { w: 600, h: 420, l: 56, r: 20, t: 18, b: 50 }
-const mapX = (q: number) => PLOT.l + ((q - 1) / 4) * (PLOT.w - PLOT.l - PLOT.r)
-const mapY = (l: number) => PLOT.h - PLOT.b - ((l - 1) / 4) * (PLOT.h - PLOT.t - PLOT.b)
+// Integer-aligned domain bracketing the data, clamped to the valid 1–5 score range.
+const domain = (vals: number[]): [number, number] => [
+  Math.max(1, Math.floor(Math.min(...vals) - 0.25)),
+  Math.min(5, Math.ceil(Math.max(...vals) + 0.25)),
+]
+const XD = domain(tools.map((t) => quickAxis(t.scores)))
+const YD = domain(tools.map((t) => largeAxis(t.scores)))
+const ticksIn = ([lo, hi]: [number, number]) => Array.from({ length: hi - lo + 1 }, (_, i) => lo + i)
+const mapX = (q: number) => PLOT.l + ((q - XD[0]) / (XD[1] - XD[0])) * (PLOT.w - PLOT.l - PLOT.r)
+const mapY = (l: number) => PLOT.h - PLOT.b - ((l - YD[0]) / (YD[1] - YD[0])) * (PLOT.h - PLOT.t - PLOT.b)
 
-// Greedy label de-collision: place each label to the right of its dot, then nudge
-// it down until it clears every label already placed. A leader line ties a moved
-// label back to its dot. Sorted top-to-bottom so the upper label of a colliding
-// pair keeps its spot and the lower one slides — reads as a tidy stack.
+// Greedy label de-collision: place each label beside its dot (flipping to the left
+// near the right wall so it never overflows), then nudge it down until it clears
+// every label already placed. A leader line ties a moved label back to its dot.
+// Sorted top-to-bottom so the upper label of a colliding pair keeps its spot.
 interface Laid {
   spec: (typeof tools)[number]
   x: number
   y: number
   lx: number
   ly: number
+  anchor: 'start' | 'end'
   moved: boolean
 }
 function layoutLabels(): Laid[] {
@@ -79,7 +89,13 @@ function layoutLabels(): Laid[] {
     .sort((a, b) => a.y - b.y || a.x - b.x)
     .map(({ spec, x, y }) => {
       const w = spec.displayName.length * CHAR
-      const box = (yy: number) => ({ x1: x + 11, y1: yy - 7, x2: x + 11 + w, y2: yy + 6 })
+      // Flip left when a right-placed label would cross the right edge.
+      const left = x + 11 + w > PLOT.w - 2
+      const lx = left ? x - 11 : x + 11
+      const box = (yy: number) =>
+        left
+          ? { x1: lx - w, y1: yy - 7, x2: lx, y2: yy + 6 }
+          : { x1: lx, y1: yy - 7, x2: lx + w, y2: yy + 6 }
       let ly = y
       let b = box(ly)
       for (let i = 0; i < 14 && placed.some((p) => hit(p, b)); i++) {
@@ -87,7 +103,7 @@ function layoutLabels(): Laid[] {
         b = box(ly)
       }
       placed.push(b)
-      return { spec, x, y, lx: x + 11, ly, moved: Math.abs(ly - y) > 1 }
+      return { spec, x, y, lx, ly, anchor: left ? ('end' as const) : ('start' as const), moved: Math.abs(ly - y) > 1 }
     })
 }
 
@@ -284,35 +300,36 @@ function ScatterMap({
   active: Active | null
   handlers: (tool: string, dim: keyof Scores) => DOMAttributes<Element>
 }) {
-  const ticks = [1, 2, 3, 4, 5]
+  const midX = 3 >= XD[0] && 3 <= XD[1]
+  const midY = 3 >= YD[0] && 3 <= YD[1]
   return (
     <div className="heat-map">
       <svg viewBox={`0 0 ${PLOT.w} ${PLOT.h}`} role="img" aria-label="Tools mapped by quick-change vs large-scale fitness" className="heat-map-svg">
-        {/* gridlines + tick labels */}
-        {ticks.map((n) => (
+        {/* gridlines + tick labels (only the data-bracketing range) */}
+        {ticksIn(XD).map((n) => (
           <g key={`gx${n}`}>
-            <line className="map-grid" x1={mapX(n)} y1={mapY(1)} x2={mapX(n)} y2={mapY(5)} />
-            <text className="map-tick" x={mapX(n)} y={mapY(1) + 16} textAnchor="middle">{n}</text>
+            <line className="map-grid" x1={mapX(n)} y1={mapY(YD[0])} x2={mapX(n)} y2={mapY(YD[1])} />
+            <text className="map-tick" x={mapX(n)} y={mapY(YD[0]) + 16} textAnchor="middle">{n}</text>
           </g>
         ))}
-        {ticks.map((n) => (
+        {ticksIn(YD).map((n) => (
           <g key={`gy${n}`}>
-            <line className="map-grid" x1={mapX(1)} y1={mapY(n)} x2={mapX(5)} y2={mapY(n)} />
-            <text className="map-tick" x={mapX(1) - 10} y={mapY(n) + 3} textAnchor="end">{n}</text>
+            <line className="map-grid" x1={mapX(XD[0])} y1={mapY(n)} x2={mapX(XD[1])} y2={mapY(n)} />
+            <text className="map-tick" x={mapX(XD[0]) - 10} y={mapY(n) + 3} textAnchor="end">{n}</text>
           </g>
         ))}
-        {/* midline split at 3 (quadrant divider) */}
-        <line className="map-mid" x1={mapX(3)} y1={mapY(1)} x2={mapX(3)} y2={mapY(5)} />
-        <line className="map-mid" x1={mapX(1)} y1={mapY(3)} x2={mapX(5)} y2={mapY(3)} />
+        {/* midline split at 3 (quadrant divider), where it falls inside the range */}
+        {midX && <line className="map-mid" x1={mapX(3)} y1={mapY(YD[0])} x2={mapX(3)} y2={mapY(YD[1])} />}
+        {midY && <line className="map-mid" x1={mapX(XD[0])} y1={mapY(3)} x2={mapX(XD[1])} y2={mapY(3)} />}
         {/* axis titles */}
-        <text className="map-axis" x={(mapX(1) + mapX(5)) / 2} y={PLOT.h - 8} textAnchor="middle">
+        <text className="map-axis" x={(mapX(XD[0]) + mapX(XD[1])) / 2} y={PLOT.h - 8} textAnchor="middle">
           Quick-change fitness →
         </text>
-        <text className="map-axis" transform={`rotate(-90 14 ${(mapY(1) + mapY(5)) / 2})`} x={14} y={(mapY(1) + mapY(5)) / 2} textAnchor="middle">
+        <text className="map-axis" transform={`rotate(-90 14 ${(mapY(YD[0]) + mapY(YD[1])) / 2})`} x={14} y={(mapY(YD[0]) + mapY(YD[1])) / 2} textAnchor="middle">
           Large-scale fitness →
         </text>
         {/* points — labels are de-collided, with a leader line when one was nudged */}
-        {layoutLabels().map(({ spec: t, x, y, lx, ly, moved }) => {
+        {layoutLabels().map(({ spec: t, x, y, lx, ly, anchor, moved }) => {
           const on = active?.tool === t.tool
           return (
             <g
@@ -334,7 +351,7 @@ function ScatterMap({
                 stroke={t.tier === 'core' ? 'var(--accent)' : 'var(--steel)'}
                 strokeWidth={on ? 2.5 : 1.5}
               />
-              <text className="map-label" x={lx} y={ly + 3}>{t.displayName}</text>
+              <text className="map-label" x={lx} y={ly + 3} textAnchor={anchor}>{t.displayName}</text>
             </g>
           )
         })}
