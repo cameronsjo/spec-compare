@@ -20,8 +20,8 @@ import { scoreFill, scoreBorder, SCORE_WORD } from './score'
 type Mode = 'numbers' | 'punchcard' | 'map'
 
 const MODES: { key: Mode; label: string; help: string }[] = [
-  { key: 'numbers', label: 'Numbers', help: 'Exact 1–5 in every cell.' },
   { key: 'punchcard', label: 'Punchcard', help: 'Bigger, bolder dot = higher score.' },
+  { key: 'numbers', label: 'Numbers', help: 'Exact 1–5 in every cell.' },
   { key: 'map', label: 'Map', help: 'Quick-change fitness (→) vs large-scale fitness (↑), every tool a point.' },
 ]
 
@@ -52,9 +52,44 @@ function popStyle(r: Active['rect']): CSSProperties {
 }
 
 // Map plot geometry (SVG user units). Axes run 1–5.
-const PLOT = { w: 520, h: 400, l: 54, r: 18, t: 18, b: 48 }
+const PLOT = { w: 600, h: 420, l: 56, r: 20, t: 18, b: 50 }
 const mapX = (q: number) => PLOT.l + ((q - 1) / 4) * (PLOT.w - PLOT.l - PLOT.r)
 const mapY = (l: number) => PLOT.h - PLOT.b - ((l - 1) / 4) * (PLOT.h - PLOT.t - PLOT.b)
+
+// Greedy label de-collision: place each label to the right of its dot, then nudge
+// it down until it clears every label already placed. A leader line ties a moved
+// label back to its dot. Sorted top-to-bottom so the upper label of a colliding
+// pair keeps its spot and the lower one slides — reads as a tidy stack.
+interface Laid {
+  spec: (typeof tools)[number]
+  x: number
+  y: number
+  lx: number
+  ly: number
+  moved: boolean
+}
+function layoutLabels(): Laid[] {
+  const CHAR = 6 // ~px per char at the 10px mono label size
+  const LH = 14 // line height for a downward nudge
+  const placed: { x1: number; y1: number; x2: number; y2: number }[] = []
+  const hit = (a: (typeof placed)[number], b: (typeof placed)[number]) =>
+    a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2
+  return [...tools]
+    .map((spec) => ({ spec, x: mapX(quickAxis(spec.scores)), y: mapY(largeAxis(spec.scores)) }))
+    .sort((a, b) => a.y - b.y || a.x - b.x)
+    .map(({ spec, x, y }) => {
+      const w = spec.displayName.length * CHAR
+      const box = (yy: number) => ({ x1: x + 11, y1: yy - 7, x2: x + 11 + w, y2: yy + 6 })
+      let ly = y
+      let b = box(ly)
+      for (let i = 0; i < 14 && placed.some((p) => hit(p, b)); i++) {
+        ly += LH
+        b = box(ly)
+      }
+      placed.push(b)
+      return { spec, x, y, lx: x + 11, ly, moved: Math.abs(ly - y) > 1 }
+    })
+}
 
 /**
  * Color-graded score grid (1–5 → single-hue intensity), with a swappable graphical
@@ -62,7 +97,7 @@ const mapY = (l: number) => PLOT.h - PLOT.b - ((l - 1) / 4) * (PLOT.h - PLOT.t -
  * touch (it pins, and a bottom-sheet variant takes over via CSS at narrow widths).
  */
 export function ScoringHeatmap() {
-  const [mode, setMode] = useState<Mode>('numbers')
+  const [mode, setMode] = useState<Mode>('punchcard')
   const [active, setActive] = useState<Active | null>(null)
 
   const show = (tool: string, dim: keyof Scores, el: Element, pinned: boolean) => {
@@ -276,12 +311,8 @@ function ScatterMap({
         <text className="map-axis" transform={`rotate(-90 14 ${(mapY(1) + mapY(5)) / 2})`} x={14} y={(mapY(1) + mapY(5)) / 2} textAnchor="middle">
           Large-scale fitness →
         </text>
-        {/* points */}
-        {tools.map((t) => {
-          const q = quickAxis(t.scores)
-          const l = largeAxis(t.scores)
-          const x = mapX(q)
-          const y = mapY(l)
+        {/* points — labels are de-collided, with a leader line when one was nudged */}
+        {layoutLabels().map(({ spec: t, x, y, lx, ly, moved }) => {
           const on = active?.tool === t.tool
           return (
             <g
@@ -289,9 +320,10 @@ function ScatterMap({
               className={`map-pt ${on ? 'map-pt--on' : ''}`}
               tabIndex={0}
               role="button"
-              aria-label={`${t.displayName}: quick-change ${q.toFixed(1)}, large-scale ${l.toFixed(1)}, overall ${fmt(t.scores.overall)}`}
+              aria-label={`${t.displayName}: quick-change ${quickAxis(t.scores).toFixed(1)}, large-scale ${largeAxis(t.scores).toFixed(1)}, overall ${fmt(t.scores.overall)}`}
               {...handlers(t.tool, 'overall')}
             >
+              {moved && <line className="map-leader" x1={x} y1={y} x2={lx} y2={ly - 3} />}
               <circle cx={x} cy={y} r={16} fill="transparent" />
               <circle
                 className="map-dot"
@@ -302,7 +334,7 @@ function ScatterMap({
                 stroke={t.tier === 'core' ? 'var(--accent)' : 'var(--steel)'}
                 strokeWidth={on ? 2.5 : 1.5}
               />
-              <text className="map-label" x={x + 11} y={y + 3}>{t.displayName}</text>
+              <text className="map-label" x={lx} y={ly + 3}>{t.displayName}</text>
             </g>
           )
         })}

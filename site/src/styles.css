@@ -577,6 +577,12 @@ body {
 .map-dot {
   transition: r var(--dur-fast) var(--ease), stroke-width var(--dur-fast) var(--ease);
 }
+/* Ties a nudged label back to its dot. */
+.map-leader {
+  stroke: var(--fg-disabled);
+  stroke-width: 1;
+  opacity: 0.6;
+}
 .map-pt:focus-visible .map-dot {
   stroke: var(--accent);
   stroke-width: 3;
