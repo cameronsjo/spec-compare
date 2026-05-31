@@ -209,6 +209,10 @@ body {
   .compare-grid {
     margin-inline: calc(-1 * var(--s-lg));
     scroll-snap-type: x mandatory;
+    /* One card per screen — drop the default stretch so each card is only as tall
+       as its own diagram. (Desktop keeps stretch so the side-by-side columns align;
+       in a carousel that just pads short diagrams with dead space.) */
+    align-items: flex-start;
   }
   .compare-col {
     flex-basis: 100%;
