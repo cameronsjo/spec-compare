@@ -503,21 +503,90 @@ body {
 .cell-overall {
   border-left: 2px solid var(--border);
 }
-.heat-detail {
+.heat-num {
+  display: inline-block;
+}
+/* Punchcard: the cell is a quiet frame; the dot carries magnitude by size + boldness. */
+.heat-dot {
+  display: inline-block;
+  border-radius: 50%;
+  transition: width var(--dur-fast) var(--ease), height var(--dur-fast) var(--ease);
+}
+
+/* Row header stacks the tool name over its pinned version — the scores are only
+   meaningful relative to the release they were assessed against. */
+.row-tool-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.row-version {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+}
+
+/* ---- heatmap detail popover (hover/focus on desktop, tap on touch) ---- */
+.heat-pop {
+  position: fixed;
+  left: var(--pop-x);
+  top: var(--pop-y);
+  z-index: 50;
+  width: min(300px, calc(100vw - 2 * var(--s-md)));
   display: flex;
   flex-direction: column;
   gap: var(--s-xs);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.28);
+  pointer-events: none; /* informational; never steals the next hover */
 }
-.heat-detail-head {
+.heat-pop[data-place='top'] {
+  transform: translate(-50%, -100%);
+}
+.heat-pop[data-place='bottom'] {
+  transform: translateX(-50%);
+}
+.heat-pop-head {
   display: flex;
   align-items: center;
-  gap: var(--s-sm);
+  gap: var(--s-xs);
 }
-.heat-detail-body {
+.heat-pop-body {
   margin: 0;
   font-family: var(--font-sans);
   color: var(--fg-secondary);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+}
+.heat-pop-foot {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-disabled);
+}
+.heat-pop-scrim {
+  display: none;
+}
+/* Narrow screens have no hover and little room to anchor a tooltip — promote the
+   popover to a thumb-reachable bottom sheet, with a scrim to catch dismissing taps. */
+@media (max-width: 640px) {
+  .heat-pop {
+    left: 0 !important;
+    right: 0;
+    top: auto !important;
+    bottom: 0;
+    width: 100%;
+    transform: none !important;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    padding: var(--s-md);
+    pointer-events: auto;
+  }
+  .heat-pop-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 49;
+    background: rgb(0 0 0 / 0.32);
+  }
 }
 
 /* ---- tool profile ---- */
