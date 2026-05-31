@@ -169,7 +169,11 @@ export function App() {
           <section className="footer-col">
             <span className="footer-label">Disclosure</span>
             <p>
-              Built with the <b className="anchor">Artificer design system</b>, React + Vite. Written by — and with — a
+              Built with the{' '}
+              <a className="repo-link" href="https://cameronsjo.github.io/artificer/" target="_blank" rel="noreferrer">
+                <b className="anchor">Artificer design system</b>
+              </a>
+              , React + Vite. Written by — and with — a
               spec-driven-development practitioner who uses OpenSpec (which scores well here); the scoring still aims to
               treat every tool on equal terms. Spot a bias or an error?{' '}
               <a className="repo-link" href="https://github.com/cameronsjo/spec-compare/issues" target="_blank" rel="noreferrer">

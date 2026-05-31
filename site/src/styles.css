@@ -239,6 +239,11 @@ body {
 .repo-link:hover {
   text-decoration: underline;
 }
+/* An .anchor keyword nested in a link inherits the link's gold instead of
+   the design system's default --fg white (artificer.css: .anchor { color: --fg }). */
+.repo-link .anchor {
+  color: inherit;
+}
 .player-body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
