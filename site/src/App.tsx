@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { tools, coreTools, toolBySlug } from './data'
-import { KIND_COLOR, KIND_LABEL, ASSESSED_AS_OF, ATTRIBUTION, type PhaseKind } from './types'
+import { KIND_COLOR, KIND_LABEL, ASSESSED_AS_OF, type PhaseKind } from './types'
 import { WorkflowCompare } from './WorkflowCompare'
 import { WorkflowPlayer } from './WorkflowPlayer'
 import { FeatureMatrix } from './FeatureMatrix'
@@ -152,13 +152,37 @@ export function App() {
         <ToolNav nav={nav} onSelect={selectNav} />
       </aside>
 
+      {/* Honest footer: provenance | disclosure side by side, full-width fine print
+          below. Bias + affiliation lines are sign-off copy (statements about a
+          person). Pattern: agentic-harnesses/docs/disclaimer-footer-pattern.md. */}
       <footer className="app-footer">
-        <p>
-          Profiles, feature matrices and use-case scores{' '}
-          <b className="anchor">extracted from the spec-compare research docs</b> — no fabricated attributes. Built with
-          the <b className="anchor">Artificer design system</b>.
+        <div className="footer-grid">
+          <section className="footer-col">
+            <span className="footer-label">Sourced</span>
+            <p>
+              <b className="anchor">Independent &amp; unofficial.</b> Profiles, feature matrices and use-case scores are
+              extracted from the spec-compare research docs — no fabricated attributes — pinned to each tool's version
+              and assessed {ASSESSED_AS_OF}. They can be incomplete, simplified, or out of date, and may not match
+              current behaviour.
+            </p>
+          </section>
+          <section className="footer-col">
+            <span className="footer-label">Disclosure</span>
+            <p>
+              Built with the <b className="anchor">Artificer design system</b>, React + Vite. Written by — and with — a
+              spec-driven-development practitioner who uses OpenSpec (which scores well here); the scoring still aims to
+              treat every tool on equal terms. Spot a bias or an error?{' '}
+              <a className="repo-link" href="https://github.com/cameronsjo/spec-compare/issues" target="_blank" rel="noreferrer">
+                Open an issue
+              </a>
+              .
+            </p>
+          </section>
+        </div>
+        <p className="footer-fine">
+          No affiliation with, sponsorship by, or endorsement from any tool shown. Project names and marks belong to
+          their respective owners.
         </p>
-        <p className="app-footer-caveat">{ATTRIBUTION} Assessed {ASSESSED_AS_OF}.</p>
       </footer>
     </div>
   )
