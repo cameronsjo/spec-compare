@@ -48,7 +48,6 @@ export const TREE: Record<string, Step> = {
 }
 
 interface Choice {
-  from: string
   label: string
   to: string
 }
@@ -72,8 +71,8 @@ export function DecisionGuide({ onSelectTool }: { onSelectTool: (slug: string) =
   const current = TREE[id]
 
   // Choosing on the node at `depth` truncates everything after it, then re-routes.
-  const pick = (fromId: string, depth: number, label: string, to: string) =>
-    setChoices((cs) => [...cs.slice(0, depth), { from: fromId, label, to }])
+  const pick = (depth: number, label: string, to: string) =>
+    setChoices((cs) => [...cs.slice(0, depth), { label, to }])
   const restart = () => setChoices([])
 
   return (
@@ -100,7 +99,7 @@ export function DecisionGuide({ onSelectTool }: { onSelectTool: (slug: string) =
                       type="button"
                       className={`flow-opt ${isChosen ? 'flow-opt--chosen' : 'flow-opt--dim'}`}
                       aria-pressed={isChosen}
-                      onClick={() => pick(vid, i, a.label, a.to)}
+                      onClick={() => pick(i, a.label, a.to)}
                     >
                       <span className="flow-opt-label">{a.label}</span>
                       {a.hint && <span className="flow-opt-hint">{a.hint}</span>}
@@ -122,7 +121,7 @@ export function DecisionGuide({ onSelectTool }: { onSelectTool: (slug: string) =
                   key={a.label}
                   type="button"
                   className="flow-opt flow-opt--live"
-                  onClick={() => pick(id, visited.length, a.label, a.to)}
+                  onClick={() => pick(visited.length, a.label, a.to)}
                 >
                   <span className="flow-opt-label">{a.label}</span>
                   {a.hint && <span className="flow-opt-hint">{a.hint}</span>}

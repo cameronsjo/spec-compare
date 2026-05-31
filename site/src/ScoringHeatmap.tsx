@@ -61,8 +61,11 @@ export const domain = (vals: number[]): [number, number] => [
 const XD = domain(tools.map((t) => quickAxis(t.scores)))
 const YD = domain(tools.map((t) => largeAxis(t.scores)))
 const ticksIn = ([lo, hi]: [number, number]) => Array.from({ length: hi - lo + 1 }, (_, i) => lo + i)
-const mapX = (q: number) => PLOT.l + ((q - XD[0]) / (XD[1] - XD[0])) * (PLOT.w - PLOT.l - PLOT.r)
-const mapY = (l: number) => PLOT.h - PLOT.b - ((l - YD[0]) / (YD[1] - YD[0])) * (PLOT.h - PLOT.t - PLOT.b)
+// Normalized 0–1 position within a domain; centers (0.5) if the domain has zero span
+// (every tool identical on this axis) so a degenerate domain can't yield NaN coords.
+const frac = (v: number, [lo, hi]: [number, number]) => (hi > lo ? (v - lo) / (hi - lo) : 0.5)
+const mapX = (q: number) => PLOT.l + frac(q, XD) * (PLOT.w - PLOT.l - PLOT.r)
+const mapY = (l: number) => PLOT.h - PLOT.b - frac(l, YD) * (PLOT.h - PLOT.t - PLOT.b)
 
 // Greedy label de-collision: place each label beside its dot (flipping to the left
 // near the right wall so it never overflows), then nudge it down until it clears
@@ -139,7 +142,9 @@ export function ScoringHeatmap() {
       window.removeEventListener('scroll', close, true)
       window.removeEventListener('resize', close)
     }
-  }, [active])
+    // Key on presence, not identity: moving between cells keeps `active` non-null, so
+    // the listeners bind once on open and unbind on close — not on every hover.
+  }, [active != null])
 
   const activeTool = active ? tools.find((t) => t.tool === active.tool) : undefined
   const activeDim = active ? SCORE_DIMS.find((d) => d.key === active.dim) : undefined
@@ -245,7 +250,7 @@ export function ScoringHeatmap() {
           <div className="heat-pop-scrim" onClick={() => setActive(null)} />
           <div
             className="heat-pop card"
-            role="dialog"
+            role="tooltip"
             aria-label={`${activeTool.displayName} — ${mode === 'map' ? 'map position' : activeDim.label}`}
             data-place={place(active.rect)}
             style={popStyle(active.rect)}
@@ -302,7 +307,9 @@ function ScatterMap({
   const midY = 3 >= YD[0] && 3 <= YD[1]
   return (
     <div className="heat-map">
-      <svg viewBox={`0 0 ${PLOT.w} ${PLOT.h}`} role="img" aria-label="Tools mapped by quick-change vs large-scale fitness" className="heat-map-svg">
+      {/* role="group" (not "img") keeps the focusable <g role="button"> points in the
+          a11y tree — role="img" would make every descendant presentational. */}
+      <svg viewBox={`0 0 ${PLOT.w} ${PLOT.h}`} role="group" aria-label="Tools mapped by quick-change vs large-scale fitness" className="heat-map-svg">
         {/* gridlines + tick labels (only the data-bracketing range) */}
         {ticksIn(XD).map((n) => (
           <g key={`gx${n}`}>
