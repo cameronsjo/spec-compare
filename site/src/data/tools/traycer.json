@@ -1,0 +1,62 @@
+{
+  "tool": "traycer",
+  "displayName": "Traycer",
+  "vendor": "Traycer AI",
+  "website": "https://traycer.ai/",
+  "version": "VS Code extension (rolling)",
+  "license": "Proprietary",
+  "maturity": "Active Dev",
+  "tier": "core",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "Spec-driven planning layer: Plan → Execute → Verify.",
+  "bestFor": "Plan-first orchestration over your agents",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "IDE",
+    "mcp": false,
+    "ideIntegration": true,
+    "openSource": false,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "no", "claudeMd": "no", "skillMd": "no", "slashCommands": 0 },
+  "phases": [
+    { "id": "epic", "label": "Epic Mode", "kind": "specify", "note": "Interviews you about problem, stack, edge cases → generates PRDs, specs, tech flows, wireframes, sequence diagrams." },
+    { "id": "plan", "label": "Plan", "kind": "design", "note": "Sequences the objective into phases; each phase gets a file-by-file plan (classes, variables, call hierarchies)." },
+    { "id": "dispatch", "label": "Execute", "kind": "implement", "note": "Hands each phase to the agent of your choice — Cursor, Claude Code, Copilot." },
+    { "id": "verify", "label": "Verify", "kind": "review", "note": "Acceptance checks tied to intent + tests + static analysis + diff-level reasoning; fix-forward on regressions." }
+  ],
+  "edges": [
+    { "from": "epic", "to": "plan" },
+    { "from": "plan", "to": "dispatch" },
+    { "from": "dispatch", "to": "verify" },
+    { "from": "verify", "to": "dispatch", "on": "regression" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["plan", "dispatch"], "score": 3, "note": "Skip Epic Mode; a quick plan → dispatch handles it, though it's still a planning layer over the agent." },
+    { "id": "greenfield", "steps": ["epic", "plan", "dispatch", "verify"], "score": 5, "note": "Epic Mode (PRDs, specs, wireframes → agent-sized tickets) is **built for 0→1**." },
+    { "id": "refactor", "steps": ["plan", "dispatch", "verify"], "score": 4, "note": "File-by-file plans across files plus verification suit cross-file refactors." },
+    { "id": "bug-fix", "steps": ["plan", "dispatch", "verify"], "score": 3, "note": "Lightweight plan → dispatch → verify; faster than heavyweight IDE spec flows." },
+    { "id": "parallel-dev", "steps": ["plan", "dispatch"], "score": 2, "note": "Sequential phases dispatched to one agent — **no parallel isolation**." },
+    { "id": "cross-cutting", "steps": ["epic", "plan", "dispatch", "verify"], "score": 4, "note": "File-by-file planning enumerates every site; verify catches per-form regressions." }
+  ],
+  "scores": { "trivial": 3, "medium": 4, "large": 5, "parallel": 2, "emergency": 3, "solo": 4, "contextMgmt": 4, "overall": 3.5 },
+  "keyFeatures": [
+    "Sits on top of Cursor / Claude Code / Copilot — bring your own agent",
+    "Plan → Execute → Verify loop with acceptance checks tied to intent",
+    "Epic Mode: interview → PRDs, specs, tech flows, wireframes → agent-sized tickets",
+    "File-by-file plans (classes, variables, call hierarchies) per phase",
+    "Persistent plan as a ticket system (vs a one-shot document)",
+    "100K+ users; credit-based tiers (Free / Lite / Pro / Ultra)"
+  ],
+  "limitations": [
+    "Proprietary, closed-source VS Code extension (no public repo)",
+    "Credit-based pricing; heavy parallel use burns credits fast",
+    "No parallel multi-agent isolation — phases run sequentially",
+    "VS Code-centric; output quality depends on the underlying agent",
+    "Mini-specs are work artifacts, not a maintained living spec"
+  ]
+}

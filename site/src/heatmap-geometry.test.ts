@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { domain, dotPx, layoutLabels, largeAxis, quickAxis, PLOT, type Laid } from './ScoringHeatmap'
+import { tools } from './data'
 import type { Scores } from './types'
 
 const scores = (p: Partial<Scores>): Scores => ({
@@ -64,7 +65,7 @@ describe('layoutLabels de-collision invariant', () => {
     a.x1 < b.x2 && b.x1 < a.x2 && a.y1 < b.y2 && b.y1 < a.y2
 
   it('lays out one entry per tool', () => {
-    expect(laid).toHaveLength(11)
+    expect(laid).toHaveLength(tools.length)
   })
 
   it('produces no overlapping label boxes', () => {
