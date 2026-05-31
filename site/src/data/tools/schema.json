@@ -15,6 +15,7 @@
     "bestFor",
     "complexity",
     "learningCurve",
+    "version",
     "features",
     "scores",
     "keyFeatures",
@@ -31,7 +32,10 @@
     "vendor": { "type": "string" },
     "repo": { "type": "string" },
     "website": { "type": "string" },
-    "version": { "type": "string" },
+    "version": {
+      "type": "string",
+      "description": "The release the assessment is pinned to. For unversioned tools use an explicit label, e.g. 'Technique — unversioned' or 'SaaS — rolling release'."
+    },
     "license": { "type": "string" },
     "maturity": {
       "type": "string",
