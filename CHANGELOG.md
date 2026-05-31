@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site toolchain bump** (`site/`) — Upgraded vite `5.4` → `6.4.2` and vitest `2.1` → `3.2.4`, pulling in esbuild `0.25.12`. Clears two medium Dependabot advisories (vite optimized-deps path traversal, esbuild dev-server SSRF) at the source; both were dev-server/build-time only and never present in the deployed static artifact. Build + 6 tests green; CI Node 20 unchanged (compatible)
 - **Latest version sweep (February 24, 2026)** — Updated all tool profiles and cross-references with current versions:
   - Spec-Kit v0.1.5, Spec Kitty v0.13.5, BMad v6.0.2 (now stable), OpenSpec v1.2.0, Kiro v0.9.40, Tessl registry updates
   - GSD v1.20.6, Kilo Code v4.148.1 + CLI launch, Conductor v0.36.3
