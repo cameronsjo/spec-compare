@@ -27,13 +27,6 @@ body {
   gap: var(--s-xs);
   margin-top: var(--s-xs);
 }
-.masthead-caveat {
-  margin: var(--s-xs) 0 0;
-  max-width: 70ch;
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  color: var(--fg-secondary);
-}
 
 /* ---- app shell: [ sidenav | content ] ---- */
 .app-shell {
@@ -540,6 +533,66 @@ body {
   font-size: 0.66rem;
   color: var(--fg-secondary);
   white-space: nowrap;
+}
+
+/* ---- map (x/y scatter of computed fitness axes) ---- */
+.heat-map {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-raised);
+  padding: var(--s-sm);
+}
+.heat-map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+}
+.map-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.map-mid {
+  stroke: var(--steel);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.7;
+}
+.map-tick {
+  fill: var(--fg-disabled);
+  font-size: 11px;
+}
+.map-axis {
+  fill: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+}
+.map-pt {
+  cursor: pointer;
+  outline: none;
+}
+.map-dot {
+  transition: r var(--dur-fast) var(--ease), stroke-width var(--dur-fast) var(--ease);
+}
+.map-pt:focus-visible .map-dot {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+.map-label {
+  fill: var(--fg-secondary);
+  font-size: 10px;
+  paint-order: stroke; /* halo so labels stay legible over gridlines */
+  stroke: var(--bg-raised);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.map-pt--on .map-label {
+  fill: var(--fg);
+  font-weight: 700;
 }
 
 /* ---- heatmap detail popover (hover/focus on desktop, tap on touch) ---- */

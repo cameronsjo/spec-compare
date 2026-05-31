@@ -101,10 +101,6 @@ export function App() {
           <span className="badge badge--ghost">7-dimension scoring</span>
           <span className="badge badge--ghost">assessed {ASSESSED_AS_OF}</span>
         </div>
-        <p className="masthead-caveat">
-          A <b className="anchor">considered opinion</b>, not a benchmark — scores and recommendations are Cameron's and
-          Claude's reading of the research, pinned to each tool's version and not affiliated with any tool.
-        </p>
       </section>
 
       <div className="app-shell">

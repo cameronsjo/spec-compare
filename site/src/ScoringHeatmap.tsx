@@ -1,24 +1,34 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import {
+  useEffect,
+  useState,
+  type CSSProperties,
+  type DOMAttributes,
+  type PointerEvent as RPointerEvent,
+  type FocusEvent as RFocusEvent,
+  type MouseEvent as RMouseEvent,
+} from 'react'
 import { tools } from './data'
 import { SCORE_DIMS, ASSESSED_AS_OF, type Scores } from './types'
 import { scoreFill, scoreBorder, SCORE_WORD } from './score'
 
-// Three graphical treatments of the same 1–5 grid, swappable live (the A/B):
-//  numbers   — exact value in every cell (the baseline)
-//  wash      — pure intensity swatch, value moves into the popover (classic heatmap)
-//  punchcard — a dot whose size + boldness encodes the score (the diagram)
-type Mode = 'numbers' | 'wash' | 'punchcard'
+// Treatments of the same data, swappable live (the A/B):
+//  numbers   — exact value in every grid cell (the default)
+//  punchcard — a dot sized + boldened by score (the diagram)
+//  map       — collapse the 8 dims into two computed axes and scatter every tool:
+//              quick-change fitness (X) vs large-scale fitness (Y). The trade-off
+//              the whole comparison is about, on one plane.
+type Mode = 'numbers' | 'punchcard' | 'map'
 
 const MODES: { key: Mode; label: string; help: string }[] = [
   { key: 'numbers', label: 'Numbers', help: 'Exact 1–5 in every cell.' },
-  { key: 'wash', label: 'Color wash', help: 'Bolder accent = higher score.' },
   { key: 'punchcard', label: 'Punchcard', help: 'Bigger, bolder dot = higher score.' },
+  { key: 'map', label: 'Map', help: 'Quick-change fitness (→) vs large-scale fitness (↑), every tool a point.' },
 ]
 
 interface Active {
   tool: string
   dim: keyof Scores
-  // Captured cell geometry, so the popover can anchor to it (desktop) without a ref.
+  // Captured geometry of the cell/point, so the popover can anchor to it without a ref.
   rect: { top: number; left: number; width: number; height: number }
   pinned: boolean // true = opened by click/tap (sticky); false = transient hover/focus
 }
@@ -27,14 +37,24 @@ const fmt = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(1))
 const bucket = (v: number) => Math.max(1, Math.min(5, Math.round(v)))
 /** Punchcard dot diameter: score 1 → 9px … score 5 → 28px. */
 const dotPx = (v: number) => 9 + ((bucket(v) - 1) / 4) * 19
-/** Place the popover below the cell when there isn't room above it. */
+/** Place the popover below the anchor when there isn't room above it. */
 const place = (r: Active['rect']) => (r.top < 168 ? 'bottom' : 'top')
+
+// The two computed axes for the Map. Each is a mean of three of the eight scored
+// dimensions — no new data, just a projection of what's already there.
+const quickAxis = (s: Scores) => (s.trivial + s.emergency + s.solo) / 3
+const largeAxis = (s: Scores) => (s.large + s.parallel + s.medium) / 3
 
 function popStyle(r: Active['rect']): CSSProperties {
   const cx = Math.max(150, Math.min(window.innerWidth - 150, r.left + r.width / 2))
   const y = place(r) === 'bottom' ? r.top + r.height + 8 : r.top - 8
   return { '--pop-x': `${cx}px`, '--pop-y': `${y}px` } as CSSProperties
 }
+
+// Map plot geometry (SVG user units). Axes run 1–5.
+const PLOT = { w: 520, h: 400, l: 54, r: 18, t: 18, b: 48 }
+const mapX = (q: number) => PLOT.l + ((q - 1) / 4) * (PLOT.w - PLOT.l - PLOT.r)
+const mapY = (l: number) => PLOT.h - PLOT.b - ((l - 1) / 4) * (PLOT.h - PLOT.t - PLOT.b)
 
 /**
  * Color-graded score grid (1–5 → single-hue intensity), with a swappable graphical
@@ -45,7 +65,7 @@ export function ScoringHeatmap() {
   const [mode, setMode] = useState<Mode>('numbers')
   const [active, setActive] = useState<Active | null>(null)
 
-  const show = (tool: string, dim: keyof Scores, el: HTMLElement, pinned: boolean) => {
+  const show = (tool: string, dim: keyof Scores, el: Element, pinned: boolean) => {
     const r = el.getBoundingClientRect()
     setActive({ tool, dim, rect: { top: r.top, left: r.left, width: r.width, height: r.height }, pinned })
   }
@@ -71,6 +91,19 @@ export function ScoringHeatmap() {
   const activeDim = active ? SCORE_DIMS.find((d) => d.key === active.dim) : undefined
   const activeScore = activeTool && active ? activeTool.scores[active.dim] : undefined
 
+  // Shared point/cell handlers — pointer (mouse only for hover), focus, and click-to-pin.
+  // Typed as DOMAttributes<Element> so the bag spreads onto both <button> and <g>.
+  const cellHandlers = (tool: string, dim: keyof Scores): DOMAttributes<Element> => ({
+    onPointerEnter: (e: RPointerEvent) => e.pointerType === 'mouse' && show(tool, dim, e.currentTarget, false),
+    onPointerLeave: (e: RPointerEvent) => e.pointerType === 'mouse' && clearHover(),
+    onFocus: (e: RFocusEvent) => show(tool, dim, e.currentTarget, false),
+    onBlur: clearHover,
+    onClick: (e: RMouseEvent) =>
+      active?.tool === tool && active?.dim === dim && active?.pinned
+        ? setActive(null)
+        : show(tool, dim, e.currentTarget, true),
+  })
+
   return (
     <section className="heatmap-view stack stack--md">
       <div className="cluster matrix-controls">
@@ -86,74 +119,71 @@ export function ScoringHeatmap() {
           </button>
         ))}
         <span className="matrix-legend">
-          {MODES.find((m) => m.key === mode)!.help} Hover or tap a cell for detail.
+          {MODES.find((m) => m.key === mode)!.help} Hover or tap for detail.
         </span>
       </div>
 
-      <div className="table-scroll">
-        <table className={`heatmap-table heatmap-table--${mode}`}>
-          <thead>
-            <tr>
-              <th scope="col" className="th-tool">Tool</th>
-              {SCORE_DIMS.map((d) => (
-                <th key={d.key} scope="col" title={d.help}>
-                  {d.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {tools.map((t) => (
-              <tr key={t.tool}>
-                <th scope="row" className="th-tool">
-                  <span className="th-tool-inner">
-                    <span className={`tier-dot tier-dot--${t.tier}`} title={t.tier} />
-                    <span className="row-tool-wrap">
-                      <span className="row-tool">{t.displayName}</span>
-                      <span className="row-version" title={`Assessment pinned to ${t.version}`}>{t.version}</span>
-                    </span>
-                  </span>
-                </th>
-                {SCORE_DIMS.map((d) => {
-                  const v = t.scores[d.key]
-                  const isOverall = d.key === 'overall'
-                  // Overall is the at-a-glance summary — always a numeral, in every mode.
-                  const asNumber = mode === 'numbers' || isOverall
-                  const on = active?.tool === t.tool && active?.dim === d.key
-                  const fill = asNumber || mode === 'wash' ? scoreFill(v) : 'transparent'
-                  return (
-                    <td key={d.key} className={isOverall ? 'cell-overall' : undefined}>
-                      <button
-                        type="button"
-                        className={`heat-cell ${on ? 'heat-cell--active' : ''}`}
-                        style={{ background: fill, borderColor: on ? scoreBorder(v) : 'transparent' }}
-                        aria-label={`${t.displayName} — ${d.label}: ${fmt(v)} of 5`}
-                        aria-pressed={on && active?.pinned ? true : undefined}
-                        onPointerEnter={(e) => e.pointerType === 'mouse' && show(t.tool, d.key, e.currentTarget, false)}
-                        onPointerLeave={(e) => e.pointerType === 'mouse' && clearHover()}
-                        onFocus={(e) => show(t.tool, d.key, e.currentTarget, false)}
-                        onBlur={clearHover}
-                        onClick={(e) =>
-                          on && active?.pinned ? setActive(null) : show(t.tool, d.key, e.currentTarget, true)
-                        }
-                      >
-                        {asNumber ? (
-                          <span className="heat-num">{fmt(v)}</span>
-                        ) : mode === 'punchcard' ? (
-                          <span
-                            className="heat-dot"
-                            style={{ width: `${dotPx(v)}px`, height: `${dotPx(v)}px`, background: scoreBorder(v) }}
-                          />
-                        ) : null}
-                      </button>
-                    </td>
-                  )
-                })}
+      {mode === 'map' ? (
+        <ScatterMap active={active} handlers={cellHandlers} />
+      ) : (
+        <div className="table-scroll">
+          <table className={`heatmap-table heatmap-table--${mode}`}>
+            <thead>
+              <tr>
+                <th scope="col" className="th-tool">Tool</th>
+                {SCORE_DIMS.map((d) => (
+                  <th key={d.key} scope="col" title={d.help}>
+                    {d.label}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {tools.map((t) => (
+                <tr key={t.tool}>
+                  <th scope="row" className="th-tool">
+                    <span className="th-tool-inner">
+                      <span className={`tier-dot tier-dot--${t.tier}`} title={t.tier} />
+                      <span className="row-tool-wrap">
+                        <span className="row-tool">{t.displayName}</span>
+                        <span className="row-version" title={`Assessment pinned to ${t.version}`}>{t.version}</span>
+                      </span>
+                    </span>
+                  </th>
+                  {SCORE_DIMS.map((d) => {
+                    const v = t.scores[d.key]
+                    const isOverall = d.key === 'overall'
+                    // Overall is the at-a-glance summary — always a numeral, in every mode.
+                    const asNumber = mode === 'numbers' || isOverall
+                    const on = active?.tool === t.tool && active?.dim === d.key
+                    return (
+                      <td key={d.key} className={isOverall ? 'cell-overall' : undefined}>
+                        <button
+                          type="button"
+                          className={`heat-cell ${on ? 'heat-cell--active' : ''}`}
+                          style={{ background: asNumber ? scoreFill(v) : 'transparent', borderColor: on ? scoreBorder(v) : 'transparent' }}
+                          aria-label={`${t.displayName} — ${d.label}: ${fmt(v)} of 5`}
+                          aria-pressed={on && active?.pinned ? true : undefined}
+                          {...cellHandlers(t.tool, d.key)}
+                        >
+                          {asNumber ? (
+                            <span className="heat-num">{fmt(v)}</span>
+                          ) : (
+                            <span
+                              className="heat-dot"
+                              style={{ width: `${dotPx(v)}px`, height: `${dotPx(v)}px`, background: scoreBorder(v) }}
+                            />
+                          )}
+                        </button>
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {active && activeTool && activeDim && activeScore != null && (
         <>
@@ -162,7 +192,7 @@ export function ScoringHeatmap() {
           <div
             className="heat-pop card"
             role="dialog"
-            aria-label={`${activeTool.displayName} — ${activeDim.label}`}
+            aria-label={`${activeTool.displayName} — ${mode === 'map' ? 'map position' : activeDim.label}`}
             data-place={place(active.rect)}
             style={popStyle(active.rect)}
           >
@@ -174,11 +204,18 @@ export function ScoringHeatmap() {
                 {fmt(activeScore)}
               </span>
               <b>{activeTool.displayName}</b>
-              <span className="fg-secondary">· {activeDim.label}</span>
+              <span className="fg-secondary">· {mode === 'map' ? 'Overall' : activeDim.label}</span>
             </div>
-            <p className="heat-pop-body">
-              <b className="anchor">{SCORE_WORD[Math.round(activeScore)]}</b> — {activeDim.help}.
-            </p>
+            {mode === 'map' ? (
+              <p className="heat-pop-body">
+                Quick-change <b className="anchor">{quickAxis(activeTool.scores).toFixed(1)}</b> · large-scale{' '}
+                <b className="anchor">{largeAxis(activeTool.scores).toFixed(1)}</b> — {activeTool.bestFor.toLowerCase()}.
+              </p>
+            ) : (
+              <p className="heat-pop-body">
+                <b className="anchor">{SCORE_WORD[Math.round(activeScore)]}</b> — {activeDim.help}.
+              </p>
+            )}
             <p className="heat-pop-foot">
               Pinned to <b>{activeTool.version}</b> · assessed {ASSESSED_AS_OF}
             </p>
@@ -187,10 +224,89 @@ export function ScoringHeatmap() {
       )}
 
       <p className="view-foot">
-        <b className="anchor">5</b> = purpose-built · <b className="anchor">3</b> = noticeable overhead ·{' '}
-        <b className="anchor">1</b> = avoid. Scores assessed <b>{ASSESSED_AS_OF}</b> — a considered opinion, not a
-        benchmark. <b>Context</b> = memory, context-window and multi-session handling.
+        {mode === 'map' ? (
+          <>
+            Axes are computed from the scores — <b>quick-change</b> = trivial + emergency + solo; <b>large-scale</b> =
+            large + parallel + medium. Top-right = strong on both.
+          </>
+        ) : (
+          <>
+            <b className="anchor">5</b> = purpose-built · <b className="anchor">3</b> = noticeable overhead ·{' '}
+            <b className="anchor">1</b> = avoid. <b>Context</b> = memory, context-window and multi-session handling.
+          </>
+        )}{' '}
+        Scores assessed <b>{ASSESSED_AS_OF}</b> — a considered opinion, not a benchmark.
       </p>
     </section>
+  )
+}
+
+/** The Map treatment: an x/y scatter of every tool on the two computed fitness axes. */
+function ScatterMap({
+  active,
+  handlers,
+}: {
+  active: Active | null
+  handlers: (tool: string, dim: keyof Scores) => DOMAttributes<Element>
+}) {
+  const ticks = [1, 2, 3, 4, 5]
+  return (
+    <div className="heat-map">
+      <svg viewBox={`0 0 ${PLOT.w} ${PLOT.h}`} role="img" aria-label="Tools mapped by quick-change vs large-scale fitness" className="heat-map-svg">
+        {/* gridlines + tick labels */}
+        {ticks.map((n) => (
+          <g key={`gx${n}`}>
+            <line className="map-grid" x1={mapX(n)} y1={mapY(1)} x2={mapX(n)} y2={mapY(5)} />
+            <text className="map-tick" x={mapX(n)} y={mapY(1) + 16} textAnchor="middle">{n}</text>
+          </g>
+        ))}
+        {ticks.map((n) => (
+          <g key={`gy${n}`}>
+            <line className="map-grid" x1={mapX(1)} y1={mapY(n)} x2={mapX(5)} y2={mapY(n)} />
+            <text className="map-tick" x={mapX(1) - 10} y={mapY(n) + 3} textAnchor="end">{n}</text>
+          </g>
+        ))}
+        {/* midline split at 3 (quadrant divider) */}
+        <line className="map-mid" x1={mapX(3)} y1={mapY(1)} x2={mapX(3)} y2={mapY(5)} />
+        <line className="map-mid" x1={mapX(1)} y1={mapY(3)} x2={mapX(5)} y2={mapY(3)} />
+        {/* axis titles */}
+        <text className="map-axis" x={(mapX(1) + mapX(5)) / 2} y={PLOT.h - 8} textAnchor="middle">
+          Quick-change fitness →
+        </text>
+        <text className="map-axis" transform={`rotate(-90 14 ${(mapY(1) + mapY(5)) / 2})`} x={14} y={(mapY(1) + mapY(5)) / 2} textAnchor="middle">
+          Large-scale fitness →
+        </text>
+        {/* points */}
+        {tools.map((t) => {
+          const q = quickAxis(t.scores)
+          const l = largeAxis(t.scores)
+          const x = mapX(q)
+          const y = mapY(l)
+          const on = active?.tool === t.tool
+          return (
+            <g
+              key={t.tool}
+              className={`map-pt ${on ? 'map-pt--on' : ''}`}
+              tabIndex={0}
+              role="button"
+              aria-label={`${t.displayName}: quick-change ${q.toFixed(1)}, large-scale ${l.toFixed(1)}, overall ${fmt(t.scores.overall)}`}
+              {...handlers(t.tool, 'overall')}
+            >
+              <circle cx={x} cy={y} r={16} fill="transparent" />
+              <circle
+                className="map-dot"
+                cx={x}
+                cy={y}
+                r={on ? 9 : 6.5}
+                fill={scoreFill(t.scores.overall)}
+                stroke={t.tier === 'core' ? 'var(--accent)' : 'var(--steel)'}
+                strokeWidth={on ? 2.5 : 1.5}
+              />
+              <text className="map-label" x={x + 11} y={y + 3}>{t.displayName}</text>
+            </g>
+          )
+        })}
+      </svg>
+    </div>
   )
 }
