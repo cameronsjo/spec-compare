@@ -3,9 +3,13 @@
 // (Replaced an earlier 5-color diverging scale that read as noise at grid scale.)
 const PCT: Record<number, number> = { 1: 10, 2: 22, 3: 36, 4: 52, 5: 70 }
 
-function bucket(score: number): number {
+/** Clamp + round a raw score to the 1–5 bucket the scale is keyed on. */
+export function bucket(score: number): number {
   return Math.max(1, Math.min(5, Math.round(score)))
 }
+
+/** Render a score as its exact value: integers bare, decimals to one place. */
+export const formatScore = (v: number): string => (Number.isInteger(v) ? String(v) : v.toFixed(1))
 
 /** Translucent accent fill, graded by score — heatmap cells + score chips. */
 export function scoreFill(score: number): string {

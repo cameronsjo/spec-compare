@@ -11,6 +11,7 @@
   "bestFor": "Parallel agents at scale (commercial)",
   "complexity": "Medium",
   "learningCurve": "Moderate",
+  "version": "SaaS — rolling release",
   "features": {
     "gitWorktrees": false,
     "multiAgent": true,

@@ -88,3 +88,18 @@ and break the next re-vendor). Routed upstream as a single bug report,
 `cameronsjo/artificer-design-system#90`. The stale `v0.6` header comment in
 `artificer.css` (also flagged) was already tracked upstream in #77. **Re-sync
 trigger:** when #90 lands, re-vendor `artificer-icons.js` + `print.css`.
+
+## 2026-05-31 · Honest footer — adopted a cross-consumer pattern Artificer doesn't own
+
+| # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
+|---|------|---------|------------------------|-------------------|-----------|------|
+| 12 | extension | tool | no footer / colophon primitive | Built a bespoke four-tier disclosure footer (provenance · attribution · bias · affiliation fine print) in a two-column grid, per `agentic-harnesses/docs/disclaimer-footer-pattern.md`. Artificer ships no footer primitive, so every consumer that depicts third-party things reinvents it. | yes | 3 |
+
+**Finding:** any consumer that represents software it doesn't own needs an honest
+footer (independence, attribution, bias disclosure, affiliation fine print), but
+Artificer has no footer/colophon primitive — so the structure is hand-rolled and
+the `.surface-tool *` mono-font rule fights the prose. Already tracked upstream as
+`cameronsjo/artificer-design-system#97` (no new issue filed). The two structural
+gotchas worth remembering: cap the measure on `.footer-grid p` (not `.app-footer p`,
+which would pin the full-width fine print to one column), and the footer's own
+`--font-sans` only wins because `styles.css` loads after the vendored `artificer.css`.

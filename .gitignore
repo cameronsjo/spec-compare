@@ -93,3 +93,6 @@ target/
 
 # The site uses npm ci in CI — its lockfile must be tracked despite the global ignore above.
 !site/package-lock.json
+
+# review-loop state (local only)
+.review-loop.local.md

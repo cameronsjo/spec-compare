@@ -12,6 +12,7 @@
   "bestFor": "Autonomous hands-off execution",
   "complexity": "Low",
   "learningCurve": "Gentle",
+  "version": "Technique — unversioned",
   "features": {
     "gitWorktrees": false,
     "multiAgent": false,

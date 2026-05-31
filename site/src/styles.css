@@ -336,6 +336,8 @@ body {
   margin: 0;
   max-width: 80ch;
 }
+/* Honest footer — two-column grid (provenance | disclosure) over a full-width
+   fine-print line. Structural fix for the "wall of text down one edge". */
 .app-footer {
   margin-top: var(--s-2xl);
   padding-top: var(--s-md);
@@ -343,6 +345,47 @@ body {
   color: var(--fg-secondary);
   font-family: var(--font-sans);
   font-size: 0.82rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-md);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-xl);
+  align-items: start;
+}
+.app-footer p {
+  margin: 0;
+  line-height: 1.5;
+}
+/* Cap the measure ONLY inside the columns — the fine-print line is a direct
+   footer child, so it never matches this and runs full width (specificity gotcha:
+   do not cap via `.app-footer p`, which would also pin the fine print). */
+.footer-grid p {
+  max-width: 70ch;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xs);
+}
+.footer-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--accent);
+}
+.footer-fine {
+  opacity: 0.8;
+  font-size: 0.78rem;
+}
+@media (max-width: 800px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-md);
+  }
 }
 
 /* ---- tier markers ---- */
@@ -503,21 +546,156 @@ body {
 .cell-overall {
   border-left: 2px solid var(--border);
 }
-.heat-detail {
+.heat-num {
+  display: inline-block;
+}
+/* Punchcard: the cell is a quiet frame; the dot carries magnitude by size + boldness. */
+.heat-dot {
+  display: inline-block;
+  border-radius: 50%;
+  transition: width var(--dur-fast) var(--ease), height var(--dur-fast) var(--ease);
+}
+
+/* Row header stacks the tool name over its pinned version — the scores are only
+   meaningful relative to the release they were assessed against. */
+.row-tool-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.row-version {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+}
+
+/* ---- map (x/y scatter of computed fitness axes) ---- */
+.heat-map {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-raised);
+  padding: var(--s-sm);
+}
+.heat-map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: var(--font-mono);
+}
+.map-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.map-mid {
+  stroke: var(--steel);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.7;
+}
+.map-tick {
+  fill: var(--fg-disabled);
+  font-size: 11px;
+}
+.map-axis {
+  fill: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+}
+.map-pt {
+  cursor: pointer;
+  outline: none;
+}
+.map-dot {
+  transition: r var(--dur-fast) var(--ease), stroke-width var(--dur-fast) var(--ease);
+}
+/* Ties a nudged label back to its dot. */
+.map-leader {
+  stroke: var(--fg-disabled);
+  stroke-width: 1;
+  opacity: 0.6;
+}
+.map-pt:focus-visible .map-dot {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+.map-label {
+  fill: var(--fg-secondary);
+  font-size: 10px;
+  paint-order: stroke; /* halo so labels stay legible over gridlines */
+  stroke: var(--bg-raised);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.map-pt--on .map-label {
+  fill: var(--fg);
+  font-weight: 700;
+}
+
+/* ---- heatmap detail popover (hover/focus on desktop, tap on touch) ---- */
+.heat-pop {
+  position: fixed;
+  left: var(--pop-x);
+  top: var(--pop-y);
+  z-index: 50;
+  width: min(300px, calc(100vw - 2 * var(--s-md)));
   display: flex;
   flex-direction: column;
   gap: var(--s-xs);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.28);
+  pointer-events: none; /* informational; never steals the next hover */
 }
-.heat-detail-head {
+.heat-pop[data-place='top'] {
+  transform: translate(-50%, -100%);
+}
+.heat-pop[data-place='bottom'] {
+  transform: translateX(-50%);
+}
+.heat-pop-head {
   display: flex;
   align-items: center;
-  gap: var(--s-sm);
+  gap: var(--s-xs);
 }
-.heat-detail-body {
+.heat-pop-body {
   margin: 0;
   font-family: var(--font-sans);
   color: var(--fg-secondary);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+}
+.heat-pop-foot {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-disabled);
+}
+.heat-pop-scrim {
+  display: none;
+}
+/* Narrow screens have no hover and little room to anchor a tooltip — promote the
+   popover to a thumb-reachable bottom sheet, with a scrim to catch dismissing taps. */
+@media (max-width: 640px) {
+  .heat-pop {
+    left: 0 !important;
+    right: 0;
+    top: auto !important;
+    bottom: 0;
+    width: 100%;
+    transform: none !important;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    padding: var(--s-md);
+    pointer-events: auto;
+  }
+  .heat-pop-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 49;
+    background: rgb(0 0 0 / 0.32);
+  }
 }
 
 /* ---- tool profile ---- */
@@ -626,84 +804,139 @@ body {
   color: var(--fg-secondary);
   max-width: 70ch;
 }
-.decision-crumbs {
+/* The flowchart: a column of nodes, each a question's fork, connected by labeled
+   edges down to the recommendation. max-width keeps the diagram readable, not full-bleed. */
+.flow {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-xs);
+  max-width: 560px;
 }
-.decision-crumbs li {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: var(--bg-raised);
+.flow-node {
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill, 999px);
-  font-size: 0.74rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-raised);
+  padding: var(--s-md);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
-.crumb-q {
-  color: var(--fg-secondary);
+.flow-node + .flow-node {
+  margin-top: var(--s-sm);
+}
+.flow-node--resolved {
+  border-style: dashed;
+  background: transparent;
+}
+.flow-node--active {
+  border-color: var(--accent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.flow-q {
+  margin: 0 0 var(--s-sm);
   font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.05rem;
 }
-.crumb-a {
-  color: var(--accent);
-  font-weight: 700;
-}
-.decision-card {
-  max-width: 640px;
-}
-.decision-q {
-  margin: 0 0 var(--s-md);
-  font-size: 1.2rem;
-}
-.decision-answers {
+.flow-opts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--s-md);
-}
-.decision-answer {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-start;
-  padding: var(--s-md);
-  height: auto;
-  text-align: left;
-}
-.answer-label {
-  font-weight: 700;
-}
-.answer-hint {
-  font-size: 0.76rem;
-  opacity: 0.85;
-  font-family: var(--font-sans);
-}
-.decision-restart {
-  align-self: flex-start;
-}
-.decision-result {
-  max-width: 640px;
-  display: flex;
-  flex-direction: column;
   gap: var(--s-sm);
 }
-.decision-result-label {
+.flow-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--s-sm) var(--s-md);
+  height: auto;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+}
+.flow-opt--live:hover {
+  border-color: var(--accent);
+  background: var(--accent-fill);
+}
+.flow-opt--chosen {
+  border-color: var(--accent);
+  background: var(--accent-fill);
+  color: var(--accent-bright);
+}
+/* The road not taken — visible (so the fork reads), but recessed. Hover invites the re-route. */
+.flow-opt--dim {
+  opacity: 0.5;
+  border-style: dashed;
+}
+.flow-opt--dim:hover {
+  opacity: 1;
+  border-color: var(--steel);
+}
+.flow-opt-label {
+  font-weight: 700;
+}
+.flow-opt-hint {
+  font-size: 0.76rem;
+  /* Inherit the option's foreground (recessed) so the hint tracks chosen/live state
+     instead of staying greyed-out — preserves contrast on the accent fill. */
+  color: currentColor;
+  opacity: 0.8;
+  font-family: var(--font-sans);
+}
+/* Labeled connector — the edge carries the chosen branch so the path reads as logic. */
+.flow-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--s-xs) 0 0 var(--s-sm);
+  color: var(--accent);
+}
+.flow-link-arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.flow-link-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.flow-node--result {
+  border: none;
+  background: none;
+  padding: 0;
+}
+.flow-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xs);
+  align-items: flex-start;
+}
+.flow-result-label {
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--accent-bright);
 }
-.decision-result-name {
+.flow-result-name {
   margin: 0;
   font-size: 1.5rem;
 }
-.decision-result-why {
-  margin: 0;
+.flow-result-version {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--fg-secondary);
+}
+.flow-result-why {
+  margin: 0 0 var(--s-xs);
   font-family: var(--font-sans);
   color: var(--fg-secondary);
+}
+.decision-restart {
+  align-self: flex-start;
 }
 
 /* ---- tablet breakpoint (Artificer --bp-tablet: 800px) ---- */
@@ -720,7 +953,7 @@ body {
   .inspector {
     position: static;
   }
-  .decision-answers {
+  .flow-opts {
     grid-template-columns: 1fr;
   }
 }

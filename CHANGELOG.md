@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Interactive comparison site** (`site/`) — Artificer-themed React + Vite single-page app that turns the research docs into four live views: lockstep workflow comparison (every core tool steps the same scenario in parallel), a sortable/filterable feature matrix, a single-hue scoring heatmap, and a decision guide, plus per-tool profiles. Data is one auto-discovered, AJV-validated JSON per tool — the matrix and heatmap are derived by aggregation, so the JSONs are the single source of truth. Deployed to GitHub Pages at <https://cameronsjo.github.io/spec-compare/>
+- **Heatmap detail popover + graphical modes** (`site/`) — The scoring heatmap gained a mobile-friendly detail popover (hover/focus on desktop, tap → bottom sheet on touch) and a live mode toggle: numbers (default), a size-encoded punchcard, and a Map — an x/y scatter plotting every tool by computed quick-change vs large-scale fitness
+- **Interactive decision flowchart** (`site/`) — The decision guide now renders as a re-routable flow: answered questions persist as nodes with the chosen branch lit and the road-not-taken dimmed, connected by labeled edges, with any earlier answer re-selectable
+- **Opinion + version-pinning surfacing** (`site/`) — An explicit "considered opinion, not a benchmark, not affiliated" caveat across masthead/footer/views, an `assessed 2026-02-24` stamp, and each tool's pinned version shown in the heatmap and profiles (`version` is now a required field)
+- **Honest footer** (`site/`) — Restructured the footer to the four-tier disclosure pattern (provenance · attribution · bias disclosure · affiliation fine print) in a two-column grid: states it's independent/unofficial and can be out of date, discloses the author's spec-driven-development/OpenSpec bias with an "open an issue" correction link, and carries the no-affiliation + trademarks line full-width
 - **Artificer adaptations log** (`docs/artificer-adaptations.md`) — Record of how the site bends the Artificer design system, mirroring the feedback issues filed upstream (single-hue heatmap scale, tier-dot placement, scrollbar padding, wordmark fix, dissolve flourish)
 - **Beads research** (`docs/beads.md`) — Deep analysis of Steve Yegge's distributed graph issue tracker, MCP Agent Mail, and Gas Town agent village
 - **Orchestration landscape** (`docs/landscape.md`) — Comprehensive survey of 30+ multi-agent orchestration tools across 13 categories
@@ -23,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site toolchain bump** (`site/`) — Upgraded vite `5.4` → `6.4.2` and vitest `2.1` → `3.2.4`, pulling in esbuild `0.25.12`. Clears two medium Dependabot advisories (vite optimized-deps path traversal, esbuild dev-server SSRF) at the source; both were dev-server/build-time only and never present in the deployed static artifact. Build + 6 tests green; CI Node 20 unchanged (compatible)
 - **Latest version sweep (February 24, 2026)** — Updated all tool profiles and cross-references with current versions:
   - Spec-Kit v0.1.5, Spec Kitty v0.13.5, BMad v6.0.2 (now stable), OpenSpec v1.2.0, Kiro v0.9.40, Tessl registry updates
   - GSD v1.20.6, Kilo Code v4.148.1 + CLI launch, Conductor v0.36.3

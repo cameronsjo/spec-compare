@@ -1,3 +1,8 @@
+// When the scores, feature flags, and tool versions were last swept against the
+// research docs. Single source of truth for the "pinned as of" stamp shown across
+// the site; mirrors README's "Last Updated". Bump this whenever the docs are re-swept.
+export const ASSESSED_AS_OF = '2026-02-24'
+
 // Phase-kind vocabulary for spec-driven-development workflows. Fixed + colorable,
 // so phases are comparable across tools the way agentic-harnesses compared node kinds.
 export type PhaseKind =
@@ -78,7 +83,8 @@ export interface ToolSpec {
   vendor: string
   repo?: string
   website?: string
-  version?: string
+  /** The release this assessment is pinned to (or an explicit non-version label). Required. */
+  version: string
   license: string
   maturity: Maturity
   tier: Tier
