@@ -5,8 +5,8 @@
 **Website:** https://gsd.build
 **Status:** Production-ready
 **License:** Open source
-**Current Version:** v1.20.6 (February 23, 2026)
-**Traction:** 11.9K+ GitHub stars. Used by engineers at Amazon, Google, and Shopify.
+**Current Version:** v1.42.3 (May 16, 2026)
+**Traction:** 63.8K+ GitHub stars (up from ~11.9K in February 2026). Used by engineers at Amazon, Google, and Shopify.
 
 ## Core Approach
 

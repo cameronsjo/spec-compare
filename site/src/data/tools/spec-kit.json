@@ -3,7 +3,7 @@
   "displayName": "Spec-Kit",
   "vendor": "GitHub",
   "repo": "https://github.com/github/spec-kit",
-  "version": "v0.1.5",
+  "version": "v0.8.18",
   "license": "Open Source",
   "maturity": "Production",
   "tier": "core",
@@ -48,7 +48,7 @@
   "keyFeatures": [
     "8 slash commands — constitution → specify → plan → tasks → implement (+ clarify, analyze, checklist)",
     "Constitution framework: immutable architectural principles",
-    "Agent-agnostic — works with 15+ agents (Claude Code, Copilot, Cursor, Gemini, …)",
+    "Agent-agnostic — works with 30+ agents (Claude Code, Copilot, Cursor, Gemini, Amazon Q, …)",
     "Progressive refinement: intent defined before implementation"
   ],
   "limitations": [

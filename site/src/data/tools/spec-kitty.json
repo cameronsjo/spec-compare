@@ -4,7 +4,7 @@
   "vendor": "Priivacy-ai",
   "repo": "https://github.com/Priivacy-ai/spec-kitty",
   "website": "https://priivacy-ai.github.io/spec-kitty/",
-  "version": "v0.13.5",
+  "version": "v3.1.9",
   "license": "Open Source",
   "maturity": "Active Dev",
   "tier": "core",
@@ -54,7 +54,8 @@
     "Live kanban dashboard (Planned → Doing → Review → Done)",
     "Git worktree strategy for parallel feature isolation",
     "Coordinates up to 11 AI coding agents simultaneously",
-    "13 built-in commands + mission system (Software Dev / Deep Research)",
+    "v3: machine-checked acceptance matrix tying criteria to verification",
+    "v3: negative invariants (grep_absence) + NEEDS CLARIFICATION gates",
     "Constitution framework enforces team standards"
   ],
   "limitations": [
