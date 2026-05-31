@@ -8,11 +8,9 @@ on:
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
-# Allow the deploy job to mint an id-token and write to Pages.
+# Least-privilege at the top level; the deploy job adds what it alone needs.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # One deploy at a time; don't cancel an in-flight publish.
 concurrency:
@@ -28,6 +26,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -50,6 +50,10 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # Pages write + id-token scoped to the only job that needs them.
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

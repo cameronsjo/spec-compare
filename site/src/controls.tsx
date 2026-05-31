@@ -21,13 +21,13 @@ export function TransportBar({ player, playLabel = 'Play', total, counterLabel }
   const { step, playing, atEnd, toggle, stepForward, reset } = player
   return (
     <div className="transport cluster">
-      <button className="btn btn--secondary" onClick={reset} disabled={step === 0 && !playing}>
+      <button type="button" className="btn btn--secondary" onClick={reset} disabled={step === 0 && !playing}>
         Reset
       </button>
-      <button className="btn" onClick={toggle}>
+      <button type="button" className="btn" onClick={toggle}>
         {playing ? 'Pause' : atEnd ? 'Replay' : playLabel}
       </button>
-      <button className="btn btn--secondary" onClick={stepForward} disabled={atEnd}>
+      <button type="button" className="btn btn--secondary" onClick={stepForward} disabled={atEnd}>
         Step ›
       </button>
       {total != null && counterLabel && (

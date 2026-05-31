@@ -40,8 +40,13 @@ for (const file of files) {
       console.error(`✗ ${file} — core tool missing phases/edges/scenarios`)
       continue
     }
-    // Every edge endpoint and every scenario step must reference a declared phase id.
+    // Phase ids must be unique — duplicates make graph nodes ambiguous downstream.
     const ids = new Set(spec.phases.map((n) => n.id))
+    if (ids.size !== spec.phases.length) {
+      failed = true
+      console.error(`✗ ${file} — duplicate phase id(s) in phases[]`)
+    }
+    // Every edge endpoint and every scenario step must reference a declared phase id.
     for (const e of spec.edges) {
       for (const end of [e.from, e.to]) {
         if (!ids.has(end)) {

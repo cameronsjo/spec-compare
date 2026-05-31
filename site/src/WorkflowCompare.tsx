@@ -68,9 +68,12 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
     return () => clearTimeout(t)
   }, [phase])
 
-  // Reset the flourish when the scenario changes mid-animation.
+  // Reset the flourish when the scenario changes mid-animation — including the
+  // wasPlaying latch, so a manual Step to the end of the next scenario can't fire
+  // a spurious completion shimmer.
   useEffect(() => {
     setPhase('idle')
+    wasPlaying.current = false
   }, [scenarioId])
 
   const meta = SCENARIO_META[scenarioId]

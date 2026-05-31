@@ -1,8 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import { tools } from './data'
 import type { ToolSpec } from './types'
 
 type Tier = 'all' | 'core' | 'emerging'
+
+// Numeric sort key for an agent-config flag, so these columns order the same way
+// the boolean columns do (best → worst) instead of lexicographically. Missing
+// agentConfig (emerging tools) sorts below everything as n/a.
+function agentFlagSort(v: 'yes' | 'no' | 'removed' | undefined): number {
+  return v === 'yes' ? 2 : v === 'removed' ? 1 : v === 'no' ? 0 : -1
+}
 
 // A boolean/enum capability cell. Artificer-toned glyphs (not emoji): a success
 // check, a muted x, an attention tilde for partial. n/a renders a plain dash upstream.
@@ -19,7 +26,7 @@ interface Column {
   /** sortable value for a tool */
   value: (t: ToolSpec) => string | number
   /** cell renderer */
-  cell: (t: ToolSpec) => React.ReactNode
+  cell: (t: ToolSpec) => ReactNode
 }
 
 const COLUMNS: Column[] = [
@@ -33,9 +40,9 @@ const COLUMNS: Column[] = [
   { key: 'mcp', label: 'MCP', value: (t) => Number(t.features.mcp), cell: (t) => <Flag value={t.features.mcp} /> },
   { key: 'ide', label: 'IDE', value: (t) => Number(t.features.ideIntegration), cell: (t) => <Flag value={t.features.ideIntegration} /> },
   { key: 'oss', label: 'Open source', value: (t) => Number(t.features.openSource), cell: (t) => <Flag value={t.features.openSource} /> },
-  { key: 'agentsMd', label: 'AGENTS.md', value: (t) => t.agentConfig?.agentsMd ?? '~', cell: (t) => (t.agentConfig ? <Flag value={t.agentConfig.agentsMd} /> : <span className="cell-dash">—</span>) },
-  { key: 'claudeMd', label: 'CLAUDE.md', value: (t) => t.agentConfig?.claudeMd ?? '~', cell: (t) => (t.agentConfig ? <Flag value={t.agentConfig.claudeMd} /> : <span className="cell-dash">—</span>) },
-  { key: 'skillMd', label: 'SKILL.md', value: (t) => t.agentConfig?.skillMd ?? '~', cell: (t) => (t.agentConfig ? <Flag value={t.agentConfig.skillMd} /> : <span className="cell-dash">—</span>) },
+  { key: 'agentsMd', label: 'AGENTS.md', value: (t) => agentFlagSort(t.agentConfig?.agentsMd), cell: (t) => (t.agentConfig ? <Flag value={t.agentConfig.agentsMd} /> : <span className="cell-dash">—</span>) },
+  { key: 'claudeMd', label: 'CLAUDE.md', value: (t) => agentFlagSort(t.agentConfig?.claudeMd), cell: (t) => (t.agentConfig ? <Flag value={t.agentConfig.claudeMd} /> : <span className="cell-dash">—</span>) },
+  { key: 'skillMd', label: 'SKILL.md', value: (t) => agentFlagSort(t.agentConfig?.skillMd), cell: (t) => (t.agentConfig ? <Flag value={t.agentConfig.skillMd} /> : <span className="cell-dash">—</span>) },
   { key: 'slash', label: 'Slash cmds', value: (t) => t.agentConfig?.slashCommands ?? -1, cell: (t) => <span className="cell-text">{t.agentConfig ? t.agentConfig.slashCommands : '—'}</span> },
 ]
 
