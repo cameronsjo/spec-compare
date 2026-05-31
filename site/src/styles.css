@@ -12,9 +12,23 @@ body {
 }
 
 /* ---- appbar + intro band ---- */
+/* Artificer's .appbar carries its own `padding: 0 var(--s-md)` for a full-bleed
+   bar, but ours sits INSIDE .container--lg (already padded), so that 16px double-
+   insets the content — and on a phone it's the difference between the long wordmark
+   + theme toggle fitting or spilling 16px past the viewport. Zero it (higher
+   specificity beats the vendored rule + its safe-area variant). See a-d-s #83. */
+.app .appbar {
+  padding-inline: 0;
+}
 .appbar__brand .whimsy {
   font-size: inherit;
   letter-spacing: inherit;
+}
+/* The mobile nav trigger is the primary chrome control on a phone — the ghost
+   icon's resting fg-secondary is too faint for that role. Full contrast at rest
+   (hover still raises the bg). Pairs with data-icon-size=32 on the glyph. */
+.appbar__menu-btn {
+  color: var(--fg);
 }
 .intro {
   margin-block: var(--s-lg) var(--s-xl);
@@ -184,6 +198,61 @@ body {
 .compare-col svg {
   max-width: 100%;
   height: auto;
+}
+/* Mobile: full-bleed, one card per screen with snap. The desktop multi-card
+   filmstrip (290px columns above) is wrong on a phone, so each tool fills the
+   viewport and swipes settle card-to-card. The negative margin breaks .compare-grid
+   out of .container's inline gutter (cards span edge-to-edge); their own padding
+   insets the content. MUST come after `.compare-col { flex: 0 0 290px }` — equal
+   specificity, so source order decides and the desktop shorthand re-sets flex-basis. */
+@media (max-width: 800px) {
+  .compare-grid {
+    margin-inline: calc(-1 * var(--s-lg));
+    scroll-snap-type: x mandatory;
+  }
+  .compare-col {
+    flex-basis: 100%;
+    scroll-snap-align: center;
+  }
+}
+/* Dot pager — mobile carousel position indicator. Hidden on the desktop filmstrip. */
+.compare-dots {
+  display: none;
+}
+@media (max-width: 800px) {
+  .compare-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--s-sm);
+    margin-top: var(--s-sm);
+  }
+}
+.compare-dot {
+  position: relative; /* anchors the expanded hit area */
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--fg-secondary);
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+/* 44px touch target without bloating the 8px visual dot. */
+.compare-dot::before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+}
+.compare-dot--active {
+  background: var(--accent);
+  opacity: 1;
+}
+.compare-dot:focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: 4px;
 }
 .compare-col-head {
   display: flex;
@@ -947,7 +1016,12 @@ body {
 /* ---- tablet breakpoint (Artificer --bp-tablet: 800px) ---- */
 @media (max-width: 800px) {
   .app-shell {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr), not a bare 1fr: bare `1fr` = minmax(auto, 1fr), whose auto
+       minimum refuses to shrink below the content's min-content — so a wide child
+       (the compare filmstrip, a matrix/heatmap table) blows the single column past
+       the viewport and the whole page scrolls sideways. minmax(0, …) lets the
+       column shrink and the child's own overflow-x:auto take over. */
+    grid-template-columns: minmax(0, 1fr);
   }
   .app-sidenav {
     display: none;
@@ -960,5 +1034,11 @@ body {
   }
   .flow-opts {
     grid-template-columns: 1fr;
+  }
+  /* Shrink the single-tool loop diagram to the viewport (the LoopGraph SVG carries
+     an explicit px width); desktop keeps full size + .graph-pane's overflow scroll. */
+  .graph-pane svg {
+    max-width: 100%;
+    height: auto;
   }
 }

@@ -42,6 +42,11 @@ export function App() {
     return () => cancel?.()
   }, [])
 
+  // The icon script only hydrates `<i data-icon>` once on DOMContentLoaded, which
+  // misses anything React mounts later (the hamburger, the drawer). observe()
+  // re-hydrates and watches for inserted nodes so those icons aren't blank.
+  useEffect(() => window.ArtificerIcons?.observe(), [])
+
   // Mobile drawer focus management — inert when closed, focus-trapped when open.
   const drawerRef = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -71,7 +76,7 @@ export function App() {
           aria-controls="nav-drawer"
           onClick={() => setNavOpen(true)}
         >
-          <i data-icon="menu" />
+          <i data-icon="menu" data-icon-size="32" />
         </button>
         {/* `wordmark` lives on the inline text span, NOT the .appbar__brand flex
             container — its ::after accent period would otherwise become a flex item

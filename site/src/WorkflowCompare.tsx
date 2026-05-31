@@ -78,6 +78,43 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
 
   const meta = SCENARIO_META[scenarioId]
 
+  // Mobile carousel: below 800px the filmstrip becomes one full-bleed card per
+  // screen (CSS scroll-snap). `active` tracks the card nearest the viewport center
+  // and drives the dot pager. Width-agnostic, so it's harmless on the desktop grid.
+  const gridRef = useRef<HTMLDivElement>(null)
+  const [scroll, setScroll] = useState({ overflowing: false, active: 0 })
+  useEffect(() => {
+    const el = gridRef.current
+    if (!el) return
+    const update = () => {
+      const center = el.scrollLeft + el.clientWidth / 2
+      let active = 0
+      let best = Infinity
+      Array.from(el.children).forEach((c, i) => {
+        const card = c as HTMLElement
+        const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center)
+        if (dist < best) {
+          best = dist
+          active = i
+        }
+      })
+      setScroll({ overflowing: el.scrollWidth > el.clientWidth + 1, active })
+    }
+    update()
+    el.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      el.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+  const scrollToCard = (i: number) => {
+    const el = gridRef.current
+    const card = el?.children[i] as HTMLElement | undefined
+    if (!el || !card) return
+    el.scrollTo({ left: card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' })
+  }
+
   return (
     <section className="compare">
       <div className="compare-controls">
@@ -108,7 +145,7 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
       </p>
       {meta?.description && <p className="scenario-desc">{meta.description}</p>}
 
-      <div className="compare-grid">
+      <div className="compare-grid" ref={gridRef}>
         {columns.map(({ spec, sc }) => {
           // Each tool clamps the global step to its own path length, then holds at its terminal.
           const local = Math.min(step, sc.steps.length - 1)
@@ -141,6 +178,23 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
           )
         })}
       </div>
+
+      {/* Mobile carousel position indicator (CSS hides it on the desktop filmstrip).
+          One dot per tool; tap to jump. */}
+      {scroll.overflowing && (
+        <div className="compare-dots" role="group" aria-label="Jump to tool">
+          {columns.map(({ spec }, i) => (
+            <button
+              key={spec.tool}
+              type="button"
+              className={`compare-dot ${i === scroll.active ? 'compare-dot--active' : ''}`}
+              aria-label={`Show ${spec.displayName}`}
+              aria-current={i === scroll.active ? 'true' : undefined}
+              onClick={() => scrollToCard(i)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   )
 }
