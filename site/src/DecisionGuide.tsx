@@ -3,11 +3,12 @@ import { toolBySlug } from './data'
 import { ASSESSED_AS_OF } from './types'
 
 // The decision tree from docs/use-case-scoring.md §Decision Matrix, verbatim in shape.
-type Step =
+// Exported for the structural test (every answer resolves; every path terminates).
+export type Step =
   | { kind: 'question'; q: string; answers: { label: string; hint?: string; to: string }[] }
   | { kind: 'result'; tool: string; why: string }
 
-const TREE: Record<string, Step> = {
+export const TREE: Record<string, Step> = {
   start: {
     kind: 'question',
     q: 'Is this a modification or a greenfield build?',

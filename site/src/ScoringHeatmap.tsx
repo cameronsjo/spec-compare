@@ -9,7 +9,8 @@ import {
 } from 'react'
 import { tools } from './data'
 import { SCORE_DIMS, ASSESSED_AS_OF, type Scores } from './types'
-import { scoreFill, scoreBorder, SCORE_WORD } from './score'
+import { scoreFill, scoreBorder, SCORE_WORD, bucket, formatScore } from './score'
+import { ScorePip } from './ScorePip'
 
 // Treatments of the same data, swappable live (the A/B):
 //  numbers   — exact value in every grid cell (the default)
@@ -33,17 +34,15 @@ interface Active {
   pinned: boolean // true = opened by click/tap (sticky); false = transient hover/focus
 }
 
-const fmt = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(1))
-const bucket = (v: number) => Math.max(1, Math.min(5, Math.round(v)))
 /** Punchcard dot diameter: score 1 → 9px … score 5 → 28px. */
-const dotPx = (v: number) => 9 + ((bucket(v) - 1) / 4) * 19
+export const dotPx = (v: number) => 9 + ((bucket(v) - 1) / 4) * 19
 /** Place the popover below the anchor when there isn't room above it. */
 const place = (r: Active['rect']) => (r.top < 168 ? 'bottom' : 'top')
 
 // The two computed axes for the Map. Each is a mean of three of the eight scored
 // dimensions — no new data, just a projection of what's already there.
-const quickAxis = (s: Scores) => (s.trivial + s.emergency + s.solo) / 3
-const largeAxis = (s: Scores) => (s.large + s.parallel + s.medium) / 3
+export const quickAxis = (s: Scores) => (s.trivial + s.emergency + s.solo) / 3
+export const largeAxis = (s: Scores) => (s.large + s.parallel + s.medium) / 3
 
 function popStyle(r: Active['rect']): CSSProperties {
   const cx = Math.max(150, Math.min(window.innerWidth - 150, r.left + r.width / 2))
@@ -53,9 +52,9 @@ function popStyle(r: Active['rect']): CSSProperties {
 
 // Map plot geometry (SVG user units). Axes fit the data range, not a fixed 1–5 —
 // the numeric scale stays honest (real tick values) but empty bands are squeezed out.
-const PLOT = { w: 600, h: 420, l: 56, r: 20, t: 18, b: 50 }
+export const PLOT = { w: 600, h: 420, l: 56, r: 20, t: 18, b: 50 }
 // Integer-aligned domain bracketing the data, clamped to the valid 1–5 score range.
-const domain = (vals: number[]): [number, number] => [
+export const domain = (vals: number[]): [number, number] => [
   Math.max(1, Math.floor(Math.min(...vals) - 0.25)),
   Math.min(5, Math.ceil(Math.max(...vals) + 0.25)),
 ]
@@ -69,7 +68,7 @@ const mapY = (l: number) => PLOT.h - PLOT.b - ((l - YD[0]) / (YD[1] - YD[0])) * 
 // near the right wall so it never overflows), then nudge it down until it clears
 // every label already placed. A leader line ties a moved label back to its dot.
 // Sorted top-to-bottom so the upper label of a colliding pair keeps its spot.
-interface Laid {
+export interface Laid {
   spec: (typeof tools)[number]
   x: number
   y: number
@@ -78,7 +77,7 @@ interface Laid {
   anchor: 'start' | 'end'
   moved: boolean
 }
-function layoutLabels(): Laid[] {
+export function layoutLabels(): Laid[] {
   const CHAR = 6 // ~px per char at the 10px mono label size
   const LH = 14 // line height for a downward nudge
   const placed: { x1: number; y1: number; x2: number; y2: number }[] = []
@@ -106,6 +105,10 @@ function layoutLabels(): Laid[] {
       return { spec, x, y, lx, ly, anchor: left ? ('end' as const) : ('start' as const), moved: Math.abs(ly - y) > 1 }
     })
 }
+
+// Computed once: layout closes only over module-static data (tools + axis domain),
+// so there's nothing reactive to recompute on the Map's frequent hover re-renders.
+const LAID = layoutLabels()
 
 /**
  * Color-graded score grid (1–5 → single-hue intensity), with a swappable graphical
@@ -213,12 +216,12 @@ export function ScoringHeatmap() {
                           type="button"
                           className={`heat-cell ${on ? 'heat-cell--active' : ''}`}
                           style={{ background: asNumber ? scoreFill(v) : 'transparent', borderColor: on ? scoreBorder(v) : 'transparent' }}
-                          aria-label={`${t.displayName} — ${d.label}: ${fmt(v)} of 5`}
+                          aria-label={`${t.displayName} — ${d.label}: ${formatScore(v)} of 5`}
                           aria-pressed={on && active?.pinned ? true : undefined}
                           {...cellHandlers(t.tool, d.key)}
                         >
                           {asNumber ? (
-                            <span className="heat-num">{fmt(v)}</span>
+                            <span className="heat-num">{formatScore(v)}</span>
                           ) : (
                             <span
                               className="heat-dot"
@@ -248,12 +251,7 @@ export function ScoringHeatmap() {
             style={popStyle(active.rect)}
           >
             <div className="heat-pop-head">
-              <span
-                className="score-pip"
-                style={{ background: scoreFill(activeScore), borderColor: scoreBorder(activeScore) }}
-              >
-                {fmt(activeScore)}
-              </span>
+              <ScorePip score={activeScore} />
               <b>{activeTool.displayName}</b>
               <span className="fg-secondary">· {mode === 'map' ? 'Overall' : activeDim.label}</span>
             </div>
@@ -264,7 +262,7 @@ export function ScoringHeatmap() {
               </p>
             ) : (
               <p className="heat-pop-body">
-                <b className="anchor">{SCORE_WORD[Math.round(activeScore)]}</b> — {activeDim.help}.
+                <b className="anchor">{SCORE_WORD[bucket(activeScore)]}</b> — {activeDim.help}.
               </p>
             )}
             <p className="heat-pop-foot">
@@ -329,7 +327,7 @@ function ScatterMap({
           Large-scale fitness →
         </text>
         {/* points — labels are de-collided, with a leader line when one was nudged */}
-        {layoutLabels().map(({ spec: t, x, y, lx, ly, anchor, moved }) => {
+        {LAID.map(({ spec: t, x, y, lx, ly, anchor, moved }) => {
           const on = active?.tool === t.tool
           return (
             <g
@@ -337,7 +335,7 @@ function ScatterMap({
               className={`map-pt ${on ? 'map-pt--on' : ''}`}
               tabIndex={0}
               role="button"
-              aria-label={`${t.displayName}: quick-change ${quickAxis(t.scores).toFixed(1)}, large-scale ${largeAxis(t.scores).toFixed(1)}, overall ${fmt(t.scores.overall)}`}
+              aria-label={`${t.displayName}: quick-change ${quickAxis(t.scores).toFixed(1)}, large-scale ${largeAxis(t.scores).toFixed(1)}, overall ${formatScore(t.scores.overall)}`}
               {...handlers(t.tool, 'overall')}
             >
               {moved && <line className="map-leader" x1={x} y1={y} x2={lx} y2={ly - 3} />}
