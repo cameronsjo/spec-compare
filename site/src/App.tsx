@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { tools, coreTools, toolBySlug } from './data'
-import { KIND_COLOR, KIND_LABEL, type PhaseKind } from './types'
+import { KIND_COLOR, KIND_LABEL, ASSESSED_AS_OF, ATTRIBUTION, type PhaseKind } from './types'
 import { WorkflowCompare } from './WorkflowCompare'
 import { WorkflowPlayer } from './WorkflowPlayer'
 import { FeatureMatrix } from './FeatureMatrix'
@@ -99,8 +99,12 @@ export function App() {
           <span className="badge badge--ghost">{tools.length} tools</span>
           <span className="badge badge--ghost">{coreTools.length} full workflows</span>
           <span className="badge badge--ghost">7-dimension scoring</span>
-          <span className="badge badge--ghost">research-sourced</span>
+          <span className="badge badge--ghost">assessed {ASSESSED_AS_OF}</span>
         </div>
+        <p className="masthead-caveat">
+          A <b className="anchor">considered opinion</b>, not a benchmark — scores and recommendations are Cameron's and
+          Claude's reading of the research, pinned to each tool's version and not affiliated with any tool.
+        </p>
       </section>
 
       <div className="app-shell">
@@ -153,8 +157,12 @@ export function App() {
       </aside>
 
       <footer className="app-footer">
-        Profiles, feature matrices and use-case scores <b className="anchor">extracted from the spec-compare research docs</b> —
-        no fabricated attributes. Built with the <b className="anchor">Artificer design system</b>.
+        <p>
+          Profiles, feature matrices and use-case scores{' '}
+          <b className="anchor">extracted from the spec-compare research docs</b> — no fabricated attributes. Built with
+          the <b className="anchor">Artificer design system</b>.
+        </p>
+        <p className="app-footer-caveat">{ATTRIBUTION} Assessed {ASSESSED_AS_OF}.</p>
       </footer>
     </div>
   )

@@ -27,6 +27,13 @@ body {
   gap: var(--s-xs);
   margin-top: var(--s-xs);
 }
+.masthead-caveat {
+  margin: var(--s-xs) 0 0;
+  max-width: 70ch;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+}
 
 /* ---- app shell: [ sidenav | content ] ---- */
 .app-shell {
@@ -343,6 +350,14 @@ body {
   color: var(--fg-secondary);
   font-family: var(--font-sans);
   font-size: 0.82rem;
+}
+.app-footer p {
+  margin: 0 0 var(--s-xs);
+  max-width: 90ch;
+}
+.app-footer-caveat {
+  color: var(--fg-disabled);
+  font-size: 0.78rem;
 }
 
 /* ---- tier markers ---- */
