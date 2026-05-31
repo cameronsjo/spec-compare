@@ -271,17 +271,19 @@ This document grades each spec-driven development tool against real-world scenar
 
 ### Expanded Heatmap (Including New Tools)
 
-Numeric scores (1–5) for quick visual comparison across all tools. Includes the five frameworks from the [gaps analysis](gaps.md).
+Numeric scores (1–5) for quick visual comparison across all 13 tracked tools (re-verified 2026-05-31; see [reassessment](reassessment-2026-05-31.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
 
 ```
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
                     ───────  ──────  ─────  ────────  ─────────  ────  ────────────  ───────
-OpenSpec v1.2        5        5       3      3         2          4     2             3.4
+OpenSpec v1.3        5        5       3      3         2          4     2             3.4
 Spec-Kit             3        4       5      2         1          3     2             2.9
-Spec Kitty           2        3       4      5         1          2     2             2.7
+Spec Kitty v3        2        3       4      5         1          2     2             2.7
 BMad v6              1        2       5      2         1          1     2             2.0
-Kiro                 2        3       4      2         1          3     2             2.4
+Kiro (GA)            2        3       4      2         1          3     2             2.4
 Tessl                4        4       3      2         1          2     2             2.6
+Superpowers          3        4       5      3         3          5     5             3.9
+Traycer              3        4       5      2         3          4     4             3.5
 GSD                  4        4       4      4         2          5     4             3.9
 Ralph Loop           3        3       4      3         2          4     5             3.4
 Zencoder/Zenflow     3        4       5      5         1          1     3             3.1
@@ -299,7 +301,8 @@ Conductor            1        1       2      5         1          2     2       
 **Context Mgmt** = how well the tool handles agent memory, context window management, and multi-session persistence. GSD (wave-based context management), Ralph Loop (stateless fresh context per iteration), and Kilo Code (Memory Bank) score highest.
 
 **Key shifts from original rankings:**
-- GSD scores highest overall (3.9) due to its balance across all categories — it's the closest to a generalist
+- GSD and **Superpowers** lead overall (3.9) — both balance across categories and excel at solo + context management
+- **Traycer** (3.5) lands as a strong generalist planning layer, just behind Ralph Loop
 - Ralph Loop ties OpenSpec (3.4) by excelling at context management and solo use
 - Zencoder/Zenflow matches Spec Kitty for parallel work (5) but with commercial polish
 - Conductor is pure parallel execution — scores 1 everywhere except parallel work

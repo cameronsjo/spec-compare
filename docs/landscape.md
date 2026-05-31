@@ -1,10 +1,10 @@
-# The Orchestration Landscape (February 2026)
+# The Orchestration Landscape (May 2026)
 
 > There are about a thousand different orchestrator apps, strategies, and paradigms. This document maps the full terrain — not just SDD tools, but every category of tool and pattern that shapes how AI agents build software.
 
 ## How to Read This
 
-This repo's [core comparison](comparison.md) covers six SDD tools in depth. The [gaps analysis](gaps.md) adds five more discovered since v1.0.0. This document zooms out to place all of them in the context of the broader orchestration ecosystem.
+This repo's [core comparison](comparison.md) covers eight SDD tools in depth (six original, plus Superpowers and Traycer added May 2026). The [gaps analysis](gaps.md) tracks more discovered since v1.0.0. This document zooms out to place all of them in the context of the broader orchestration ecosystem.
 
 Categories:
 

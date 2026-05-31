@@ -17,18 +17,22 @@ Git worktrees allow you to check out multiple branches simultaneously in differe
 | Tool | Worktree Support | Details |
 |------|------------------|---------|
 | **[Spec Kitty](tools/spec-kitty.md)** | **Built-in** | **Explicit worktree strategy for parallel feature isolation. Creates feature branch and worktree automatically via `/spec-kitty.specify`. Each feature gets isolated worktree.** |
+| **[Superpowers](tools/superpowers.md)** | **Built-in** | **The `using-git-worktrees` skill creates an isolated workspace on a new branch after design approval and verifies a clean test baseline. `finishing-a-development-branch` cleans it up.** |
 | **[Beads](beads.md)** | **Built-in** | **Shared `.beads` database across all worktrees. Native worktree model using git branches. Foundation for Gas Town agent village.** |
+| **[Conductor](https://www.conductor.build/)** | **Built-in** | **macOS runner: one git worktree per workspace, automatically created and cleaned up. (Agent runner, not an SDD tool.)** |
+| **Zencoder / Zenflow** | **Built-in** | **Commercial control plane automates branch + worktree creation for tens-to-hundreds of parallel agents.** |
 | [Spec-Kit](tools/spec-kit.md) | No | Branch-based workflow, no worktree integration |
 | [BMad Method](tools/bmad-method.md) | No | No explicit worktree support mentioned |
 | [OpenSpec](tools/openspec.md) | No | Standard git workflow, no worktree features |
 | [Kiro](tools/kiro.md) | No | Standard git integration, no worktree support |
 | [Tessl](tools/tessl.md) | No | No worktree support mentioned |
+| [Traycer](tools/traycer.md) | No | Dispatches to your agent; no worktree management of its own |
 
-> **Note:** Beads is not an SDD tool — it's an execution/memory layer. It appears here because its worktree support is a key differentiator that complements SDD tools. See [Beads](beads.md) for details.
+> **Note:** Beads and Conductor are not SDD tools — they're execution/memory layers. They appear here because their worktree support complements SDD tools. See [Beads](beads.md) for details.
 
 ## Spec Kitty Worktree Workflow
 
-**Spec Kitty is the only tool with explicit, built-in git worktree support.**
+**Spec Kitty was the first SDD tool with an explicit, built-in worktree strategy.** As of May 2026 it is no longer alone: **Superpowers** automates worktrees via its `using-git-worktrees` skill, and the runners **Conductor** and **Zencoder/Zenflow** create a worktree per parallel agent. Spec Kitty remains distinctive for pairing worktrees with a kanban board and the spec workflow itself.
 
 ### Automated Workflow
 
@@ -123,7 +127,9 @@ For developers who:
 - Find standard spec-driven tools too rigid
 - Want automated worktree management
 
-**Use [Spec Kitty](tools/spec-kitty.md)** - It's the only SDD tool purpose-built for worktree-based workflows.
+**Use [Spec Kitty](tools/spec-kitty.md)** - The SDD tool purpose-built for worktree-based workflows, pairing isolation with a kanban board.
+
+**Or [Superpowers](tools/superpowers.md)** - If you want worktree isolation as part of a disciplined brainstorm → plan → TDD methodology across any harness, rather than a dashboard.
 
 **Add [Beads](beads.md)** - For persistent agent memory that spans across worktrees and sessions.
 
