@@ -174,8 +174,10 @@ export function App() {
                 <b className="anchor">Artificer design system</b>
               </a>
               , React + Vite. Written by — and with — a
-              spec-driven-development practitioner who uses OpenSpec (which scores well here); the scoring still aims to
-              treat every tool on equal terms. Spot a bias or an error?{' '}
+              spec-driven-development practitioner who uses OpenSpec (which scores well here) and keeps a personal,
+              unreleased rig of their own — cadence — filed down from Superpowers after it felt too rigid. So read the
+              Superpowers assessment with that grain of salt; the scoring still aims to treat every tool on equal terms.
+              Spot a bias or an error?{' '}
               <a className="repo-link" href="https://github.com/cameronsjo/spec-compare/issues" target="_blank" rel="noreferrer">
                 Open an issue
               </a>

@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **May 2026 reassessment** (`docs/reassessment-2026-05-31.md`) — Findings doc from re-verifying every tracked tool's version/status against source repos and hunting for new entrants
+- **Superpowers tool profile** (`site/`, `docs/tools/superpowers.md`) — New **core** tool: MIT agentic skills framework + methodology by Jesse Vincent (obra), ~214K stars; auto-triggered skills enforce brainstorm → plan → subagent TDD → review → finish across many harnesses
+- **Traycer tool profile** (`site/`, `docs/tools/traycer.md`) — New **core** tool: commercial VS Code Plan → Execute → Verify layer (100K+ users) with Epic Mode (PRDs/specs/wireframes) over your choice of agent
+- **MUSUBI gap entry** (`docs/gaps.md`) — Maximally-rigorous SDD framework noted as marginal (~57 stars, no commits since Jan 2026)
+- **Doc-table generator** (`site/scripts/gen-doc-tables.mjs`, `npm run gen:tables` / `gen:check`) — Regenerates the mechanical `comparison.md` tables (quick comparison, feature matrix, agent config) from the tool JSONs between `<!-- GEN:* -->` sentinels, so the docs can't drift from the data. `gen:check` is wired into `npm run build` to fail on staleness; tables now scale to all tools automatically (tool-per-row)
 - **Interactive comparison site** (`site/`) — Artificer-themed React + Vite single-page app that turns the research docs into four live views: lockstep workflow comparison (every core tool steps the same scenario in parallel), a sortable/filterable feature matrix, a single-hue scoring heatmap, and a decision guide, plus per-tool profiles. Data is one auto-discovered, AJV-validated JSON per tool — the matrix and heatmap are derived by aggregation, so the JSONs are the single source of truth. Deployed to GitHub Pages at <https://cameronsjo.github.io/spec-compare/>
 - **Heatmap detail popover + graphical modes** (`site/`) — The scoring heatmap gained a mobile-friendly detail popover (hover/focus on desktop, tap → bottom sheet on touch) and a live mode toggle: numbers (default), a size-encoded punchcard, and a Map — an x/y scatter plotting every tool by computed quick-change vs large-scale fitness
 - **Interactive decision flowchart** (`site/`) — The decision guide now renders as a re-routable flow: answered questions persist as nodes with the chosen branch lit and the road-not-taken dimmed, connected by labeled edges, with any earlier answer re-selectable
@@ -27,6 +32,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **May 2026 version + status reassessment** — Re-verified all tools against source repos on 2026-05-31; bumped `ASSESSED_AS_OF` → 2026-05-31:
+  - **Kiro corrected Preview → GA** (general availability since 2025-11-17): paid tiers (Pro $20 / Pro+ $40 / Power $200) + free tier, Kiro CLI, checkpointing, property-based tests; v0.9.40 → v0.12.x (Parallel Task Execution, Requirements Analysis); `parallel: true`
+  - **Tessl corrected closed-beta → public** Framework + Registry; $125M Series A; repositioned as an Agent Enablement Platform; spec-as-source kept with a "shipping Framework behaves spec-anchored today" caveat
+  - Spec-Kit v0.1.5 → **v0.8.18** (107K★, 30+ agents); Spec Kitty v0.13.5 → **v3.1.9** (acceptance matrix, negative invariants); BMad v6.0.2 → **v6.8.0**; OpenSpec v1.2.0 → **v1.3.1**; GSD v1.20.6 → **v1.42.3** (11.9K → 63.8K★); Kilo Code v4.148.1 → **v7.3.16**; Zencoder/Zenflow refreshed (free desktop app, control plane, auto-worktrees)
+  - Heatmap/lockstep now span **13 tools, 8 core** (was 11/6); `data.test.ts` invariants updated
+  - Conductor (v0.36.3) not re-verified — no public version scheme
+- **`comparison.md` mechanical tables are now generated** from the tool JSONs (see Added); the hand-curated Capability Matrix is scope-noted to the original six, and the architectural-philosophy prose now folds in Superpowers + Traycer
+- **`git-worktree-support.md` corrected** — dropped the now-false "Spec Kitty is the only tool with worktree support" claim; added Superpowers, Conductor, and Zencoder/Zenflow as worktree-capable
+- **Bias disclosure expanded** (footer + Superpowers profile) — discloses that the author keeps a personal, unreleased rig (cadence) filed down from Superpowers after it felt too rigid, so the Superpowers assessment leans toward lighter-weight gating
 - **Site toolchain bump** (`site/`) — Upgraded vite `5.4` → `6.4.2` and vitest `2.1` → `3.2.4`, pulling in esbuild `0.25.12`. Clears two medium Dependabot advisories (vite optimized-deps path traversal, esbuild dev-server SSRF) at the source; both were dev-server/build-time only and never present in the deployed static artifact. Build + 6 tests green; CI Node 20 unchanged (compatible)
 - **Latest version sweep (February 24, 2026)** — Updated all tool profiles and cross-references with current versions:
   - Spec-Kit v0.1.5, Spec Kitty v0.13.5, BMad v6.0.2 (now stable), OpenSpec v1.2.0, Kiro v0.9.40, Tessl registry updates
