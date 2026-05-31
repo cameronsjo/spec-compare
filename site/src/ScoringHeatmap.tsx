@@ -134,13 +134,22 @@ export function ScoringHeatmap() {
     if (!active) return
     const close = () => setActive(null)
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    // Desktop outside-click dismissal: the scrim only covers the bottom-sheet layout,
+    // so a floating popover needs a capture listener that ignores clicks on a cell/point
+    // or inside the popover itself (so pin-on-click and in-popover taps survive).
+    const onPointerDown = (e: PointerEvent) => {
+      if ((e.target as Element | null)?.closest('.heat-pop, .heat-cell, .map-pt')) return
+      close()
+    }
     window.addEventListener('keydown', onKey)
     window.addEventListener('scroll', close, true)
     window.addEventListener('resize', close)
+    window.addEventListener('pointerdown', onPointerDown, true)
     return () => {
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('scroll', close, true)
       window.removeEventListener('resize', close)
+      window.removeEventListener('pointerdown', onPointerDown, true)
     }
     // Key on presence, not identity: moving between cells keeps `active` non-null, so
     // the listeners bind once on open and unbind on close — not on every hover.
@@ -153,9 +162,12 @@ export function ScoringHeatmap() {
   // Shared point/cell handlers — pointer (mouse only for hover), focus, and click-to-pin.
   // Typed as DOMAttributes<Element> so the bag spreads onto both <button> and <g>.
   const cellHandlers = (tool: string, dim: keyof Scores): DOMAttributes<Element> => ({
-    onPointerEnter: (e: RPointerEvent) => e.pointerType === 'mouse' && show(tool, dim, e.currentTarget, false),
+    // A pinned popover is sticky until dismissed — transient hover/focus must not overwrite it.
+    // (Leave/blur stay unguarded: clearHover already no-ops while pinned.)
+    onPointerEnter: (e: RPointerEvent) =>
+      e.pointerType === 'mouse' && !active?.pinned && show(tool, dim, e.currentTarget, false),
     onPointerLeave: (e: RPointerEvent) => e.pointerType === 'mouse' && clearHover(),
-    onFocus: (e: RFocusEvent) => show(tool, dim, e.currentTarget, false),
+    onFocus: (e: RFocusEvent) => !active?.pinned && show(tool, dim, e.currentTarget, false),
     onBlur: clearHover,
     onClick: (e: RMouseEvent) =>
       active?.tool === tool && active?.dim === dim && active?.pinned
@@ -172,7 +184,12 @@ export function ScoringHeatmap() {
             type="button"
             className={`btn btn--ghost tab ${mode === m.key ? 'tab--active' : ''}`}
             aria-pressed={mode === m.key}
-            onClick={() => setMode(m.key)}
+            // Clear any open popover first — its anchored score/label would otherwise carry
+            // into the new mode (a cell popover relabeled as map content shows the wrong number).
+            onClick={() => {
+              setActive(null)
+              setMode(m.key)
+            }}
           >
             {m.label}
           </button>

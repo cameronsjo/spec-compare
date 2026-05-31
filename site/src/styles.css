@@ -880,7 +880,10 @@ body {
 }
 .flow-opt-hint {
   font-size: 0.76rem;
-  color: var(--fg-secondary);
+  /* Inherit the option's foreground (recessed) so the hint tracks chosen/live state
+     instead of staying greyed-out — preserves contrast on the accent fill. */
+  color: currentColor;
+  opacity: 0.8;
   font-family: var(--font-sans);
 }
 /* Labeled connector — the edge carries the chosen branch so the path reads as logic. */
