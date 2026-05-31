@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Interactive comparison site** (`site/`) — Artificer-themed React + Vite single-page app that turns the research docs into four live views: lockstep workflow comparison (every core tool steps the same scenario in parallel), a sortable/filterable feature matrix, a single-hue scoring heatmap, and a decision guide, plus per-tool profiles. Data is one auto-discovered, AJV-validated JSON per tool — the matrix and heatmap are derived by aggregation, so the JSONs are the single source of truth. Deployed to GitHub Pages at <https://cameronsjo.github.io/spec-compare/>
+- **Artificer adaptations log** (`docs/artificer-adaptations.md`) — Record of how the site bends the Artificer design system, mirroring the feedback issues filed upstream (single-hue heatmap scale, tier-dot placement, scrollbar padding, wordmark fix, dissolve flourish)
 - **Beads research** (`docs/beads.md`) — Deep analysis of Steve Yegge's distributed graph issue tracker, MCP Agent Mail, and Gas Town agent village
 - **Orchestration landscape** (`docs/landscape.md`) — Comprehensive survey of 30+ multi-agent orchestration tools across 13 categories
 - **Gaps analysis** (`docs/gaps.md`) — Five newly discovered SDD frameworks (GSD, Ralph Loop, Zencoder/Zenflow, Kilo Code, Conductor) plus updates to BMad v6 and OpenSpec v1.0
