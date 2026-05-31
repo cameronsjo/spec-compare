@@ -22,14 +22,20 @@ const tools = readdirSync(toolsDir)
   .map((f) => JSON.parse(readFileSync(join(toolsDir, f), 'utf8')))
   .sort((a, b) => a.displayName.localeCompare(b.displayName))
 
+// Which tools have a profile doc — resolved once, not per-render.
+const profileSlugs = new Set(
+  readdirSync(profilesDir)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => f.slice(0, -'.md'.length)),
+)
+
 // — formatting helpers ————————————————————————————————————————————————
 const bool = (v) => (v === true ? '✅' : v === 'limited' ? '⚠️' : '❌')
 const yesNo = (v) => (v ? '**Yes**' : 'No')
 const cfg = (v) => (v === 'yes' ? '✅' : v === 'removed' ? '⚠️ removed' : '❌')
 
 // Link the tool name to its profile doc when one exists; plain text otherwise.
-const name = (t) =>
-  existsSync(join(profilesDir, `${t.tool}.md`)) ? `[${t.displayName}](tools/${t.tool}.md)` : t.displayName
+const name = (t) => (profileSlugs.has(t.tool) ? `[${t.displayName}](tools/${t.tool}.md)` : t.displayName)
 
 const tierLabel = (t) => (t.tier === 'core' ? 'Core' : 'Emerging')
 const maturity = (t) => `${t.maturity} (${t.version})`
@@ -86,27 +92,42 @@ const BLOCKS = {
 // comparison.md owns all current GEN blocks; the map allows future fan-out.
 const TARGETS = { 'comparison.md': ['quick-comparison', 'feature-matrix', 'agent-config'] }
 
+// Escape a literal so it can be interpolated into a RegExp unchanged.
+const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
 const check = process.argv.includes('--check')
 let stale = false
 
 for (const [file, blocks] of Object.entries(TARGETS)) {
   const path = join(docsDir, file)
+  if (!existsSync(path)) {
+    // The site can be built from a checkout without the repo-root docs/ tree
+    // (e.g. a deploy that only ships site/). Skip loudly rather than ENOENT.
+    console.warn(`• ${file} not found at ${path} — skipping doc-table generation.`)
+    continue
+  }
   let text = readFileSync(path, 'utf8')
   for (const block of blocks) {
+    const builder = BLOCKS[block]
+    if (!builder) {
+      console.error(`✗ ${file} — no generator for block "${block}" (TARGETS references a name missing from BLOCKS)`)
+      stale = true
+      continue
+    }
     const open = `<!-- GEN:${block} -->`
     const close = `<!-- /GEN:${block} -->`
-    const re = new RegExp(`${open}[\\s\\S]*?${close}`)
+    const re = new RegExp(`${escapeRe(open)}[\\s\\S]*?${escapeRe(close)}`)
     if (!re.test(text)) {
       console.error(`✗ ${file} — missing sentinels for "${block}" (${open} … ${close})`)
       stale = true
       continue
     }
-    const next = `${open}\n${BLOCKS[block]()}\n${close}`
-    if (!text.includes(next)) {
-      if (check) {
-        console.error(`✗ ${file} — GEN:${block} is stale (run \`npm run gen:tables\`)`)
-        stale = true
-      }
+    const next = `${open}\n${builder()}\n${close}`
+    if (text.includes(next)) continue
+    if (check) {
+      console.error(`✗ ${file} — GEN:${block} is stale (run \`npm run gen:tables\`)`)
+      stale = true
+    } else {
       text = text.replace(re, next)
     }
   }
