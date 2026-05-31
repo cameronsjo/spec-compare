@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#292c33"></rect>
+  
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#4a4f5c" stroke-width="1"></rect>
+  <rect x="48" y="48" width="1104" height="534" fill="none" stroke="#5a3a9a" stroke-width="0.5"></rect>
+
+  
+  <text x="80" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="18" letter-spacing="3">
+    CAMERON · PERSONAL DESIGN · v0.6
+  </text>
+  
+  
+  <text x="80" y="280" fill="#e8e6e1" font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-weight="700" font-size="120" letter-spacing="-2">
+    Artificer<tspan fill="#dbbb6f">.</tspan>
+  </text>
+
+  
+  <text x="80" y="362" fill="#c5c8c6" font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="32" letter-spacing="0">
+    A design system for someone who works
+  </text>
+  <text x="80" y="402" fill="#c5c8c6" font-family="&#39;JetBrains Mono&#39;, ui-monospace, monospace" font-size="32" letter-spacing="0">
+    rooted in <tspan fill="#dbbb6f">Ghostty</tspan> and the <tspan fill="#c4808a">Jazz Age</tspan>.
+  </text>
+
+  
+  <g transform="translate(80, 480)">
+    
+    <rect x="0" y="0" width="80" height="80" fill="#c4932a"></rect>
+    <text x="0" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" letter-spacing="1">GOLD</text>
+    
+    <rect x="92" y="0" width="80" height="80" fill="#c4808a"></rect>
+    <text x="92" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" letter-spacing="1">ROSE</text>
+    
+    <rect x="184" y="0" width="80" height="80" fill="#a04540"></rect>
+    <text x="184" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" letter-spacing="1">BRICK</text>
+    
+    <rect x="276" y="0" width="80" height="80" fill="#4a8a5e"></rect>
+    <text x="276" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" letter-spacing="1">APOTH.</text>
+    
+    <rect x="368" y="0" width="80" height="80" fill="#5a7a8a"></rect>
+    <text x="368" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" letter-spacing="1">STEEL</text>
+    
+    <rect x="460" y="0" width="80" height="80" fill="#5a3a9a"></rect>
+    <text x="460" y="100" fill="#b8cad4" font-family="&#39;JetBrains Mono&#39;, monospace" font-size="13" letter-spacing="1">ROYAL</text>
+  </g>
+
+  
+  <g transform="translate(940, 200) scale(8)">
+    <rect width="32" height="32" rx="4" fill="#313540"></rect>
+    <rect x="2" y="2" width="28" height="28" rx="3" fill="none" stroke="#5a3a9a" stroke-width="1"></rect>
+    <path d="M 22 9 H 13 a 4 4 0 0 0 -4 4 v 6 a 4 4 0 0 0 4 4 h 9" fill="none" stroke="#dbbb6f" stroke-width="2.5" stroke-linecap="square"></path>
+    <circle cx="24" cy="22" r="1.5" fill="#c4808a"></circle>
+  </g>
+</svg>

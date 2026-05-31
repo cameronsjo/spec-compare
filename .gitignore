@@ -87,3 +87,9 @@ dist/
 build/
 out/
 target/
+
+# CodeBoarding tool artifacts
+.codeboarding/
+
+# The site uses npm ci in CI — its lockfile must be tracked despite the global ignore above.
+!site/package-lock.json

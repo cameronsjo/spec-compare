@@ -130,6 +130,13 @@ spec-compare/
 ├── CONTRIBUTING.md                     # This file
 ├── CHANGELOG.md                        # Version history
 ├── LICENSE                             # License information
+├── site/                               # Interactive comparison site (React + Vite)
+│   ├── src/
+│   │   ├── data/tools/                 # One JSON per tool — single source of truth
+│   │   ├── *.tsx                       # Views: compare, matrix, heatmap, guide, profiles
+│   │   └── types.ts, data.ts, score.ts # Schema + auto-discovery + color scale
+│   ├── scripts/validate-tools.mjs      # AJV + cross-tool invariant checks
+│   └── public/artificer/               # Vendored Artificer design system
 └── docs/
     ├── comparison.md                   # Side-by-side feature matrices
     ├── use-case-scoring.md             # 12 use cases graded + heatmap

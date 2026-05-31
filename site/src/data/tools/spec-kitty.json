@@ -1,0 +1,66 @@
+{
+  "tool": "spec-kitty",
+  "displayName": "Spec Kitty",
+  "vendor": "Priivacy-ai",
+  "repo": "https://github.com/Priivacy-ai/spec-kitty",
+  "website": "https://priivacy-ai.github.io/spec-kitty/",
+  "version": "v0.13.5",
+  "license": "Open Source",
+  "maturity": "Active Dev",
+  "tier": "core",
+  "philosophy": "constitution",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Spec-Kit plus worktrees and kanban orchestration.",
+  "bestFor": "Parallel development",
+  "complexity": "High",
+  "learningCurve": "Steep",
+  "features": {
+    "gitWorktrees": true,
+    "multiAgent": true,
+    "dashboard": "Kanban",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": true
+  },
+  "agentConfig": { "agentsMd": "yes", "claudeMd": "yes", "skillMd": "no", "slashCommands": 13 },
+  "phases": [
+    { "id": "constitution", "label": "Constitution", "kind": "govern", "note": "Encode team standards once; enforce automatically." },
+    { "id": "specify", "label": "Specify", "kind": "specify", "command": "/spec-kitty.specify", "note": "Creates the feature branch and a dedicated git worktree." },
+    { "id": "plan", "label": "Plan", "kind": "design", "command": "/spec-kitty.plan", "note": "Document the technical design." },
+    { "id": "tasks", "label": "Tasks", "kind": "tasks", "command": "/spec-kitty.tasks", "note": "Break the work into packages." },
+    { "id": "implement", "label": "Implement", "kind": "implement", "command": "/spec-kitty.implement", "note": "Build the feature in worktree isolation." },
+    { "id": "review", "label": "Review", "kind": "review", "command": "/spec-kitty.review", "note": "Peer review + validation against quality gates." },
+    { "id": "merge", "label": "Merge", "kind": "archive", "command": "/spec-kitty.merge", "note": "Merge to main with worktree cleanup." }
+  ],
+  "edges": [
+    { "from": "constitution", "to": "specify" },
+    { "from": "specify", "to": "plan" },
+    { "from": "plan", "to": "tasks" },
+    { "from": "tasks", "to": "implement" },
+    { "from": "implement", "to": "review" },
+    { "from": "review", "to": "merge" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["specify", "plan", "tasks", "implement", "merge"], "score": 2, "note": "Spec-Kit's issues **plus worktree overhead** — excessive for a one-line change." },
+    { "id": "greenfield", "steps": ["constitution", "specify", "plan", "tasks", "implement", "review", "merge"], "score": 4, "note": "Spec-Kit workflow + worktree isolation. Good for larger features." },
+    { "id": "refactor", "steps": ["specify", "plan", "tasks", "implement", "review", "merge"], "score": 3, "note": "Worktree isolation helps, but workflow overhead for a medium change." },
+    { "id": "bug-fix", "steps": ["specify", "implement", "merge"], "score": 2, "note": "Worktree + spec workflow **too slow for emergencies**." },
+    { "id": "parallel-dev", "steps": ["constitution", "specify", "plan", "tasks", "implement", "review", "merge"], "score": 5, "note": "Built-in **worktree strategy** + kanban dashboard. Designed for exactly this." },
+    { "id": "cross-cutting", "steps": ["specify", "plan", "tasks", "implement", "merge"], "score": 3, "note": "Worktree isolation doesn't help cross-spec changes." }
+  ],
+  "scores": { "trivial": 2, "medium": 3, "large": 4, "parallel": 5, "emergency": 1, "solo": 2, "contextMgmt": 2, "overall": 2.7 },
+  "keyFeatures": [
+    "Live kanban dashboard (Planned → Doing → Review → Done)",
+    "Git worktree strategy for parallel feature isolation",
+    "Coordinates up to 11 AI coding agents simultaneously",
+    "13 built-in commands + mission system (Software Dev / Deep Research)",
+    "Constitution framework enforces team standards"
+  ],
+  "limitations": [
+    "Adds complexity on top of Spec-Kit — must learn both",
+    "Dashboard overhead unnecessary for solo / simple projects",
+    "Python (pip) dependency vs Node-based alternatives",
+    "Community-maintained — not officially supported by GitHub"
+  ]
+}

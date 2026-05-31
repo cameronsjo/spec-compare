@@ -1,0 +1,41 @@
+{
+  "tool": "gsd",
+  "displayName": "GSD (Get Shit Done)",
+  "vendor": "gsd-build",
+  "repo": "https://github.com/gsd-build/get-shit-done",
+  "website": "https://gsd.build",
+  "version": "v1.20.6",
+  "license": "Open Source",
+  "maturity": "Production",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-First",
+  "tagline": "Context-rot-resistant SDD for solo developers.",
+  "bestFor": "Solo devs, context management",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": true,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": true
+  },
+  "scores": { "trivial": 4, "medium": 4, "large": 4, "parallel": 4, "emergency": 2, "solo": 5, "contextMgmt": 4, "overall": 3.9 },
+  "keyFeatures": [
+    "Thin orchestrator — subagents keep each context at 30–40%",
+    "Aggressive atomicity: 2–3 task plans in a fresh 200K window",
+    "Wave-based parallelization from dependency analysis",
+    "Goal-backward verification of observable behaviors",
+    "Atomic per-task commits; .planning/ as persistent memory"
+  ],
+  "limitations": [
+    "Opinionated toward Claude Code (other runtimes secondary)",
+    "Less comprehensive than BMad for enterprise workflows",
+    "No brownfield-specific delta features",
+    "No spec persistence — plans are consumed, not maintained",
+    "No explicit git worktree support"
+  ]
+}

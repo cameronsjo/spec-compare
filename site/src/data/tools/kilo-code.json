@@ -1,0 +1,40 @@
+{
+  "tool": "kilo-code",
+  "displayName": "Kilo Code",
+  "vendor": "Kilo (Sid Sijbrandij)",
+  "repo": "https://github.com/Kilo-Org/kilocode",
+  "website": "https://kilo.ai/",
+  "version": "v4.148.1",
+  "license": "Open Source",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Modal agentic platform with a Memory Bank.",
+  "bestFor": "Mode-based engineering, durable memory",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": true,
+    "dashboard": "IDE",
+    "mcp": false,
+    "ideIntegration": true,
+    "openSource": true,
+    "parallel": true
+  },
+  "scores": { "trivial": 3, "medium": 3, "large": 4, "parallel": 4, "emergency": 2, "solo": 3, "contextMgmt": 4, "overall": 3.3 },
+  "keyFeatures": [
+    "Structured modes: Ask, Architect, Code, Debug, Orchestrator, Custom",
+    "Memory Bank — durable project recall via structured markdown",
+    "Model-agnostic: 500+ models across providers",
+    "Multi-platform: VS Code, JetBrains, Cursor, Windsurf, and CLI",
+    "Parallel agents; Kilo Code Reviewer for AI-powered PR reviews"
+  ],
+  "limitations": [
+    "Not strictly an SDD tool (forked from Roo Code)",
+    "SDD overlap is via Architect mode + Memory Bank, not a spec workflow",
+    "No explicit git worktree support",
+    "Spec rigor is informal vs dedicated SDD tools"
+  ]
+}

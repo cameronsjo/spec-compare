@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Artificer theme bootstrap — FIRST in <head>, before any CSS.
+         Sets data-theme before first paint so the dark-first page never
+         flashes light on load (Artificer v0.10.1 baseline contract). The
+         'artificer.theme' key MUST match artificer-theme.js and App.tsx. -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('artificer.theme');
+          var prefersDark = window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute(
+            'data-theme', saved || (prefersDark ? 'dark' : 'light'));
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+    <title>Spec-Driven Development Tools</title>
+    <meta
+      name="description"
+      content="Eleven spec-driven-development tools — Spec-Kit, Spec Kitty, BMad, OpenSpec, Kiro, Tessl and more — with their workflows, feature matrices, and use-case scoring. Step the same scenario through every core tool in lockstep."
+    />
+    <link rel="icon" type="image/svg+xml" href="/artificer/assets/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Spec-Driven Development Tools" />
+    <meta
+      property="og:description"
+      content="Eleven SDD tools — their workflows, feature matrices, and use-case scoring, derived from deep research. Step the same scenario through every core tool in lockstep."
+    />
+    <meta property="og:image" content="https://cameronsjo.github.io/spec-compare/artificer/assets/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Spec-Driven Development Tools" />
+    <meta
+      name="twitter:description"
+      content="Eleven SDD tools — their workflows, feature matrices, and use-case scoring. Step the same scenario through every core tool in lockstep."
+    />
+    <meta name="twitter:image" content="https://cameronsjo.github.io/spec-compare/artificer/assets/og-image.svg" />
+    <link rel="stylesheet" href="/artificer/artificer.css" />
+    <link rel="stylesheet" href="/artificer/artificer-whimsy.css" />
+    <link rel="stylesheet" href="/artificer/print.css" media="print" />
+    <script src="/artificer/artificer-theme.js" defer></script>
+    <script src="/artificer/artificer-icons.js" defer></script>
+    <script src="/artificer/artificer-focus.js" defer></script>
+    <script src="/artificer/artificer-whimsy.js" defer></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- Cloudflare Web Analytics — cookieless, hostname-scoped to
+         cameronsjo.github.io (one token covers every site on that host). -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9db7302de886402680e0838d0f35f7db"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+</html>

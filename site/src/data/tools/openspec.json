@@ -1,0 +1,60 @@
+{
+  "tool": "openspec",
+  "displayName": "OpenSpec",
+  "vendor": "Fission-AI",
+  "repo": "https://github.com/Fission-AI/OpenSpec",
+  "website": "https://openspec.dev/",
+  "version": "v1.2.0",
+  "license": "MIT",
+  "maturity": "Production",
+  "tier": "core",
+  "philosophy": "change",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Lightweight change-management for brownfield.",
+  "bestFor": "Brownfield changes",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": false,
+    "dashboard": "CLI",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "removed", "claudeMd": "removed", "skillMd": "yes", "slashCommands": 10 },
+  "phases": [
+    { "id": "draft", "label": "Draft change", "kind": "specify", "command": "/opsx:new", "note": "Initialize a change; draft the proposal, spec deltas, and tasks." },
+    { "id": "review", "label": "Review delta", "kind": "review", "note": "Iterative refinement of the spec deltas before implementation." },
+    { "id": "implement", "label": "Implement", "kind": "implement", "command": "/opsx:apply", "note": "Implement the tasks against the agreed deltas." },
+    { "id": "archive", "label": "Archive spec", "kind": "archive", "command": "/opsx:archive", "note": "Sync delta specs back into main specs; archive the change." }
+  ],
+  "edges": [
+    { "from": "draft", "to": "review" },
+    { "from": "review", "to": "implement" },
+    { "from": "implement", "to": "archive" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["draft", "implement", "archive"], "score": 5, "note": "Lightweight delta format — a single MODIFIED section. **Minimal overhead.**" },
+    { "id": "greenfield", "steps": ["draft", "review", "implement", "archive"], "score": 3, "note": "Lightweight; **better suited to modifications** than greenfield." },
+    { "id": "refactor", "steps": ["draft", "review", "implement", "archive"], "score": 5, "note": "MODIFIED/ADDED/REMOVED deltas **consolidate cross-file changes**." },
+    { "id": "bug-fix", "steps": ["draft", "implement", "archive"], "score": 4, "note": "Quick change proposal, fast implementation, with an audit trail." },
+    { "id": "parallel-dev", "steps": ["draft", "review", "implement", "archive"], "score": 3, "note": "Manual worktrees + change isolation work, but **no orchestration**." },
+    { "id": "cross-cutting", "steps": ["draft", "review", "implement", "archive"], "score": 5, "note": "A **single proposal** can carry deltas for many specs at once." }
+  ],
+  "scores": { "trivial": 5, "medium": 5, "large": 3, "parallel": 3, "emergency": 2, "solo": 4, "contextMgmt": 2, "overall": 3.4 },
+  "keyFeatures": [
+    "Dual-folder model: specs/ vs changes/ with a full audit trail",
+    "Action-based /opsx: workflow — 10 flexible actions over a DAG of artifacts",
+    "Semantic spec syncing (ADDED / MODIFIED / REMOVED / RENAMED requirements)",
+    "Single .claude/skills/ directory — adopts the SKILL.md standard",
+    "No API keys, no MCP dependency"
+  ],
+  "limitations": [
+    "Less comprehensive than Spec-Kit for greenfield projects",
+    "Simpler feature set than BMad or Spec Kitty",
+    "Limited orchestration; no multi-agent coordination",
+    "No built-in git worktree support"
+  ]
+}
