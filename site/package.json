@@ -6,8 +6,10 @@
   "description": "Interactive comparison of spec-driven-development tools and their workflows",
   "scripts": {
     "validate": "node scripts/validate-tools.mjs",
+    "gen:tables": "node scripts/gen-doc-tables.mjs",
+    "gen:check": "node scripts/gen-doc-tables.mjs --check",
     "dev": "vite",
-    "build": "npm run validate && tsc && vite build",
+    "build": "npm run validate && npm run gen:check && tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run"
   },
