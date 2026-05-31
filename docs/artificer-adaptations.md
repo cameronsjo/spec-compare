@@ -74,3 +74,17 @@ on `run`). **Method note:** we picked the timing by wiring a throwaway in-app A/
 toggle (two treatments, swap + replay) — whimsy treatments are tuned by *feel*, so a
 preview/compare affordance is worth having. Filed upstream as
 `cameronsjo/artificer-design-system#85`.
+
+## 2026-05-31 · Known upstream bugs in vendored runtime (no in-tree patch)
+
+| # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
+|---|------|---------|------------------------|-------------------|-----------|------|
+| 11 | misfit | tool | vendored `artificer-icons.js`, `print.css` | Static review (CodeRabbit, PR #6) surfaced three latent bugs in the vendored web runtime: `classList.add(opts.className)` throws on multi-class strings; `hydrate()` permanently locks nodes so in-place `data-icon*` changes never re-render; `print.css` uses deprecated `page-break-*`. Left the vendored copies **untouched** to avoid diverging from source — filed upstream instead. | yes | 3 |
+
+**Finding:** these aren't adaptations we made — they're pre-existing bugs in the
+**vendored** files we copy verbatim from `cameronsjo/artificer-design-system`.
+Policy: never patch the vendored copy in-tree (it would silently fork from source
+and break the next re-vendor). Routed upstream as a single bug report,
+`cameronsjo/artificer-design-system#90`. The stale `v0.6` header comment in
+`artificer.css` (also flagged) was already tracked upstream in #77. **Re-sync
+trigger:** when #90 lands, re-vendor `artificer-icons.js` + `print.css`.
