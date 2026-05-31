@@ -695,84 +695,136 @@ body {
   color: var(--fg-secondary);
   max-width: 70ch;
 }
-.decision-crumbs {
+/* The flowchart: a column of nodes, each a question's fork, connected by labeled
+   edges down to the recommendation. max-width keeps the diagram readable, not full-bleed. */
+.flow {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-xs);
+  max-width: 560px;
 }
-.decision-crumbs li {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: var(--bg-raised);
+.flow-node {
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill, 999px);
-  font-size: 0.74rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-raised);
+  padding: var(--s-md);
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
-.crumb-q {
+.flow-node + .flow-node {
+  margin-top: var(--s-sm);
+}
+.flow-node--resolved {
+  border-style: dashed;
+  background: transparent;
+}
+.flow-node--active {
+  border-color: var(--accent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.flow-q {
+  margin: 0 0 var(--s-sm);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.flow-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-sm);
+}
+.flow-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--s-sm) var(--s-md);
+  height: auto;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+}
+.flow-opt--live:hover {
+  border-color: var(--accent);
+  background: var(--accent-fill);
+}
+.flow-opt--chosen {
+  border-color: var(--accent);
+  background: var(--accent-fill);
+  color: var(--accent-bright);
+}
+/* The road not taken — visible (so the fork reads), but recessed. Hover invites the re-route. */
+.flow-opt--dim {
+  opacity: 0.5;
+  border-style: dashed;
+}
+.flow-opt--dim:hover {
+  opacity: 1;
+  border-color: var(--steel);
+}
+.flow-opt-label {
+  font-weight: 700;
+}
+.flow-opt-hint {
+  font-size: 0.76rem;
   color: var(--fg-secondary);
   font-family: var(--font-sans);
 }
-.crumb-a {
+/* Labeled connector — the edge carries the chosen branch so the path reads as logic. */
+.flow-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--s-xs) 0 0 var(--s-sm);
   color: var(--accent);
+}
+.flow-link-arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.flow-link-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
-.decision-card {
-  max-width: 640px;
+.flow-node--result {
+  border: none;
+  background: none;
+  padding: 0;
 }
-.decision-q {
-  margin: 0 0 var(--s-md);
-  font-size: 1.2rem;
-}
-.decision-answers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--s-md);
-}
-.decision-answer {
+.flow-result {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--s-xs);
   align-items: flex-start;
-  padding: var(--s-md);
-  height: auto;
-  text-align: left;
 }
-.answer-label {
-  font-weight: 700;
-}
-.answer-hint {
-  font-size: 0.76rem;
-  opacity: 0.85;
-  font-family: var(--font-sans);
-}
-.decision-restart {
-  align-self: flex-start;
-}
-.decision-result {
-  max-width: 640px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-sm);
-}
-.decision-result-label {
+.flow-result-label {
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--accent-bright);
 }
-.decision-result-name {
+.flow-result-name {
   margin: 0;
   font-size: 1.5rem;
 }
-.decision-result-why {
-  margin: 0;
+.flow-result-version {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--fg-secondary);
+}
+.flow-result-why {
+  margin: 0 0 var(--s-xs);
   font-family: var(--font-sans);
   color: var(--fg-secondary);
+}
+.decision-restart {
+  align-self: flex-start;
 }
 
 /* ---- tablet breakpoint (Artificer --bp-tablet: 800px) ---- */
@@ -789,7 +841,7 @@ body {
   .inspector {
     position: static;
   }
-  .decision-answers {
+  .flow-opts {
     grid-template-columns: 1fr;
   }
 }

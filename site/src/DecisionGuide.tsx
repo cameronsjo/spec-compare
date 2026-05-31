@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { toolBySlug } from './data'
+import { ASSESSED_AS_OF } from './types'
 
 // The decision tree from docs/use-case-scoring.md §Decision Matrix, verbatim in shape.
 type Step =
@@ -45,84 +46,131 @@ const TREE: Record<string, Step> = {
   'r-bmad': { kind: 'result', tool: 'bmad-method', why: '21 specialized agents and 50+ workflows for enterprise-scale planning.' },
 }
 
-interface Crumb {
-  q: string
-  answer: string
+interface Choice {
+  from: string
+  label: string
+  to: string
 }
 
-/** Interactive flowchart: walk the decision matrix to a recommended tool. */
+/**
+ * Visible decision flowchart. Each answered question stays on screen as a node with
+ * its fork shown — the chosen branch lit, the road-not-taken dimmed — connected down
+ * to the next node, ending in a recommendation. Any earlier answer is re-selectable,
+ * which truncates the path there and re-routes, so the whole logic stays explorable.
+ */
 export function DecisionGuide({ onSelectTool }: { onSelectTool: (slug: string) => void }) {
-  const [nodeId, setNodeId] = useState('start')
-  const [path, setPath] = useState<Crumb[]>([])
+  const [choices, setChoices] = useState<Choice[]>([])
 
-  const node = TREE[nodeId]
+  // Walk the chosen path to derive the visited question nodes + the current node.
+  const visited: string[] = []
+  let id = 'start'
+  for (const c of choices) {
+    visited.push(id)
+    id = c.to
+  }
+  const current = TREE[id]
 
-  const choose = (q: string, label: string, to: string) => {
-    setPath((p) => [...p, { q, answer: label }])
-    setNodeId(to)
-  }
-  const restart = () => {
-    setNodeId('start')
-    setPath([])
-  }
+  // Choosing on the node at `depth` truncates everything after it, then re-routes.
+  const pick = (fromId: string, depth: number, label: string, to: string) =>
+    setChoices((cs) => [...cs.slice(0, depth), { from: fromId, label, to }])
+  const restart = () => setChoices([])
 
   return (
     <section className="decision stack stack--md">
       <p className="decision-lede">
-        Answer a couple of questions and follow the documented decision matrix to a recommended tool.
+        Walk the questions — your path lights up as you go. Change any earlier answer to re-route; the road not taken
+        stays visible the whole way down.
       </p>
 
-      {path.length > 0 && (
-        <ol className="decision-crumbs">
-          {path.map((c, i) => (
-            <li key={i}>
-              <span className="crumb-q">{c.q}</span>
-              <span className="crumb-a">{c.answer}</span>
+      <ol className="flow">
+        {visited.map((vid, i) => {
+          const node = TREE[vid]
+          if (node.kind !== 'question') return null
+          const chosen = choices[i]
+          return (
+            <li key={`${vid}-${i}`} className="flow-node flow-node--resolved">
+              <div className="flow-q">{node.q}</div>
+              <div className="flow-opts">
+                {node.answers.map((a) => {
+                  const isChosen = a.label === chosen.label
+                  return (
+                    <button
+                      key={a.label}
+                      type="button"
+                      className={`flow-opt ${isChosen ? 'flow-opt--chosen' : 'flow-opt--dim'}`}
+                      aria-pressed={isChosen}
+                      onClick={() => pick(vid, i, a.label, a.to)}
+                    >
+                      <span className="flow-opt-label">{a.label}</span>
+                      {a.hint && <span className="flow-opt-hint">{a.hint}</span>}
+                    </button>
+                  )
+                })}
+              </div>
+              <FlowLink label={chosen.label} />
             </li>
-          ))}
-        </ol>
-      )}
+          )
+        })}
 
-      {node.kind === 'question' ? (
-        <div className="card decision-card">
-          <h2 className="decision-q">{node.q}</h2>
-          <div className="decision-answers">
-            {node.answers.map((a) => (
-              <button key={a.label} type="button" className="btn decision-answer" onClick={() => choose(node.q, a.label, a.to)}>
-                <span className="answer-label">{a.label}</span>
-                {a.hint && <span className="answer-hint">{a.hint}</span>}
-              </button>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <ResultCard slug={node.tool} why={node.why} onView={() => onSelectTool(node.tool)} onRestart={restart} />
-      )}
+        {current.kind === 'question' ? (
+          <li className="flow-node flow-node--active">
+            <div className="flow-q">{current.q}</div>
+            <div className="flow-opts">
+              {current.answers.map((a) => (
+                <button
+                  key={a.label}
+                  type="button"
+                  className="flow-opt flow-opt--live"
+                  onClick={() => pick(id, visited.length, a.label, a.to)}
+                >
+                  <span className="flow-opt-label">{a.label}</span>
+                  {a.hint && <span className="flow-opt-hint">{a.hint}</span>}
+                </button>
+              ))}
+            </div>
+          </li>
+        ) : (
+          <li className="flow-node flow-node--result">
+            <ResultNode slug={current.tool} why={current.why} onView={() => onSelectTool(current.tool)} />
+          </li>
+        )}
+      </ol>
 
-      {node.kind === 'question' && path.length > 0 && (
+      {choices.length > 0 && (
         <button type="button" className="btn btn--ghost decision-restart" onClick={restart}>
           ↺ Start over
         </button>
       )}
+
+      <p className="view-foot">
+        A heuristic distilled from the research docs — recommendations are a considered opinion (Cameron + Claude),
+        assessed <b>{ASSESSED_AS_OF}</b>, not a guarantee of fit.
+      </p>
     </section>
   )
 }
 
-function ResultCard({ slug, why, onView, onRestart }: { slug: string; why: string; onView: () => void; onRestart: () => void }) {
+/** Labeled connector between flow nodes — the edge that makes the branch explicit. */
+function FlowLink({ label }: { label: string }) {
+  return (
+    <div className="flow-link" aria-hidden="true">
+      <span className="flow-link-arrow">↓</span>
+      <span className="flow-link-label">{label}</span>
+    </div>
+  )
+}
+
+function ResultNode({ slug, why, onView }: { slug: string; why: string; onView: () => void }) {
   const spec = toolBySlug(slug)
   return (
-    <div className="card card--active decision-result">
-      <span className="decision-result-label">Recommended</span>
-      <h2 className="decision-result-name">{spec?.displayName ?? slug}</h2>
-      <p className="decision-result-why">{why}</p>
-      <div className="cluster">
-        <button type="button" className="btn" onClick={onView}>
-          View {spec?.displayName ?? slug} →
-        </button>
-        <button type="button" className="btn btn--ghost" onClick={onRestart}>
-          ↺ Start over
-        </button>
-      </div>
+    <div className="card card--active flow-result">
+      <span className="flow-result-label">Recommended</span>
+      <h2 className="flow-result-name">{spec?.displayName ?? slug}</h2>
+      {spec?.version && <span className="flow-result-version">assessed at {spec.version}</span>}
+      <p className="flow-result-why">{why}</p>
+      <button type="button" className="btn" onClick={onView}>
+        View {spec?.displayName ?? slug} →
+      </button>
     </div>
   )
 }
