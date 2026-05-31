@@ -1,0 +1,39 @@
+{
+  "tool": "ralph-loop",
+  "displayName": "Ralph Loop",
+  "vendor": "Geoffrey Huntley",
+  "repo": "https://github.com/snwfdhmp/awesome-ralph",
+  "website": "https://ralph-wiggum.ai/",
+  "license": "Various (open source)",
+  "maturity": "Production",
+  "tier": "emerging",
+  "philosophy": "loop",
+  "tagline": "Naive persistence: a fresh-context bash loop.",
+  "bestFor": "Autonomous hands-off execution",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": false,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 3, "medium": 3, "large": 4, "parallel": 3, "emergency": 2, "solo": 4, "contextMgmt": 5, "overall": 3.4 },
+  "keyFeatures": [
+    "Stateless execution — a fresh context each iteration",
+    "One task per loop: read specs → implement → validate → commit → exit",
+    "Git + files as the memory layer (no LLM context retention)",
+    "Avoids the 'Dumb Zone' past 60–70% context capacity",
+    "Pairs with any SDD planner (OpenSpec, Spec-Kit)"
+  ],
+  "limitations": [
+    "Not a planning tool — needs specs from another source",
+    "No built-in parallelism (sequential by default)",
+    "Requires well-structured specs to avoid thrashing",
+    "No UI or dashboard — purely terminal-based",
+    "Wasteful when tasks repeatedly fail (a full fresh context each retry)"
+  ]
+}

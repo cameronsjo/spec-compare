@@ -1,0 +1,726 @@
+/* App layout on top of the Artificer design system (artificer.css supplies tokens + .btn/.cluster/.card/.dot/.theme-toggle). */
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+}
+
+.app {
+  padding-block: var(--s-lg) var(--s-2xl);
+}
+
+/* ---- appbar + intro band ---- */
+.appbar__brand .whimsy {
+  font-size: inherit;
+  letter-spacing: inherit;
+}
+.intro {
+  margin-block: var(--s-lg) var(--s-xl);
+}
+.lede {
+  margin: 0;
+  max-width: 70ch;
+}
+.masthead-meta {
+  gap: var(--s-xs);
+  margin-top: var(--s-xs);
+}
+
+/* ---- app shell: [ sidenav | content ] ---- */
+.app-shell {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: var(--s-lg);
+  align-items: start;
+}
+.app-sidenav {
+  position: sticky;
+  top: calc(56px + var(--s-md));
+}
+
+/* Sidenav button shim — Artificer styles only `.sidenav a`, but these items switch
+   SPA state rather than navigate, so they're <button>s. Replicate the link grammar. */
+.sidenav button {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: none;
+  background: none;
+  border-radius: var(--radius-sm);
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--t-label-md-size);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.sidenav button > .label {
+  flex: 1;
+  min-width: 0;
+}
+.sidenav button:hover {
+  background: var(--bg);
+  color: var(--fg);
+}
+.sidenav button:focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset-inset);
+}
+.sidenav button[aria-current="page"] {
+  background: var(--bg);
+  color: var(--accent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+/* ---- pill tabs (TabPicker / matrix filter) ---- */
+.tab {
+  border-radius: var(--radius-sm);
+}
+.tab--active {
+  background: var(--bg-raised);
+  color: var(--fg);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* ---- legend ---- */
+.legend {
+  gap: var(--s-md);
+  padding: var(--s-sm) var(--s-md);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---- transport / scenario ---- */
+.scenario-tabs {
+  gap: var(--s-xs);
+  flex-wrap: wrap;
+}
+.transport {
+  gap: var(--s-xs);
+  align-items: center;
+}
+.step-counter {
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+  margin-left: var(--s-sm);
+}
+/* Finish flourish, three stages. A spectrum shimmer (.tc-shimmer.whimsy) is stacked
+   over silver base text (.tc-plain); the shimmer crossfades out quickly (spectrum →
+   silver), then the whole caption dissolves slowly. The gradient→solid handoff
+   happens via opacity crossfade, never a hard class swap, so there's no snap. */
+.turn-complete {
+  position: relative;
+  display: inline-block;
+  margin-left: var(--s-sm);
+  color: var(--fg-secondary);
+  transition: opacity 2750ms var(--ease, ease); /* the slow full disappear */
+}
+.turn-complete--out {
+  opacity: 0;
+}
+.tc-plain {
+  color: var(--fg-secondary);
+}
+.tc-shimmer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 360ms var(--ease, ease); /* quick spectrum → silver */
+}
+.tc-shimmer--hidden {
+  opacity: 0;
+}
+.scenario-title {
+  font-family: var(--font-sans);
+  color: var(--fg);
+  margin: var(--s-sm) 0 var(--s-xs);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+}
+.scenario-desc {
+  margin: 0 0 var(--s-md);
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  max-width: 70ch;
+}
+
+/* ---- compare view ---- */
+.compare-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-md);
+}
+.compare-grid {
+  display: flex;
+  gap: var(--s-md);
+  overflow-x: auto;
+  padding-bottom: var(--s-md);
+}
+.compare-col {
+  flex: 0 0 290px;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.compare-col--done {
+  background: var(--bg);
+  border-left: 2px solid var(--success);
+}
+.compare-col svg {
+  max-width: 100%;
+  height: auto;
+}
+.compare-col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-sm);
+  margin-bottom: 4px;
+}
+.lang-badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--steel-fill);
+  color: var(--fg);
+}
+.loop-style {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  margin-bottom: var(--s-sm);
+  min-height: 2.4em;
+}
+.compare-caption {
+  margin-top: var(--s-sm);
+  min-height: 3.2em;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.path-len {
+  color: var(--fg-secondary);
+  font-size: 0.72rem;
+}
+
+/* ---- single tool player ---- */
+.harness-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-md);
+  margin: var(--s-sm) 0 var(--s-md);
+  flex-wrap: wrap;
+}
+.harness-meta .loop-style {
+  min-height: 0;
+  margin-bottom: 0;
+}
+.repo-link {
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.repo-link:hover {
+  text-decoration: underline;
+}
+.player-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--s-lg);
+  align-items: start;
+}
+.graph-pane {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+.inspector {
+  position: sticky;
+  top: var(--s-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-md);
+}
+.node-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.node-kind {
+  font-size: 0.75rem;
+  color: var(--fg-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--s-sm);
+}
+.node-note,
+.scenario-note {
+  font-family: var(--font-sans);
+  color: var(--fg-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.scenario-note {
+  padding-left: var(--s-md);
+  border-left: 2px solid var(--border);
+}
+.score-card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+  margin-bottom: var(--s-sm);
+}
+.score-word {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+}
+
+/* ---- score pip (1–5 colored chip) ---- */
+.score-pip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border: 1.5px solid var(--steel);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* ---- shared bits ---- */
+.source-ref {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--accent-bright);
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  align-self: flex-start;
+  word-break: break-all;
+}
+.fg-secondary {
+  color: var(--fg-secondary);
+}
+.empty {
+  color: var(--fg-secondary);
+  padding: var(--s-2xl);
+  text-align: center;
+}
+.view-foot {
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  margin: 0;
+  max-width: 80ch;
+}
+.app-footer {
+  margin-top: var(--s-2xl);
+  padding-top: var(--s-md);
+  border-top: 1px solid var(--border);
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+}
+
+/* ---- tier markers ---- */
+.tier-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.tier-dot--core {
+  background: var(--accent);
+}
+.tier-dot--emerging {
+  background: var(--steel);
+}
+.tier-badge {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+.tier-badge--core {
+  background: var(--accent-fill);
+  color: var(--accent-bright);
+}
+.tier-badge--emerging {
+  background: var(--steel-fill);
+  color: var(--fg-secondary);
+}
+
+/* ---- tables (matrix + heatmap share scroll + header grammar) ---- */
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  /* Breathing room so the horizontal scrollbar doesn't crowd the last row. */
+  padding-bottom: var(--s-xs);
+}
+.matrix-table,
+.heatmap-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.82rem;
+}
+.matrix-table th,
+.matrix-table td,
+.heatmap-table th,
+.heatmap-table td {
+  padding: 8px 10px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+.matrix-table thead th,
+.heatmap-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-raised);
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  z-index: 2;
+}
+/* Sticky row-header cell. MUST stay a table cell (no display:flex here) — flexing a
+   <th> drops it out of table-row height sync and the tool names drift off their
+   score cells. The name + tier dot get their own flex wrapper instead. */
+.th-tool {
+  position: sticky;
+  left: 0;
+  background: var(--bg-raised);
+  text-align: left !important;
+  z-index: 1;
+}
+.th-tool-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* tier dot now leads the name */
+}
+.matrix-table thead .th-tool,
+.heatmap-table thead .th-tool {
+  z-index: 3;
+}
+.row-tool {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--fg);
+}
+.th-btn {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.th-btn:hover {
+  color: var(--accent);
+}
+.cell-text {
+  font-family: var(--font-sans);
+  color: var(--fg);
+}
+.cell-dash {
+  color: var(--fg-disabled);
+}
+/* Artificer-toned glyphs, not emoji — the bright emoji colors read as noise in a
+   dense grid. Success check pops; the negatives recede into muted/attention tones. */
+.flag {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.flag--yes { color: var(--success); }
+.flag--partial { color: var(--attention); }
+.flag--no { color: var(--fg-disabled); }
+.matrix-controls {
+  gap: var(--s-xs);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.matrix-legend {
+  margin-left: auto;
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+}
+
+/* ---- heatmap ---- */
+.heat-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 40px;
+  height: 34px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.heat-cell:hover {
+  transform: scale(1.06);
+}
+.heat-cell:focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: 1px;
+}
+.heat-cell--active {
+  box-shadow: 0 0 0 1px var(--bg-raised);
+}
+.cell-overall {
+  border-left: 2px solid var(--border);
+}
+.heat-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xs);
+}
+.heat-detail-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+}
+.heat-detail-body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--fg-secondary);
+  font-size: 0.9rem;
+}
+
+/* ---- tool profile ---- */
+.profile-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.profile-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+}
+.profile-name {
+  margin: 0;
+  font-size: 1.4rem;
+}
+.profile-tagline {
+  margin: 0;
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+}
+.profile-meta {
+  gap: var(--s-md);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.vendor {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--fg-secondary);
+}
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--s-sm);
+}
+.badge-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--s-sm) var(--s-md);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.badge-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-secondary);
+}
+.badge-value {
+  font-family: var(--font-sans);
+  color: var(--fg);
+  font-size: 0.9rem;
+}
+.profile-scores-head,
+.profile-list-head {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-secondary);
+  margin: 0 0 var(--s-sm);
+}
+.score-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-md);
+}
+.score-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.score-cell-label {
+  font-size: 0.7rem;
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+}
+.profile-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--s-md);
+}
+.bullets {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+.bullets--muted {
+  color: var(--fg-secondary);
+}
+
+/* ---- decision guide ---- */
+.decision-lede {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--fg-secondary);
+  max-width: 70ch;
+}
+.decision-crumbs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-xs);
+}
+.decision-crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.74rem;
+}
+.crumb-q {
+  color: var(--fg-secondary);
+  font-family: var(--font-sans);
+}
+.crumb-a {
+  color: var(--accent);
+  font-weight: 700;
+}
+.decision-card {
+  max-width: 640px;
+}
+.decision-q {
+  margin: 0 0 var(--s-md);
+  font-size: 1.2rem;
+}
+.decision-answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-md);
+}
+.decision-answer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  padding: var(--s-md);
+  height: auto;
+  text-align: left;
+}
+.answer-label {
+  font-weight: 700;
+}
+.answer-hint {
+  font-size: 0.76rem;
+  opacity: 0.85;
+  font-family: var(--font-sans);
+}
+.decision-restart {
+  align-self: flex-start;
+}
+.decision-result {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-sm);
+}
+.decision-result-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-bright);
+}
+.decision-result-name {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.decision-result-why {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--fg-secondary);
+}
+
+/* ---- tablet breakpoint (Artificer --bp-tablet: 800px) ---- */
+@media (max-width: 800px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+  .app-sidenav {
+    display: none;
+  }
+  .player-body {
+    grid-template-columns: 1fr;
+  }
+  .inspector {
+    position: static;
+  }
+  .decision-answers {
+    grid-template-columns: 1fr;
+  }
+}

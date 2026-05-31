@@ -1,0 +1,27 @@
+{
+  "name": "spec-compare-visualizer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Interactive comparison of spec-driven-development tools and their workflows",
+  "scripts": {
+    "validate": "node scripts/validate-tools.mjs",
+    "dev": "vite",
+    "build": "npm run validate && tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "ajv": "^8.17.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}

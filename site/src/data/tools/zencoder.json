@@ -1,0 +1,37 @@
+{
+  "tool": "zencoder",
+  "displayName": "Zencoder / Zenflow",
+  "vendor": "Zencoder",
+  "website": "https://zencoder.ai/",
+  "license": "Proprietary",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Commercial SDD-as-a-Service with parallel agents.",
+  "bestFor": "Parallel agents at scale (commercial)",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": true,
+    "dashboard": "IDE",
+    "mcp": false,
+    "ideIntegration": true,
+    "openSource": false,
+    "parallel": true
+  },
+  "scores": { "trivial": 3, "medium": 4, "large": 5, "parallel": 5, "emergency": 1, "solo": 1, "contextMgmt": 3, "overall": 3.1 },
+  "keyFeatures": [
+    "RED/GREEN/VERIFY implementation loops with automated verification",
+    "Parallel execution — tens to hundreds of agents at once",
+    "Spec anchoring: agents read specs / PRDs / architecture before coding",
+    "Cross-agent code review built in",
+    "IDE integration (VS Code, JetBrains) + Claude Code / Codex CLI"
+  ],
+  "limitations": [
+    "Commercial platform — a subscription, not an installable framework",
+    "Proprietary (closed source)",
+    "Newer entrant (Zenflow launched January 2026)",
+    "SDD-as-a-Service model implies vendor lock-in"
+  ]
+}

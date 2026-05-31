@@ -1,0 +1,37 @@
+{
+  "tool": "conductor",
+  "displayName": "Conductor",
+  "vendor": "Melty Labs",
+  "website": "https://www.conductor.build/",
+  "version": "v0.36.3",
+  "license": "Proprietary (free)",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "tagline": "macOS parallel agent runner with worktrees.",
+  "bestFor": "Parallel worktree execution (macOS)",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": true,
+    "multiAgent": true,
+    "dashboard": "Desktop",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": false,
+    "parallel": true
+  },
+  "scores": { "trivial": 1, "medium": 1, "large": 2, "parallel": 5, "emergency": 1, "solo": 2, "contextMgmt": 2, "overall": 2.0 },
+  "keyFeatures": [
+    "Automatic git-worktree isolation per workspace",
+    "Unified review interface — diff & merge changes across agents",
+    "Runs multiple Claude Code / Codex agents in parallel",
+    "Local-first — runs entirely on your Mac",
+    "Free beyond existing Claude Code / Codex subscriptions"
+  ],
+  "limitations": [
+    "macOS (Apple Silicon) only — no Windows / Linux",
+    "Not an SDD tool — it's an agent runner",
+    "No enterprise features (Jira, signed commits, multi-user)",
+    "Intel Mac support still in development"
+  ]
+}

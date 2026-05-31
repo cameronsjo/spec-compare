@@ -1,0 +1,61 @@
+{
+  "tool": "bmad-method",
+  "displayName": "BMad Method",
+  "vendor": "bmad-code-org",
+  "repo": "https://github.com/bmad-code-org/BMAD-METHOD",
+  "website": "https://bmadcodes.com/",
+  "version": "v6.0.2",
+  "license": "Open Source",
+  "maturity": "Stable",
+  "tier": "core",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "21 specialized agents, 50+ agile workflows.",
+  "bestFor": "Enterprise workflows",
+  "complexity": "Very High",
+  "learningCurve": "Steep",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": true,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "yes", "claudeMd": "yes", "skillMd": "no", "slashCommands": 50 },
+  "phases": [
+    { "id": "analysis", "label": "Analysis", "kind": "specify", "command": "*workflow-init", "note": "Optional brainstorming and solution exploration." },
+    { "id": "planning", "label": "Planning", "kind": "design", "note": "PRDs, technical specifications, design documents." },
+    { "id": "solutioning", "label": "Solutioning", "kind": "design", "note": "Architecture and UX design (the Architect & UX agents)." },
+    { "id": "implementation", "label": "Implementation", "kind": "implement", "note": "Story-driven development with validation." }
+  ],
+  "edges": [
+    { "from": "analysis", "to": "planning" },
+    { "from": "planning", "to": "solutioning" },
+    { "from": "solutioning", "to": "implementation" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["planning", "solutioning", "implementation"], "score": 1, "note": "**21 agents, a 30+ minute workflow** for a button color. Massive overkill." },
+    { "id": "greenfield", "steps": ["analysis", "planning", "solutioning", "implementation"], "score": 5, "note": "21 specialized agents (PM, Architect, Security Expert). **Comprehensive enterprise workflow.**" },
+    { "id": "refactor", "steps": ["planning", "solutioning", "implementation"], "score": 2, "note": "Comprehensive but excessive for refactoring." },
+    { "id": "bug-fix", "steps": ["planning", "implementation"], "score": 1, "note": "Enterprise workflow **completely inappropriate** for a hotfix." },
+    { "id": "parallel-dev", "steps": ["analysis", "planning", "solutioning", "implementation"], "score": 2, "note": "21 agents but **no worktree support**. Complex coordination." },
+    { "id": "cross-cutting", "steps": ["planning", "solutioning", "implementation"], "score": 2, "note": "Comprehensive but heavyweight for a repetitive change." }
+  ],
+  "scores": { "trivial": 1, "medium": 2, "large": 5, "parallel": 2, "emergency": 1, "solo": 1, "contextMgmt": 2, "overall": 2.0 },
+  "keyFeatures": [
+    "21 specialized agents (PM, Architect, Test Architect, Security Expert, …)",
+    "50+ guided workflows scaling bug-fix → enterprise",
+    "Four-phase methodology: Analysis → Planning → Solutioning → Implementation",
+    "Scale-adaptive planning + document sharding (90% token savings)",
+    "OpenAPI integration for precise endpoint specs"
+  ],
+  "limitations": [
+    "Steep learning curve with 21 agents",
+    "30+ minute initialization time",
+    "May be overkill for small projects",
+    "No explicit git worktree support",
+    "Requires Node.js 20+"
+  ]
+}

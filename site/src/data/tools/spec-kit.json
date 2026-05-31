@@ -1,0 +1,60 @@
+{
+  "tool": "spec-kit",
+  "displayName": "Spec-Kit",
+  "vendor": "GitHub",
+  "repo": "https://github.com/github/spec-kit",
+  "version": "v0.1.5",
+  "license": "Open Source",
+  "maturity": "Production",
+  "tier": "core",
+  "philosophy": "constitution",
+  "specMaturity": "Spec-First",
+  "tagline": "Constitution-driven greenfield spec development.",
+  "bestFor": "Greenfield projects",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": false,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "yes", "claudeMd": "yes", "skillMd": "no", "slashCommands": 8 },
+  "phases": [
+    { "id": "constitution", "label": "Constitution", "kind": "govern", "command": "/speckit.constitution", "note": "Establish immutable architectural principles that guide all development." },
+    { "id": "specify", "label": "Specify", "kind": "specify", "command": "/speckit.specify", "note": "Define requirements and user stories — intent as the source of truth." },
+    { "id": "plan", "label": "Plan", "kind": "design", "command": "/speckit.plan", "note": "Create the technical implementation strategy." },
+    { "id": "tasks", "label": "Tasks", "kind": "tasks", "command": "/speckit.tasks", "note": "Generate an actionable task breakdown." },
+    { "id": "implement", "label": "Implement", "kind": "implement", "command": "/speckit.implement", "note": "Execute the tasks to build the feature." }
+  ],
+  "edges": [
+    { "from": "constitution", "to": "specify" },
+    { "from": "specify", "to": "plan" },
+    { "from": "plan", "to": "tasks" },
+    { "from": "tasks", "to": "implement" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["specify", "plan", "tasks", "implement"], "score": 3, "note": "Must use the **/speckit.clarify workaround** — specify wants to create a new feature. Regenerates plan + tasks." },
+    { "id": "greenfield", "steps": ["constitution", "specify", "plan", "tasks", "implement"], "score": 5, "note": "Constitution-driven governance. The full pipeline is **purpose-built for 0→1**." },
+    { "id": "refactor", "steps": ["specify", "plan", "tasks", "implement"], "score": 4, "note": "Update the spec, regenerate the plan. Good for medium changes with the clarify workflow." },
+    { "id": "bug-fix", "steps": ["specify", "plan", "tasks", "implement"], "score": 2, "note": "Clarify/plan/tasks overhead **delays a critical fix**." },
+    { "id": "parallel-dev", "steps": ["constitution", "specify", "plan", "tasks", "implement"], "score": 2, "note": "Branch-based, **no parallel isolation**. Coordination is manual." },
+    { "id": "cross-cutting", "steps": ["specify", "plan", "tasks", "implement"], "score": 3, "note": "Must update multiple specs separately. The constitution helps consistency." }
+  ],
+  "scores": { "trivial": 3, "medium": 4, "large": 5, "parallel": 2, "emergency": 1, "solo": 3, "contextMgmt": 2, "overall": 2.9 },
+  "keyFeatures": [
+    "8 slash commands — constitution → specify → plan → tasks → implement (+ clarify, analyze, checklist)",
+    "Constitution framework: immutable architectural principles",
+    "Agent-agnostic — works with 15+ agents (Claude Code, Copilot, Cursor, Gemini, …)",
+    "Progressive refinement: intent defined before implementation"
+  ],
+  "limitations": [
+    "Verbose markdown artifacts requiring extensive review",
+    "Can feel rigid — 'sledgehammer to crack a nut' for small changes",
+    "Designed for new projects, not brownfield refactoring",
+    "No built-in git worktree management; branch-based workflow assumes linear development"
+  ]
+}

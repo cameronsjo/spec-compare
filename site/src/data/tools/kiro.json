@@ -1,0 +1,62 @@
+{
+  "tool": "kiro",
+  "displayName": "Kiro",
+  "vendor": "AWS",
+  "repo": "https://github.com/kirodotdev/Kiro",
+  "website": "https://kiro.dev",
+  "version": "v0.9.40",
+  "license": "Proprietary (free preview)",
+  "maturity": "Preview",
+  "tier": "core",
+  "philosophy": "context",
+  "specMaturity": "Spec-First",
+  "tagline": "Agentic IDE: Requirements → Design → Tasks.",
+  "bestFor": "IDE experience",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "IDE",
+    "mcp": true,
+    "ideIntegration": true,
+    "openSource": false,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "no", "claudeMd": "no", "skillMd": "no", "slashCommands": 0 },
+  "phases": [
+    { "id": "requirements", "label": "Requirements", "kind": "specify", "note": "Natural language → requirements + acceptance criteria in EARS notation." },
+    { "id": "design", "label": "Design", "kind": "design", "note": "Architecture, system design, and tech-stack analysis." },
+    { "id": "tasks", "label": "Tasks", "kind": "tasks", "note": "Structured task breakdown from the design." },
+    { "id": "implement", "label": "Autopilot", "kind": "implement", "note": "Autopilot mode executes tasks autonomously." }
+  ],
+  "edges": [
+    { "from": "requirements", "to": "design" },
+    { "from": "design", "to": "tasks" },
+    { "from": "tasks", "to": "implement" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["requirements", "design", "tasks", "implement"], "score": 2, "note": "Generates a **5-page spec** for a trivial change — sledgehammer to crack a nut." },
+    { "id": "greenfield", "steps": ["requirements", "design", "tasks", "implement"], "score": 4, "note": "Three-step Requirements → Design → Tasks **works well for greenfield**." },
+    { "id": "refactor", "steps": ["requirements", "design", "tasks", "implement"], "score": 3, "note": "Generates appropriate specs but still heavyweight." },
+    { "id": "bug-fix", "steps": ["requirements", "design", "tasks", "implement"], "score": 1, "note": "**Excessive documentation** for a simple bug fix." },
+    { "id": "parallel-dev", "steps": ["requirements", "design", "tasks", "implement"], "score": 2, "note": "No multi-agent orchestration for parallel work." },
+    { "id": "cross-cutting", "steps": ["requirements", "design", "tasks", "implement"], "score": 2, "note": "No cross-spec optimization." }
+  ],
+  "scores": { "trivial": 2, "medium": 3, "large": 4, "parallel": 2, "emergency": 1, "solo": 3, "contextMgmt": 2, "overall": 2.4 },
+  "keyFeatures": [
+    "VS Code-based agentic IDE; EARS-notation acceptance criteria",
+    "Three-step workflow: Requirements → Design → Tasks",
+    "Autopilot mode for autonomous task execution",
+    "Agent hooks: background automation on file save / custom events",
+    "Native MCP integration; multimodal input (images, whiteboards)",
+    "Steering files (memory bank) for project-specific context"
+  ],
+  "limitations": [
+    "Proprietary platform (vendor lock-in risk)",
+    "Currently free; future pricing unknown",
+    "Can generate excessive specs for small changes",
+    "Unclear long-term spec-maintenance strategy",
+    "Terminal / IDE only — no web interface"
+  ]
+}

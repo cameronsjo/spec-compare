@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cameronsjo/spec-compare/tool-spec.schema.json",
+  "title": "SDD Tool Spec",
+  "description": "A research-grounded structured description of one spec-driven-development tool: metadata, workflow graph, per-use-case scenarios, feature flags, and heatmap scores. Every field traces to docs/.",
+  "type": "object",
+  "required": [
+    "tool",
+    "displayName",
+    "vendor",
+    "license",
+    "maturity",
+    "tier",
+    "tagline",
+    "bestFor",
+    "complexity",
+    "learningCurve",
+    "features",
+    "scores",
+    "keyFeatures",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "tool": {
+      "type": "string",
+      "description": "Stable slug, matches the filename and docs/tools/<tool>.md.",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "displayName": { "type": "string" },
+    "vendor": { "type": "string" },
+    "repo": { "type": "string" },
+    "website": { "type": "string" },
+    "version": { "type": "string" },
+    "license": { "type": "string" },
+    "maturity": {
+      "type": "string",
+      "enum": ["Production", "Stable", "Active Dev", "Preview", "Beta"]
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["core", "emerging"],
+      "description": "core = full workflow treatment; emerging = profile card + heatmap row only."
+    },
+    "philosophy": {
+      "type": "string",
+      "enum": ["constitution", "agent", "change", "context", "loop"]
+    },
+    "specMaturity": {
+      "type": "string",
+      "enum": ["Spec-First", "Spec-Anchored", "Spec-as-Source"]
+    },
+    "tagline": { "type": "string" },
+    "bestFor": { "type": "string" },
+    "complexity": { "type": "string", "enum": ["Low", "Medium", "High", "Very High"] },
+    "learningCurve": { "type": "string" },
+    "features": {
+      "type": "object",
+      "required": ["gitWorktrees", "multiAgent", "dashboard", "mcp", "ideIntegration", "openSource", "parallel"],
+      "additionalProperties": false,
+      "properties": {
+        "gitWorktrees": { "type": "boolean" },
+        "multiAgent": { "oneOf": [{ "type": "boolean" }, { "const": "limited" }] },
+        "dashboard": { "type": "string" },
+        "mcp": { "type": "boolean" },
+        "ideIntegration": { "type": "boolean" },
+        "openSource": { "type": "boolean" },
+        "parallel": { "type": "boolean" }
+      }
+    },
+    "agentConfig": {
+      "type": "object",
+      "required": ["agentsMd", "claudeMd", "skillMd", "slashCommands"],
+      "additionalProperties": false,
+      "properties": {
+        "agentsMd": { "type": "string", "enum": ["yes", "no", "removed"] },
+        "claudeMd": { "type": "string", "enum": ["yes", "no", "removed"] },
+        "skillMd": { "type": "string", "enum": ["yes", "no"] },
+        "slashCommands": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "kind"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "label": { "type": "string" },
+          "kind": {
+            "type": "string",
+            "enum": ["govern", "specify", "design", "tasks", "implement", "review", "archive", "decision"]
+          },
+          "command": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["from", "to"],
+        "additionalProperties": false,
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "on": { "type": "string" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Per-use-case walkthroughs. Ids must stay in parity across all core tools.",
+      "items": {
+        "type": "object",
+        "required": ["id", "steps", "score"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["trivial-mod", "greenfield", "refactor", "bug-fix", "parallel-dev", "cross-cutting"]
+          },
+          "steps": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "score": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "required": ["trivial", "medium", "large", "parallel", "emergency", "solo", "contextMgmt", "overall"],
+      "additionalProperties": false,
+      "properties": {
+        "trivial": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "medium": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "large": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "parallel": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "emergency": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "solo": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "contextMgmt": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "overall": { "type": "number", "minimum": 1, "maximum": 5 }
+      }
+    },
+    "keyFeatures": { "type": "array", "items": { "type": "string" } },
+    "limitations": { "type": "array", "items": { "type": "string" } }
+  }
+}

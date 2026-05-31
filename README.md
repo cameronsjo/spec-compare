@@ -6,6 +6,34 @@ A comprehensive research and comparison of spec-driven development (SDD) tools f
 
 This repository contains in-depth research comparing spec-driven development tools, agent orchestration, and the emerging execution layer for AI-assisted coding.
 
+## 🔮 Live site
+
+An interactive, Artificer-themed visualizer of this research:
+**[cameronsjo.github.io/spec-compare](https://cameronsjo.github.io/spec-compare/)**
+
+- **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all six core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
+- **Feature matrix** — sortable, filterable capability table aggregated live from the data.
+- **Scoring heatmap** — all eleven tools across seven use-case dimensions, color-graded 1–5.
+- **Decision guide** — an interactive flowchart that walks you to a recommended tool.
+- **Tool profiles** — per-tool metadata, key features, and limitations.
+
+Every value is extracted from the research docs below — no fabricated attributes.
+
+### Developing the site
+
+The site lives in [`site/`](site/) — a React + Vite + TypeScript app on a vendored copy of the Artificer design system. Each tool is one JSON file under `site/src/data/tools/`, auto-discovered and AJV-validated against `schema.json`; the matrix and heatmap are *derived* by aggregating across those files (single source of truth).
+
+```bash
+cd site
+npm install
+npm run dev        # local dev server
+npm run validate   # AJV-validate every tool JSON + cross-tool invariants
+npm run build      # validate → tsc → vite build (outputs site/dist/)
+npm run preview    # serve the production build locally
+```
+
+Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+
 ### Core SDD Tools (Original Comparison)
 
 - **GitHub Spec-Kit** - Open-source CLI toolkit for greenfield projects
