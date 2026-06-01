@@ -90,7 +90,7 @@ export function App() {
 
       <section className="intro stack stack--sm">
         <p className="lede t-body-lg">
-          Eleven spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
+          {tools.length} spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
           <b className="anchor">runs a change</b>, <b className="anchor">scores across use cases</b>, and{' '}
           <b className="anchor">stacks up feature-for-feature</b> — all{' '}
           <b className="anchor">extracted from deep research</b>.

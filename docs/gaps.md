@@ -170,7 +170,6 @@ OpenSpec has reached v1.3.1 (April 2026; ~51.9K★), building on the v1.0 founda
 - **Propose Workflow:** One-shot change proposal generation (v1.2.0)
 - **Pi & Kiro support:** Two new AI tools added alongside existing 21 (v1.2.0)
 - **AI Tool Auto-Detection:** `openspec init` scans for existing tool directories (v1.2.0)
-- 25,217 GitHub stars
 
 **Source:** [openspec.dev](https://openspec.dev/), [GitHub Releases](https://github.com/Fission-AI/OpenSpec/releases)
 

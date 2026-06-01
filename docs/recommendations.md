@@ -284,7 +284,7 @@ The following tools operate below the SDD layer — they handle memory, coordina
 
 ---
 
-## Recommended Stacks (February 2026)
+## Recommended Stacks (May 2026)
 
 ### Solo Developer, Brownfield
 1. **OpenSpec** for change management

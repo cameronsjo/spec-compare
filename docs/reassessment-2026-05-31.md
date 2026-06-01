@@ -57,6 +57,7 @@ on 2026-05-31.
 ## Part B — Status corrections (more than a version bump)
 
 ### Kiro — Preview → **GA**
+
 - **GA on 2025-11-17** with team support (AWS IAM Identity Center), **Kiro CLI**,
   property-based tests, checkpointing ("rewind"), and multi-base-folder support.
 - **Paid tiers now exist:** Free, Pro **$20/mo**, Pro+ **$40/mo**, Power **$200/mo**
@@ -70,6 +71,7 @@ on 2026-05-31.
 > CHANGELOG line acknowledging the correction.
 
 ### Tessl — closed beta → **Agent Enablement Platform**
+
 - Two products: **Tessl Framework** (installs as "tiles" into `.tessl/`, teaches any
   MCP-compatible agent — Claude Code, Cursor, Copilot, Gemini — a spec-driven workflow) and
   a versioned **Spec Registry** ("npm for specifications").
@@ -85,6 +87,7 @@ on 2026-05-31.
 ## Part C — New tool candidates
 
 ### ✅ Recommend adding: Superpowers (`obra/superpowers`)
+
 - **213.6K★**, **MIT**, actively pushed (May 30). Created by Jesse Vincent (Prime Radiant).
 - An **agentic skills framework + SDD methodology** spanning Claude Code, Codex, Gemini CLI,
   Cursor, Copilot CLI, OpenCode, Factory Droid. Auto-triggering skills enforce:
@@ -98,6 +101,7 @@ on 2026-05-31.
   wheelhouse, so worth a careful profile rather than a one-liner.
 
 ### ✅ Recommend adding: Traycer (`traycer.ai`)
+
 - Commercial **VS Code extension** (closed source, no public repo), **100K+ users**,
   credit-based tiers (Free / Lite ~$20 / Pro ~$40 / Ultra ~$100).
 - Sits **on top of** Cursor / Claude Code / Copilot as a planning + verification layer:
@@ -107,12 +111,14 @@ on 2026-05-31.
   distinct "spec becomes a ticket system" persistence model. Slots into `emerging` alongside Zencoder.
 
 ### ⚠️ Marginal — mention only: MUSUBI (`nahisaho/MUSUBI`)
+
 - Extremely rigorous: 7 agents × 31 skills, **EARS** requirements, **9-article constitution**,
   Phase-(-1) gates, Requirement→Design→Code→Test traceability, C4 diagrams, delta specs for brownfield.
 - **But: 57★ and no commits since 2026-01-01.** Low adoption + apparent stall. Recommend a
   `docs/gaps.md` entry (it's a useful "maximally rigorous" reference point) rather than a tracked profile.
 
 ### Also seen (no action)
+
 - **Devika** — autonomous coding agent surfaced in landscape maps; not spec-first. Landscape mention at most.
 - **`formulahendry/mcp-server-spec-driven-development`** — an MCP server that adds an SDD loop to
   any agent; niche. Could note in landscape "Protocols/MCP" if we want completeness.

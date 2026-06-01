@@ -273,7 +273,7 @@ This document grades each spec-driven development tool against real-world scenar
 
 Numeric scores (1–5) for quick visual comparison across all 13 tracked tools (re-verified 2026-05-31; see [reassessment](reassessment-2026-05-31.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
 
-```
+```text
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
                     ───────  ──────  ─────  ────────  ─────────  ────  ────────────  ───────
 OpenSpec v1.3        5        5       3      3         2          4     2             3.4

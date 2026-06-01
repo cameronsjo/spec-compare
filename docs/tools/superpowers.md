@@ -40,7 +40,7 @@ The methodology is a chain of skills, each gating the next:
 
 Install per harness from the official plugin marketplace, e.g. for Claude Code:
 
-```
+```bash
 /plugin install superpowers@claude-plugins-official
 ```
 

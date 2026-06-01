@@ -118,7 +118,7 @@ The real-time dashboard provides:
 
 As a community-maintained fork, Spec Kitty "retains the original attribution per the Spec Kit license while evolving the toolkit under the Spec Kitty banner." It extends rather than replaces Spec Kit, offering more sophisticated orchestration for distributed AI coding workflows.
 
-## Recent Changes (v0.13.x, February 2026)
+## Historical Changes (v0.13.x, February 2026)
 
 - Replaced manual detection logic with `spec-kitty agent feature check-prerequisites` matching the pattern used across templates
 - Automatic migration (`m_0_13_5_fix_clarify_template.py`) updates all 12 agent directories on upgrade

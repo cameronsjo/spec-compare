@@ -19,7 +19,13 @@ const profilesDir = join(docsDir, 'tools')
 
 const tools = readdirSync(toolsDir)
   .filter((f) => f.endsWith('.json') && f !== 'schema.json')
-  .map((f) => JSON.parse(readFileSync(join(toolsDir, f), 'utf8')))
+  .map((f) => {
+    try {
+      return JSON.parse(readFileSync(join(toolsDir, f), 'utf8'))
+    } catch (err) {
+      throw new Error(`Failed to parse ${f}: ${err.message}`)
+    }
+  })
   .sort((a, b) => a.displayName.localeCompare(b.displayName))
 
 // Which tools have a profile doc — resolved once, not per-render.

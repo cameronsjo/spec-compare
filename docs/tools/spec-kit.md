@@ -72,7 +72,7 @@ uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME
 - No built-in git worktree management
 - Branch-based workflow assumes linear development
 
-## Recent Changes (v0.1.5, February 2026)
+## Historical Changes (v0.1.5, February 2026)
 
 - Added `commands_subdir` field to support non-standard agent directory structures
 - Added GitHub issue templates for contributor workflow

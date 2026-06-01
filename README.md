@@ -101,6 +101,7 @@ The research is organized into focused, digestible documents:
 - [Ralph Loop](docs/tools/ralph-loop.md) - Stateless iterative execution pattern
 
 ### Analysis & Recommendations
+
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
 - [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 13-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
@@ -132,6 +133,7 @@ The research is organized into focused, digestible documents:
 ## Recommendations
 
 ### For Git Worktree Users
+
 **Use Spec Kitty** - The most complete built-in worktree management + parallel feature isolation among SDD tools (Superpowers also automates worktrees via its skill).
 
 ### For Simplicity
