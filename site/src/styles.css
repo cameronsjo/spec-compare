@@ -24,12 +24,8 @@ body {
   font-size: inherit;
   letter-spacing: inherit;
 }
-/* The mobile nav trigger is the primary chrome control on a phone — the ghost
-   icon's resting fg-secondary is too faint for that role. Full contrast at rest
-   (hover still raises the bg). Pairs with data-icon-size=32 on the glyph. */
-.appbar__menu-btn {
-  color: var(--fg);
-}
+/* The hamburger keeps the .btn--ghost default (--fg-secondary): at 32px the glyph
+   reads clearly without full --fg, which is glaringly bright on the dark bar. */
 .intro {
   margin-block: var(--s-lg) var(--s-xl);
 }
