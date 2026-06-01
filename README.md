@@ -11,9 +11,9 @@ This repository contains in-depth research comparing spec-driven development too
 An interactive, Artificer-themed visualizer of this research:
 **[cameronsjo.github.io/spec-compare](https://cameronsjo.github.io/spec-compare/)**
 
-- **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all six core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
+- **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all eight core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
-- **Scoring heatmap** — all eleven tools across seven use-case dimensions, color-graded 1–5.
+- **Scoring heatmap** — all thirteen tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
 - **Tool profiles** — per-tool metadata, key features, and limitations.
 
@@ -40,17 +40,23 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Spec Kitty** - Community fork with built-in git worktree orchestration
 - **BMad Method** - Enterprise framework with 21 specialized AI agents
 - **OpenSpec** - Lightweight change-management for brownfield projects
-- **Kiro** - AWS-backed agentic IDE with multimodal input
-- **Tessl** - Experimental spec-as-source platform
+- **Kiro** - AWS-backed agentic IDE, GA since Nov 2025 (paid tiers + CLI)
+- **Tessl** - Spec-as-source platform; public Framework + Registry ($125M raised)
 
-### Additional SDD Tools (February 2026)
+### Core Additions (May 2026)
 
-- **GSD** - Meta-prompting SDD system with wave-based context management (11.9K stars)
+- **Superpowers** - MIT skills framework + methodology; brainstorm → plan → subagent TDD (~214K stars)
+- **Traycer** - Commercial VS Code Plan → Execute → Verify layer over your agent (100K+ users)
+
+### Additional SDD Tools (Emerging)
+
+- **GSD** - Meta-prompting SDD system with wave-based context management (63.8K stars)
 - **Ralph Loop** - Stateless iterative execution pattern by Geoffrey Huntley
-- **Zencoder/Zenflow** - Commercial SDD-as-a-Service platform
+- **Zencoder/Zenflow** - Commercial SDD control plane; free Zenflow desktop app
 - **Kilo Code** - Open-source agentic platform with Memory Bank ($8M seed, 1.5M users)
 - **Conductor** - macOS parallel agent runner using git worktrees
 - **PromptX** - AI agent context platform via MCP (gap entry)
+- **MUSUBI** - Maximally-rigorous SDD framework, marginal (~57 stars, stalled)
 
 ## Key Findings
 
@@ -59,7 +65,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 **Critical Gap:** Most SDD tools excel when requirements are clear upfront but struggle with iterative changes like "change button from blue to green."
 
 - **OpenSpec** - Purpose-built for modifications with delta format (ADDED, MODIFIED, REMOVED)
-- **Tessl** - Spec-as-source enables edit-and-regenerate (but closed beta)
+- **Tessl** - Spec-as-source enables edit-and-regenerate (Framework now public)
 - **Spec-Kit** - Requires `/speckit.clarify` workaround, not optimized for small changes
 - **Kiro/BMad** - "Sledgehammer to crack a nut" problem for trivial changes
 
@@ -67,7 +73,7 @@ See [Iterative Development Analysis](docs/iterative-development.md) and [Use Cas
 
 ### Git Worktree Support
 
-**Spec Kitty is the only tool with built-in git worktree support**, enabling:
+**Spec Kitty pioneered built-in git worktree support among SDD tools** (Superpowers, Conductor, and Zencoder/Zenflow now automate worktrees too), enabling:
 - Automatic worktree creation per feature
 - Parallel feature isolation without branch switching
 - Automated cleanup on merge
@@ -87,14 +93,17 @@ The research is organized into focused, digestible documents:
 - [Spec Kitty](docs/tools/spec-kitty.md) - Community fork with worktree support
 - [BMad Method](docs/tools/bmad-method.md) - Enterprise framework with 21 agents
 - [OpenSpec](docs/tools/openspec.md) - Lightweight change management
-- [Kiro](docs/tools/kiro.md) - AWS-backed agentic IDE
-- [Tessl](docs/tools/tessl.md) - Experimental spec-as-source platform
+- [Kiro](docs/tools/kiro.md) - AWS-backed agentic IDE (GA)
+- [Tessl](docs/tools/tessl.md) - Spec-as-source platform (public Framework + Registry)
+- [Superpowers](docs/tools/superpowers.md) - Auto-triggered skills + methodology, any harness
+- [Traycer](docs/tools/traycer.md) - Spec-driven Plan → Execute → Verify layer (VS Code)
 - [GSD (Get Shit Done)](docs/tools/gsd.md) - Context-engineered SDD for solo developers
 - [Ralph Loop](docs/tools/ralph-loop.md) - Stateless iterative execution pattern
 
 ### Analysis & Recommendations
+
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 11-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 13-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -104,24 +113,28 @@ The research is organized into focused, digestible documents:
 ### Orchestration & Execution Layer
 - [Orchestration Landscape](docs/landscape.md) - 30+ multi-agent tools surveyed, including Claude Code Agent Teams
 - [Beads, Agent Mail & Gas Town](docs/beads.md) - Agent memory, messaging, and multi-agent villages
-- [Gaps: New Frameworks](docs/gaps.md) - Zencoder, Kilo Code, Conductor, PromptX (GSD & Ralph Loop promoted to full profiles)
+- [Gaps: New Frameworks](docs/gaps.md) - Zencoder, Kilo Code, Conductor, PromptX, MUSUBI (GSD, Ralph Loop, Superpowers & Traycer promoted to full profiles)
+- [May 2026 Reassessment](docs/reassessment-2026-05-31.md) - Version/status re-verification + new-tool findings
 - [Beads + OpenSpec Cheatsheet](docs/cheatsheet-beads-openspec.md) - Practical setup and daily workflow
 
 ## Quick Comparison
 
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|
-| **Spec-Kit** | Open Source | No | Greenfield projects | Production |
-| **Spec Kitty** | Open Source | **Yes** | Parallel development | Active Dev |
-| **BMad Method** | Open Source | No | Enterprise workflows | Stable (v6.0.2) |
-| **OpenSpec** | MIT | No | Brownfield changes | Production |
-| **Kiro** | Proprietary | No | IDE experience | Preview |
-| **Tessl** | Proprietary | No | Spec-as-source | Beta |
+| **Spec-Kit** | Open Source | No | Greenfield projects | Production (v0.8.18) |
+| **Spec Kitty** | Open Source | **Yes** | Parallel development | Active Dev (v3.1.9) |
+| **BMad Method** | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
+| **OpenSpec** | MIT | No | Brownfield changes | Production (v1.3.1) |
+| **Kiro** | Proprietary | No | IDE experience | GA (v0.12.x) |
+| **Tessl** | Proprietary | No | Spec-as-source | Active Dev (public) |
+| **Superpowers** | MIT | **Yes** | Disciplined autonomous dev | Active Dev (v5.1.0) |
+| **Traycer** | Proprietary | No | Plan-first orchestration | Active Dev |
 
 ## Recommendations
 
 ### For Git Worktree Users
-**Use Spec Kitty** - Only tool with built-in worktree management and parallel feature isolation.
+
+**Use Spec Kitty** - The most complete built-in worktree management + parallel feature isolation among SDD tools (Superpowers also automates worktrees via its skill).
 
 ### For Simplicity
 **Use OpenSpec** - Lightweight change management without excessive overhead.
@@ -133,7 +146,7 @@ The research is organized into focused, digestible documents:
 **Use Spec-Kit** - Battle-tested, constitution-driven development.
 
 ### For Experimentation
-**Try Kiro or Tessl** - Cutting-edge approaches with free preview/beta access.
+**Try Kiro or Tessl** - Kiro is GA (free tier + paid); Tessl's Framework + Registry is now public.
 
 ## Critical Perspectives
 
@@ -177,4 +190,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-02-24
+**Last Updated:** 2026-05-31

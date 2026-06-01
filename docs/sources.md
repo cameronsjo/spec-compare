@@ -27,6 +27,18 @@ All research is compiled from publicly available sources. Full citations are pro
 ### Tessl
 - [Tessl Website](https://tessl.io/)
 
+### Superpowers
+
+- [GitHub: obra/superpowers](https://github.com/obra/superpowers)
+- [obra/superpowers-skills](https://github.com/obra/superpowers-skills)
+- [obra/superpowers-marketplace](https://github.com/obra/superpowers-marketplace)
+
+### Traycer
+
+- [Traycer Website](https://traycer.ai/)
+- [Traycer — VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Traycer.traycer-vscode)
+- [Traycer Pricing Docs](https://docs.traycer.ai/account/pricing)
+
 ## Blog Posts & Articles
 
 ### GitHub Official
@@ -40,6 +52,8 @@ All research is compiled from publicly available sources. Full citations are pro
 - [Introducing Kiro](https://kiro.dev/blog/introducing-kiro/)
 - [Kiro and the future of AI spec-driven software development](https://kiro.dev/blog/kiro-and-the-future-of-software-development/)
 - [From chat to specs: a deep dive into AI-assisted development with Kiro](https://kiro.dev/blog/from-chat-to-specs-deep-dive/)
+- [AWS launches Kiro into general availability with team features and CLI support — SiliconANGLE](https://siliconangle.com/2025/11/17/aws-launches-kiro-general-availability-team-features-cli-support/) (GA, Nov 2025)
+- [Kiro Pricing](https://kiro.dev/pricing/) · [Kiro Changelog](https://kiro.dev/changelog/)
 
 ### Tessl
 - [Announcing Tessl's Products to Unlock the Power of Agents](https://tessl.io/blog/announcing-tessls-products-to-unlock-the-power-of-agents/)
@@ -151,6 +165,28 @@ All research is compiled from publicly available sources. Full citations are pro
 - [Conductor Docs](https://docs.conductor.build)
 - [Hands-On Review — The New Stack](https://thenewstack.io/a-hands-on-review-of-conductor-an-ai-parallel-runner-app/)
 
+## Newly Discovered SDD Frameworks (May 2026)
+
+### Superpowers
+
+- [GitHub: obra/superpowers](https://github.com/obra/superpowers) (~214K★, MIT)
+- [Superpowers for Claude Code: Complete Guide 2026](https://pasqualepillitteri.it/en/news/215/superpowers-claude-code-complete-guide)
+
+### Traycer
+
+- [Traycer AI](https://traycer.ai/)
+- [I Tested the Top Spec-Driven Dev Tools in 2026 — DEV Community](https://dev.to/filiksyos/i-tested-the-top-spec-driven-dev-tools-in-2026-4gdm)
+
+### MUSUBI (marginal)
+
+- [GitHub: nahisaho/MUSUBI](https://github.com/nahisaho/MUSUBI) (~57★, no commits since Jan 2026)
+
+### 2026 Landscape Roundups
+
+- [9 Best AI Tools for Spec-Driven Development in 2026 — MarkTechPost](https://www.marktechpost.com/2026/05/08/9-best-ai-tools-for-spec-driven-development-in-2026-kiro-bmad-gsd-and-more-compare/)
+- [Spec-Driven Development Is Eating Software Engineering: A Map of 30+ Frameworks — Medium](https://medium.com/@visrow/spec-driven-development-is-eating-software-engineering-a-map-of-30-agentic-coding-frameworks-6ac0b5e2b484)
+- [Comparing 15 Spec-Driven Development Frameworks — Medium](https://medium.com/@wasowski.jarek/comparing-15-spec-driven-development-frameworks-artifacts-and-decision-paths-sdd-c052df529274)
+
 ## Open Standards & Organizations
 
 ### AGENTS.md
@@ -172,7 +208,7 @@ This comparison was compiled through:
 4. Examination of critical perspectives from established tech publications
 5. Synthesis of market trends and predictions from industry leaders
 
-All information is current as of February 2026 and represents publicly available data at the time of compilation.
+All information is current as of the May 2026 reassessment (versions and status re-verified against source repos on 2026-05-31) and represents publicly available data at the time of compilation.
 
 ## License
 

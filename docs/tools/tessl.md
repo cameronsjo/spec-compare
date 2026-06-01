@@ -2,7 +2,7 @@
 
 **Type:** AI-native development platform
 **Website:** https://tessl.io
-**Status:** Framework (closed beta), Registry (open beta)
+**Status:** Public Framework + Registry (Agent Enablement Platform; $125M Series A)
 **Funding:** $125M (Index Ventures, Accel, GV, boldstart)
 **License:** Proprietary
 **Leadership:** Guy Podjarny (co-founder of Snyk)
@@ -29,7 +29,7 @@ Most radical SDD implementation: "Spec-as-Source" where specifications become th
 - Simplifies creating and enforcing hard guardrails with tests
 - Code files are marked as generated and auto-synced with specs
 - Currently creates one-to-one mappings between spec and code files
-- **Status:** Closed beta
+- **Status:** Public (Framework installs as tiles into `.tessl/`); spec-as-source loop still maturing
 
 ### Tessl Spec Registry
 
@@ -82,7 +82,7 @@ The platform automatically:
 
 ## Limitations
 
-- Framework still in closed beta (limited access)
+- Spec-as-source loop still maturing (Framework + Registry are public, but the pure edit-and-regenerate workflow is unproven)
 - Most experimental/unproven approach
 - Concerns about inflexibility and non-determinism
 - One-to-one spec-to-code mapping may not scale

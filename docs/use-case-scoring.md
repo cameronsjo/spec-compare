@@ -21,7 +21,7 @@ This document grades each spec-driven development tool against real-world scenar
 | Tool | Score | Reasoning |
 |------|-------|-----------|
 | **OpenSpec** | ⭐⭐⭐⭐⭐ | Lightweight delta format. Create `changes/button-color/` with MODIFIED section. Minimal overhead. |
-| **Tessl** | ⭐⭐⭐⭐ | Edit spec directly, regenerate code. Elegant but closed beta limits access. |
+| **Tessl** | ⭐⭐⭐⭐ | Edit spec directly, regenerate code. Elegant; Framework now public. |
 | **Spec-Kit** | ⭐⭐⭐ | Must use `/speckit.clarify` workaround. `/speckit.specify` wants to create new feature. Requires regenerate plan/tasks. |
 | **Spec Kitty** | ⭐⭐ | Same Spec-Kit issues + worktree overhead excessive for one-line change. |
 | **Kiro** | ⭐⭐ | Generates 5-page spec for trivial change. "Sledgehammer to crack a nut" problem. |
@@ -44,7 +44,7 @@ This document grades each spec-driven development tool against real-world scenar
 | **BMad** | ⭐⭐⭐⭐⭐ | 21 specialized agents (PM, Architect, Security Expert). Comprehensive enterprise workflows. |
 | **Spec Kitty** | ⭐⭐⭐⭐ | Spec-Kit workflow + worktree isolation. Good for larger features. |
 | **Kiro** | ⭐⭐⭐⭐ | Three-step Requirements → Design → Tasks works well for greenfield. |
-| **Tessl** | ⭐⭐⭐ | Spec-as-source works but one-to-one mapping may limit architecture. Closed beta. |
+| **Tessl** | ⭐⭐⭐ | Spec-as-source works but one-to-one mapping may limit architecture. |
 | **OpenSpec** | ⭐⭐⭐ | Lightweight, better suited for modifications than greenfield. |
 
 **Winner:** Spec-Kit, BMad (tie)
@@ -245,10 +245,10 @@ This document grades each spec-driven development tool against real-world scenar
 |------|-------|-----------|
 | **OpenSpec** | ⭐⭐⭐⭐ | Lightweight, minimal overhead, easy to use solo. |
 | **Spec-Kit** | ⭐⭐⭐ | Good structure but may feel like overhead for solo project. |
-| **Kiro** | ⭐⭐⭐ | Free preview, integrated IDE. Good for solo developers. |
+| **Kiro** | ⭐⭐⭐ | GA with a free tier, integrated IDE. Good for solo developers. |
 | **None** | ⭐⭐⭐⭐ | **Vibe coding** perfectly fine for solo side projects. |
 | **Spec Kitty** | ⭐⭐ | Dashboard overhead unnecessary for solo work. |
-| **Tessl** | ⭐⭐ | Closed beta, unproven. Not for side projects yet. |
+| **Tessl** | ⭐⭐ | Public Framework, but spec-as-source still unproven for side projects. |
 | **BMad** | ⭐ | 21 agents completely excessive for solo developer. |
 
 **Winner:** OpenSpec or no SDD
@@ -271,17 +271,19 @@ This document grades each spec-driven development tool against real-world scenar
 
 ### Expanded Heatmap (Including New Tools)
 
-Numeric scores (1–5) for quick visual comparison across all tools. Includes the five frameworks from the [gaps analysis](gaps.md).
+Numeric scores (1–5) for quick visual comparison across all 13 tracked tools (re-verified 2026-05-31; see [reassessment](reassessment-2026-05-31.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
 
-```
+```text
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
                     ───────  ──────  ─────  ────────  ─────────  ────  ────────────  ───────
-OpenSpec v1.2        5        5       3      3         2          4     2             3.4
+OpenSpec v1.3.1      5        5       3      3         2          4     2             3.4
 Spec-Kit             3        4       5      2         1          3     2             2.9
-Spec Kitty           2        3       4      5         1          2     2             2.7
+Spec Kitty v3        2        3       4      5         1          2     2             2.7
 BMad v6              1        2       5      2         1          1     2             2.0
-Kiro                 2        3       4      2         1          3     2             2.4
+Kiro (GA)            2        3       4      2         1          3     2             2.4
 Tessl                4        4       3      2         1          2     2             2.6
+Superpowers          3        4       5      3         3          5     5             4.0
+Traycer              3        4       5      2         3          4     4             3.6
 GSD                  4        4       4      4         2          5     4             3.9
 Ralph Loop           3        3       4      3         2          4     5             3.4
 Zencoder/Zenflow     3        4       5      5         1          1     3             3.1
@@ -299,7 +301,9 @@ Conductor            1        1       2      5         1          2     2       
 **Context Mgmt** = how well the tool handles agent memory, context window management, and multi-session persistence. GSD (wave-based context management), Ralph Loop (stateless fresh context per iteration), and Kilo Code (Memory Bank) score highest.
 
 **Key shifts from original rankings:**
-- GSD scores highest overall (3.9) due to its balance across all categories — it's the closest to a generalist
+- **Superpowers** leads overall (4.0), excelling at solo use and context management
+- GSD follows closely (3.9), balancing across categories
+- **Traycer** (3.6) lands as a strong generalist planning layer, above Ralph Loop and OpenSpec
 - Ralph Loop ties OpenSpec (3.4) by excelling at context management and solo use
 - Zencoder/Zenflow matches Spec Kitty for parallel work (5) but with commercial polish
 - Conductor is pure parallel execution — scores 1 everywhere except parallel work
@@ -350,7 +354,7 @@ Spec Kitty uniquely wins parallel feature development:
 - Kanban dashboard
 - Multi-agent coordination
 
-**Why:** Only tool with explicit parallel feature support.
+**Why:** The SDD tool that pairs worktree isolation, a kanban board, and multi-agent coordination in one workflow (Superpowers, Conductor, and Zencoder/Zenflow also automate worktrees, but without the spec workflow + board).
 
 ### 4. No SDD Tool Wins Emergencies
 

@@ -1,6 +1,6 @@
 # Gaps: SDD Frameworks Discovered Since v1.0.0
 
-> Research date: February 2026. These frameworks were not covered in the original comparison (November 2025). Each is noted here as a gap for potential future analysis.
+> Research date: February 2026; reassessed May 2026. These frameworks were not covered in the original comparison (November 2025). Each is noted here as a gap for potential future analysis. The May 2026 sweep promoted **Superpowers** and **Traycer** to full core profiles and added a marginal **MUSUBI** entry — see [reassessment-2026-05-31.md](reassessment-2026-05-31.md).
 
 ## New SDD Frameworks
 
@@ -13,6 +13,30 @@ Promoted to full tool profile. See [GSD Tool Profile](tools/gsd.md).
 ### Ralph Loop (Ralph Wiggum Technique)
 
 Promoted to full tool profile. See [Ralph Loop Tool Profile](tools/ralph-loop.md).
+
+---
+
+### Superpowers
+
+Promoted to full core profile (May 2026). See [Superpowers Tool Profile](tools/superpowers.md). An MIT-licensed, ~214K-star agentic skills framework + methodology by Jesse Vincent (obra): auto-triggering skills enforce brainstorm → plan → subagent TDD → review → finish across Claude Code, Codex, Cursor, Copilot, and more.
+
+---
+
+### Traycer
+
+Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/traycer.md). A commercial VS Code extension (100K+ users) that layers a Plan → Execute → Verify loop over the agent you already use, with an Epic Mode that generates PRDs, specs, and wireframes and turns plans into an agent-sized ticket system.
+
+---
+
+### MUSUBI (marginal)
+
+**What it is:** A maximally rigorous SDD framework (`nahisaho/MUSUBI`, MIT) synthesizing six frameworks: 7 agents × 31 skills, EARS-format requirements, a 9-article constitution with Phase -1 gates, full Requirement→Design→Code→Test traceability, C4 diagrams, and delta specs for brownfield.
+
+**Gap assessment:** A useful "maximum rigor" reference point, but adoption is tiny (**~57 stars**) and the repo has **no commits since 2026-01-01** — likely stalled. Noted here rather than tracked as a full profile until it shows renewed activity.
+
+**Sources:**
+- [GitHub: nahisaho/MUSUBI](https://github.com/nahisaho/MUSUBI)
+- [npm: musubi-sdd](https://www.npmjs.com/package/musubi-sdd)
 
 ---
 
@@ -112,9 +136,17 @@ Promoted to full tool profile. See [Ralph Loop Tool Profile](tools/ralph-loop.md
 
 ## Updates to Existing Tools
 
-### BMad Method → V6 Stable (v6.0.2)
+### May 2026 reassessment
 
-BMad Method V6 has reached stable (no longer alpha/beta) as of February 2026:
+Verified against source repos on 2026-05-31 (full detail in [reassessment-2026-05-31.md](reassessment-2026-05-31.md)):
+
+- **Kiro → GA.** General availability since 2025-11-17 (team support, Kiro CLI, checkpointing, property-based tests); now on paid tiers (Pro $20 / Pro+ $40 / Power $200 per month) plus a free tier. Current IDE v0.12.x added Parallel Task Execution, Quick Plan, and Requirements Analysis. AWS is sunsetting Amazon Q Developer in favor of Kiro.
+- **Tessl → public Framework + Registry.** No longer closed beta; raised ~$125M (Series A led by Index). Repositioned as an Agent Enablement Platform — Framework installs as "tiles" into `.tessl/` and teaches any MCP agent the workflow; the versioned Spec Registry is "npm for specifications."
+- **Spec-Kit** v0.1.5 → **v0.8.18** (107K★, 30+ agent integrations). **Spec Kitty** v0.13.5 → **v3.1.9** (acceptance matrix, negative invariants). **Kilo Code** v4.148.1 → **v7.3.16**. **GSD** v1.20.6 → **v1.42.3** (11.9K → 63.8K★). **OpenSpec** v1.2.0 → **v1.3.1**. **Zencoder/Zenflow** now ships a free standalone desktop app with a control plane and auto-worktrees.
+
+### BMad Method → v6.8.0
+
+BMad Method V6 is stable and continues steady releases (v6.0.2 in February → **v6.8.0** on 2026-05-25; ~48.4K★):
 
 - Now **21 specialized agents** (up from 19) across 4 official modules
 - **50+ guided workflows** (up from prior count)
@@ -126,9 +158,9 @@ BMad Method V6 has reached stable (no longer alpha/beta) as of February 2026:
 
 **Source:** [github.com/bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD), [npm: bmad-method](https://www.npmjs.com/package/bmad-method)
 
-### OpenSpec → v1.2.0 (Profiles, Pi & Kiro Support)
+### OpenSpec → v1.3.1 (Profiles, Pi & Kiro Support)
 
-OpenSpec has reached v1.2.0 (February 2026), building on the v1.0 foundation:
+OpenSpec has reached v1.3.1 (April 2026; ~51.9K★), building on the v1.0 foundation:
 
 - **Action-based workflow:** Replaced rigid proposal → apply → archive with flexible actions (v1.0)
 - **Dynamic instructions:** AI instructions assembled from three layers (context, rules, templates) (v1.0)
@@ -138,7 +170,6 @@ OpenSpec has reached v1.2.0 (February 2026), building on the v1.0 foundation:
 - **Propose Workflow:** One-shot change proposal generation (v1.2.0)
 - **Pi & Kiro support:** Two new AI tools added alongside existing 21 (v1.2.0)
 - **AI Tool Auto-Detection:** `openspec init` scans for existing tool directories (v1.2.0)
-- 25,217 GitHub stars
 
 **Source:** [openspec.dev](https://openspec.dev/), [GitHub Releases](https://github.com/Fission-AI/OpenSpec/releases)
 
@@ -152,7 +183,7 @@ This paper provides practitioners with a comprehensive guide to SDD, covering pr
 
 ## Related
 
-- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 11-tool scoring matrix including these frameworks
+- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 13-tool scoring matrix including these frameworks
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow combining OpenSpec with Beads
 - [Beads](beads.md) — Agent memory layer
 - [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools

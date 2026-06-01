@@ -95,7 +95,7 @@ export function App() {
 
       <section className="intro stack stack--sm">
         <p className="lede t-body-lg">
-          Eleven spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
+          {tools.length} spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
           <b className="anchor">runs a change</b>, <b className="anchor">scores across use cases</b>, and{' '}
           <b className="anchor">stacks up feature-for-feature</b> — all{' '}
           <b className="anchor">extracted from deep research</b>.
@@ -179,8 +179,10 @@ export function App() {
                 <b className="anchor">Artificer design system</b>
               </a>
               , React + Vite. Written by — and with — a
-              spec-driven-development practitioner who uses OpenSpec (which scores well here); the scoring still aims to
-              treat every tool on equal terms. Spot a bias or an error?{' '}
+              spec-driven-development practitioner who uses OpenSpec (which scores well here) and keeps a personal,
+              unreleased rig of their own — cadence — filed down from Superpowers after it felt too rigid. So read the
+              Superpowers assessment with that grain of salt; the scoring still aims to treat every tool on equal terms.
+              Spot a bias or an error?{' '}
               <a className="repo-link" href="https://github.com/cameronsjo/spec-compare/issues" target="_blank" rel="noreferrer">
                 Open an issue
               </a>

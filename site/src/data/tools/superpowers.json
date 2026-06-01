@@ -1,0 +1,64 @@
+{
+  "tool": "superpowers",
+  "displayName": "Superpowers",
+  "vendor": "Jesse Vincent / Prime Radiant",
+  "repo": "https://github.com/obra/superpowers",
+  "version": "v5.1.0",
+  "license": "MIT",
+  "maturity": "Active Dev",
+  "tier": "core",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "Auto-triggered skills: brainstorm → plan → TDD, any harness.",
+  "bestFor": "Disciplined autonomous dev (any agent)",
+  "complexity": "Medium",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": true,
+    "multiAgent": true,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "no", "claudeMd": "no", "skillMd": "yes", "slashCommands": 0 },
+  "phases": [
+    { "id": "brainstorm", "label": "Brainstorm", "kind": "specify", "note": "brainstorming skill: refine the idea via questions, present the design in readable chunks, save a design document." },
+    { "id": "plan", "label": "Write plan", "kind": "tasks", "note": "writing-plans skill: break work into 2–5 minute tasks, each with exact file paths, full code, and verification steps." },
+    { "id": "implement", "label": "Subagent TDD", "kind": "implement", "note": "subagent-driven-development: fresh subagent per task, true RED/GREEN/REFACTOR TDD, YAGNI/DRY enforced." },
+    { "id": "review", "label": "Code review", "kind": "review", "note": "requesting-code-review skill: review against the plan; critical issues block progress." },
+    { "id": "finish", "label": "Finish branch", "kind": "archive", "note": "finishing-a-development-branch: verify tests, merge / PR / keep / discard, clean up the worktree." }
+  ],
+  "edges": [
+    { "from": "brainstorm", "to": "plan" },
+    { "from": "plan", "to": "implement" },
+    { "from": "implement", "to": "review" },
+    { "from": "review", "to": "implement", "on": "blocking issue" },
+    { "from": "review", "to": "finish" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["brainstorm", "plan", "implement"], "score": 3, "note": "HARD-GATEs still run brainstorm + TDD for a one-liner — **disciplined but heavier** than a direct edit." },
+    { "id": "greenfield", "steps": ["brainstorm", "plan", "implement", "review", "finish"], "score": 5, "note": "Brainstorm → plan → subagent TDD is **purpose-built for building features autonomously**." },
+    { "id": "refactor", "steps": ["brainstorm", "plan", "implement", "review", "finish"], "score": 4, "note": "Design doc + bite-sized plan + TDD handle cross-file refactors well." },
+    { "id": "bug-fix", "steps": ["brainstorm", "plan", "implement"], "score": 3, "note": "TDD-first (write the failing test) suits bugs, but the brainstorm gate slows a true emergency." },
+    { "id": "parallel-dev", "steps": ["brainstorm", "plan", "implement", "finish"], "score": 3, "note": "Worktree isolation helps, but it dispatches subagents serially — **not a multi-team orchestrator**." },
+    { "id": "cross-cutting", "steps": ["brainstorm", "plan", "implement", "review", "finish"], "score": 3, "note": "The plan can enumerate every site; subagents grind through them with review gates." }
+  ],
+  "scores": { "trivial": 3, "medium": 4, "large": 5, "parallel": 3, "emergency": 3, "solo": 5, "contextMgmt": 5, "overall": 3.9 },
+  "keyFeatures": [
+    "Skills auto-trigger from the task — no special commands needed",
+    "Subagent-driven development: fresh context per task keeps the window clean",
+    "Enforced RED/GREEN/REFACTOR TDD with HARD-GATEs (YAGNI, DRY)",
+    "Native git-worktree isolation via the using-git-worktrees skill",
+    "Multi-harness: Claude Code, Codex, Gemini CLI, Cursor, Copilot CLI, OpenCode, Factory Droid",
+    "MIT, ~214K stars; methodology + plugin marketplace ecosystem"
+  ],
+  "limitations": [
+    "A methodology + skill bundle, not a single installable CLI",
+    "Discipline overhead (brainstorm + TDD gates) is heavy for trivial edits",
+    "Plans are consumed during execution — no maintained living spec",
+    "Per-harness install; behavior varies with the underlying agent",
+    "No dashboard or parallel multi-team orchestration"
+  ]
+}

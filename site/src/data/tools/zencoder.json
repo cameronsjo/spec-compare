@@ -7,15 +7,15 @@
   "maturity": "Active Dev",
   "tier": "emerging",
   "specMaturity": "Spec-Anchored",
-  "tagline": "Commercial SDD-as-a-Service with parallel agents.",
+  "tagline": "Spec-driven control plane orchestrating parallel agents.",
   "bestFor": "Parallel agents at scale (commercial)",
   "complexity": "Medium",
   "learningCurve": "Moderate",
-  "version": "SaaS — rolling release",
+  "version": "Zenflow — free desktop app (rolling)",
   "features": {
-    "gitWorktrees": false,
+    "gitWorktrees": true,
     "multiAgent": true,
-    "dashboard": "IDE",
+    "dashboard": "Desktop",
     "mcp": false,
     "ideIntegration": true,
     "openSource": false,
@@ -23,16 +23,17 @@
   },
   "scores": { "trivial": 3, "medium": 4, "large": 5, "parallel": 5, "emergency": 1, "solo": 1, "contextMgmt": 3, "overall": 3.1 },
   "keyFeatures": [
-    "RED/GREEN/VERIFY implementation loops with automated verification",
-    "Parallel execution — tens to hundreds of agents at once",
-    "Spec anchoring: agents read specs / PRDs / architecture before coding",
-    "Cross-agent code review built in",
-    "IDE integration (VS Code, JetBrains) + Claude Code / Codex CLI"
+    "Control plane exposing the full execution plan of agents (Zenflow = brain, Zencoder = engine)",
+    "RED/GREEN/VERIFY loops with built-in verification gates",
+    "Parallel execution — tens to hundreds of agents in isolated worktrees",
+    "Cross-provider review: one model writes, another reviews/audits",
+    "Triggers: run workflows on schedule, webhook, PR event, or Jira ticket",
+    "Zenflow desktop app (macOS/Windows) is free; open sandboxes in your IDE"
   ],
   "limitations": [
-    "Commercial platform — a subscription, not an installable framework",
+    "Zenflow app is free, but the Zencoder execution engine is a paid platform",
     "Proprietary (closed source)",
-    "Newer entrant (Zenflow launched January 2026)",
-    "SDD-as-a-Service model implies vendor lock-in"
+    "SDD-as-a-Service model implies vendor lock-in",
+    "Spec rigor depends on the engine model — quality varies by provider"
   ]
 }

@@ -3,9 +3,9 @@
 **Type:** Agentic IDE and CLI
 **Website:** https://kiro.dev
 **Repository:** https://github.com/kirodotdev/Kiro
-**Status:** Free during preview (AWS-backed)
-**License:** Proprietary (free preview)
-**Current Version:** IDE v0.9.40 (February 12, 2026)
+**Status:** Generally available (AWS-backed; paid tiers + free tier)
+**License:** Proprietary (paid tiers + free tier)
+**Current Version:** IDE v0.12.263 (May 28, 2026); GA since Nov 17, 2025
 
 ## Core Approach
 
@@ -79,13 +79,13 @@ Available on macOS and Linux, with authentication through:
 ## Limitations
 
 - Proprietary platform (vendor lock-in risk)
-- Currently free, future pricing unknown
+- Credit-based paid tiers: Pro $20/mo, Pro+ $40/mo, Power $200/mo (free tier available)
 - Can generate excessive specs for small changes ("sledgehammer to crack a nut")
 - Less clear long-term maintenance strategy for specs
 - No explicit git worktree support mentioned
 - Terminal/IDE only (no web interface)
 
-## Recent Changes (v0.9.x, February 2026)
+## Historical Changes (v0.9.x, February 2026)
 
 ### IDE v0.9.40
 - Sign in with Okta or Microsoft Entra ID credentials alongside AWS IAM Identity Center

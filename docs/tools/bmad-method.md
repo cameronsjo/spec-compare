@@ -5,7 +5,7 @@
 **Website:** https://bmadcodes.com/
 **Status:** v6 Stable
 **License:** Open source
-**Current Version:** v6.0.2 (February 2026)
+**Current Version:** v6.8.0 (May 25, 2026)
 
 ## Core Approach
 
@@ -84,7 +84,7 @@ The Architect Agent creates a technical architecture including API specs (e.g., 
 - No explicit git worktree support mentioned
 - Requires Node.js 20+
 
-## Recent Changes (v6.0.x, February 2026)
+## Historical Changes (v6.0.x, February 2026)
 
 - **V6 is now stable** — end of beta/alpha period
 - New PRD workflow steps 2b (vision/differentiators) and 2c (executive summary)

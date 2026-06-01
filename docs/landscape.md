@@ -1,10 +1,10 @@
-# The Orchestration Landscape (February 2026)
+# The Orchestration Landscape (May 2026)
 
 > There are about a thousand different orchestrator apps, strategies, and paradigms. This document maps the full terrain — not just SDD tools, but every category of tool and pattern that shapes how AI agents build software.
 
 ## How to Read This
 
-This repo's [core comparison](comparison.md) covers six SDD tools in depth. The [gaps analysis](gaps.md) adds five more discovered since v1.0.0. This document zooms out to place all of them in the context of the broader orchestration ecosystem.
+This repo's [core comparison](comparison.md) covers eight SDD tools in depth (six original, plus Superpowers and Traycer added May 2026). The [gaps analysis](gaps.md) tracks more discovered since v1.0.0. This document zooms out to place all of them in the context of the broader orchestration ecosystem.
 
 Categories:
 
@@ -395,7 +395,7 @@ Co-founded by Anthropic, Block, OpenAI. Supported by Google, Microsoft, AWS, Clo
 
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical multi-agent workflow
 - [Comparison Matrix](comparison.md) — Deep comparison of six SDD tools (incl. AGENTS.md support)
-- [Use Case Scoring](use-case-scoring.md) — Expanded 11-tool heatmap
+- [Use Case Scoring](use-case-scoring.md) — Expanded 13-tool heatmap
 - [Gaps Analysis](gaps.md) — Five additional SDD frameworks
 - [Beads, Agent Mail, and Gas Town](beads.md) — Agent memory and coordination
 - [Git Worktree Support](git-worktree-support.md) — Worktree ecosystem analysis

@@ -1,61 +1,75 @@
 # Tool Comparison Matrices
 
+> **Note:** The three tables in this section are generated from the tool JSONs
+> (`site/src/data/tools/*.json`) by `npm run gen:tables` — the same single source
+> of truth the live site derives from. Edit the JSON, not the table. The
+> architectural-philosophy sections further down are hand-curated analysis.
+
 ## Quick Comparison Table
 
-| Tool | License | Git Worktrees | Best For | Maturity |
-|------|---------|---------------|----------|----------|
-| [Spec-Kit](tools/spec-kit.md) | Open Source | No | Greenfield projects | Production |
-| [Spec Kitty](tools/spec-kitty.md) | Open Source | **Yes** | Parallel development | Active Dev |
-| [BMad Method](tools/bmad-method.md) | Open Source | No | Enterprise workflows | Stable (v6.0.2) |
-| [OpenSpec](tools/openspec.md) | MIT | No | Brownfield changes | Production |
-| [Kiro](tools/kiro.md) | Proprietary | No | IDE experience | Preview |
-| [Tessl](tools/tessl.md) | Proprietary | No | Spec-as-source | Beta |
+<!-- GEN:quick-comparison -->
+| Tool | Tier | License | Worktrees | Best For | Maturity (version) |
+|---|---|---|---|---|---|
+| [BMad Method](tools/bmad-method.md) | Core | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
+| Conductor | Emerging | Proprietary (free) | **Yes** | Parallel worktree execution (macOS) | Active Dev (v0.36.3) |
+| [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
+| Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.3.16) |
+| [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v0.12.263) |
+| [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.3.1) |
+| [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
+| [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.1.9) |
+| [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v0.8.18) |
+| [Superpowers](tools/superpowers.md) | Core | MIT | **Yes** | Disciplined autonomous dev (any agent) | Active Dev (v5.1.0) |
+| [Tessl](tools/tessl.md) | Core | Proprietary | No | Spec-as-source | Active Dev (Framework + Registry (public)) |
+| [Traycer](tools/traycer.md) | Core | Proprietary | No | Plan-first orchestration over your agents | Active Dev (VS Code extension (rolling)) |
+| Zencoder / Zenflow | Emerging | Proprietary | **Yes** | Parallel agents at scale (commercial) | Active Dev (Zenflow — free desktop app (rolling)) |
+<!-- /GEN:quick-comparison -->
 
 ## Detailed Feature Matrix
 
-| Feature | Spec-Kit | Spec Kitty | BMad | OpenSpec | Kiro | Tessl |
-|---------|----------|------------|------|----------|------|-------|
-| **Maturity** | Production (v0.1.5) | Active Dev (v0.13.5) | Stable (v6.0.2) | Production (v1.2.0) | Preview (v0.9.40) | Beta |
-| **License** | Open Source | Open Source | Open Source | MIT | Proprietary | Proprietary |
-| **Primary Use** | Greenfield | Orchestration | Enterprise | Brownfield | IDE Experience | Spec-as-Source |
-| **Git Worktrees** | No | **Yes** | No | No | No | No |
-| **Agents Supported** | 15+ | 11+ | Built-in 21 | Multiple | Built-in | Multiple |
-| **Dashboard** | No | Yes (Kanban) | No | CLI | IDE | No |
-| **Installation** | CLI | CLI + Dashboard | CLI | CLI | CLI/IDE | CLI |
-| **Complexity** | Medium | High | Very High | Low | Medium | High |
-| **Learning Curve** | Moderate | Steep | Steep | Gentle | Moderate | Moderate |
-| **Best For Size** | Medium-Large | Large | Enterprise | Any | Small-Medium | Large |
-| **Workflow Phases** | 4-6 | 7+ | 4 | 4 | 3 | Continuous |
-| **Documentation** | Verbose | Very Verbose | Comprehensive | Lightweight | Moderate | Moderate |
-| **Multi-Agent** | No | Yes | Built-in | No | Limited | No |
-| **Cost** | Free | Free | Free | Free | Free (preview) | Unknown |
-| **MCP Support** | No | No | No | No | Yes | Yes |
-| **Parallel Features** | No | **Yes** | No | No | No | No |
-| **Change Management** | Basic | Advanced | Advanced | Excellent | Basic | Experimental |
-| **API Focus** | No | No | Yes | No | No | No |
-| **IDE Integration** | No | No | No | No | Yes | No |
-| **AGENTS.md** | ✅ Generated | ✅ Generated | ✅ Generated | ⚠️ Pre-1.0 only | ❌ | ❌ |
-| **CLAUDE.md** | ✅ Generated | ✅ Generated | ✅ Generated | ⚠️ Pre-1.0 only | ❌ | ❌ |
-| **SKILL.md** | ❌ | ❌ | ❌ | ✅ v1.0 | ❌ | ❌ |
-| **Slash Commands** | ✅ 8 | ✅ 13 | ✅ 50+ workflows | ✅ 10 (`/opsx:`) | ❌ | ❌ |
+One row per tool; columns are the schema-backed capability flags. Qualitative
+nuance (agent counts, documentation weight, cost) lives in each tool's profile.
+
+<!-- GEN:feature-matrix -->
+| Tool | Worktrees | Multi-Agent | Parallel | Dashboard | MCP | IDE | Open Source | Complexity | Learning Curve | Spec Maturity |
+|---|---|---|---|---|---|---|---|---|---|---|
+| [BMad Method](tools/bmad-method.md) | ❌ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Very High | Steep | Spec-First |
+| Conductor | ✅ | ✅ | ✅ | Desktop | ❌ | ❌ | ❌ | Low | Gentle | — |
+| [GSD (Get Shit Done)](tools/gsd.md) | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
+| Kilo Code | ❌ | ✅ | ✅ | IDE | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
+| [Kiro](tools/kiro.md) | ❌ | ⚠️ | ✅ | IDE | ✅ | ✅ | ❌ | Medium | Moderate | Spec-First |
+| [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
+| [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
+| [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ✅ | Kanban | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
+| [Spec-Kit](tools/spec-kit.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
+| [Superpowers](tools/superpowers.md) | ✅ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Medium | Gentle | Spec-First |
+| [Tessl](tools/tessl.md) | ❌ | ❌ | ❌ | No | ✅ | ❌ | ❌ | High | Moderate | Spec-as-Source |
+| [Traycer](tools/traycer.md) | ❌ | ⚠️ | ❌ | IDE | ❌ | ✅ | ❌ | Low | Gentle | Spec-First |
+| Zencoder / Zenflow | ✅ | ✅ | ✅ | Desktop | ❌ | ✅ | ❌ | Medium | Moderate | Spec-Anchored |
+<!-- /GEN:feature-matrix -->
 
 ## Agent Configuration Support
 
-How each tool communicates instructions to AI coding agents:
+How each tool communicates instructions to AI coding agents (tools that declare an `agentConfig`):
 
-| Tool | Primary Mechanism | AGENTS.md | CLAUDE.md | .cursorrules | SKILL.md | Slash Commands |
-|------|-------------------|-----------|-----------|--------------|----------|----------------|
-| **Spec-Kit** | Slash commands in `.claude/commands/` | ✅ | ✅ | ✅ | ❌ | 8 commands |
-| **Spec Kitty** | Slash commands in agent-specific dirs | ✅ | ✅ | ✅ | ❌ | 13 commands |
-| **BMad** | Agent configs in `.bmad/` + tool dirs | ✅ | ✅ | ✅ | ❌ | 50+ workflows |
-| **OpenSpec** (pre-1.0) | Scattered config files | ✅ | ✅ | ✅ | ❌ | 3 commands |
-| **OpenSpec** (v1.0) | Unified skills directory | ❌ (removed) | ❌ (removed) | ❌ (removed) | ✅ 10 skills | 10 actions |
-| **Kiro** | Proprietary IDE hooks | ❌ | ❌ | ❌ | ❌ | IDE-native |
-| **Tessl** | Proprietary platform | ❌ | ❌ | ❌ | ❌ | CLI-native |
+<!-- GEN:agent-config -->
+| Tool | AGENTS.md | CLAUDE.md | SKILL.md | Slash Commands |
+|---|---|---|---|---|
+| [BMad Method](tools/bmad-method.md) | ✅ | ✅ | ❌ | 50 |
+| [Kiro](tools/kiro.md) | ❌ | ❌ | ❌ | 0 |
+| [OpenSpec](tools/openspec.md) | ⚠️ removed | ⚠️ removed | ✅ | 10 |
+| [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ❌ | 13 |
+| [Spec-Kit](tools/spec-kit.md) | ✅ | ✅ | ❌ | 8 |
+| [Superpowers](tools/superpowers.md) | ❌ | ❌ | ✅ | 0 |
+| [Tessl](tools/tessl.md) | ❌ | ❌ | ❌ | 0 |
+| [Traycer](tools/traycer.md) | ❌ | ❌ | ❌ | 0 |
+<!-- /GEN:agent-config -->
 
-**Key finding:** OpenSpec v1.0 is the only tool that migrated from AGENTS.md/CLAUDE.md to the newer SKILL.md standard. All other open-source tools still generate AGENTS.md. The AGENTS.md standard itself (28.64% runtime reduction in evaluations) continues to gain adoption — OpenAI Codex ships 88 AGENTS.md files in its own repo.
+**Key finding:** OpenSpec is the only tool that migrated from AGENTS.md/CLAUDE.md (shown as ⚠️ removed) to the newer SKILL.md standard. Other open-source tools still generate AGENTS.md. The AGENTS.md standard itself (28.64% runtime reduction in evaluations) continues to gain adoption — OpenAI Codex ships 88 AGENTS.md files in its own repo.
 
 ## Capability Matrix
+
+> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 13-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
 
 | Aspect | Spec-Kit | Spec Kitty | BMad | OpenSpec | Kiro | Tessl |
 |--------|----------|------------|------|----------|------|-------|
@@ -87,7 +101,7 @@ Legend:
 #### 1. Spec-First
 Well-crafted specs precede coding but are discarded afterward.
 
-**Implements:** Spec-Kit, Kiro, BMad
+**Implements:** Spec-Kit, Kiro, BMad, Superpowers, Traycer
 
 **Characteristics:**
 - Specs guide initial development
@@ -141,7 +155,13 @@ Constitution → Specify → Plan → Tasks → Implement
 - Upfront investment required
 - May resist needed architectural changes
 
-#### Agent-Driven (BMad)
+#### Agent-Driven (BMad, Superpowers, Traycer)
+
+BMad assigns *named role agents* (PM, Architect, QA). Superpowers and Traycer are
+the newer, lighter expression of the same philosophy — they orchestrate *sub-agents
+or your existing agent* through phases rather than simulating an org: Superpowers
+auto-triggers skills (brainstorm → plan → subagent TDD → review), and Traycer
+sequences Plan → Execute → Verify over the agent of your choice.
 
 **Approach:**
 - Specialized roles with specific responsibilities
@@ -221,7 +241,7 @@ Includes practical grades for:
 
 ## Related
 
-- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 11-tool heatmap
+- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 13-tool heatmap
 - [Iterative Development](iterative-development.md) — Deep dive on spec modifications
 - [Orchestration Landscape](landscape.md) — Agent Teams and 30+ multi-agent tools
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide

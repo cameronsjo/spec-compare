@@ -5,7 +5,7 @@
 **Website:** https://openspec.dev/
 **Status:** Production-ready
 **License:** MIT
-**Current Version:** v1.2.0 ("Profiles, Pi & Kiro Support", February 2026)
+**Current Version:** v1.3.1 (April 21, 2026)
 
 ## Core Approach
 
@@ -199,7 +199,7 @@ The initialization process creates:
 - No explicit multi-agent coordination
 - No built-in git worktree support (standard git workflow)
 
-## Recent Changes (v1.1.0–v1.2.0, February 2026)
+## Historical Changes (v1.1.0–v1.2.0, February 2026)
 
 ### v1.2.0 — Profiles, Pi & Kiro Support
 - **Profiles:** Choose between core (4 essential workflows) and custom (pick any subset) via `openspec config profile`
