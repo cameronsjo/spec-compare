@@ -40,13 +40,9 @@
       content="Eleven SDD tools — their workflows, feature matrices, and use-case scoring. Step the same scenario through every core tool in lockstep."
     />
     <meta name="twitter:image" content="https://cameronsjo.github.io/spec-compare/artificer/assets/og-image.svg" />
-    <link rel="stylesheet" href="/artificer/artificer.css" />
-    <link rel="stylesheet" href="/artificer/artificer-whimsy.css" />
-    <link rel="stylesheet" href="/artificer/print.css" media="print" />
-    <script src="/artificer/artificer-theme.js" defer></script>
-    <script src="/artificer/artificer-icons.js" defer></script>
-    <script src="/artificer/artificer-focus.js" defer></script>
-    <script src="/artificer/artificer-whimsy.js" defer></script>
+    <!-- Artificer CSS + JS helpers are imported from the @cameronsjo/artificer
+         package in src/main.tsx, not linked here. The inline theme bootstrap above
+         is the one piece that must stay in <head> (it runs before first paint). -->
   </head>
   <body>
     <div id="root"></div>

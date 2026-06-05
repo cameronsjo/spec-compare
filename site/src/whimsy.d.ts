@@ -1,6 +1,6 @@
 /**
- * Ambient typing for the Artificer Whimsy helper (public/artificer/artificer-whimsy.js,
- * loaded as a plain <script defer>). Only the surface this app uses is declared —
+ * Ambient typing for the Artificer Whimsy helper (@cameronsjo/artificer/whimsy.js,
+ * a window-global IIFE run as a side-effect import in main.tsx). Only the surface this app uses is declared —
  * `run` for the persistent title shimmer and `celebrate` for the one-shot
  * "turn complete" moment. `ignite`/`clear` round out the manual toggle.
  */

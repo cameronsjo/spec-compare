@@ -103,3 +103,22 @@ the `.surface-tool *` mono-font rule fights the prose. Already tracked upstream 
 gotchas worth remembering: cap the measure on `.footer-grid p` (not `.app-footer p`,
 which would pin the full-width fine print to one column), and the footer's own
 `--font-sans` only wins because `styles.css` loads after the vendored `artificer.css`.
+
+## 2026-06-05 · De-vendored to `@cameronsjo/artificer@0.12.0` + split the footer
+
+`@cameronsjo/artificer` is now published with an `exports` map covering every asset
+the site used, so the frozen vendored copy under `site/public/artificer/` was
+swapped for the npm dependency — the site now tracks upstream instead of drifting
+from a copy.
+
+| # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
+|---|------|---------|------------------------|-------------------|-----------|------|
+| 13 | resolution | tool | vendored runtime → npm | Replaced the vendored CSS/JS/fonts with `import '@cameronsjo/artificer/…'` (CSS + window-global JS IIFEs) in `main.tsx`. Vite resolves the package's relative `url('assets/fonts/…')` and emits the woff2 at build. Only `favicon.svg` + `og-image.svg` stay under `public/artificer/assets/` (served URLs `index.html` references). Retires the entry-#6 "dead-weight `<script defer>`" friction and the entry-#11 re-vendor policy — version bumps now flow through `npm`/the `artificer-upgrade` skill, not a manual re-copy. | n/a (consuming) | — |
+| 14 | extension | tool | footer split into views | Superseded the entry-#12 two-column disclosure footer: provenance and bias/affiliation now live in dedicated **About** and **Disclosure** sidenav views; the footer is a slim one-line sign-off linking to them. The entry-#12 `.footer-grid p` measure-cap gotcha is obsolete (no grid); the load-order rule (app `styles.css` must import after the Artificer CSS so `--font-sans` wins) still holds — now enforced by import order in `main.tsx` rather than `<link>` order. | n/a (product) | — |
+
+**Finding:** the `.tabs`/`ArtificerTabs` primitive still doesn't fit this nav —
+it's for in-page tablists with `aria-controls`/panels and roving tabindex, and its
+own doctrine says use `.sidenav` for cross-view navigation. The grouped vertical
+sidenav (with the entry-#5 `.sidenav button` shim) stays. **Deferred:** a pride /
+colophon footer tagline — the upstream primitive isn't built or published yet, so
+there's nothing to adopt; revisit when it ships.

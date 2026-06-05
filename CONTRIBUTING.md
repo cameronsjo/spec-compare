@@ -136,7 +136,8 @@ spec-compare/
 │   │   ├── *.tsx                       # Views: compare, matrix, heatmap, guide, profiles
 │   │   └── types.ts, data.ts, score.ts # Schema + auto-discovery + color scale
 │   ├── scripts/validate-tools.mjs      # AJV + cross-tool invariant checks
-│   └── public/artificer/               # Vendored Artificer design system
+│   ├── public/artificer/assets/        # Residual served SVGs (favicon, og-image) only
+│   └── (design system via @cameronsjo/artificer npm dependency)
 └── docs/
     ├── comparison.md                   # Side-by-side feature matrices
     ├── use-case-scoring.md             # 12 use cases graded + heatmap

@@ -21,7 +21,7 @@ Every value is extracted from the research docs below — no fabricated attribut
 
 ### Developing the site
 
-The site lives in [`site/`](site/) — a React + Vite + TypeScript app on a vendored copy of the Artificer design system. Each tool is one JSON file under `site/src/data/tools/`, auto-discovered and AJV-validated against `schema.json`; the matrix and heatmap are *derived* by aggregating across those files (single source of truth).
+The site lives in [`site/`](site/) — a React + Vite + TypeScript app built on the [`@cameronsjo/artificer`](https://www.npmjs.com/package/@cameronsjo/artificer) design system, consumed as an npm dependency (CSS + JS helpers imported in `site/src/main.tsx`). Each tool is one JSON file under `site/src/data/tools/`, auto-discovered and AJV-validated against `schema.json`; the matrix and heatmap are *derived* by aggregating across those files (single source of truth).
 
 ```bash
 cd site

@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **De-vendored the Artificer design system** (`site/`) — Swapped the frozen vendored copy under `site/public/artificer/` for the published [`@cameronsjo/artificer`](https://www.npmjs.com/package/@cameronsjo/artificer)`@0.12.0` npm dependency, imported as CSS + JS side-effects in `site/src/main.tsx`. Vite resolves the package's web fonts and emits them at build; only `favicon.svg` + `og-image.svg` remain as served static assets. The site now tracks upstream instead of drifting from a copy
+- **Split the footer into About + Disclosure views** (`site/`) — The four-tier disclosure footer is now two dedicated sidenav views (`About` — provenance + how scores are derived; `Disclosure` — bias/affiliation + legal fine print); the footer is a slim one-line sign-off (`Independent & unofficial · About · Disclosure`) linking to them
 - **May 2026 version + status reassessment** — Re-verified all tools against source repos on 2026-05-31; bumped `ASSESSED_AS_OF` → 2026-05-31:
   - **Kiro corrected Preview → GA** (general availability since 2025-11-17): paid tiers (Pro $20 / Pro+ $40 / Power $200) + free tier, Kiro CLI, checkpointing, property-based tests; v0.9.40 → v0.12.x (Parallel Task Execution, Requirements Analysis); `parallel: true`
   - **Tessl corrected closed-beta → public** Framework + Registry; $125M Series A; repositioned as an Agent Enablement Platform; spec-as-source kept with a "shipping Framework behaves spec-anchored today" caveat

@@ -1,6 +1,6 @@
 /**
  * Ambient typing for the Artificer icon helper
- * (public/artificer/artificer-icons.js, loaded as a plain <script defer>).
+ * (@cameronsjo/artificer/icons.js, a window-global IIFE run as a side-effect import in main.tsx).
  *
  * The script auto-hydrates `<i data-icon="name">` placeholders once on
  * DOMContentLoaded — a one-shot pass that misses any node React mounts after
