@@ -10,6 +10,7 @@
 <!-- GEN:quick-comparison -->
 | Tool | Tier | License | Worktrees | Best For | Maturity (version) |
 |---|---|---|---|---|---|
+| [archiet-microcodegen](tools/archiet-microcodegen.md) | Emerging | Open Source | No | Reproducible greenfield apps, air-gapped environments | Stable (v1.0.x) |
 | [BMad Method](tools/bmad-method.md) | Core | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
 | Conductor | Emerging | Proprietary (free) | **Yes** | Parallel worktree execution (macOS) | Active Dev (v0.36.3) |
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
@@ -33,6 +34,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 <!-- GEN:feature-matrix -->
 | Tool | Worktrees | Multi-Agent | Parallel | Dashboard | MCP | IDE | Open Source | Complexity | Learning Curve | Spec Maturity |
 |---|---|---|---|---|---|---|---|---|---|---|
+| [archiet-microcodegen](tools/archiet-microcodegen.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | Spec-as-Source |
 | [BMad Method](tools/bmad-method.md) | ❌ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Very High | Steep | Spec-First |
 | Conductor | ✅ | ✅ | ✅ | Desktop | ❌ | ❌ | ❌ | Low | Gentle | — |
 | [GSD (Get Shit Done)](tools/gsd.md) | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
@@ -131,6 +133,53 @@ Humans edit only specs; code generation remains automatic.
 - One-to-one mapping between specs and code files
 - Most radical departure from traditional development
 - Unproven at scale
+
+#### 4. Spec-to-Application
+The spec is a formal model; code is a **compiled artifact** via deterministic model-to-text (M2T) transformation.
+
+**Implements:** [archiet-microcodegen](tools/archiet-microcodegen.md) only (in this comparison)
+
+**Characteristics:**
+- **No LLM in the generation path** — reproducible output for audit and CI
+- Output is a complete bootable application (not in-repo agent edits)
+- Greenfield regeneration when the spec changes (not delta/trivial-mod workflows)
+- Offline / air-gapped capable
+- Complements Level 2 tools (e.g. Spec-Kit for iteration after scaffold)
+
+**Workflow:**
+PRD/Markdown spec → manifest → genome → render → ZIP
+
+**Strengths:**
+- Same spec → same app, always
+- No API keys or agent dependency for codegen
+- Multi-ecosystem CLIs (NestJS, Go, FastAPI, Laravel, …)
+
+**Weaknesses:**
+- Not for brownfield or "change button to green" workflows
+- No IDE slash commands or multi-agent orchestration
+- Ambiguous specs produce simpler output rather than LLM inference
+
+#### Code-Generation-Driven (archiet-microcodegen)
+
+**Approach:**
+- Spec is the formal model; code is the compiled artifact
+- Deterministic M2T transformation
+- No LLM in the generation path
+- 4-stage pipeline: parse → manifest → genome → render
+
+**Workflow:**
+PRD/Markdown spec → manifest → genome → files → ZIP
+
+**Strengths:**
+- Reproducible output (same spec → same app, always)
+- Offline / air-gapped capable
+- Complete bootable output, not just suggestions
+
+**Weaknesses:**
+- Greenfield only — no brownfield modification workflow
+- Complex or ambiguous PRDs produce simpler output
+- No LLM fallback for edge cases
+- No IDE integration or multi-agent orchestration
 
 ### Workflow Philosophies
 

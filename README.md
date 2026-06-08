@@ -57,6 +57,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Conductor** - macOS parallel agent runner using git worktrees
 - **PromptX** - AI agent context platform via MCP (gap entry)
 - **MUSUBI** - Maximally-rigorous SDD framework, marginal (~57 stars, stalled)
+- **archiet-microcodegen** - Deterministic spec-to-application compiler; 10 ecosystems via native registries (npm, go install, pip, composer, gem, cargo, dotnet); zero LLM in generation path ([guide](https://github.com/Anioko/spec-driven-development))
 
 ## Key Findings
 
@@ -82,7 +83,8 @@ See [Iterative Development Analysis](docs/iterative-development.md) and [Use Cas
 
 1. **Spec-First**: Specs precede coding but are discarded (Spec-Kit, Kiro, BMad)
 2. **Spec-Anchored**: Specs persist and evolve (OpenSpec, Spec Kitty)
-3. **Spec-as-Source**: Only specs are edited, code auto-generates (Tessl)
+3. **Spec-as-Source**: Only specs are edited, code auto-generates via LLM (Tessl)
+4. **Spec-to-Application**: Spec is formal model; code is deterministic M2T output, no LLM in codegen (archiet-microcodegen)
 
 ## Documentation
 
@@ -99,6 +101,7 @@ The research is organized into focused, digestible documents:
 - [Traycer](docs/tools/traycer.md) - Spec-driven Plan → Execute → Verify layer (VS Code)
 - [GSD (Get Shit Done)](docs/tools/gsd.md) - Context-engineered SDD for solo developers
 - [Ralph Loop](docs/tools/ralph-loop.md) - Stateless iterative execution pattern
+- [archiet-microcodegen](docs/tools/archiet-microcodegen.md) - Deterministic spec-to-application compiler (Level 4)
 
 ### Analysis & Recommendations
 

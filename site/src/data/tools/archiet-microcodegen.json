@@ -1,0 +1,41 @@
+{
+  "tool": "archiet-microcodegen",
+  "displayName": "archiet-microcodegen",
+  "vendor": "Archiet",
+  "repo": "https://github.com/Anioko/spec-driven-development",
+  "website": "https://archiet.com/spec-driven-development",
+  "version": "v1.0.x",
+  "license": "Open Source",
+  "maturity": "Stable",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-as-Source",
+  "tagline": "Deterministic spec-to-application compiler — zero LLM in codegen.",
+  "bestFor": "Reproducible greenfield apps, air-gapped environments",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": false,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 2, "medium": 3, "large": 5, "parallel": 1, "emergency": 2, "solo": 5, "contextMgmt": 5, "overall": 3.3 },
+  "keyFeatures": [
+    "4-stage deterministic pipeline: parse_prd → genome → render → pack",
+    "10 ecosystem CLIs (npm, pip, go install, composer, gem, cargo, dotnet)",
+    "Complete bootable output — auth, migrations, docker-compose, ARCHITECTURE.md",
+    "Offline / air-gapped — no LLM API in generation path",
+    "Level 4 Spec-to-Application — same spec → same ZIP every time"
+  ],
+  "limitations": [
+    "Greenfield only — spec changes trigger full regeneration, not delta edits",
+    "No brownfield or in-repo agent workflow (complements Spec-Kit, does not replace it)",
+    "No IDE integration or slash commands",
+    "Ambiguous PRDs produce simpler output rather than LLM guessing",
+    "No built-in git worktree or parallel feature isolation"
+  ]
+}
