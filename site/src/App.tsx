@@ -7,26 +7,37 @@ import { FeatureMatrix } from './FeatureMatrix'
 import { ScoringHeatmap } from './ScoringHeatmap'
 import { ToolProfile } from './ToolProfile'
 import { DecisionGuide } from './DecisionGuide'
+import { About } from './About'
+import { Disclosure } from './Disclosure'
 
-// Overview surfaces, then per-tool profiles. nav holds either an overview id or a tool slug.
-const OVERVIEW = [
+// Overview surfaces, then per-tool profiles. nav holds an overview id, an about-view id, or a tool slug.
+// Exported for the routing test (every view id classifies, none collides with a tool slug).
+export const OVERVIEW = [
   { id: 'compare', label: 'Compare workflows' },
   { id: 'matrix', label: 'Feature matrix' },
   { id: 'heatmap', label: 'Scoring heatmap' },
   { id: 'decision', label: 'Decision guide' },
 ] as const
 
+// Provenance + disclosure, split out of the old footer into their own sidenav views.
+export const ABOUT = [
+  { id: 'about', label: 'About' },
+  { id: 'disclosure', label: 'Disclosure' },
+] as const
+
+// A nav id is a "view" (not a tool slug) when it names an overview surface or an about view.
+export const isViewId = (id: string) => OVERVIEW.some((o) => o.id === id) || ABOUT.some((a) => a.id === id)
+
 const emergingTools = tools.filter((t) => t.tier === 'emerging')
 
 const KINDS: PhaseKind[] = ['govern', 'specify', 'design', 'tasks', 'implement', 'review', 'archive', 'decision']
 
 export function App() {
-  const [nav, setNav] = useState<string>('compare') // overview id OR tool slug
+  const [nav, setNav] = useState<string>('compare') // overview id, about-view id, OR tool slug
   const [scenarioId, setScenarioId] = useState('trivial-mod') // lifted — persists across switches
   const [navOpen, setNavOpen] = useState(false) // mobile drawer
 
-  const isOverview = OVERVIEW.some((o) => o.id === nav)
-  const spec = isOverview ? undefined : toolBySlug(nav)
+  const spec = isViewId(nav) ? undefined : toolBySlug(nav)
   const showLegend = nav === 'compare' || (spec?.tier === 'core')
 
   const selectNav = (id: string) => {
@@ -126,6 +137,10 @@ export function App() {
             <ScoringHeatmap />
           ) : nav === 'decision' ? (
             <DecisionGuide onSelectTool={selectNav} />
+          ) : nav === 'about' ? (
+            <About />
+          ) : nav === 'disclosure' ? (
+            <Disclosure />
           ) : !spec ? (
             <p className="empty">
               <b className="anchor">Tool not found.</b>
@@ -155,42 +170,23 @@ export function App() {
         <ToolNav nav={nav} onSelect={selectNav} />
       </aside>
 
-      {/* Honest footer: provenance | disclosure side by side, full-width fine print
-          below. Bias + affiliation lines are sign-off copy (statements about a
-          person). Pattern: agentic-harnesses/docs/disclaimer-footer-pattern.md. */}
+      {/* Slim footer: a one-line sign-off whose links open the full About + Disclosure
+          views (the old provenance/affiliation copy lives there now). */}
       <footer className="app-footer">
-        <div className="footer-grid">
-          <section className="footer-col">
-            <span className="footer-label">Sourced</span>
-            <p>
-              <b className="anchor">Independent &amp; unofficial.</b> Profiles, feature matrices and use-case scores are
-              extracted from the spec-compare research docs — no fabricated attributes — pinned to each tool's version
-              and assessed {ASSESSED_AS_OF}. They can be incomplete, simplified, or out of date, and may not match
-              current behaviour.
-            </p>
-          </section>
-          <section className="footer-col">
-            <span className="footer-label">Disclosure</span>
-            <p>
-              Built with the{' '}
-              <a className="repo-link" href="https://cameronsjo.github.io/artificer/" target="_blank" rel="noreferrer">
-                <b className="anchor">Artificer design system</b>
-              </a>
-              , React + Vite. Written by — and with — a
-              spec-driven-development practitioner who uses OpenSpec (which scores well here) and keeps a personal,
-              unreleased rig of their own — cadence — filed down from Superpowers after it felt too rigid. So read the
-              Superpowers assessment with that grain of salt; the scoring still aims to treat every tool on equal terms.
-              Spot a bias or an error?{' '}
-              <a className="repo-link" href="https://github.com/cameronsjo/spec-compare/issues" target="_blank" rel="noreferrer">
-                Open an issue
-              </a>
-              .
-            </p>
-          </section>
-        </div>
-        <p className="footer-fine">
-          No affiliation with, sponsorship by, or endorsement from any tool shown. Project names and marks belong to
-          their respective owners.
+        <p className="footer-line">
+          <b className="anchor">Independent &amp; unofficial</b>
+          <span className="footer-sep" aria-hidden="true">
+            ·
+          </span>
+          <button type="button" className="footer-link" onClick={() => selectNav('about')}>
+            About
+          </button>
+          <span className="footer-sep" aria-hidden="true">
+            ·
+          </span>
+          <button type="button" className="footer-link" onClick={() => selectNav('disclosure')}>
+            Disclosure
+          </button>
         </p>
       </footer>
     </div>
@@ -223,6 +219,13 @@ function ToolNav({ nav, onSelect }: { nav: string; onSelect: (id: string) => voi
       {emergingTools.map((t) => (
         <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
           <span className="label">{t.displayName}</span>
+        </button>
+      ))}
+
+      <div className="sidenav__group">About</div>
+      {ABOUT.map((a) => (
+        <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
+          <span className="label">{a.label}</span>
         </button>
       ))}
     </nav>

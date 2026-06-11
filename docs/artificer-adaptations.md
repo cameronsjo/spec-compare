@@ -148,11 +148,13 @@ stay deliberately `/* tuned */` for chart density rather than token-bound.
 | 13 | adoption | tabs | Scenario pickers → `.tabs` primitive + WAI-ARIA tablist. **React owns selection state + panel rendering**; only the roving-tabindex math is delegated to `window.ArtificerTabs.nextIndex(key, current, count, {orientation})`. Deliberately NOT `enhance()`/`observe()` — they toggle `aria-controls` panels via `hidden`, which fights React's conditional rendering (the #6 SPA tension). Filter/mode toggles (matrix tier, heatmap mode) stay `aria-pressed` pills — not every toggle is a tablist. | pattern |
 | 14 | adoption | `.table` base | `.matrix-table`/`.heatmap-table` layer onto `.table .table--sticky-head`; the primitive supplies border-collapse/cell-border/row-hover/sticky-head, the app keeps the dense centered cells, sticky first column (`.th-tool` — a `<th scope="row">` the primitive's `:first-child` sticky-col wouldn't hit), and score/sort/heatmap CSS. **Trap:** the primitive's `.table th { text-transform:uppercase }` hits BOTH column AND row headers — it corrupted filenames ("AGENTS.md"→"AGENTS.MD") and tool names ("BMad Method"→"BMAD METHOD") until a `text-transform:none` reset on *all* `th`, not just `thead th`. | pattern |
 | 15 | adoption | layer-the-primitive-under | Swept hand-rolls for 0.11–0.18 mints and layered the primitive under genuine matches: `.tier-badge`/`.lang-badge` → `.badge` (kept tier colors + smaller size); `.badge-cell` → `.stat` *container* (kept `.badge-label`/`.badge-value` — the values are text facts, not the big mono numeral `.stat__value` is built for). NOT forced where the match was only partial. | pattern |
+| 16 | refactor | footer → views | Replaced the two-column "honest footer" (#12) with a **slim sign-off line** that links to dedicated **About** + **Disclosure** sidenav views (`About.tsx`, `Disclosure.tsx`, + `nav-routing.test.ts`). Ported from the parallel `de-vendor-artificerjs` branch (closed PR #11) — the disclosure reads as a deliberate page, not a wall of text down one edge. Still hand-rolled (Artificer ships no footer/colophon primitive — #12's point stands). | maybe |
 
 **Still open / kept:** #7 (calm-score encoding — independent design choice);
 #10 (Whimsy has no graceful exit, `#85` still open — re-confirmed the upgrade
-doesn't change its premise); #12 (honest footer — Artificer ships no footer
-primitive); #4/#5 (app-shell + `.sidenav button` shim, unchanged).
+doesn't change its premise); #12 (no footer/colophon primitive — now expressed as
+the slim footer + About/Disclosure views, see #16); #4/#5 (app-shell +
+`.sidenav button` shim, unchanged).
 
 **Provenance wrinkle (reported):** the package's `exports` map + SRI manifest
 cover CSS/JS/`tokens.json`, but `files:["src"]` ships `src/assets/**` (fonts,
