@@ -95,7 +95,7 @@ export function FeatureMatrix() {
       </div>
 
       <div className="table-scroll">
-        <table className="matrix-table">
+        <table className="table table--sticky-head matrix-table">
           <thead>
             <tr>
               <th scope="col" className="th-tool" aria-sort={sortKey === 'name' ? (dir === 1 ? 'ascending' : 'descending') : 'none'}>

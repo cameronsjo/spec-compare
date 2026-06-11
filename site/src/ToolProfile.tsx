@@ -20,7 +20,7 @@ export function ToolProfile({ spec }: { spec: ToolSpec }) {
       <header className="profile-head">
         <div className="profile-title">
           <h2 className="profile-name">{spec.displayName}</h2>
-          <span className={`tier-badge tier-badge--${spec.tier}`}>{spec.tier}</span>
+          <span className={`badge tier-badge tier-badge--${spec.tier}`}>{spec.tier}</span>
         </div>
         <p className="profile-tagline">{spec.tagline}</p>
         <div className="profile-meta cluster">
@@ -42,12 +42,12 @@ export function ToolProfile({ spec }: { spec: ToolSpec }) {
         {badges
           .filter((b) => b.value)
           .map((b) => (
-            <div key={b.label} className="badge-cell">
+            <div key={b.label} className="stat badge-cell">
               <span className="badge-label">{b.label}</span>
               <span className="badge-value">{b.value}</span>
             </div>
           ))}
-        <div className="badge-cell">
+        <div className="stat badge-cell">
           <span className="badge-label">Best for</span>
           <span className="badge-value">{spec.bestFor}</span>
         </div>

@@ -135,6 +135,8 @@ export function LoopGraph({ spec, activeNodeId, activeEdge, onNodeClick }: Props
               opacity={active ? 1 : 0.65}
             />
             {label && (
+              // fontSize is fixed px in a viewBox'd SVG — scales with the diagram,
+              // immune to the v0.18 re-true (tuned for edge-label density).
               <text
                 x={p.mx}
                 y={p.my}
@@ -188,6 +190,8 @@ export function LoopGraph({ spec, activeNodeId, activeEdge, onNodeClick }: Props
             />
             {/* kind color chip on the left edge */}
             <rect x={nodeX} y={yTop(row)} width={6} height={NODE_H} rx={3} fill={color} />
+            {/* fontSize is fixed px in a viewBox'd SVG — scales with the diagram and
+                is bounded by NODE_W/NODE_H, so it stays tuned (not token-bound). */}
             <text
               x={centerX + 3}
               y={yMid(row)}

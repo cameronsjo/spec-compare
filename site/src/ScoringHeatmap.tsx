@@ -203,7 +203,7 @@ export function ScoringHeatmap() {
         <ScatterMap active={active} handlers={cellHandlers} />
       ) : (
         <div className="table-scroll">
-          <table className={`heatmap-table heatmap-table--${mode}`}>
+          <table className={`table table--sticky-head heatmap-table heatmap-table--${mode}`}>
             <thead>
               <tr>
                 <th scope="col" className="th-tool">Tool</th>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Artificer theme bootstrap — FIRST in <head>, before any CSS.
          Sets data-theme before first paint so the dark-first page never
-         flashes light on load (Artificer v0.10.1 baseline contract). The
+         flashes light on load (Artificer v0.18.0 baseline contract). The
          'artificer.theme' key MUST match artificer-theme.js and App.tsx. -->
     <script>
       (function () {
@@ -47,6 +47,9 @@
     <script src="/artificer/artificer-icons.js" defer></script>
     <script src="/artificer/artificer-focus.js" defer></script>
     <script src="/artificer/artificer-whimsy.js" defer></script>
+    <!-- Tablist keyboard helper — this app uses only ArtificerTabs.nextIndex
+         (React owns tab selection state); see src/controls.tsx TabPicker. -->
+    <script src="/artificer/artificer-tabs.js" defer></script>
   </head>
   <body>
     <div id="root"></div>
