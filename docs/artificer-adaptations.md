@@ -116,22 +116,30 @@ gotchas worth remembering: cap the measure on `.footer-grid p` (not `.app-footer
 which would pin the full-width fine print to one column), and the footer's own
 `--font-sans` only wins because `styles.css` loads after the vendored `artificer.css`.
 
-## 2026-06-11 · Upgrade 0.10.1 → 0.18.0 (re-true + primitive adoption)
+## 2026-06-11 · Upgrade 0.10.1 → 0.18.1 (re-true + primitive adoption)
 
-Moved the vendored copy from `--art-version 0.10.1` to **0.18.0** and switched
+Moved the vendored copy from `--art-version 0.10.1` to **0.18.1** and switched
 vendoring to a pinned npm devDependency (`@cameronsjo/artificer`) + a files-only
 copy script (`site/scripts/revendor-artificer.sh`, run pre{dev,build}). The
 regenerable text files (`*.{css,js,json}`) are now **generated + gitignored**; the
 lockfile is the single source of truth; the binary `assets/**` (fonts, favicon,
-og-image) stay **tracked** and the script never touches them. (0.18.0 is the latest
-of several public minors — **0.12.0** was the first public release, 2026-06-03 —
-not the first ever.)
+og-image) stay **tracked** and the script never touches them. (Pinned **0.18.1**;
+the re-true landed in 0.18.0 and 0.18.1 is a patch that closes the reduced-motion
+gap noted below. **0.12.0** was the first public release, 2026-06-03 — not the
+first ever.)
 
 The headline v0.18.0 change re-trues the type scale (`html { font-size: 100% }`),
 so all token-bound text renders ~14.3% larger. Absorbed cleanly: the comparison
 tables already sit in `overflow-x:auto` wrappers and use `rem`, and the SVG chart
 labels are viewBox-scaled (user-space px, immune to the *root* re-true) so they
 stay deliberately `/* tuned */` for chart density rather than token-bound.
+
+**Reduced motion:** 0.18.1 gates the Whimsy shimmer under
+`@media (prefers-reduced-motion: reduce)` (`animation: none` + a held static
+burnish) — a gap this upgrade surfaced (the vendored CSS comment credits "a
+consumer on the 0.10.1→0.18.0 upgrade"). Closed **upstream**, not worked around:
+the app carries no reduced-motion guard and no adaptations entry — the gap closed
+instead of forking.
 
 ### Absorbed upstream — local adaptations retired
 
