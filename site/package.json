@@ -8,7 +8,10 @@
     "validate": "node scripts/validate-tools.mjs",
     "gen:tables": "node scripts/gen-doc-tables.mjs",
     "gen:check": "node scripts/gen-doc-tables.mjs --check",
+    "vendor:artificer": "bash scripts/revendor-artificer.sh",
+    "predev": "npm run vendor:artificer",
     "dev": "vite",
+    "prebuild": "npm run vendor:artificer",
     "build": "npm run validate && npm run gen:check && tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run"
@@ -18,6 +21,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@cameronsjo/artificer": "0.18.0",
     "@types/node": "^25.9.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

@@ -36,7 +36,7 @@ export function App() {
 
   // The persistent whimsy: the wordmark breathes the ultrathink shimmer for three
   // hue-cycles on load, then drifts glacially. React mounts after DOMContentLoaded.
-  const titleRef = useRef<HTMLSpanElement>(null)
+  const titleRef = useRef<HTMLAnchorElement>(null)
   useEffect(() => {
     const cancel = window.Whimsy?.run(titleRef.current, { loops: 3, settle: 'glacial' })
     return () => cancel?.()
@@ -78,14 +78,12 @@ export function App() {
         >
           <i data-icon="menu" data-icon-size="32" />
         </button>
-        {/* `wordmark` lives on the inline text span, NOT the .appbar__brand flex
-            container — its ::after accent period would otherwise become a flex item
-            and the container `gap` would detach it ("word ." not "word."). See
-            cameronsjo/artificer-design-system#81. */}
-        <a className="appbar__brand" href="#main">
-          <span className="wordmark whimsy" ref={titleRef}>
-            spec-driven development
-          </span>
+        {/* Native composition: `.wordmark` on the `.appbar__brand` flex container.
+            v0.18 makes `.wordmark` inline-block (blockified as a flex item), so its
+            ::after accent period stays an inline box rather than a detached flex
+            item — the #81 workaround (separate inline span) is no longer needed. */}
+        <a className="appbar__brand wordmark whimsy" href="#main" ref={titleRef}>
+          spec-driven development
         </a>
         <span className="appbar__spacer" />
         <div className="appbar__actions">
@@ -135,7 +133,7 @@ export function App() {
           ) : spec.tier === 'core' ? (
             <>
               <div className="harness-meta">
-                <span className="lang-badge">{spec.maturity}</span>
+                <span className="badge lang-badge">{spec.maturity}</span>
                 <span className="loop-style">{spec.tagline}</span>
                 {spec.repo && (
                   <a className="repo-link" href={spec.repo} target="_blank" rel="noreferrer">

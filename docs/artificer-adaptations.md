@@ -56,6 +56,11 @@ accent period is a `::after`, so the gap inserts space before it. Structural fix
 (push `.wordmark` to an inline child), not a margin hack. Filed upstream as
 `cameronsjo/artificer-design-system#81`.
 
+> **Absorbed in v0.18.0 (2026-06-11).** `.wordmark` is now `display:inline-block`
+> (blockifies as a flex item, so `::after` stays an inline box), so it can sit
+> directly on the flex `.appbar__brand` again. Reverted the workaround to the
+> native `<a class="appbar__brand wordmark">`. See the 2026-06-11 section.
+
 ## 2026-05-31 · Whimsy has no graceful exit (celebrate snaps + persists)
 
 | # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
@@ -89,6 +94,13 @@ and break the next re-vendor). Routed upstream as a single bug report,
 `artificer.css` (also flagged) was already tracked upstream in #77. **Re-sync
 trigger:** when #90 lands, re-vendor `artificer-icons.js` + `print.css`.
 
+> **Absorbed in v0.18.0 (2026-06-11).** All three #90 bugs are fixed in the
+> vendored 0.18 copy — verify: `icons.js` splits multi-class `classList.add`
+> (`…add(...opts.className.split(/\s+/)…)`) and clears the hydrate lock on
+> mutation (re-renders on `data-icon*` change); `print.css` uses `.toast-region`
+> + `break-inside` (not `.toast` / deprecated `page-break-*`). See the 2026-06-11
+> section.
+
 ## 2026-05-31 · Honest footer — adopted a cross-consumer pattern Artificer doesn't own
 
 | # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
@@ -103,3 +115,45 @@ the `.surface-tool *` mono-font rule fights the prose. Already tracked upstream 
 gotchas worth remembering: cap the measure on `.footer-grid p` (not `.app-footer p`,
 which would pin the full-width fine print to one column), and the footer's own
 `--font-sans` only wins because `styles.css` loads after the vendored `artificer.css`.
+
+## 2026-06-11 · Upgrade 0.10.1 → 0.18.0 (re-true + primitive adoption)
+
+Moved the vendored copy from `--art-version 0.10.1` to **0.18.0** and switched
+vendoring to a pinned npm devDependency (`@cameronsjo/artificer`) + a files-only
+copy script (`site/scripts/revendor-artificer.sh`, run pre{dev,build}). The
+regenerable text files (`*.{css,js,json}`) are now **generated + gitignored**; the
+lockfile is the single source of truth; the binary `assets/**` (fonts, favicon,
+og-image) stay **tracked** and the script never touches them. (0.18.0 is the latest
+of several public minors — **0.12.0** was the first public release, 2026-06-03 —
+not the first ever.)
+
+The headline v0.18.0 change re-trues the type scale (`html { font-size: 100% }`),
+so all token-bound text renders ~14.3% larger. Absorbed cleanly: the comparison
+tables already sit in `overflow-x:auto` wrappers and use `rem`, and the SVG chart
+labels are viewBox-scaled (user-space px, immune to the *root* re-true) so they
+stay deliberately `/* tuned */` for chart density rather than token-bound.
+
+### Absorbed upstream — local adaptations retired
+
+| # | was | now |
+|---|-----|-----|
+| 9 | wordmark inline-`<span>` workaround (accent period detached on flex `.appbar__brand`, #81) | v0.18 `.wordmark` is `display:inline-block` → blockifies as a flex item, so `::after` stays inline. Reverted to native `<a class="appbar__brand wordmark">`. |
+| 11 | left vendored `print.css` + `icons.js` unpatched pending #90/#154 | Both fixed in vendored 0.18: `print.css` uses `.toast-region` + `break-inside`; `icons.js` splits multi-class `classList.add` and clears the hydrate lock on mutation. Re-vendor done. |
+| 2 | `--success-fill` missing → `color-mix` for score-5 cells | `--success-fill` now exists (`#2d6644` dark / `#2a5a3a` light, AA-rated). #7 (calm score) is unaffected — it keys off `--accent` color-mix by design, not the absent token. |
+
+### New decisions — reported via /artificer-feedback
+
+| # | type | pattern | what we did + why | upstream? |
+|---|------|---------|-------------------|-----------|
+| 13 | adoption | tabs | Scenario pickers → `.tabs` primitive + WAI-ARIA tablist. **React owns selection state + panel rendering**; only the roving-tabindex math is delegated to `window.ArtificerTabs.nextIndex(key, current, count, {orientation})`. Deliberately NOT `enhance()`/`observe()` — they toggle `aria-controls` panels via `hidden`, which fights React's conditional rendering (the #6 SPA tension). Filter/mode toggles (matrix tier, heatmap mode) stay `aria-pressed` pills — not every toggle is a tablist. | pattern |
+| 14 | adoption | `.table` base | `.matrix-table`/`.heatmap-table` layer onto `.table .table--sticky-head`; the primitive supplies border-collapse/cell-border/row-hover/sticky-head, the app keeps the dense centered cells, sticky first column (`.th-tool` — a `<th scope="row">` the primitive's `:first-child` sticky-col wouldn't hit), and score/sort/heatmap CSS. **Trap:** the primitive's `.table th { text-transform:uppercase }` hits BOTH column AND row headers — it corrupted filenames ("AGENTS.md"→"AGENTS.MD") and tool names ("BMad Method"→"BMAD METHOD") until a `text-transform:none` reset on *all* `th`, not just `thead th`. | pattern |
+| 15 | adoption | layer-the-primitive-under | Swept hand-rolls for 0.11–0.18 mints and layered the primitive under genuine matches: `.tier-badge`/`.lang-badge` → `.badge` (kept tier colors + smaller size); `.badge-cell` → `.stat` *container* (kept `.badge-label`/`.badge-value` — the values are text facts, not the big mono numeral `.stat__value` is built for). NOT forced where the match was only partial. | pattern |
+
+**Still open / kept:** #7 (calm-score encoding — independent design choice);
+#10 (Whimsy has no graceful exit, `#85` still open — re-confirmed the upgrade
+doesn't change its premise); #12 (honest footer — Artificer ships no footer
+primitive); #4/#5 (app-shell + `.sidenav button` shim, unchanged).
+
+**Provenance wrinkle (reported):** the package's `exports` map + SRI manifest
+cover CSS/JS/`tokens.json`, but `files:["src"]` ships `src/assets/**` (fonts,
+favicon, og-image) too — vendor-able yet outside the integrity contract.

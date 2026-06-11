@@ -1,3 +1,4 @@
+import { useRef, type KeyboardEvent } from 'react'
 import type { usePlayerTimer } from './player'
 
 type Player = ReturnType<typeof usePlayerTimer>
@@ -49,20 +50,50 @@ interface TabPickerProps {
   active: string
   onSelect: (id: string) => void
   ariaLabel: string
-  /** Wrapper class — defaults to the scenario-tab styling; pass e.g. "wire-mode" to vary it. */
+  /** Extra class layered on the `.tabs` primitive (rarely needed). */
   className?: string
 }
 
-/** A row of pill tabs (harness / scenario / mode pickers) with shared a11y wiring. */
-export function TabPicker({ items, active, onSelect, ariaLabel, className = 'scenario-tabs' }: TabPickerProps) {
+/**
+ * View-switching tabs (the scenario pickers) on the Artificer `.tabs` primitive
+ * with WAI-ARIA tablist semantics. React owns selection state and renders the
+ * panel below, so the roving-tabindex math is the only thing delegated — to
+ * `ArtificerTabs.nextIndex` (the module exists to kill that boilerplate). We
+ * deliberately do NOT call enhance()/observe(): those toggle aria-controls
+ * panels via `hidden`, which fights React's conditional rendering. Arrow keys +
+ * Home/End move selection (automatic activation); `onSelect` drives the view.
+ *
+ * Filter/mode toggles (matrix tier filter, heatmap mode) are NOT tabs — they
+ * stay `aria-pressed` button groups on the `.tab` pill styling.
+ */
+export function TabPicker({ items, active, onSelect, ariaLabel, className = '' }: TabPickerProps) {
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const activeIndex = items.findIndex((it) => it.id === active)
+  // Exactly one tab must be focusable even if `active` matches no item.
+  const rovingIndex = activeIndex < 0 ? 0 : activeIndex
+
+  function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    const target = window.ArtificerTabs?.nextIndex(e.key, rovingIndex, items.length, {
+      orientation: 'horizontal',
+    })
+    if (target == null) return
+    e.preventDefault()
+    onSelect(items[target].id)
+    tabRefs.current[target]?.focus()
+  }
+
   return (
-    <div className={`${className} cluster`} role="group" aria-label={ariaLabel}>
-      {items.map((it) => (
+    <div className={`tabs ${className}`.trim()} role="tablist" aria-label={ariaLabel} onKeyDown={onKeyDown}>
+      {items.map((it, i) => (
         <button
           key={it.id}
+          ref={(el) => {
+            tabRefs.current[i] = el
+          }}
           type="button"
-          aria-pressed={it.id === active}
-          className={`btn btn--ghost tab ${it.id === active ? 'tab--active' : ''}`}
+          role="tab"
+          aria-selected={it.id === active}
+          tabIndex={i === rovingIndex ? 0 : -1}
           onClick={() => onSelect(it.id)}
         >
           {it.label}

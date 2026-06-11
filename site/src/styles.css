@@ -87,7 +87,10 @@ body {
   box-shadow: inset 2px 0 0 var(--accent);
 }
 
-/* ---- pill tabs (TabPicker / matrix filter) ---- */
+/* ---- pill toggles (matrix tier filter · heatmap mode) ----
+   These are aria-pressed button groups, NOT view tabs — view-switching now uses
+   the Artificer `.tabs` primitive (see controls.tsx TabPicker). Kept as pills
+   because a filter/mode choice isn't a tablist. */
 .tab {
   border-radius: var(--radius-sm);
 }
@@ -114,10 +117,6 @@ body {
 }
 
 /* ---- transport / scenario ---- */
-.scenario-tabs {
-  gap: var(--s-xs);
-  flex-wrap: wrap;
-}
 .transport {
   gap: var(--s-xs);
   align-items: center;
@@ -261,10 +260,10 @@ body {
   gap: var(--s-sm);
   margin-bottom: 4px;
 }
+/* Layered on the .badge primitive (markup: `badge lang-badge`) — keeps only the
+   steel tint + smaller size; padding/radius/inline-flex come from .badge. */
 .lang-badge {
   font-size: 0.72rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
   background: var(--steel-fill);
   color: var(--fg);
 }
@@ -475,12 +474,13 @@ body {
 .tier-dot--emerging {
   background: var(--steel);
 }
+/* Layered on the .badge primitive (markup: `badge tier-badge tier-badge--X`) —
+   keeps only the smaller uppercase size; padding/radius/inline-flex come from
+   .badge, the tier colors from the --core/--emerging modifiers below. */
 .tier-badge {
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
 }
 .tier-badge--core {
   background: var(--accent-fill);
@@ -491,7 +491,12 @@ body {
   color: var(--fg-secondary);
 }
 
-/* ---- tables (matrix + heatmap share scroll + header grammar) ---- */
+/* ---- tables (matrix + heatmap layer onto the .table primitive) ----
+   Markup: `<table class="table table--sticky-head matrix-table">`. The primitive
+   (artificer.css) supplies border-collapse, width, the cell border-bottom, row
+   hover, and the sticky-header grammar; the rules below keep only the dense +
+   centered specializations and the sticky first column (.th-tool — a
+   <th scope="row">, which the primitive's :first-child sticky-col wouldn't hit). */
 .table-scroll {
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -501,10 +506,10 @@ body {
 }
 .matrix-table,
 .heatmap-table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 0.82rem;
+  font-size: 0.82rem; /* denser than the primitive's --t-body-md-size */
 }
+/* Dense, centered cells — source order beats the primitive's left-align + roomier
+   padding (styles.css loads after artificer.css); border-bottom comes from .table. */
 .matrix-table th,
 .matrix-table td,
 .heatmap-table th,
@@ -513,16 +518,25 @@ body {
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-  border-bottom: 1px solid var(--border);
 }
+/* The .table primitive styles every <th> as an uppercase label cell, but these
+   tables use <th> for BOTH column headers and row headers (tool names) — neither
+   should uppercase ("AGENTS.md", "BMad Method"), shrink, or change weight.
+   Neutralize the primitive's th bundle for all th (source order wins); the thead
+   rule below adds only the sticky-header look. */
+.matrix-table th,
+.heatmap-table th {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+/* Sticky-header look. position/top come from .table--sticky-head; we keep the app's
+   raised bg + z layering (the corner .th-tool sits above both — see below). */
 .matrix-table thead th,
 .heatmap-table thead th {
-  position: sticky;
-  top: 0;
   background: var(--bg-raised);
   color: var(--fg-secondary);
-  font-family: var(--font-sans);
-  font-weight: 600;
   z-index: 2;
 }
 /* Sticky row-header cell. MUST stay a table cell (no display:flex here) — flexing a
@@ -644,7 +658,12 @@ body {
   white-space: nowrap;
 }
 
-/* ---- map (x/y scatter of computed fitness axes) ---- */
+/* ---- map (x/y scatter of computed fitness axes) ----
+   The map SVG is viewBox'd, so its label px are user-space units that scale
+   with the chart — immune to the v0.18 re-true (which only moves token/rem-
+   bound text). The sizes below are deliberately fixed (tuned) for scatter
+   density + internal hierarchy, NOT token-bound; growing them would crowd the
+   dense tool-name labels. */
 .heat-map {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -671,12 +690,12 @@ body {
 }
 .map-tick {
   fill: var(--fg-disabled);
-  font-size: 11px;
+  font-size: 11px; /* tuned */
 }
 .map-axis {
   fill: var(--fg-secondary);
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 12px; /* tuned */
   font-weight: 600;
 }
 .map-pt {
@@ -698,7 +717,7 @@ body {
 }
 .map-label {
   fill: var(--fg-secondary);
-  font-size: 10px;
+  font-size: 10px; /* tuned */
   paint-order: stroke; /* halo so labels stay legible over gridlines */
   stroke: var(--bg-raised);
   stroke-width: 3px;
@@ -807,14 +826,14 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: var(--s-sm);
 }
+/* Layered on the .stat primitive (markup: `stat badge-cell`) — the container
+   (flex column, bg-raised, border, radius) comes from .stat; we only tighten the
+   gap + padding for a denser fact grid. The values are short text facts (license,
+   maturity), so they keep `.badge-value` (sans) rather than `.stat__value`, which
+   is a big mono numeral built for metrics. */
 .badge-cell {
-  display: flex;
-  flex-direction: column;
   gap: 2px;
   padding: var(--s-sm) var(--s-md);
-  background: var(--bg-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
 }
 .badge-label {
   font-size: 0.68rem;
