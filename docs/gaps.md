@@ -134,6 +134,23 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### archiet-microcodegen (marginal)
+
+**What it is:** A single-file, MIT-licensed deterministic code generator (`Anioko/microcodegen`) that compiles a regex-parsed PRD into a bootable Flask app ZIP via `string.Template` rendering — no LLM in the open-source generation path, pure stdlib, zero dependencies. It is the open-source reference component of **archiet.com**, a commercial spec-driven platform (REQARCHITECT LTD). Companion per-stack packages exist on npm (NestJS), PyPI (Flask/Django), Packagist (Laravel), NuGet (.NET), and the Go proxy.
+
+**Why it's interesting:** It stakes out a genuinely distinct point in the SDD space — deterministic model-to-text (M2T) templating rather than LLM inference, so the generated app's *structure* is reproducible and the OSS tool runs offline.
+
+**Gap assessment:** Noted here rather than profiled. Adoption is near zero (algorithm repo **~4★**; the SDD-guide repo, created the day its inclusion PR opened, is **0★**) — below even the MUSUBI marginal line. Several headline claims also don't hold up on inspection: every published package is **pre-1.0** (core PyPI `archiet-microcodegen` 0.2.3, June 2026), not the "Stable v1.0.x" advertised; two of the ten claimed ecosystems — a RubyGems `*-rails` gem and a crates.io `*-tauri` crate — **do not exist**; the "same spec → same ZIP, reproducible for CI/audit" claim is undercut by **per-ZIP random secret injection** (`secrets.token_urlsafe(32)`); and the file's own docstring notes the full (commercial) pipeline uses "a chunked LLM extractor," so "zero LLM" describes the teaser, not the product. Like Zencoder/Tessl, it's the free OSS lead-in to a paid platform ($104–$2,099/mo). Revisit for a full profile if it ships a real 1.0, multi-stack registry parity actually lands, and adoption clears the bar.
+
+**Sources:**
+- [GitHub: Anioko/microcodegen](https://github.com/Anioko/microcodegen) (algorithm)
+- [GitHub: Anioko/spec-driven-development](https://github.com/Anioko/spec-driven-development) (guide)
+- [PyPI: archiet-microcodegen](https://pypi.org/project/archiet-microcodegen/)
+- [archiet.com](https://archiet.com) (commercial platform)
+- [Inclusion PR #12](https://github.com/cameronsjo/spec-compare/pull/12)
+
+---
+
 ## Updates to Existing Tools
 
 ### May 2026 reassessment
