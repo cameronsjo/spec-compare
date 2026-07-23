@@ -13,7 +13,7 @@
 | [BMad Method](tools/bmad-method.md) | Core | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
 | Conductor | Emerging | Proprietary (free) | **Yes** | Parallel worktree execution (macOS) | Active Dev (v0.36.3) |
 | Frame | Emerging | Apache-2.0 | **Yes** | GUI-orchestrated parallel agents | Active Dev (v2.4.0) |
-| GAAI | Emerging | Source-available (Elastic License 2.0) | No | Governed autonomous delivery | Active Dev (v2.49.0 (git tag)) |
+| GAAI | Emerging | Source-available (Elastic License 2.0) | No | Governed autonomous delivery | Active Dev (v2.49.0) |
 | GRACE | Emerging | MIT | No | Contract-first formal specs | Beta (v4.0.0-rc.3) |
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
 | Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.3.16) |

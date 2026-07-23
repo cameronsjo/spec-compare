@@ -162,6 +162,8 @@ Verified against source repos on 2026-07-23 (full detail in [reassessment-2026-0
 - **Spec Kitty** v3.1.9 → **v3.2.5** (charter consolidation, event-log work-package state, split-brain fixes; breaking-change cadence noted).
 - No demotions this pass — Smart Ralph's stall gate did not fire (fresh commit 2026-07-23).
 
+### May 2026 reassessment
+
 Verified against source repos on 2026-05-31 (full detail in [reassessment-2026-05-31.md](reassessment-2026-05-31.md)):
 
 - **Kiro → GA.** General availability since 2025-11-17 (team support, Kiro CLI, checkpointing, property-based tests); now on paid tiers (Pro $20 / Pro+ $40 / Power $200 per month) plus a free tier. Current IDE v0.12.x added Parallel Task Execution, Quick Plan, and Requirements Analysis. AWS is sunsetting Amazon Q Developer in favor of Kiro.

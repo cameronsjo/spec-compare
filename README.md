@@ -139,6 +139,8 @@ The research is organized into focused, digestible documents:
 | **Superpowers** | MIT | **Yes** | Disciplined autonomous dev | Active Dev (v5.1.0) |
 | **Traycer** | Proprietary | No | Plan-first orchestration | Active Dev |
 
+> **Known stale versions:** the July 2026 sweep found Kiro at 1.0, Spec-Kit at v0.14.1, and Superpowers at v6.1.1. Each moved by more than a version string, so they are tracked in a follow-up rather than bumped in place — see [the sweep doc](docs/reassessment-2026-07-23.md#part-a--version-drift-tracked-tools).
+
 ## Recommendations
 
 ### For Git Worktree Users
