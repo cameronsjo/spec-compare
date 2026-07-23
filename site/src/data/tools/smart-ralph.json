@@ -1,0 +1,39 @@
+{
+  "tool": "smart-ralph",
+  "displayName": "Smart Ralph",
+  "vendor": "tzachbon",
+  "repo": "https://github.com/tzachbon/smart-ralph",
+  "version": "v4.0.0",
+  "license": "MIT",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "loop",
+  "specMaturity": "Spec-First",
+  "tagline": "Spec phases layered on the Ralph autonomous loop.",
+  "bestFor": "Hands-off spec-to-code loops",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "No",
+    "mcp": true,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 2, "medium": 3, "large": 4, "parallel": 3, "emergency": 1, "solo": 3, "contextMgmt": 4, "overall": 2.9 },
+  "keyFeatures": [
+    "Five spec phases — research → requirements → design → tasks → implement — with state files",
+    "Phase-dedicated sub-agents keep each phase's context clean",
+    "Fresh context per task via the underlying Ralph loop",
+    "Codebase indexing spans URLs, MCP servers, and installed skills",
+    "Alternate ralph-speckit flavor mirrors spec-kit's phases"
+  ],
+  "limitations": [
+    "Solo maintainer with a sparse commit cadence (~2 commits Mar–Jul 2026)",
+    "Sequential task-by-task execution — [P] markers only flag parallel-safe tasks",
+    "Plugin for Claude Code / Codex — not standalone",
+    "No dashboard — progress lives in state files"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "tool": "moai-adk",
+  "displayName": "MoAI-ADK",
+  "vendor": "modu-ai",
+  "repo": "https://github.com/modu-ai/moai-adk",
+  "version": "v3.0.0",
+  "license": "Apache-2.0",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "SPEC-First Plan→Run→Sync with TDD gates for Claude Code.",
+  "bestFor": "Disciplined TDD with Claude Code",
+  "complexity": "High",
+  "learningCurve": "Steep",
+  "features": {
+    "gitWorktrees": true,
+    "multiAgent": true,
+    "dashboard": "Web",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": true
+  },
+  "scores": { "trivial": 2, "medium": 4, "large": 4, "parallel": 4, "emergency": 1, "solo": 3, "contextMgmt": 4, "overall": 3.1 },
+  "keyFeatures": [
+    "Go CLI wrapping Claude Code in a SPEC-First Plan→Run→Sync lifecycle",
+    "TDD gates with an 85%+ coverage target enforced per SPEC",
+    "Per-SPEC git worktree isolation for parallel development (/moai plan --worktree)",
+    "Agent catalog separates planning from auditing so authors don't grade their own work",
+    "Tokenomics model/effort routing to control token spend",
+    "moai web serves a six-tab settings console"
+  ],
+  "limitations": [
+    "Claude-Code-only — no other harness or agent runtime supported",
+    "Benchmark and coverage claims are self-reported, not independently verified",
+    "Full SPEC lifecycle is heavy ceremony for small changes",
+    "Korean-first documentation; English docs trail"
+  ]
+}

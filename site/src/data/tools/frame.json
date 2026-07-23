@@ -1,0 +1,39 @@
+{
+  "tool": "frame",
+  "displayName": "Frame",
+  "vendor": "kaanozhan",
+  "repo": "https://github.com/kaanozhan/Frame",
+  "version": "v2.4.0",
+  "license": "Apache-2.0",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "Electron ADE orchestrating parallel spec agents in worktrees.",
+  "bestFor": "GUI-orchestrated parallel agents",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": true,
+    "multiAgent": true,
+    "dashboard": "Desktop",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": true
+  },
+  "scores": { "trivial": 3, "medium": 3, "large": 3, "parallel": 4, "emergency": 2, "solo": 3, "contextMgmt": 3, "overall": 3.0 },
+  "keyFeatures": [
+    "Spec → plan → tasks → outcome Markdown captured per feature",
+    "Conductor agent runs multiple ready specs at once, each worker in its own git worktree",
+    "Runs Claude Code, Codex CLI, and Gemini CLI workers side by side",
+    "Footprint-conflict and drift detection across parallel specs",
+    "Orchestrator cockpit UI: pipeline rail, worker lanes, spec rail"
+  ],
+  "limitations": [
+    "Solo maintainer",
+    "Own Electron desktop app — no IDE integration",
+    "Young project (~318 stars) with a small community",
+    "Desktop app overhead for what is fundamentally a file-based workflow"
+  ]
+}

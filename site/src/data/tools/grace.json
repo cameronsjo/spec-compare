@@ -1,0 +1,39 @@
+{
+  "tool": "grace",
+  "displayName": "GRACE",
+  "vendor": "osovv",
+  "repo": "https://github.com/osovv/grace-marketplace",
+  "version": "v4.0.0-rc.3",
+  "license": "MIT",
+  "maturity": "Beta",
+  "tier": "emerging",
+  "philosophy": "constitution",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Contract-first Graph-RAG specs as installable agent skills.",
+  "bestFor": "Contract-first formal specs",
+  "complexity": "High",
+  "learningCurve": "Steep",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": true,
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": true
+  },
+  "scores": { "trivial": 1, "medium": 3, "large": 4, "parallel": 2, "emergency": 1, "solo": 2, "contextMgmt": 3, "overall": 2.3 },
+  "keyFeatures": [
+    "Contract-first XML artifacts: requirements, technology, development plan, verification plan, knowledge graph",
+    "Initialize → Plan → Verify → Execute → Refresh loop with drift detection",
+    "Ships as installable agent skills for Claude Code, Codex, and Kilo Code",
+    "grace-multiagent-execute runs parallel-safe waves under controller-managed synchronization",
+    "Graph-RAG knowledge-graph anchoring keeps specs queryable"
+  ],
+  "limitations": [
+    "Solo maintainer",
+    "Every release to date is an -rc (currently v4.0.0-rc.3) — no stable line yet",
+    "Bun dependency for the CLI",
+    "XML artifact format is heavyweight to author and review"
+  ]
+}
