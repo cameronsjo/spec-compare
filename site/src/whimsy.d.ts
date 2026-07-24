@@ -13,6 +13,13 @@ interface WhimsyApi {
   ignite(el: Element | null): void
   /** Manually remove the flowing-gradient state. */
   clear(el: Element | null): void
+  /**
+   * Swap `[data-whimsy-greeting]` elements under `root` to their seasonal line
+   * (June → "happy pride"; otherwise the element's own inline text). Idempotent —
+   * a done flag makes re-runs cheap. Must be called after React mounts the footer,
+   * since the script's auto-init scans once at DOMContentLoaded.
+   */
+  greeting(root?: ParentNode): void
 }
 
 interface Window {

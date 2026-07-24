@@ -58,6 +58,15 @@ export function App() {
   // re-hydrates and watches for inserted nodes so those icons aren't blank.
   useEffect(() => window.ArtificerIcons?.observe(), [])
 
+  // Same DOMContentLoaded miss as the icons above: Whimsy scans for
+  // [data-whimsy-greeting] on load and never re-scans (its auto-init calls
+  // greeting(), not observe()), so the footer — mounted later by React — is
+  // always empty at scan time and the seasonal swap silently never happens.
+  // One re-run after mount is enough; the footer is never unmounted.
+  useEffect(() => {
+    window.Whimsy?.greeting()
+  }, [])
+
   // Mobile drawer focus management — inert when closed, focus-trapped when open.
   const drawerRef = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -187,6 +196,13 @@ export function App() {
           <button type="button" className="footer-link" onClick={() => selectNav('disclosure')}>
             Disclosure
           </button>
+        </p>
+        {/* Seasonal sign-off. The inline text IS the off-season line — Whimsy reads it
+            as the fallback and swaps in "happy pride" (full latched rainbow) for June,
+            so the markup still renders honestly with JS disabled. Its own line: the
+            Pride month wears a per-character gradient that would crowd the links. */}
+        <p className="footer-greeting" data-whimsy-greeting="">
+          kindness is free
         </p>
       </footer>
     </div>
