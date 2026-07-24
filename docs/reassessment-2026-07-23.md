@@ -176,15 +176,18 @@ scenarios. Tracked as a follow-up issue.
 Electron "Agentic Development Environment": spec→plan→tasks→outcome Markdown
 per feature, multi-agent orchestrator running Claude Code / Codex CLI / Gemini
 CLI in parallel isolated worktrees with footprint-conflict and drift detection.
-**v2.4.0 (2026-06-25), Apache-2.0, ~318★.** Solo maintainer.
+**v2.4.0 (2026-06-25), Apache-2.0, ~318★.** Small contributor base (10
+contributors; the bulk of recent commits comes from a regular contributor other
+than the repo owner, so this is not a solo project).
 
 ### GRACE (`osovv/grace-marketplace`) — emerging
 
 Graph-RAG Anchored Code Engineering: contract-first methodology delivered as
 installable agent skills — XML artifacts (requirements / technology /
 development-plan / verification-plan / knowledge-graph), an
-Initialize→Plan→Verify→Execute→Refresh loop, drift detection. Claude Code /
-Codex / Kilo Code; Bun-based CLI. **v4.0.0-rc.3 (2026-07-22), MIT, ~227★.**
+Initialize→Plan→Verify→Execute→Refresh loop, drift detection. Installed as a
+Claude Code marketplace plugin; Bun-based CLI.
+**v4.0.0-rc.3 (2026-07-22), MIT, ~227★.**
 Solo maintainer; every release to date is an `-rc` (maturity recorded as Beta,
 with the all-rc caveat in limitations).
 
@@ -228,6 +231,7 @@ GitHub-only sourcing (per the request). Repositories verified 2026-07-23:
 - Frame — <https://github.com/kaanozhan/Frame>
 - GRACE — <https://github.com/osovv/grace-marketplace>
 - GAAI — <https://github.com/Fr-e-d/GAAI-framework>
+- GAAI's predecessor, source for the succession claim — <https://github.com/Fr-e-d/AI-Governor-Framework> (archived; its README states GAAI supersedes it)
 - Smart Ralph — <https://github.com/tzachbon/smart-ralph>
 - Spec Kitty — <https://github.com/Priivacy-ai/spec-kitty>
 

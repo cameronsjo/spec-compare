@@ -31,9 +31,8 @@
     "Orchestrator cockpit UI: pipeline rail, worker lanes, spec rail"
   ],
   "limitations": [
-    "Solo maintainer",
     "Own Electron desktop app — no IDE integration",
-    "Young project (~318 stars) with a small community",
+    "Young project (~318 stars) with a small contributor base",
     "Desktop app overhead for what is fundamentally a file-based workflow"
   ]
 }

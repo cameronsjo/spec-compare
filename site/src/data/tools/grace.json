@@ -26,7 +26,7 @@
   "keyFeatures": [
     "Contract-first XML artifacts: requirements, technology, development plan, verification plan, knowledge graph",
     "Initialize → Plan → Verify → Execute → Refresh loop with drift detection",
-    "Ships as installable agent skills for Claude Code, Codex, and Kilo Code",
+    "Ships as installable agent skills via a Claude Code marketplace plugin",
     "grace-multiagent-execute runs parallel-safe waves under controller-managed synchronization",
     "Graph-RAG knowledge-graph anchoring keeps specs queryable"
   ],

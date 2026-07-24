@@ -30,8 +30,8 @@
     },
     "displayName": { "type": "string" },
     "vendor": { "type": "string" },
-    "repo": { "type": "string" },
-    "website": { "type": "string" },
+    "repo": { "type": "string", "pattern": "^https://" },
+    "website": { "type": "string", "pattern": "^https://" },
     "version": {
       "type": "string",
       "description": "The release the assessment is pinned to. For unversioned tools use an explicit label, e.g. 'Technique — unversioned' or 'SaaS — rolling release'."

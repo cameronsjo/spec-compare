@@ -34,7 +34,6 @@
   "limitations": [
     "Claude-Code-only — no other harness or agent runtime supported",
     "Benchmark and coverage claims are self-reported, not independently verified",
-    "Full SPEC lifecycle is heavy ceremony for small changes",
-    "Korean-first documentation; English docs trail"
+    "Full SPEC lifecycle is heavy ceremony for small changes"
   ]
 }
