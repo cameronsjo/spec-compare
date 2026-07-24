@@ -395,7 +395,7 @@ Co-founded by Anthropic, Block, OpenAI. Supported by Google, Microsoft, AWS, Clo
 
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical multi-agent workflow
 - [Comparison Matrix](comparison.md) — Deep comparison of six SDD tools (incl. AGENTS.md support)
-- [Use Case Scoring](use-case-scoring.md) — Expanded 13-tool heatmap
+- [Use Case Scoring](use-case-scoring.md) — Expanded 18-tool heatmap
 - [Gaps Analysis](gaps.md) — Five additional SDD frameworks
 - [Beads, Agent Mail, and Gas Town](beads.md) — Agent memory and coordination
 - [Git Worktree Support](git-worktree-support.md) — Worktree ecosystem analysis

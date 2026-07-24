@@ -1,0 +1,40 @@
+{
+  "tool": "gaai",
+  "displayName": "GAAI",
+  "vendor": "Fr-e-d",
+  "repo": "https://github.com/Fr-e-d/GAAI-framework",
+  "version": "v2.49.0",
+  "license": "Source-available (Elastic License 2.0)",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "constitution",
+  "specMaturity": "Spec-First",
+  "tagline": "Governed Discovery → Delivery with an autonomous daemon.",
+  "bestFor": "Governed autonomous delivery",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": true,
+    "dashboard": "Terminal",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": false,
+    "parallel": true
+  },
+  "scores": { "trivial": 2, "medium": 3, "large": 4, "parallel": 3, "emergency": 1, "solo": 2, "contextMgmt": 4, "overall": 2.7 },
+  "keyFeatures": [
+    "Conversational Discovery phase produces an Epics/Stories backlog as a git-tracked contract",
+    "Autonomous Delivery daemon runs each Story in an isolated Claude Code tmux session (3 slots by default)",
+    "QA gates per Story plus persistent cross-session memory",
+    "Live tmux monitoring dashboard for concurrent Story deliveries",
+    "Plain Markdown + YAML + bash — no SDK dependency; successor to AI-Governor-Framework"
+  ],
+  "limitations": [
+    "Elastic License 2.0 — source-available, not OSI open source",
+    "Solo maintainer",
+    "No GitHub Releases — versions exist as git tags only",
+    "macOS-only validated so far",
+    "Isolation is per tmux session, not per git worktree"
+  ]
+}

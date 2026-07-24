@@ -5,7 +5,7 @@
 **Website:** https://priivacy-ai.github.io/spec-kitty/
 **Status:** Active development
 **License:** Community-maintained fork (retains original Spec-Kit attribution)
-**Current Version:** v3.1.9 (May 2026)
+**Current Version:** v3.2.5 (July 2026)
 
 ## Core Approach
 
@@ -117,6 +117,19 @@ The real-time dashboard provides:
 ## Relationship to Spec-Kit
 
 As a community-maintained fork, Spec Kitty "retains the original attribution per the Spec Kit license while evolving the toolkit under the Spec Kitty banner." It extends rather than replaces Spec Kit, offering more sophisticated orchestration for distributed AI coding workflows.
+
+## July 2026 Update (v3.2.x)
+
+Verified against the source repo on 2026-07-23 (v3.2.5, released 2026-07-08). The v3.2 line consolidates governance and hardens multi-agent coordination:
+
+- **Charter consolidation:** a single `charter.yaml` replaces the previous four governance files
+- **Append-only event log** for work-package state — phase 1 ships as a dual write alongside the existing state files
+- **Coordination-topology fixes** addressing split-brain scenarios between orchestrator and lanes
+- **New CLI surfaces:** `review --check-residual`, `orchestrator-api resolve-workspace`, `doctor shim-registry`
+- **Breaking changes:** the `--feature` alias was removed from 8 commands, `auth whoami` was removed, and pre-3.2 missions without `meta.json` are no longer supported — expect migration work on upgrade
+- **Traction:** 1,443 stars / 128 forks / 482 open issues — very active, multi-contributor, ADR/RFC-governed
+
+Scores, phases, and scenarios were **not** re-evaluated this pass (no hands-on run) — see [reassessment-2026-07-23.md](../reassessment-2026-07-23.md).
 
 ## Historical Changes (v0.13.x, February 2026)
 

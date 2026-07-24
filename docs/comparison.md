@@ -12,12 +12,17 @@
 |---|---|---|---|---|---|
 | [BMad Method](tools/bmad-method.md) | Core | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
 | Conductor | Emerging | Proprietary (free) | **Yes** | Parallel worktree execution (macOS) | Active Dev (v0.36.3) |
+| Frame | Emerging | Apache-2.0 | **Yes** | GUI-orchestrated parallel agents | Active Dev (v2.4.0) |
+| GAAI | Emerging | Source-available (Elastic License 2.0) | No | Governed autonomous delivery | Active Dev (v2.49.0) |
+| GRACE | Emerging | MIT | No | Contract-first formal specs | Beta (v4.0.0-rc.3) |
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
 | Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.3.16) |
 | [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v0.12.263) |
+| MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.0.0) |
 | [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.3.1) |
 | [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
-| [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.1.9) |
+| Smart Ralph | Emerging | MIT | No | Hands-off spec-to-code loops | Active Dev (v4.0.0) |
+| [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v0.8.18) |
 | [Superpowers](tools/superpowers.md) | Core | MIT | **Yes** | Disciplined autonomous dev (any agent) | Active Dev (v5.1.0) |
 | [Tessl](tools/tessl.md) | Core | Proprietary | No | Spec-as-source | Active Dev (Framework + Registry (public)) |
@@ -35,11 +40,16 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 |---|---|---|---|---|---|---|---|---|---|---|
 | [BMad Method](tools/bmad-method.md) | ❌ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Very High | Steep | Spec-First |
 | Conductor | ✅ | ✅ | ✅ | Desktop | ❌ | ❌ | ❌ | Low | Gentle | — |
+| Frame | ✅ | ✅ | ✅ | Desktop | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
+| GAAI | ❌ | ✅ | ✅ | Terminal | ❌ | ❌ | ❌ | Medium | Moderate | Spec-First |
+| GRACE | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [GSD (Get Shit Done)](tools/gsd.md) | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | Kilo Code | ❌ | ✅ | ✅ | IDE | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
 | [Kiro](tools/kiro.md) | ❌ | ⚠️ | ✅ | IDE | ✅ | ✅ | ❌ | Medium | Moderate | Spec-First |
+| MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
 | [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
+| Smart Ralph | ❌ | ⚠️ | ❌ | No | ✅ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ✅ | Kanban | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [Spec-Kit](tools/spec-kit.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | [Superpowers](tools/superpowers.md) | ✅ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Medium | Gentle | Spec-First |
@@ -69,7 +79,7 @@ How each tool communicates instructions to AI coding agents (tools that declare 
 
 ## Capability Matrix
 
-> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 13-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
+> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 18-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
 
 | Aspect | Spec-Kit | Spec Kitty | BMad | OpenSpec | Kiro | Tessl |
 |--------|----------|------------|------|----------|------|-------|
@@ -241,7 +251,7 @@ Includes practical grades for:
 
 ## Related
 
-- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 13-tool heatmap
+- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 18-tool heatmap
 - [Iterative Development](iterative-development.md) — Deep dive on spec modifications
 - [Orchestration Landscape](landscape.md) — Agent Teams and 30+ multi-agent tools
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide

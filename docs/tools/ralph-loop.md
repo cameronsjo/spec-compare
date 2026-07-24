@@ -71,7 +71,7 @@ Ralph Loop works with any AI coding agent that can follow prompts:
 
 ## Ecosystem & Implementations
 
-- **smart-ralph** — Spec-driven workflow that transforms feature requests into structured specs then executes them task-by-task autonomously
+- **smart-ralph** — Spec-driven workflow that transforms feature requests into structured specs then executes them task-by-task autonomously. Now tracked as its own emerging entry in this comparison (July 2026). Note that since its v3.0.0 it implements the loop natively and no longer depends on the Ralph Loop plugin
 - **ralph-orchestrator** — Rust orchestrator with 7 AI backends, Hat System for specialized personas, and interactive TUI mode
 - **open-ralph-wiggum** — Multi-platform implementation for Claude Code, Codex, Copilot CLI, and OpenCode
 - **Goose Ralph Loop** — Block's Goose agent implementation of the iterative development pattern

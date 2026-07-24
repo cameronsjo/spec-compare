@@ -208,7 +208,7 @@ This comparison was compiled through:
 4. Examination of critical perspectives from established tech publications
 5. Synthesis of market trends and predictions from industry leaders
 
-All information is current as of the May 2026 reassessment (versions and status re-verified against source repos on 2026-05-31) and represents publicly available data at the time of compilation.
+All information is current as of the July 2026 sweep (new entrants and Spec Kitty verified against source repos on 2026-07-23; see [reassessment-2026-07-23.md](reassessment-2026-07-23.md)) and represents publicly available data at the time of compilation. That sweep left three known version drifts unbumped by design — Kiro, Spec-Kit, and Superpowers — each recorded in the sweep doc rather than silently carried as current.
 
 ## License
 

@@ -149,13 +149,17 @@ spec-compare/
     ├── gaps.md                         # Newly discovered frameworks
     ├── git-worktree-support.md         # Worktree analysis
     ├── cheatsheet-beads-openspec.md    # Practical workflow guide
-    └── tools/
+    └── tools/                       # Full profile docs (most tools get a JSON row only; see data/tools/)
         ├── spec-kit.md
         ├── spec-kitty.md
         ├── bmad-method.md
         ├── openspec.md
         ├── kiro.md
-        └── tessl.md
+        ├── tessl.md
+        ├── superpowers.md
+        ├── traycer.md
+        ├── gsd.md
+        └── ralph-loop.md
 ```
 
 ## Questions?

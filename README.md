@@ -13,7 +13,7 @@ An interactive, Artificer-themed visualizer of this research:
 
 - **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all eight core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
-- **Scoring heatmap** — all thirteen tools across seven use-case dimensions, color-graded 1–5.
+- **Scoring heatmap** — all eighteen tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
 - **Tool profiles** — per-tool metadata, key features, and limitations.
 
@@ -57,6 +57,14 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Conductor** - macOS parallel agent runner using git worktrees
 - **PromptX** - AI agent context platform via MCP (gap entry)
 - **MUSUBI** - Maximally-rigorous SDD framework, marginal (~57 stars, stalled)
+
+### Emerging Additions (July 2026)
+
+- **MoAI-ADK** - Go CLI wrapping Claude Code in a SPEC-First Plan→Run→Sync lifecycle with TDD gates (~1.1K stars)
+- **Frame** - Electron "Agentic Development Environment" orchestrating parallel agents in isolated worktrees
+- **GRACE** - Contract-first Graph-RAG methodology as installable agent skills (XML artifacts, drift detection)
+- **GAAI** - Governed autonomous delivery: Discovery → git-tracked backlog → Delivery daemon (source-available, ELv2)
+- **Smart Ralph** - Claude Code/Codex plugin layering spec phases on the Ralph autonomous loop
 
 ## Key Findings
 
@@ -103,7 +111,7 @@ The research is organized into focused, digestible documents:
 ### Analysis & Recommendations
 
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 13-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 18-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -115,6 +123,7 @@ The research is organized into focused, digestible documents:
 - [Beads, Agent Mail & Gas Town](docs/beads.md) - Agent memory, messaging, and multi-agent villages
 - [Gaps: New Frameworks](docs/gaps.md) - Zencoder, Kilo Code, Conductor, PromptX, MUSUBI (GSD, Ralph Loop, Superpowers & Traycer promoted to full profiles)
 - [May 2026 Reassessment](docs/reassessment-2026-05-31.md) - Version/status re-verification + new-tool findings
+- [July 2026 Reassessment](docs/reassessment-2026-07-23.md) - Five emerging additions + version spot-check
 - [Beads + OpenSpec Cheatsheet](docs/cheatsheet-beads-openspec.md) - Practical setup and daily workflow
 
 ## Quick Comparison
@@ -122,13 +131,15 @@ The research is organized into focused, digestible documents:
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|
 | **Spec-Kit** | Open Source | No | Greenfield projects | Production (v0.8.18) |
-| **Spec Kitty** | Open Source | **Yes** | Parallel development | Active Dev (v3.1.9) |
+| **Spec Kitty** | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | **BMad Method** | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
 | **OpenSpec** | MIT | No | Brownfield changes | Production (v1.3.1) |
 | **Kiro** | Proprietary | No | IDE experience | GA (v0.12.x) |
 | **Tessl** | Proprietary | No | Spec-as-source | Active Dev (public) |
 | **Superpowers** | MIT | **Yes** | Disciplined autonomous dev | Active Dev (v5.1.0) |
 | **Traycer** | Proprietary | No | Plan-first orchestration | Active Dev |
+
+> **Known stale versions:** the July 2026 sweep found Kiro at 1.0, Spec-Kit at v0.14.1, and Superpowers at v6.1.1. Each moved by more than a version string, so they are tracked in a follow-up rather than bumped in place — see [the sweep doc](docs/reassessment-2026-07-23.md#part-a--version-drift-tracked-tools).
 
 ## Recommendations
 
@@ -190,4 +201,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-05-31
+**Last Updated:** 2026-07-23

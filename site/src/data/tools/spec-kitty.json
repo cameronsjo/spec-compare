@@ -4,7 +4,7 @@
   "vendor": "Priivacy-ai",
   "repo": "https://github.com/Priivacy-ai/spec-kitty",
   "website": "https://priivacy-ai.github.io/spec-kitty/",
-  "version": "v3.1.9",
+  "version": "v3.2.5",
   "license": "Open Source",
   "maturity": "Active Dev",
   "tier": "core",
@@ -56,12 +56,16 @@
     "Coordinates up to 11 AI coding agents simultaneously",
     "v3: machine-checked acceptance matrix tying criteria to verification",
     "v3: negative invariants (grep_absence) + NEEDS CLARIFICATION gates",
+    "v3.2: charter consolidation — a single charter.yaml replaces four governance files",
+    "v3.2: append-only event log for work-package state (phase-1 dual write)",
+    "v3.2: coordination-topology / split-brain fixes; new CLI surfaces (review --check-residual, orchestrator-api resolve-workspace, doctor shim-registry)",
     "Constitution framework enforces team standards"
   ],
   "limitations": [
     "Adds complexity on top of Spec-Kit — must learn both",
     "Dashboard overhead unnecessary for solo / simple projects",
     "Python (pip) dependency vs Node-based alternatives",
+    "Fast breaking-change cadence — v3.2 removed the --feature alias from 8 commands and auth whoami; pre-3.2 missions without meta.json are unsupported",
     "Community-maintained — not officially supported by GitHub"
   ]
 }

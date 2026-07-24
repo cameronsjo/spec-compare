@@ -1,6 +1,6 @@
 # Gaps: SDD Frameworks Discovered Since v1.0.0
 
-> Research date: February 2026; reassessed May 2026. These frameworks were not covered in the original comparison (November 2025). Each is noted here as a gap for potential future analysis. The May 2026 sweep promoted **Superpowers** and **Traycer** to full core profiles and added a marginal **MUSUBI** entry — see [reassessment-2026-05-31.md](reassessment-2026-05-31.md).
+> Research date: February 2026; reassessed May 2026 and July 2026. These frameworks were not covered in the original comparison (November 2025). Each is noted here as a gap for potential future analysis. The May 2026 sweep promoted **Superpowers** and **Traycer** to full core profiles and added a marginal **MUSUBI** entry — see [reassessment-2026-05-31.md](reassessment-2026-05-31.md). The July 2026 sweep added five emerging-tier entries — see [reassessment-2026-07-23.md](reassessment-2026-07-23.md).
 
 ## New SDD Frameworks
 
@@ -153,6 +153,15 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ## Updates to Existing Tools
 
+### July 2026 sweep
+
+Verified against source repos on 2026-07-23 (full detail in [reassessment-2026-07-23.md](reassessment-2026-07-23.md)):
+
+- **Five new emerging-tier entries** added directly to the tracked set (heatmap + feature matrix, no full workflow treatment): **MoAI-ADK** (`modu-ai/moai-adk`, SPEC-First Plan→Run→Sync over Claude Code, with a stated core-promotion trigger), **Frame** (`kaanozhan/Frame`, Electron agentic development environment), **GRACE** (`osovv/grace-marketplace`, contract-first Graph-RAG methodology), **GAAI** (`Fr-e-d/GAAI-framework`, governed autonomous delivery), and **Smart Ralph** (`tzachbon/smart-ralph`, spec phases over the Ralph loop).
+- **GAAI identification caveat:** the request named it phonetically ("gaii"); `Fr-e-d/GAAI-framework` was confirmed as the intended project. It is source-available under Elastic License 2.0 — not OSI open source — and ships versions as git tags only (no GitHub Releases).
+- **Spec Kitty** v3.1.9 → **v3.2.5** (charter consolidation, event-log work-package state, split-brain fixes; breaking-change cadence noted).
+- No demotions this pass — Smart Ralph's stall gate did not fire (fresh commit 2026-07-23).
+
 ### May 2026 reassessment
 
 Verified against source repos on 2026-05-31 (full detail in [reassessment-2026-05-31.md](reassessment-2026-05-31.md)):
@@ -200,7 +209,7 @@ This paper provides practitioners with a comprehensive guide to SDD, covering pr
 
 ## Related
 
-- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 13-tool scoring matrix including these frameworks
+- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 18-tool scoring matrix including these frameworks
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow combining OpenSpec with Beads
 - [Beads](beads.md) — Agent memory layer
 - [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools

@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **May 2026 reassessment** (`docs/reassessment-2026-05-31.md`) — Findings doc from re-verifying every tracked tool's version/status against source repos and hunting for new entrants
+- **July 2026 reassessment** (`docs/reassessment-2026-07-23.md`) — Sweep doc covering five new entrants, the Spec Kitty refresh, and a version-drift spot-check of every tracked tool
+- **Five emerging tool profiles** (`site/src/data/tools/`) — **MoAI-ADK** (Go CLI wrapping Claude Code in a SPEC-First Plan→Run→Sync lifecycle with TDD gates and per-SPEC worktrees, Apache-2.0, ~1.1K stars), **Frame** (Electron agentic development environment; a conductor agent runs multiple specs at once, each worker in its own worktree, Apache-2.0), **GRACE** (contract-first Graph-RAG methodology shipped as installable agent skills, MIT), **GAAI** (governed Discovery → backlog → autonomous Delivery daemon in tmux-isolated sessions; source-available under Elastic License 2.0, *not* OSI open source), and **Smart Ralph** (spec phases layered on the Ralph autonomous loop, MIT). All enter at emerging tier — card + heatmap row, no workflow treatment
 - **Superpowers tool profile** (`site/`, `docs/tools/superpowers.md`) — New **core** tool: MIT agentic skills framework + methodology by Jesse Vincent (obra), ~214K stars; auto-triggered skills enforce brainstorm → plan → subagent TDD → review → finish across many harnesses
 - **Traycer tool profile** (`site/`, `docs/tools/traycer.md`) — New **core** tool: commercial VS Code Plan → Execute → Verify layer (100K+ users) with Epic Mode (PRDs/specs/wireframes) over your choice of agent
 - **MUSUBI gap entry** (`docs/gaps.md`) — Maximally-rigorous SDD framework noted as marginal (~57 stars, no commits since Jan 2026)
@@ -32,6 +33,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **July 2026 sweep** — Re-verified the five new candidates and Spec Kitty against source repos on 2026-07-23; bumped `ASSESSED_AS_OF` → 2026-07-23:
+  - **Spec Kitty** v3.1.9 → **v3.2.5**: charter consolidation (a single `charter.yaml` replaces four governance files), append-only event log for work-package state, coordination-topology/split-brain fixes, new CLI surfaces (`review --check-residual`, `orchestrator-api resolve-workspace`, `doctor shim-registry`); limitations now flag the breaking-change cadence. Scores/phases/scenarios unchanged — no hands-on re-eval this pass
+  - Heatmap and feature matrix now span **18 tools, 8 core** (was 13/8); `data.test.ts` count invariant updated
+  - Feature flags for the new entries were resolved against each README rather than assumed, which moved six of them in both directions (detailed in the sweep doc)
+  - **Version drift left unbumped on purpose:** Kiro (v0.12.263 → 1.0), Spec-Kit (v0.8.18 → v0.14.1), and Superpowers (v5.1.0 → v6.1.1) each need more than a version-string edit, so they are filed as follow-up work
 - **May 2026 version + status reassessment** — Re-verified all tools against source repos on 2026-05-31; bumped `ASSESSED_AS_OF` → 2026-05-31:
   - **Kiro corrected Preview → GA** (general availability since 2025-11-17): paid tiers (Pro $20 / Pro+ $40 / Power $200) + free tier, Kiro CLI, checkpointing, property-based tests; v0.9.40 → v0.12.x (Parallel Task Execution, Requirements Analysis); `parallel: true`
   - **Tessl corrected closed-beta → public** Framework + Registry; $125M Series A; repositioned as an Agent Enablement Platform; spec-as-source kept with a "shipping Framework behaves spec-anchored today" caveat
