@@ -458,6 +458,11 @@ body {
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
+/* Seasonal sign-off, one line below the links. Beats `.app-footer p { margin: 0 }`
+   on specificity rather than reaching for !important. */
+.app-footer .footer-greeting {
+  margin-top: var(--s-xs);
+}
 /* Legal fine print — used in the Disclosure view. */
 .footer-fine {
   opacity: 0.8;
