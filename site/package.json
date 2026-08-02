@@ -21,7 +21,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@cameronsjo/artificer": "0.18.1",
+    "@cameronsjo/artificer": "0.21.0",
     "@types/node": "^25.9.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

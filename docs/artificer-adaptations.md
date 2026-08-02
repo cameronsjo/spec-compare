@@ -168,3 +168,31 @@ the slim footer + About/Disclosure views, see #16, filed upstream as #324);
 **Provenance wrinkle (reported):** the package's `exports` map + SRI manifest
 cover CSS/JS/`tokens.json`, but `files:["src"]` ships `src/assets/**` (fonts,
 favicon, og-image) too — vendor-able yet outside the integrity contract.
+
+## 2026-08-02 · Upgrade 0.18.1 → 0.21.0
+
+npm sat pinned at 0.18.1 since June — 0.19.0 and 0.20.0 were never published to
+npm, so this was a real jump (99 lines changed in `artificer.css`, 163 in
+`artificer-whimsy.js`, 40 in `artificer-editorial.css`, 11 in `tokens.json`,
+plus a new `src/primitives.json`). Bumped the devDependency pin, ran
+`npm install`, and re-ran `scripts/revendor-artificer.sh` — vendored
+`artificer.css` now stamps `--art-version: "0.21.0"`.
+
+0.21.0 ships several new source files this site doesn't consume:
+`artificer-editorial.css`, `artificer-options.js`, `artificer-texture.css`,
+`artificer-tree.js`, `primitives.json`, `theme-bootstrap.html`. None are
+referenced anywhere in `site/` and the revendor script's `FILES` list
+intentionally doesn't pull them — no action needed unless a future feature
+wants one of them.
+
+`Whimsy.greeting()` (the API #17's mount-effect workaround calls) is present
+and unchanged in the vendored 0.21.0 `artificer-whimsy.js` — the React SPA
+mount-effect workaround (#17, upstream #325) still applies verbatim; #325
+remains open upstream.
+
+Build (`npm run build`), typecheck, and the vitest suite (39/39) all pass
+clean post-upgrade with no code changes required beyond the version bump.
+`npx @cameronsjo/artificer lint` was run for the first time against this
+repo's `site/src/styles.css`: 9 pre-existing raw-value violations (hardcoded
+`4px`/`8px` instead of `var(--s-xs)`/`var(--s-sm)`), all unrelated to this
+upgrade. Left as-is — out of scope here, worth a follow-up cleanup pass.
