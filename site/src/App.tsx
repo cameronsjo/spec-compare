@@ -179,31 +179,30 @@ export function App() {
         <ToolNav nav={nav} onSelect={selectNav} />
       </aside>
 
-      {/* Slim footer: a one-line sign-off whose links open the full About + Disclosure
-          views (the old provenance/affiliation copy lives there now). */}
-      <footer className="app-footer">
-        <p className="footer-line">
-          <b className="anchor">Independent &amp; unofficial</b>
-          <span className="footer-sep" aria-hidden="true">
-            ·
-          </span>
-          <button type="button" className="footer-link" onClick={() => selectNav('about')}>
-            About
-          </button>
-          <span className="footer-sep" aria-hidden="true">
-            ·
-          </span>
-          <button type="button" className="footer-link" onClick={() => selectNav('disclosure')}>
-            Disclosure
-          </button>
-        </p>
-        {/* Seasonal sign-off. The inline text IS the off-season line — Whimsy reads it
-            as the fallback and swaps in "happy pride" (full latched rainbow) for June,
-            so the markup still renders honestly with JS disabled. Its own line: the
-            Pride month wears a per-character gradient that would crowd the links. */}
-        <p className="footer-greeting" data-whimsy-greeting="">
-          kindness is a choice
-        </p>
+      {/* Three-zone colophon (Artificer .colophon / .colophon__spine, #97/#324): the
+          links open the full About + Disclosure views (the old provenance/affiliation
+          copy lives there now). No zone-1 label grid and no zone-3 fine print here —
+          this site moved its disclosure prose into the Disclosure view on purpose. */}
+      <footer className="colophon">
+        <div className="container">
+          <div className="colophon__spine">
+            <b className="anchor">Independent &amp; unofficial</b>
+            {/* Seasonal sign-off. The inline text IS the off-season line — Whimsy reads it
+                as the fallback and swaps in "happy pride" (full latched rainbow) for June,
+                so the markup still renders honestly with JS disabled. */}
+            <span data-whimsy-greeting="" data-whimsy-greeting-class="whimsy--glacial">
+              kindness is a choice.
+            </span>
+            <nav className="cluster">
+              <button type="button" onClick={() => selectNav('about')}>
+                About
+              </button>
+              <button type="button" onClick={() => selectNav('disclosure')}>
+                Disclosure
+              </button>
+            </nav>
+          </div>
+        </div>
       </footer>
     </div>
   )
