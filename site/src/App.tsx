@@ -202,7 +202,7 @@ export function App() {
             so the markup still renders honestly with JS disabled. Its own line: the
             Pride month wears a per-character gradient that would crowd the links. */}
         <p className="footer-greeting" data-whimsy-greeting="">
-          kindness is free
+          kindness is a choice
         </p>
       </footer>
     </div>
