@@ -196,3 +196,54 @@ clean post-upgrade with no code changes required beyond the version bump.
 repo's `site/src/styles.css`: 9 pre-existing raw-value violations (hardcoded
 `4px`/`8px` instead of `var(--s-xs)`/`var(--s-sm)`), all unrelated to this
 upgrade. Left as-is — out of scope here, worth a follow-up cleanup pass.
+
+## 2026-08-02 · Upgrade 0.21.0 → 0.22.0 (colophon spine adoption, #12/#324 retired)
+
+Bumped the devDependency pin to **0.22.0**, which mints `.colophon` /
+`.colophon__spine` (#97/#324) — the footer/colophon primitive this project
+had been flagging as a gap since #12. Retired the slim hand-rolled footer
+(`.app-footer`, `.footer-line`, `.footer-sep`, `.footer-link`,
+`.footer-greeting`) for the three-zone shape:
+
+```jsx
+<footer className="colophon">
+  <div className="container">
+    <div className="colophon__spine">
+      <b className="anchor">Independent &amp; unofficial</b>
+      <span data-whimsy-greeting="" data-whimsy-greeting-class="whimsy--glacial">
+        kindness is a choice.
+      </span>
+      <nav className="cluster">
+        <button type="button" onClick={() => selectNav('about')}>About</button>
+        <button type="button" onClick={() => selectNav('disclosure')}>Disclosure</button>
+      </nav>
+    </div>
+  </div>
+</footer>
+```
+
+Zone 1 (label grid) and zone 3 (`.colophon__fine`) are both unused — this
+site deliberately moved its disclosure prose into the `Disclosure` view (see
+the 2026-06-11 entry, #16), so the footer stays spine-only. `.footer-fine`
+itself is **kept**, unrelated to the colophon: `Disclosure.tsx` still uses it
+for the affiliation fine print inside that view.
+
+The sign-off text gained a trailing period (`kindness is a choice.`) to match
+the fleet standardization on the punctuated form — this site's inline
+fallback previously had none.
+
+**Misfit, not filed upstream:** the spine's About/Disclosure links stay
+`<button>` (SPA view switches, not navigations — same reasoning as #5's
+`.sidenav button` shim), but the primitive's 44×44 touch floor is scoped to
+`.colophon__spine a` only (deliberately, per the CSS comment: any positional
+content is conforming, but the floor is only guaranteed for anchors). Per
+the fleet consistency mandate, no footer CSS was hand-rolled to restyle or
+re-floor the buttons — they render as bare native `<button>`s pending visual
+review. Worth a follow-up feedback issue if the fleet settles on buttons
+being a common pattern here (mirrors the `.sidenav button` shim's origin).
+
+Build (`npm run build`), typecheck, and the vitest suite (39/39) all pass
+clean. Verified in the built `dist/assets/*.js`: `colophon` and
+`colophon__spine` both present, `data-whimsy-greeting` +
+`data-whimsy-greeting-class` survive minification, and the sign-off text
+carries the period.
