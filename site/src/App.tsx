@@ -194,10 +194,10 @@ export function App() {
               kindness is a choice.
             </span>
             <nav className="cluster">
-              <button type="button" onClick={() => selectNav('about')}>
+              <button type="button" className="btn btn--link" onClick={() => selectNav('about')}>
                 About
               </button>
-              <button type="button" onClick={() => selectNav('disclosure')}>
+              <button type="button" className="btn btn--link" onClick={() => selectNav('disclosure')}>
                 Disclosure
               </button>
             </nav>
