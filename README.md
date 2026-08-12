@@ -13,7 +13,7 @@ An interactive, Artificer-themed visualizer of this research:
 
 - **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all eight core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
-- **Scoring heatmap** — all eighteen tools across seven use-case dimensions, color-graded 1–5.
+- **Scoring heatmap** — all nineteen tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
 - **Tool profiles** — per-tool metadata, key features, and limitations.
 
@@ -66,6 +66,10 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **GAAI** - Governed autonomous delivery: Discovery → git-tracked backlog → Delivery daemon (source-available, ELv2)
 - **Smart Ralph** - Claude Code/Codex plugin layering spec phases on the Ralph autonomous loop
 
+### Emerging Additions (August 2026)
+
+- **Memex** - Fair-code Specify & Verify platform: specs as a typed decision database with CI-verified acceptance criteria and a knowledge graph (Mindset AI; solicited review, see [disclosure](docs/memex-review.md))
+
 ## Key Findings
 
 ### The Modification Problem
@@ -111,7 +115,7 @@ The research is organized into focused, digestible documents:
 ### Analysis & Recommendations
 
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 18-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 19-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -124,6 +128,7 @@ The research is organized into focused, digestible documents:
 - [Gaps: New Frameworks](docs/gaps.md) - Zencoder, Kilo Code, Conductor, PromptX, MUSUBI (GSD, Ralph Loop, Superpowers & Traycer promoted to full profiles)
 - [May 2026 Reassessment](docs/reassessment-2026-05-31.md) - Version/status re-verification + new-tool findings
 - [July 2026 Reassessment](docs/reassessment-2026-07-23.md) - Five emerging additions + version spot-check
+- [Memex Review](docs/memex-review.md) - August 2026 solicited product review (disclosure inside) — emerging-tier verdict
 - [Beads + OpenSpec Cheatsheet](docs/cheatsheet-beads-openspec.md) - Practical setup and daily workflow
 
 ## Quick Comparison
@@ -201,4 +206,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-07-23
+**Last Updated:** 2026-08-12
