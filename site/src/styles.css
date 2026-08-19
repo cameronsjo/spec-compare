@@ -22,19 +22,6 @@ body {
   padding-right: max(var(--s-lg), env(safe-area-inset-right));
 }
 
-/* Artificer 0.22.1 puts the drawer's bottom safe-area inset on the scroll
-   container itself (.nav-drawer), which sits outside the 100%-tall inner
-   .sidenav and can collapse at scroll-end. Move it into the scroll content,
-   mirroring the upstream fix (artificer.css .nav-drawer > .sidenav). */
-.nav-drawer {
-  padding-bottom: 0;
-}
-.nav-drawer > .sidenav {
-  min-height: 100%;
-  height: auto;
-  padding-bottom: calc(var(--s-md) + env(safe-area-inset-bottom, 0px));
-}
-
 /* ---- appbar + intro band ---- */
 /* Artificer's .appbar carries its own `padding: 0 var(--s-md)` for a full-bleed
    bar, but ours sits INSIDE .container--lg (already padded), so that 16px double-
@@ -47,41 +34,6 @@ body {
 .appbar__brand .whimsy {
   font-size: inherit;
   letter-spacing: inherit;
-}
-/* Ellipsis on overflow (#14) — mirrors an unreleased upstream fix (not yet
-   in the published Artificer 0.22.1 on npm). The brand here is the combined
-   `<a class="appbar__brand wordmark whimsy">` case: one element carries both
-   classes, so text-overflow needs a block-level carrier on the flex child
-   itself, with a content-based flex-basis so it still grows across the bar. */
-.appbar__brand {
-  white-space: nowrap;
-}
-/* .appbar__brand > .wordmark (split-element form: an icon + a nested
-   .wordmark span) is kept alongside the combined .appbar__brand.wordmark
-   selector even though this app only uses the combined form — for parity
-   with the upstream fix, which covers both compositions.
-   align-content: center is NOT dead weight here — align-content applies to
-   any block container as of Safari 17.4 / Chrome 123 (not just flex/grid),
-   and this carrier IS a block container (display: block above). Drop it and
-   the mark top-aligns inside its coarse-pointer 44px box instead of centering,
-   sitting visibly high of the hamburger. Keep it — do not "clean" it away. */
-.appbar__brand.wordmark,
-.appbar__brand > .wordmark {
-  display: block;
-  width: auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  align-content: center;
-}
-.appbar__brand.wordmark {
-  flex: 1 1 auto;
-}
-@media (pointer: coarse) {
-  .appbar__brand.wordmark,
-  .appbar__brand > .wordmark {
-    min-width: 44px;
-  }
 }
 /* The hamburger keeps the .btn--ghost default (--fg-secondary): at 32px the glyph
    reads clearly without full --fg, which is glaringly bright on the dark bar. */
@@ -124,100 +76,6 @@ body {
    focus-visible, aria-current) now covers SPA nav buttons natively — the
    hand-rolled shim that used to replicate it is retired (upstream since
    0.18.1; docs/artificer-adaptations.md #5). */
-
-/* Stuck-hover guard — the vendored `.sidenav a:hover, .sidenav button:hover`
-   is unguarded, so a touch tap latches the hover highlight until the next
-   tap lands elsewhere. Reset it on devices with no real hover. */
-@media (hover: none) {
-  .sidenav a:hover,
-  .sidenav button:hover {
-    background: none;
-    color: var(--fg-secondary);
-  }
-}
-
-/* Collapsible sections + footer row (#15, #17) — mirrors an unreleased
-   upstream fix (not yet in the published Artificer 0.22.1 on npm; absent
-   from the vendored artificer.css). `<details class="sidenav__section">`
-   wraps a group; its `<summary>` carries the old `.sidenav__group` label
-   treatment plus a twisty. App.tsx owns which sections start open. */
-.sidenav__section {
-  border: none;
-}
-.sidenav__section > summary {
-  display: flex;
-  align-items: center;
-  gap: var(--s-sm);
-  list-style: none;
-  cursor: pointer;
-  min-height: 44px;
-  font-family: var(--font-interface);
-  font-size: var(--t-label-sm-size);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-secondary);
-  padding: var(--s-xs) var(--s-sm);
-  border-radius: var(--radius-sm);
-  transition: color var(--dur-fast) var(--ease);
-}
-.sidenav__section > summary::-webkit-details-marker {
-  display: none;
-}
-.sidenav__section > summary::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  margin-left: auto;
-  flex: none;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(-45deg);
-  transition: transform var(--dur-fast) var(--ease);
-}
-.sidenav__section[open] > summary::after {
-  transform: rotate(45deg);
-}
-@media (hover: hover) {
-  .sidenav__section > summary:hover {
-    color: var(--fg);
-  }
-}
-.sidenav__section > summary:focus-visible {
-  outline: var(--focus-width) solid var(--accent);
-  outline-offset: var(--focus-offset-inset);
-}
-.sidenav__section + .sidenav__section {
-  margin-top: var(--s-sm);
-  padding-top: var(--s-sm);
-  border-top: 1px solid var(--border);
-}
-/* Footer row — the theme toggle's drawer seat (#17). The drawer's .sidenav
-   is a min-height:100% flex column (see the safe-area block above), so
-   margin-top:auto pins this to the bottom, above the safe-area padding. */
-.sidenav__footer {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-sm);
-  min-height: 44px;
-  padding: var(--s-sm) var(--s-sm) 0;
-  border-top: 1px solid var(--border);
-  font-family: var(--font-interface);
-  font-size: var(--t-label-md-size);
-  color: var(--fg-secondary);
-}
-/* .sidenav button strips/stretches any button in the nav — restore the toggle pill in the footer row (upstream gap, being fixed in a-d-s) */
-.sidenav__footer .theme-toggle {
-  width: auto;
-  flex: none;
-  background: var(--bg-raised);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  font-family: var(--font-interface);
-  font-size: var(--t-label-xs-size);
-  font-weight: 500;
-}
 
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----
    These are aria-pressed button groups, NOT view tabs — view-switching now uses
