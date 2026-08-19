@@ -9,6 +9,7 @@ import { ToolProfile } from './ToolProfile'
 import { DecisionGuide } from './DecisionGuide'
 import { About } from './About'
 import { Disclosure } from './Disclosure'
+import { defaultSectionOpen, onNavigationActivates, onViewportChange, onUserToggle, type Viewport, type SectionOpenState } from './sidenav-sections'
 
 // Overview surfaces, then per-tool profiles. nav holds an overview id, an about-view id, or a tool slug.
 // Exported for the routing test (every view id classifies, none collides with a tool slug).
@@ -208,21 +209,44 @@ export function App() {
   )
 }
 
-// Below --bp-tablet (800px) a fresh mount should open only the section holding
-// the active view, not every section — above it (desktop sidenav), open all.
-const isDesktopViewport = () => typeof window !== 'undefined' && !window.matchMedia('(max-width: 800px)').matches
+// Matches --bp-tablet (800px) — the same breakpoint the hamburger/drawer
+// takeover uses (artificer.css .appbar__menu-btn, styles.css .app-sidenav).
+const SIDENAV_BREAKPOINT = '(max-width: 800px)'
+const getViewport = (): Viewport => (typeof window !== 'undefined' && window.matchMedia(SIDENAV_BREAKPOINT).matches ? 'mobile' : 'desktop')
 
-// Per-section open state. Initializes open on desktop, or on mobile only for
-// the section containing `nav`; a later change to `nav` force-opens whichever
-// section now holds it (a collapsed active section would hide aria-current),
-// without touching the other sections' state — so a user's manual taps stick.
+// Per-section open state — the open/touched decision logic itself lives in
+// sidenav-sections.ts as pure, unit-tested functions; this hook is only the
+// React wiring (state + the two effects that drive it) around them.
+//
+// A navigation change that makes this section active force-opens it (a
+// collapsed section can't show aria-current="page") — but only on the
+// false->true transition (the `[isActive]` effect dependency below fires
+// exactly then, never on a plain re-render while already active). So a user
+// who deliberately collapses the section that's ALREADY active keeps it
+// collapsed: isActive hasn't changed, so nothing here re-opens it. That
+// collapse is the user's own act and is never fought.
+//
+// A viewport change (resize/rotate) re-derives the default (desktop: open
+// all; mobile: open only the active section) — but only for a section the
+// user hasn't manually toggled via its <summary>. A manual toggle marks the
+// section "touched" and always outranks a later default recompute.
 function useSectionOpen(nav: string, ids: readonly string[]) {
   const isActive = ids.includes(nav)
-  const [open, setOpen] = useState(() => isDesktopViewport() || isActive)
+  const [state, setState] = useState<SectionOpenState>(() => ({ open: defaultSectionOpen(getViewport(), isActive), touched: false }))
+
   useEffect(() => {
-    if (isActive) setOpen(true)
+    if (isActive) setState(onNavigationActivates)
   }, [isActive])
-  return [open, setOpen] as const
+
+  useEffect(() => {
+    const mq = window.matchMedia(SIDENAV_BREAKPOINT)
+    const onChange = () => setState((s) => onViewportChange(s, mq.matches ? 'mobile' : 'desktop', isActive))
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [isActive])
+
+  const setOpen = (nextOpen: boolean) => setState(onUserToggle(nextOpen))
+  return [state.open, setOpen] as const
 }
 
 /**
