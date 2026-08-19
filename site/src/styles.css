@@ -9,6 +9,24 @@ body {
 
 .app {
   padding-block: var(--s-lg) var(--s-2xl);
+  /* viewport-fit=cover (index.html) lets content run under the notch in
+     landscape; clear the left/right safe areas on the app root so the
+     sidenav/content never sit behind it. */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Artificer 0.22.1 puts the drawer's bottom safe-area inset on the scroll
+   container itself (.nav-drawer), which sits outside the 100%-tall inner
+   .sidenav and can collapse at scroll-end. Move it into the scroll content,
+   mirroring the upstream fix (artificer.css .nav-drawer > .sidenav). */
+.nav-drawer {
+  padding-bottom: 0;
+}
+.nav-drawer > .sidenav {
+  min-height: 100%;
+  height: auto;
+  padding-bottom: calc(var(--s-md) + env(safe-area-inset-bottom, 0px));
 }
 
 /* ---- appbar + intro band ---- */
