@@ -42,6 +42,32 @@ body {
   font-size: inherit;
   letter-spacing: inherit;
 }
+/* Ellipsis on overflow (#14) — mirrors an unreleased upstream fix (not yet
+   in the published Artificer 0.22.1 on npm). The brand here is the combined
+   `<a class="appbar__brand wordmark whimsy">` case: one element carries both
+   classes, so text-overflow needs a block-level carrier on the flex child
+   itself, with a content-based flex-basis so it still grows across the bar. */
+.appbar__brand {
+  white-space: nowrap;
+}
+.appbar__brand.wordmark,
+.appbar__brand > .wordmark {
+  display: block;
+  width: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-content: center;
+}
+.appbar__brand.wordmark {
+  flex: 1 1 auto;
+}
+@media (pointer: coarse) {
+  .appbar__brand.wordmark,
+  .appbar__brand > .wordmark {
+    min-width: 44px;
+  }
+}
 /* The hamburger keeps the .btn--ghost default (--fg-secondary): at 32px the glyph
    reads clearly without full --fg, which is glaringly bright on the dark bar. */
 .intro {
