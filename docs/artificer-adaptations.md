@@ -265,10 +265,10 @@ ships in a released version **after 0.22.1**.
 
 | # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
 |---|------|---------|------------------------|-------------------|-----------|------|
-| 18 | misfit | tool | `.nav-drawer` bottom safe-area inset | Published 0.22.1 puts `padding-bottom: env(safe-area-inset-bottom)` on `.nav-drawer` itself, outside the 100%-tall inner `.sidenav` — can collapse at scroll-end. Overrode it into the scroll content (`.nav-drawer { padding-bottom: 0 }` + `.nav-drawer > .sidenav { min-height: 100%; height: auto; padding-bottom: calc(...) }`), matching the design system's own working-tree fix. Remove once a release ships it. | yes (already fixed upstream, unreleased) | 3 |
-| 19 | gap | tool | `.appbar__brand` overflow | No ellipsis carrier exists on `.appbar__brand.wordmark` in 0.22.1 — a long brand can spill past the viewport on narrow screens instead of truncating. Added the block-level ellipsis carrier + coarse-pointer 44px re-floor, matching the design system's own working-tree fix. Remove once a release ships it. | yes (already fixed upstream, unreleased) | 3 |
-| 20 | misfit | tool | `.sidenav a:hover, .sidenav button:hover` | Unguarded in 0.22.1 — a touch tap latches the hover highlight until the next tap lands elsewhere. Added an `@media (hover: none)` reset. Not yet confirmed fixed upstream; worth filing if the design system's `@media (hover: hover)` guard (seen on `.sidenav__section > summary`) hasn't already been extended to the row hover. | maybe | 3 |
-| 21 | gap | tool | `.sidenav__section` / `.sidenav__footer` | Neither primitive exists in 0.22.1 on npm. Mirrored the design system's own working-tree CSS verbatim to ship collapsible nav groups (#15) and the theme toggle's drawer seat (#17). Remove once a release ships both. | yes (already built upstream, unreleased) | 3 |
+| 18 | misfit | tool | `.nav-drawer` bottom safe-area inset | Published 0.22.1 puts `padding-bottom: env(safe-area-inset-bottom)` on `.nav-drawer` itself, outside the 100%-tall inner `.sidenav` — can collapse at scroll-end. Overrode it into the scroll content (`.nav-drawer { padding-bottom: 0 }` + `.nav-drawer > .sidenav { min-height: 100%; height: auto; padding-bottom: calc(...) }`), matching the design system's own working-tree fix. Remove once a release ships it. | **RETIRED 2026-08-19 @ 0.23.0** | 3 |
+| 19 | gap | tool | `.appbar__brand` overflow | No ellipsis carrier exists on `.appbar__brand.wordmark` in 0.22.1 — a long brand can spill past the viewport on narrow screens instead of truncating. Added the block-level ellipsis carrier + coarse-pointer 44px re-floor, matching the design system's own working-tree fix. Remove once a release ships it. | **RETIRED 2026-08-19 @ 0.23.0** | 3 |
+| 20 | misfit | tool | `.sidenav a:hover, .sidenav button:hover` | Unguarded in 0.22.1 — a touch tap latches the hover highlight until the next tap lands elsewhere. Added an `@media (hover: none)` reset. Not yet confirmed fixed upstream; worth filing if the design system's `@media (hover: hover)` guard (seen on `.sidenav__section > summary`) hasn't already been extended to the row hover. | **RETIRED 2026-08-19 @ 0.23.0** | 3 |
+| 21 | gap | tool | `.sidenav__section` / `.sidenav__footer` | Neither primitive exists in 0.22.1 on npm. Mirrored the design system's own working-tree CSS verbatim to ship collapsible nav groups (#15) and the theme toggle's drawer seat (#17). Remove once a release ships both. | **RETIRED 2026-08-19 @ 0.23.0** | 3 |
 
 **Don't re-derive:** all four rows above were confirmed against the actual
 installed `node_modules/@cameronsjo/artificer/src/artificer.css` at 0.22.1
@@ -286,8 +286,8 @@ A real-device pass over the 2026-08-18 mobile fixes above surfaced four bugs.
 | # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
 |---|------|---------|------------------------|-------------------|-----------|------|
 | 22 | correction | tool | `.app` safe-area padding (row 19 above, restated) | The safe-area shim from 2026-08-18 (`.app { padding-left/right: env(safe-area-inset-left/right) }`) OVERRODE the vendored `.container { padding-inline: var(--s-lg) }` at equal specificity (this file loads after `artificer.css`) — and portrait insets are `0`, so all content butted the viewport edges outside landscape-on-a-notch. Fixed to `max(var(--s-lg), env(safe-area-inset-left))` (and `-right`): keeps the container gutter as the floor, only grows past it where a notch needs the room. | n/a — app-specific composition bug, not an upstream gap | 3 |
-| 23 | correction | tool | `.appbar__brand.wordmark, .appbar__brand > .wordmark` `align-content` | The 2026-08-19 review round dropped `align-content: center` from this carrier as dead weight ("inert outside flex/grid"). It wasn't: `align-content` applies to any block container as of Safari 17.4 / Chrome 123, and this carrier is `display: block`. Restored it with a comment — without it the mark top-aligns inside its coarse-pointer 44px box and sits visibly high of the hamburger. | n/a — was a correct upstream-parity rule the review nit removed by mistake | 3 |
-| 24 | gap | tool | `.sidenav button { width: 100%; background: none; border: 0; font: inherit }` vs. the drawer's theme toggle | The theme toggle in `.sidenav__footer` (added 2026-08-18, #17) sits inside `<nav class="sidenav">`, so the vendored `.sidenav button` grammar strips its pill chrome and stretches it full-width — a giant borderless button instead of the compact pill. Added `.sidenav__footer .theme-toggle { width: auto; flex: none; background/border/padding/font restored }`. Remove once upstream scopes `.sidenav button` away from `.theme-toggle` (or ships its own footer-toggle exemption). Retirement tracking: cameronsjo/spec-compare#27. | maybe — filed as a gap in the tracking issue | 3 |
+| 23 | correction | tool | `.appbar__brand.wordmark, .appbar__brand > .wordmark` `align-content` | The 2026-08-19 review round dropped `align-content: center` from this carrier as dead weight ("inert outside flex/grid"). It wasn't: `align-content` applies to any block container as of Safari 17.4 / Chrome 123, and this carrier is `display: block`. Restored it with a comment — without it the mark top-aligns inside its coarse-pointer 44px box and sits visibly high of the hamburger. | **RETIRED 2026-08-19 @ 0.23.0** (folded into row 19) | 3 |
+| 24 | gap | tool | `.sidenav button { width: 100%; background: none; border: 0; font: inherit }` vs. the drawer's theme toggle | The theme toggle in `.sidenav__footer` (added 2026-08-18, #17) sits inside `<nav class="sidenav">`, so the vendored `.sidenav button` grammar strips its pill chrome and stretches it full-width — a giant borderless button instead of the compact pill. Added `.sidenav__footer .theme-toggle { width: auto; flex: none; background/border/padding/font restored }`. Remove once upstream scopes `.sidenav button` away from `.theme-toggle` (or ships its own footer-toggle exemption). Retirement tracking: cameronsjo/spec-compare#27. | **RETIRED 2026-08-19 @ 0.23.0** | 3 |
 
 A fourth bug (`.compare-dot` pager pip inflating to 44px under the vendored
 `@media (pointer: coarse) { button { min-height/min-width: 44px } }` floor —
@@ -300,3 +300,35 @@ growing the dot itself).
 
 Build (`npm run build`) and the vitest suite pass clean; no test-count change
 (no test-covered logic changed — CSS-only + one dropped-comment restoration).
+
+## 2026-08-19 · Upgrade 0.22.1 → 0.23.0 — retirement issue #27 closed
+
+`@cameronsjo/artificer` bumped to **0.23.0**, which ships every rule the
+five pre-release shims above were mirroring. Verify-then-delete: each row's
+selector was `grep`ped against the actually-installed
+`node_modules/@cameronsjo/artificer/src/artificer.css` at 0.23.0 (not just
+the CHANGELOG) and read side-by-side with the local shim before removing
+it, per the retirement issue's own instruction.
+
+| # | was (row) | verified at 0.23.0 | disposition |
+|---|-----------|---------------------|--------------|
+| 18 | Drawer safe-area relocation (`.nav-drawer { padding-bottom: 0 }` + `.nav-drawer > .sidenav { ... }`) | `.nav-drawer` itself no longer carries `padding-bottom` — only `padding-top: env(safe-area-inset-top)`. `.nav-drawer > .sidenav` now carries `min-height: 100%` (structural) **and** `padding-bottom: calc(var(--s-md) + env(safe-area-inset-bottom, 0px))` (safe-area) natively. | **Retired.** Local override deleted. |
+| 19 | Brand ellipsis carriers (`.appbar__brand.wordmark, .appbar__brand > .wordmark` block + coarse-pointer re-floor) | `.appbar__brand` base rule now carries `flex: 1 1 auto; min-width: 0; overflow: hidden; white-space: nowrap` directly (previously only on our local shim). The carrier block, including `align-content: center`, and the coarse-pointer `min-width: 44px` re-floor are both present verbatim. | **Retired.** Local override deleted in full. |
+| 20 | Stuck-hover reset (`@media (hover: none) { .sidenav a:hover, .sidenav button:hover { ... } } }`) | `.sidenav a:hover, .sidenav button:hover` is now gated inside `@media (hover: hover)` — exactly the guard row 20 speculated might land. A touch device (`hover: none`) never matches that block, so there's nothing left to reset. | **Retired.** Local reset deleted. |
+| 21 | `.sidenav__section` / `.sidenav__footer` (full mirrored block) | Both primitives ship verbatim, byte-identical to the local mirror (down to the `@media (hover: hover)` summary-hover guard and the divider rule). | **Retired.** Local mirror deleted; consumed directly from `artificer.css` now. |
+| 24 | Drawer theme-toggle pill restoration (`.sidenav__footer .theme-toggle { ... }`) | Present verbatim in `artificer.css` at the same selector, same declarations, with upstream's own comment explaining the `.sidenav button` collision. | **Retired.** Local override deleted. |
+| 22 | `.app` safe-area padding `max(var(--s-lg), env(...))` | No `.app`-equivalent exists upstream — this composes the vendored `.container` gutter with this app's own root padding. Not a shim against an absent/unreleased upstream rule. | **Kept.** App-specific, not upstream's to ship. |
+| 23 | `align-content: center` restoration + its "don't clean this" comment | Folded into row 19's retirement — the whole carrier block (including this line) is now consumed from `artificer.css` directly. | **Retired alongside #19.** |
+
+Also kept, per the retirement issue's own scope note (never shims — always
+app-specific): the `.compare-dot` `min-width`/`min-height` floors, the
+`viewport-fit=cover` meta tag, the `≤800px` topbar-toggle-hide rule, and the
+React `useSectionOpen` open/touched state machine (`sidenav-sections.ts`).
+
+`docs.artificer-adaptations.md` net effect: five shims down to zero: the
+`site/src/styles.css` app-composition surface is now flat vendored-plus-
+app-specific-only, with no unreleased-upstream-fix shims outstanding.
+Retirement issue: cameronsjo/spec-compare#27, closed by this branch's PR.
+
+Build (`npm run build`) and the vitest suite (46/46) pass clean; no
+test-count change (CSS deletions only, no App.tsx/behavior change).
