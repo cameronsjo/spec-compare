@@ -176,7 +176,7 @@ export function App() {
       {/* Mobile drawer: scrim + off-canvas sidenav. data-nav-open on .app drives both. */}
       <div className="nav-scrim" onClick={() => setNavOpen(false)} />
       <aside id="nav-drawer" className="nav-drawer" aria-hidden={!navOpen} ref={drawerRef}>
-        <ToolNav nav={nav} onSelect={selectNav} />
+        <ToolNav nav={nav} onSelect={selectNav} footer />
       </aside>
 
       {/* Three-zone colophon (Artificer .colophon / .colophon__spine, #97/#324): the
@@ -208,41 +208,85 @@ export function App() {
   )
 }
 
+// Below --bp-tablet (800px) a fresh mount should open only the section holding
+// the active view, not every section — above it (desktop sidenav), open all.
+const isDesktopViewport = () => typeof window !== 'undefined' && !window.matchMedia('(max-width: 800px)').matches
+
+// Per-section open state. Initializes open on desktop, or on mobile only for
+// the section containing `nav`; a later change to `nav` force-opens whichever
+// section now holds it (a collapsed active section would hide aria-current),
+// without touching the other sections' state — so a user's manual taps stick.
+function useSectionOpen(nav: string, ids: readonly string[]) {
+  const isActive = ids.includes(nav)
+  const [open, setOpen] = useState(() => isDesktopViewport() || isActive)
+  useEffect(() => {
+    if (isActive) setOpen(true)
+  }, [isActive])
+  return [open, setOpen] as const
+}
+
 /**
- * The between-surface spine: overview surfaces, then core tools, then emerging tools.
- * These switch app state rather than navigate, so they're <button>s — styles.css
- * carries a `.sidenav button` shim matching Artificer's `.sidenav a` grammar.
+ * The between-surface spine: overview surfaces, then core tools, then emerging tools,
+ * then about — each a collapsible `.sidenav__section`. These switch app state rather
+ * than navigate, so they're <button>s (upstream `.sidenav a, .sidenav button` grammar
+ * covers both). `footer` renders the theme toggle's drawer seat (#17) — only the
+ * mobile drawer instance passes it; the persistent desktop sidenav doesn't need it.
  */
-function ToolNav({ nav, onSelect }: { nav: string; onSelect: (id: string) => void }) {
+function ToolNav({ nav, onSelect, footer }: { nav: string; onSelect: (id: string) => void; footer?: boolean }) {
+  const overviewIds = OVERVIEW.map((o) => o.id)
+  const coreIds = coreTools.map((t) => t.tool)
+  const emergingIds = emergingTools.map((t) => t.tool)
+  const aboutIds = ABOUT.map((a) => a.id)
+
+  const [overviewOpen, setOverviewOpen] = useSectionOpen(nav, overviewIds)
+  const [coreOpen, setCoreOpen] = useSectionOpen(nav, coreIds)
+  const [emergingOpen, setEmergingOpen] = useSectionOpen(nav, emergingIds)
+  const [aboutOpen, setAboutOpen] = useSectionOpen(nav, aboutIds)
+
   return (
     <nav className="sidenav" aria-label="Views and tools">
-      <div className="sidenav__group">Overview</div>
-      {OVERVIEW.map((o) => (
-        <button key={o.id} type="button" aria-current={nav === o.id ? 'page' : undefined} onClick={() => onSelect(o.id)}>
-          <span className="label">{o.label}</span>
-        </button>
-      ))}
+      <details className="sidenav__section" open={overviewOpen} onToggle={(e) => setOverviewOpen(e.currentTarget.open)}>
+        <summary>Overview</summary>
+        {OVERVIEW.map((o) => (
+          <button key={o.id} type="button" aria-current={nav === o.id ? 'page' : undefined} onClick={() => onSelect(o.id)}>
+            <span className="label">{o.label}</span>
+          </button>
+        ))}
+      </details>
 
-      <div className="sidenav__group">Core tools</div>
-      {coreTools.map((t) => (
-        <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-          <span className="label">{t.displayName}</span>
-        </button>
-      ))}
+      <details className="sidenav__section" open={coreOpen} onToggle={(e) => setCoreOpen(e.currentTarget.open)}>
+        <summary>Core tools</summary>
+        {coreTools.map((t) => (
+          <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
+            <span className="label">{t.displayName}</span>
+          </button>
+        ))}
+      </details>
 
-      <div className="sidenav__group">Emerging tools</div>
-      {emergingTools.map((t) => (
-        <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-          <span className="label">{t.displayName}</span>
-        </button>
-      ))}
+      <details className="sidenav__section" open={emergingOpen} onToggle={(e) => setEmergingOpen(e.currentTarget.open)}>
+        <summary>Emerging tools</summary>
+        {emergingTools.map((t) => (
+          <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
+            <span className="label">{t.displayName}</span>
+          </button>
+        ))}
+      </details>
 
-      <div className="sidenav__group">About</div>
-      {ABOUT.map((a) => (
-        <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
-          <span className="label">{a.label}</span>
-        </button>
-      ))}
+      <details className="sidenav__section" open={aboutOpen} onToggle={(e) => setAboutOpen(e.currentTarget.open)}>
+        <summary>About</summary>
+        {ABOUT.map((a) => (
+          <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
+            <span className="label">{a.label}</span>
+          </button>
+        ))}
+      </details>
+
+      {footer && (
+        <div className="sidenav__footer">
+          <span>Theme</span>
+          <button className="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />
+        </div>
+      )}
     </nav>
   )
 }

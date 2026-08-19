@@ -70,6 +70,14 @@ body {
 }
 /* The hamburger keeps the .btn--ghost default (--fg-secondary): at 32px the glyph
    reads clearly without full --fg, which is glaringly bright on the dark bar. */
+/* Toggle into the drawer (#17) — below 640px the topbar collapses to just the
+   hamburger + brand, so the theme toggle moves to the drawer's .sidenav__footer
+   seat instead of crowding the bar. */
+@media (max-width: 640px) {
+  .appbar__actions .theme-toggle {
+    display: none;
+  }
+}
 .intro {
   margin-block: var(--s-lg) var(--s-xl);
 }
@@ -108,6 +116,78 @@ body {
     background: none;
     color: var(--fg-secondary);
   }
+}
+
+/* Collapsible sections + footer row (#15, #17) — mirrors an unreleased
+   upstream fix (not yet in the published Artificer 0.22.1 on npm; absent
+   from the vendored artificer.css). `<details class="sidenav__section">`
+   wraps a group; its `<summary>` carries the old `.sidenav__group` label
+   treatment plus a twisty. App.tsx owns which sections start open. */
+.sidenav__section {
+  border: none;
+}
+.sidenav__section > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+  list-style: none;
+  cursor: pointer;
+  min-height: 44px;
+  font-family: var(--font-interface);
+  font-size: var(--t-label-sm-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+  padding: var(--s-xs) var(--s-sm);
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-fast) var(--ease);
+}
+.sidenav__section > summary::-webkit-details-marker {
+  display: none;
+}
+.sidenav__section > summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  flex: none;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.sidenav__section[open] > summary::after {
+  transform: rotate(45deg);
+}
+@media (hover: hover) {
+  .sidenav__section > summary:hover {
+    color: var(--fg);
+  }
+}
+.sidenav__section > summary:focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset-inset);
+}
+.sidenav__section + .sidenav__section {
+  margin-top: var(--s-sm);
+  padding-top: var(--s-sm);
+  border-top: 1px solid var(--border);
+}
+/* Footer row — the theme toggle's drawer seat (#17). The drawer's .sidenav
+   is a min-height:100% flex column (see the safe-area block above), so
+   margin-top:auto pins this to the bottom, above the safe-area padding. */
+.sidenav__footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-sm);
+  min-height: 44px;
+  padding: var(--s-sm) var(--s-sm) 0;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-interface);
+  font-size: var(--t-label-md-size);
+  color: var(--fg-secondary);
 }
 
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----
