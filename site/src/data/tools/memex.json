@@ -1,0 +1,41 @@
+{
+  "tool": "memex",
+  "displayName": "Memex",
+  "vendor": "Mindset AI",
+  "repo": "https://github.com/mindset-ai/memex-ai",
+  "website": "https://www.memex.ai",
+  "version": "Rolling, no tagged releases — assessed 2026-08-12",
+  "license": "Fair-code (Sustainable Use License + Enterprise)",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Specs as a verified, queryable decision database.",
+  "bestFor": "Team decision + verification layer",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "Web UI",
+    "mcp": true,
+    "ideIntegration": false,
+    "openSource": false,
+    "parallel": false
+  },
+  "scores": { "trivial": 2, "medium": 4, "large": 4, "parallel": 3, "emergency": 1, "solo": 2, "contextMgmt": 4, "overall": 2.9 },
+  "keyFeatures": [
+    "Specs are typed database entities — decisions, acceptance criteria, tasks — edited live by humans (web UI) and agents (MCP), not markdown files",
+    "draft → specify → build → verify → done pipeline; each acceptance criterion gates on real test-run evidence with human sign-off to close",
+    "Standards (codified cross-cutting rules) with drift detection: spec ↔ spec, spec ↔ standards, code ↔ standards",
+    "Knowledge graph across specs with semantic + graph retrieval (pgvector) — 'the unit of retrieval is the relevant fact, not the document'",
+    "Self-hostable TypeScript/Hono/Postgres stack or hosted SaaS; Claude-powered agent embedded in every spec"
+  ],
+  "limitations": [
+    "Earliest-stage commercial entrant tracked: no tagged releases, 29★ / 0 forks, ~5 contributors incl. the CEO",
+    "Specs live in an external database, not the repo — real-time collaboration traded for git-native diffs, offline access, and a new spec ↔ repo sync surface",
+    "Fair-code, not OSI open source; enterprise `.ee.` features separately licensed; pricing not publicly verifiable at review time",
+    "Claude-centric: only Claude Code/Desktop documented as MCP clients",
+    "Requires server + PostgreSQL 16 (or SaaS) — heaviest infrastructure footprint in the tracked set for solo use"
+  ]
+}

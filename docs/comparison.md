@@ -18,6 +18,7 @@
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
 | Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.3.16) |
 | [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v0.12.263) |
+| Memex | Emerging | Fair-code (Sustainable Use License + Enterprise) | No | Team decision + verification layer | Active Dev (Rolling, no tagged releases — assessed 2026-08-12) |
 | MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.0.0) |
 | [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.3.1) |
 | [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
@@ -46,6 +47,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | [GSD (Get Shit Done)](tools/gsd.md) | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | Kilo Code | ❌ | ✅ | ✅ | IDE | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
 | [Kiro](tools/kiro.md) | ❌ | ⚠️ | ✅ | IDE | ✅ | ✅ | ❌ | Medium | Moderate | Spec-First |
+| Memex | ❌ | ⚠️ | ❌ | Web UI | ✅ | ❌ | ❌ | Medium | Moderate | Spec-Anchored |
 | MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
 | [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
