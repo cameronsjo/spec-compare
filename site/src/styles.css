@@ -9,6 +9,24 @@ body {
 
 .app {
   padding-block: var(--s-lg) var(--s-2xl);
+  /* viewport-fit=cover (index.html) lets content run under the notch in
+     landscape; clear the left/right safe areas on the app root so the
+     sidenav/content never sit behind it. */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Artificer 0.22.1 puts the drawer's bottom safe-area inset on the scroll
+   container itself (.nav-drawer), which sits outside the 100%-tall inner
+   .sidenav and can collapse at scroll-end. Move it into the scroll content,
+   mirroring the upstream fix (artificer.css .nav-drawer > .sidenav). */
+.nav-drawer {
+  padding-bottom: 0;
+}
+.nav-drawer > .sidenav {
+  min-height: 100%;
+  height: auto;
+  padding-bottom: calc(var(--s-md) + env(safe-area-inset-bottom, 0px));
 }
 
 /* ---- appbar + intro band ---- */
@@ -24,8 +42,48 @@ body {
   font-size: inherit;
   letter-spacing: inherit;
 }
+/* Ellipsis on overflow (#14) — mirrors an unreleased upstream fix (not yet
+   in the published Artificer 0.22.1 on npm). The brand here is the combined
+   `<a class="appbar__brand wordmark whimsy">` case: one element carries both
+   classes, so text-overflow needs a block-level carrier on the flex child
+   itself, with a content-based flex-basis so it still grows across the bar. */
+.appbar__brand {
+  white-space: nowrap;
+}
+/* .appbar__brand > .wordmark (split-element form: an icon + a nested
+   .wordmark span) is kept alongside the combined .appbar__brand.wordmark
+   selector even though this app only uses the combined form — for parity
+   with the upstream fix, which covers both compositions. */
+.appbar__brand.wordmark,
+.appbar__brand > .wordmark {
+  display: block;
+  width: auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appbar__brand.wordmark {
+  flex: 1 1 auto;
+}
+@media (pointer: coarse) {
+  .appbar__brand.wordmark,
+  .appbar__brand > .wordmark {
+    min-width: 44px;
+  }
+}
 /* The hamburger keeps the .btn--ghost default (--fg-secondary): at 32px the glyph
    reads clearly without full --fg, which is glaringly bright on the dark bar. */
+/* Toggle into the drawer (#17) — below --bp-tablet (800px) the appbar
+   collapses to the hamburger + drawer takeover (.appbar__menu-btn shows,
+   .app-sidenav hides — see the tablet breakpoint below), so the theme
+   toggle moves to the drawer's .sidenav__footer seat instead of the bar.
+   MUST match the hamburger/drawer breakpoint, or the 641-800px band shows
+   both toggles at once. */
+@media (max-width: 800px) {
+  .appbar__actions .theme-toggle {
+    display: none;
+  }
+}
 .intro {
   margin-block: var(--s-lg) var(--s-xl);
 }
@@ -50,41 +108,92 @@ body {
   top: calc(56px + var(--s-md));
 }
 
-/* Sidenav button shim — Artificer styles only `.sidenav a`, but these items switch
-   SPA state rather than navigate, so they're <button>s. Replicate the link grammar. */
-.sidenav button {
+/* The Artificer 0.22.1 `.sidenav a, .sidenav button` grammar (flex, hover,
+   focus-visible, aria-current) now covers SPA nav buttons natively — the
+   hand-rolled shim that used to replicate it is retired (upstream since
+   0.18.1; docs/artificer-adaptations.md #5). */
+
+/* Stuck-hover guard — the vendored `.sidenav a:hover, .sidenav button:hover`
+   is unguarded, so a touch tap latches the hover highlight until the next
+   tap lands elsewhere. Reset it on devices with no real hover. */
+@media (hover: none) {
+  .sidenav a:hover,
+  .sidenav button:hover {
+    background: none;
+    color: var(--fg-secondary);
+  }
+}
+
+/* Collapsible sections + footer row (#15, #17) — mirrors an unreleased
+   upstream fix (not yet in the published Artificer 0.22.1 on npm; absent
+   from the vendored artificer.css). `<details class="sidenav__section">`
+   wraps a group; its `<summary>` carries the old `.sidenav__group` label
+   treatment plus a twisty. App.tsx owns which sections start open. */
+.sidenav__section {
+  border: none;
+}
+.sidenav__section > summary {
   display: flex;
   align-items: center;
   gap: var(--s-sm);
-  width: 100%;
-  min-height: 44px;
-  padding: 6px 10px;
-  border: none;
-  background: none;
-  border-radius: var(--radius-sm);
-  color: var(--fg-secondary);
-  font-family: var(--font-sans);
-  font-size: var(--t-label-md-size);
-  text-align: left;
+  list-style: none;
   cursor: pointer;
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  min-height: 44px;
+  font-family: var(--font-interface);
+  font-size: var(--t-label-sm-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+  padding: var(--s-xs) var(--s-sm);
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-fast) var(--ease);
 }
-.sidenav button > .label {
-  flex: 1;
-  min-width: 0;
+.sidenav__section > summary::-webkit-details-marker {
+  display: none;
 }
-.sidenav button:hover {
-  background: var(--bg);
-  color: var(--fg);
+.sidenav__section > summary::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  flex: none;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-fast) var(--ease);
 }
-.sidenav button:focus-visible {
+.sidenav__section[open] > summary::after {
+  transform: rotate(45deg);
+}
+@media (hover: hover) {
+  .sidenav__section > summary:hover {
+    color: var(--fg);
+  }
+}
+.sidenav__section > summary:focus-visible {
   outline: var(--focus-width) solid var(--accent);
   outline-offset: var(--focus-offset-inset);
 }
-.sidenav button[aria-current="page"] {
-  background: var(--bg);
-  color: var(--accent);
-  box-shadow: inset 2px 0 0 var(--accent);
+.sidenav__section + .sidenav__section {
+  margin-top: var(--s-sm);
+  padding-top: var(--s-sm);
+  border-top: 1px solid var(--border);
+}
+/* Footer row — the theme toggle's drawer seat (#17). The drawer's .sidenav
+   is a min-height:100% flex column (see the safe-area block above), so
+   margin-top:auto pins this to the bottom, above the safe-area padding. */
+.sidenav__footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-sm);
+  min-height: 44px;
+  padding: var(--s-sm) var(--s-sm) 0;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-interface);
+  font-size: var(--t-label-md-size);
+  color: var(--fg-secondary);
 }
 
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----

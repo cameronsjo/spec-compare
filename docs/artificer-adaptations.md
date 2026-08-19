@@ -247,3 +247,34 @@ clean. Verified in the built `dist/assets/*.js`: `colophon` and
 `colophon__spine` both present, `data-whimsy-greeting` +
 `data-whimsy-greeting-class` survive minification, and the sign-off text
 carries the period.
+
+## 2026-08-18 · Mobile fixes: two retirements, four pre-release shims
+
+### Retired
+
+| # | was | now |
+|---|-----|-----|
+| 5 | `.sidenav button` shim replicating the `.sidenav a` link grammar (resting/hover/focus/active rail) | Diffed against the vendored Artificer 0.22.1 CSS — every declaration (flex layout, button reset, hover, focus-visible, `aria-current`) is shipped natively (since 0.18.1). Removed the fully-redundant block. |
+| 6 | React `ThemeToggle` re-implementing the toggle because `artificer-theme.js` bound before the SPA mounted | **Resolved as of Artificer 0.19.0.** The vendored `artificer-theme.js` now auto-observes SPA mounts (arms a `MutationObserver` on `document.body` at load) and binds any `[data-theme-toggle]` button. Adopted the canonical empty `<button class="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />`, deleting the hand-rolled component's state/localStorage write. |
+
+### New shims (mirror unreleased upstream fixes — absent from Artificer 0.22.1 on npm)
+
+Read against `artificer.css` in the design system's own working tree, which
+is ahead of what's published; each shim is removable once the matching fix
+ships in a released version **after 0.22.1**.
+
+| # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
+|---|------|---------|------------------------|-------------------|-----------|------|
+| 18 | misfit | tool | `.nav-drawer` bottom safe-area inset | Published 0.22.1 puts `padding-bottom: env(safe-area-inset-bottom)` on `.nav-drawer` itself, outside the 100%-tall inner `.sidenav` — can collapse at scroll-end. Overrode it into the scroll content (`.nav-drawer { padding-bottom: 0 }` + `.nav-drawer > .sidenav { min-height: 100%; height: auto; padding-bottom: calc(...) }`), matching the design system's own working-tree fix. Remove once a release ships it. | yes (already fixed upstream, unreleased) | 3 |
+| 19 | gap | tool | `.appbar__brand` overflow | No ellipsis carrier exists on `.appbar__brand.wordmark` in 0.22.1 — a long brand can spill past the viewport on narrow screens instead of truncating. Added the block-level ellipsis carrier + coarse-pointer 44px re-floor, matching the design system's own working-tree fix. Remove once a release ships it. | yes (already fixed upstream, unreleased) | 3 |
+| 20 | misfit | tool | `.sidenav a:hover, .sidenav button:hover` | Unguarded in 0.22.1 — a touch tap latches the hover highlight until the next tap lands elsewhere. Added an `@media (hover: none)` reset. Not yet confirmed fixed upstream; worth filing if the design system's `@media (hover: hover)` guard (seen on `.sidenav__section > summary`) hasn't already been extended to the row hover. | maybe | 3 |
+| 21 | gap | tool | `.sidenav__section` / `.sidenav__footer` | Neither primitive exists in 0.22.1 on npm. Mirrored the design system's own working-tree CSS verbatim to ship collapsible nav groups (#15) and the theme toggle's drawer seat (#17). Remove once a release ships both. | yes (already built upstream, unreleased) | 3 |
+
+**Don't re-derive:** all four rows above were confirmed against the actual
+installed `node_modules/@cameronsjo/artificer/src/artificer.css` at 0.22.1
+(not just the design system's working-tree reference) before shimming —
+none of the four selectors exist in the published package. Re-check the
+same way before removing a shim on the next upgrade: `grep` the vendored
+file for the selector, don't assume the CHANGELOG entry landed the CSS too.
+
+Build (`npm run build`), typecheck, and the vitest suite (39/39) all pass clean.

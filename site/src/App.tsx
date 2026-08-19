@@ -9,6 +9,7 @@ import { ToolProfile } from './ToolProfile'
 import { DecisionGuide } from './DecisionGuide'
 import { About } from './About'
 import { Disclosure } from './Disclosure'
+import { defaultSectionOpen, onNavigationActivates, onViewportChange, onUserToggle, type Viewport, type SectionOpenState } from './sidenav-sections'
 
 // Overview surfaces, then per-tool profiles. nav holds an overview id, an about-view id, or a tool slug.
 // Exported for the routing test (every view id classifies, none collides with a tool slug).
@@ -107,7 +108,7 @@ export function App() {
         </a>
         <span className="appbar__spacer" />
         <div className="appbar__actions">
-          <ThemeToggle />
+          <button className="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />
         </div>
       </header>
 
@@ -176,7 +177,7 @@ export function App() {
       {/* Mobile drawer: scrim + off-canvas sidenav. data-nav-open on .app drives both. */}
       <div className="nav-scrim" onClick={() => setNavOpen(false)} />
       <aside id="nav-drawer" className="nav-drawer" aria-hidden={!navOpen} ref={drawerRef}>
-        <ToolNav nav={nav} onSelect={selectNav} />
+        <ToolNav nav={nav} onSelect={selectNav} footer />
       </aside>
 
       {/* Three-zone colophon (Artificer .colophon / .colophon__spine, #97/#324): the
@@ -208,80 +209,109 @@ export function App() {
   )
 }
 
-/**
- * The between-surface spine: overview surfaces, then core tools, then emerging tools.
- * These switch app state rather than navigate, so they're <button>s — styles.css
- * carries a `.sidenav button` shim matching Artificer's `.sidenav a` grammar.
- */
-function ToolNav({ nav, onSelect }: { nav: string; onSelect: (id: string) => void }) {
-  return (
-    <nav className="sidenav" aria-label="Views and tools">
-      <div className="sidenav__group">Overview</div>
-      {OVERVIEW.map((o) => (
-        <button key={o.id} type="button" aria-current={nav === o.id ? 'page' : undefined} onClick={() => onSelect(o.id)}>
-          <span className="label">{o.label}</span>
-        </button>
-      ))}
+// Matches --bp-tablet (800px) — the same breakpoint the hamburger/drawer
+// takeover uses (artificer.css .appbar__menu-btn, styles.css .app-sidenav).
+const SIDENAV_BREAKPOINT = '(max-width: 800px)'
+const getViewport = (): Viewport => (typeof window !== 'undefined' && window.matchMedia(SIDENAV_BREAKPOINT).matches ? 'mobile' : 'desktop')
 
-      <div className="sidenav__group">Core tools</div>
-      {coreTools.map((t) => (
-        <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-          <span className="label">{t.displayName}</span>
-        </button>
-      ))}
-
-      <div className="sidenav__group">Emerging tools</div>
-      {emergingTools.map((t) => (
-        <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-          <span className="label">{t.displayName}</span>
-        </button>
-      ))}
-
-      <div className="sidenav__group">About</div>
-      {ABOUT.map((a) => (
-        <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
-          <span className="label">{a.label}</span>
-        </button>
-      ))}
-    </nav>
-  )
-}
-
-const THEME_KEY = 'artificer.theme'
-
-function readTheme(): 'light' | 'dark' {
-  const attr = document.documentElement.getAttribute('data-theme')
-  if (attr === 'light' || attr === 'dark') return attr
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-}
-
-/**
- * Owns the theme toggle in React. The vendored artificer-theme.js binds on
- * DOMContentLoaded — before this SPA mounts — so its click handler never attaches.
- * We drive the same `data-theme` attribute + `artificer.theme` key here.
- */
-function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(readTheme)
+// Per-section open state — the open/touched decision logic itself lives in
+// sidenav-sections.ts as pure, unit-tested functions; this hook is only the
+// React wiring (state + the two effects that drive it) around them.
+//
+// A navigation change that makes this section active force-opens it (a
+// collapsed section can't show aria-current="page") — but only on the
+// false->true transition (the `[isActive]` effect dependency below fires
+// exactly then, never on a plain re-render while already active). So a user
+// who deliberately collapses the section that's ALREADY active keeps it
+// collapsed: isActive hasn't changed, so nothing here re-opens it. That
+// collapse is the user's own act and is never fought.
+//
+// A viewport change (resize/rotate) re-derives the default (desktop: open
+// all; mobile: open only the active section) — but only for a section the
+// user hasn't manually toggled via its <summary>. A manual toggle marks the
+// section "touched" and always outranks a later default recompute.
+function useSectionOpen(nav: string, ids: readonly string[]) {
+  const isActive = ids.includes(nav)
+  const [state, setState] = useState<SectionOpenState>(() => ({ open: defaultSectionOpen(getViewport(), isActive), touched: false }))
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    try {
-      localStorage.setItem(THEME_KEY, theme)
-    } catch {
-      // localStorage unavailable (private mode etc.) — theme still applies for the session.
-    }
-  }, [theme])
+    if (isActive) setState(onNavigationActivates)
+  }, [isActive])
+
+  useEffect(() => {
+    const mq = window.matchMedia(SIDENAV_BREAKPOINT)
+    const onChange = () => setState((s) => onViewportChange(s, mq.matches ? 'mobile' : 'desktop', isActive))
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [isActive])
+
+  const setOpen = (nextOpen: boolean) => setState(onUserToggle(nextOpen))
+  return [state.open, setOpen] as const
+}
+
+/**
+ * The between-surface spine: overview surfaces, then core tools, then emerging tools,
+ * then about — each a collapsible `.sidenav__section`. These switch app state rather
+ * than navigate, so they're <button>s (upstream `.sidenav a, .sidenav button` grammar
+ * covers both). `footer` renders the theme toggle's drawer seat (#17) — only the
+ * mobile drawer instance passes it; the persistent desktop sidenav doesn't need it.
+ */
+function ToolNav({ nav, onSelect, footer }: { nav: string; onSelect: (id: string) => void; footer?: boolean }) {
+  const overviewIds = OVERVIEW.map((o) => o.id)
+  const coreIds = coreTools.map((t) => t.tool)
+  const emergingIds = emergingTools.map((t) => t.tool)
+  const aboutIds = ABOUT.map((a) => a.id)
+
+  const [overviewOpen, setOverviewOpen] = useSectionOpen(nav, overviewIds)
+  const [coreOpen, setCoreOpen] = useSectionOpen(nav, coreIds)
+  const [emergingOpen, setEmergingOpen] = useSectionOpen(nav, emergingIds)
+  const [aboutOpen, setAboutOpen] = useSectionOpen(nav, aboutIds)
 
   return (
-    <button
-      type="button"
-      className="theme-toggle"
-      aria-label="Toggle light or dark theme"
-      onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-    >
-      <span className="dot" />
-      <span>{theme === 'light' ? 'Light' : 'Dark'}</span>
-    </button>
+    <nav className="sidenav" aria-label="Views and tools">
+      <details className="sidenav__section" open={overviewOpen} onToggle={(e) => setOverviewOpen(e.currentTarget.open)}>
+        <summary>Overview</summary>
+        {OVERVIEW.map((o) => (
+          <button key={o.id} type="button" aria-current={nav === o.id ? 'page' : undefined} onClick={() => onSelect(o.id)}>
+            <span className="label">{o.label}</span>
+          </button>
+        ))}
+      </details>
+
+      <details className="sidenav__section" open={coreOpen} onToggle={(e) => setCoreOpen(e.currentTarget.open)}>
+        <summary>Core tools</summary>
+        {coreTools.map((t) => (
+          <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
+            <span className="label">{t.displayName}</span>
+          </button>
+        ))}
+      </details>
+
+      <details className="sidenav__section" open={emergingOpen} onToggle={(e) => setEmergingOpen(e.currentTarget.open)}>
+        <summary>Emerging tools</summary>
+        {emergingTools.map((t) => (
+          <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
+            <span className="label">{t.displayName}</span>
+          </button>
+        ))}
+      </details>
+
+      <details className="sidenav__section" open={aboutOpen} onToggle={(e) => setAboutOpen(e.currentTarget.open)}>
+        <summary>About</summary>
+        {ABOUT.map((a) => (
+          <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
+            <span className="label">{a.label}</span>
+          </button>
+        ))}
+      </details>
+
+      {footer && (
+        <div className="sidenav__footer">
+          <span>Theme</span>
+          <button className="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />
+        </div>
+      )}
+    </nav>
   )
 }
 
