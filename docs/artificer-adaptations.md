@@ -278,3 +278,25 @@ same way before removing a shim on the next upgrade: `grep` the vendored
 file for the selector, don't assume the CHANGELOG entry landed the CSS too.
 
 Build (`npm run build`), typecheck, and the vitest suite (39/39) all pass clean.
+
+## 2026-08-19 · On-device check: two shim corrections, one new shim
+
+A real-device pass over the 2026-08-18 mobile fixes above surfaced four bugs.
+
+| # | type | surface | token / rule / pattern | what we did + why | upstream? | lane |
+|---|------|---------|------------------------|-------------------|-----------|------|
+| 22 | correction | tool | `.app` safe-area padding (row 19 above, restated) | The safe-area shim from 2026-08-18 (`.app { padding-left/right: env(safe-area-inset-left/right) }`) OVERRODE the vendored `.container { padding-inline: var(--s-lg) }` at equal specificity (this file loads after `artificer.css`) — and portrait insets are `0`, so all content butted the viewport edges outside landscape-on-a-notch. Fixed to `max(var(--s-lg), env(safe-area-inset-left))` (and `-right`): keeps the container gutter as the floor, only grows past it where a notch needs the room. | n/a — app-specific composition bug, not an upstream gap | 3 |
+| 23 | correction | tool | `.appbar__brand.wordmark, .appbar__brand > .wordmark` `align-content` | The 2026-08-19 review round dropped `align-content: center` from this carrier as dead weight ("inert outside flex/grid"). It wasn't: `align-content` applies to any block container as of Safari 17.4 / Chrome 123, and this carrier is `display: block`. Restored it with a comment — without it the mark top-aligns inside its coarse-pointer 44px box and sits visibly high of the hamburger. | n/a — was a correct upstream-parity rule the review nit removed by mistake | 3 |
+| 24 | gap | tool | `.sidenav button { width: 100%; background: none; border: 0; font: inherit }` vs. the drawer's theme toggle | The theme toggle in `.sidenav__footer` (added 2026-08-18, #17) sits inside `<nav class="sidenav">`, so the vendored `.sidenav button` grammar strips its pill chrome and stretches it full-width — a giant borderless button instead of the compact pill. Added `.sidenav__footer .theme-toggle { width: auto; flex: none; background/border/padding/font restored }`. Remove once upstream scopes `.sidenav button` away from `.theme-toggle` (or ships its own footer-toggle exemption). Retirement tracking: cameronsjo/spec-compare#27. | maybe — filed as a gap in the tracking issue | 3 |
+
+A fourth bug (`.compare-dot` pager pip inflating to 44px under the vendored
+`@media (pointer: coarse) { button { min-height/min-width: 44px } }` floor —
+same class of bug as `agentic-harnesses#22`) is **app-specific, not a shim**:
+`.compare-dot` is entirely this app's own control, not an upstream primitive
+composition, so there's nothing to retire later. Fixed by floor-matching
+`min-width`/`min-height` to the visual `8px` dot size (the existing
+`::before { inset: -18px }` hit area still gives a ≥44px tap target without
+growing the dot itself).
+
+Build (`npm run build`) and the vitest suite pass clean; no test-count change
+(no test-covered logic changed — CSS-only + one dropped-comment restoration).

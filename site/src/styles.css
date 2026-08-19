@@ -11,9 +11,15 @@ body {
   padding-block: var(--s-lg) var(--s-2xl);
   /* viewport-fit=cover (index.html) lets content run under the notch in
      landscape; clear the left/right safe areas on the app root so the
-     sidenav/content never sit behind it. */
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+     sidenav/content never sit behind it. max(), not a bare env() — a bare
+     env() OVERRIDES the vendored .container's `padding-inline: var(--s-lg)`
+     longhand-vs-shorthand at equal specificity (this file loads after
+     artificer.css), and portrait insets are 0, so content butted the
+     viewport edges everywhere except landscape on a notched device. max()
+     keeps the container gutter as the floor and only grows past it where
+     the notch actually needs the room. */
+  padding-left: max(var(--s-lg), env(safe-area-inset-left));
+  padding-right: max(var(--s-lg), env(safe-area-inset-right));
 }
 
 /* Artificer 0.22.1 puts the drawer's bottom safe-area inset on the scroll
@@ -53,7 +59,12 @@ body {
 /* .appbar__brand > .wordmark (split-element form: an icon + a nested
    .wordmark span) is kept alongside the combined .appbar__brand.wordmark
    selector even though this app only uses the combined form — for parity
-   with the upstream fix, which covers both compositions. */
+   with the upstream fix, which covers both compositions.
+   align-content: center is NOT dead weight here — align-content applies to
+   any block container as of Safari 17.4 / Chrome 123 (not just flex/grid),
+   and this carrier IS a block container (display: block above). Drop it and
+   the mark top-aligns inside its coarse-pointer 44px box instead of centering,
+   sitting visibly high of the hamburger. Keep it — do not "clean" it away. */
 .appbar__brand.wordmark,
 .appbar__brand > .wordmark {
   display: block;
@@ -61,6 +72,7 @@ body {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  align-content: center;
 }
 .appbar__brand.wordmark {
   flex: 1 1 auto;
@@ -194,6 +206,17 @@ body {
   font-family: var(--font-interface);
   font-size: var(--t-label-md-size);
   color: var(--fg-secondary);
+}
+/* .sidenav button strips/stretches any button in the nav — restore the toggle pill in the footer row (upstream gap, being fixed in a-d-s) */
+.sidenav__footer .theme-toggle {
+  width: auto;
+  flex: none;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  font-family: var(--font-interface);
+  font-size: var(--t-label-xs-size);
+  font-weight: 500;
 }
 
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----
@@ -340,6 +363,13 @@ body {
   position: relative; /* anchors the expanded hit area */
   width: 8px;
   height: 8px;
+  /* Floors width/height against the vendored coarse-pointer bare-button rule
+     (button { min-height: 44px; min-width: 44px }), which otherwise bloats
+     this pager pip to a 44px square (agentic-harnesses#22). The ::before
+     inset: -18px hit area below still gives a >=44px tap target without
+     growing the visual dot. */
+  min-width: 8px;
+  min-height: 8px;
   padding: 0;
   border: none;
   border-radius: 50%;
