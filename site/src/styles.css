@@ -23,14 +23,6 @@ body {
 }
 
 /* ---- appbar + intro band ---- */
-/* Artificer's .appbar carries its own `padding: 0 var(--s-md)` for a full-bleed
-   bar, but ours sits INSIDE .container--lg (already padded), so that 16px double-
-   insets the content — and on a phone it's the difference between the long wordmark
-   + theme toggle fitting or spilling 16px past the viewport. Zero it (higher
-   specificity beats the vendored rule + its safe-area variant). See a-d-s #83. */
-.app .appbar {
-  padding-inline: 0;
-}
 .appbar__brand .whimsy {
   font-size: inherit;
   letter-spacing: inherit;
@@ -39,10 +31,11 @@ body {
    reads clearly without full --fg, which is glaringly bright on the dark bar. */
 /* Toggle into the drawer (#17) — below --bp-tablet (800px) the appbar
    collapses to the hamburger + drawer takeover (.appbar__menu-btn shows,
-   .app-sidenav hides — see the tablet breakpoint below), so the theme
-   toggle moves to the drawer's .sidenav__footer seat instead of the bar.
-   MUST match the hamburger/drawer breakpoint, or the 641-800px band shows
-   both toggles at once. */
+   .app-shell > .sidenav hides — both vendored), so the theme toggle moves
+   to the drawer's SideNavFooter seat instead of the bar. MUST match the
+   hamburger/drawer breakpoint, or the 641-800px band shows both toggles
+   at once. Appbar always renders `actions` unconditionally — this hide
+   is app-side, not a chrome-component knob. */
 @media (max-width: 800px) {
   .appbar__actions .theme-toggle {
     display: none;
@@ -61,15 +54,15 @@ body {
 }
 
 /* ---- app shell: [ sidenav | content ] ---- */
+/* AppShell/AppShellContent (rail="210px" gap="var(--s-lg)" props in App.tsx)
+   replace the old local grid override + .app-sidenav sticky wrapper aside.
+   The vendored .app-shell is designed as the WHOLE page's shell (its own
+   `min-height: 100dvh`, with `.app-shell > .appbar` claiming a dedicated grid
+   row) — this app keeps its .appbar and .intro band outside the shell (as
+   before), so nothing claims that row and the 100dvh floor would otherwise
+   add a large blank gap before the footer. Zero it back to content-sized. */
 .app-shell {
-  display: grid;
-  grid-template-columns: 210px minmax(0, 1fr);
-  gap: var(--s-lg);
-  align-items: start;
-}
-.app-sidenav {
-  position: sticky;
-  top: calc(56px + var(--s-md));
+  min-height: auto;
 }
 
 /* The Artificer 0.22.1 `.sidenav a, .sidenav button` grammar (flex, hover,

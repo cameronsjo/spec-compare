@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { AppShell, AppShellContent, Appbar, NavDrawer, SideNav, SideNavFooter, ThemeToggle, type SideNavGroup } from '@cameronsjo/artificer/react'
 import { tools, coreTools, toolBySlug } from './data'
 import { KIND_COLOR, KIND_LABEL, ASSESSED_AS_OF, type PhaseKind } from './types'
 import { WorkflowCompare } from './WorkflowCompare'
@@ -9,7 +10,6 @@ import { ToolProfile } from './ToolProfile'
 import { DecisionGuide } from './DecisionGuide'
 import { About } from './About'
 import { Disclosure } from './Disclosure'
-import { defaultSectionOpen, onNavigationActivates, onViewportChange, onUserToggle, type Viewport, type SectionOpenState } from './sidenav-sections'
 
 // Overview surfaces, then per-tool profiles. nav holds an overview id, an about-view id, or a tool slug.
 // Exported for the routing test (every view id classifies, none collides with a tool slug).
@@ -33,6 +33,10 @@ const emergingTools = tools.filter((t) => t.tier === 'emerging')
 
 const KINDS: PhaseKind[] = ['govern', 'specify', 'design', 'tasks', 'implement', 'review', 'archive', 'decision']
 
+// Matches --bp-tablet (800px), which the Appbar/SideNav chrome components key
+// their own hamburger/drawer takeover off of internally.
+const SIDENAV_STICKY_STYLE = { '--sidenav-sticky-top': 'calc(56px + var(--s-md))' } as CSSProperties
+
 export function App() {
   const [nav, setNav] = useState<string>('compare') // overview id, about-view id, OR tool slug
   const [scenarioId, setScenarioId] = useState('trivial-mod') // lifted — persists across switches
@@ -46,17 +50,47 @@ export function App() {
     setNavOpen(false)
   }
 
+  // The between-surface spine: overview surfaces, then core tools, then emerging tools,
+  // then about. SideNav owns the flat (desktop rail) / collapsible-sections (drawer)
+  // rendering and, in `sections` mode, the whole open-state machine — this is only the
+  // group/item DATA, shared by both SideNav instances below.
+  const navGroups: SideNavGroup[] = [
+    {
+      key: 'overview',
+      label: 'Overview',
+      items: OVERVIEW.map((o) => ({ key: o.id, label: o.label, active: nav === o.id, onSelect: () => selectNav(o.id) })),
+    },
+    {
+      key: 'core',
+      label: 'Core tools',
+      items: coreTools.map((t) => ({ key: t.tool, label: t.displayName, active: nav === t.tool, onSelect: () => selectNav(t.tool) })),
+    },
+    {
+      key: 'emerging',
+      label: 'Emerging tools',
+      items: emergingTools.map((t) => ({ key: t.tool, label: t.displayName, active: nav === t.tool, onSelect: () => selectNav(t.tool) })),
+    },
+    {
+      key: 'about',
+      label: 'About',
+      items: ABOUT.map((a) => ({ key: a.id, label: a.label, active: nav === a.id, onSelect: () => selectNav(a.id) })),
+    },
+  ]
+
   // The persistent whimsy: the wordmark breathes the ultrathink shimmer for three
-  // hue-cycles on load, then drifts glacially. React mounts after DOMContentLoaded.
-  const titleRef = useRef<HTMLAnchorElement>(null)
+  // hue-cycles on load, then drifts glacially. Appbar is a plain function component
+  // (no forwardRef), so there's no ref prop to reach its rendered `.wordmark` span —
+  // query it by selector, scoped to the app root, once after mount.
+  const appRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const cancel = window.Whimsy?.run(titleRef.current, { loops: 3, settle: 'glacial' })
+    const el = appRef.current?.querySelector<HTMLElement>('.appbar__brand .wordmark') ?? null
+    const cancel = window.Whimsy?.run(el, { loops: 3, settle: 'glacial' })
     return () => cancel?.()
   }, [])
 
   // The icon script only hydrates `<i data-icon>` once on DOMContentLoaded, which
-  // misses anything React mounts later (the hamburger, the drawer). observe()
-  // re-hydrates and watches for inserted nodes so those icons aren't blank.
+  // misses anything React mounts later (the hamburger, the drawer, sidenav rows).
+  // observe() re-hydrates and watches for inserted nodes so those icons aren't blank.
   useEffect(() => window.ArtificerIcons?.observe(), [])
 
   // Same DOMContentLoaded miss as the icons above: Whimsy scans for
@@ -68,49 +102,20 @@ export function App() {
     window.Whimsy?.greeting()
   }, [])
 
-  // Mobile drawer focus management — inert when closed, focus-trapped when open.
-  const drawerRef = useRef<HTMLElement>(null)
-  useEffect(() => {
-    const el = drawerRef.current
-    if (!el) return
-    if (!navOpen) {
-      el.setAttribute('inert', '')
-      return
-    }
-    el.removeAttribute('inert')
-    const handle = window.ArtificerFocus?.trap(el, { onEscape: () => setNavOpen(false) })
-    return () => handle?.release()
-  }, [navOpen])
-
   return (
-    <div className="app container container--lg surface-tool" data-nav-open={navOpen ? '' : undefined}>
+    <div className="app container container--lg surface-tool" ref={appRef}>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
 
-      <header className="appbar">
-        <button
-          type="button"
-          className="btn btn--ghost btn--icon appbar__menu-btn"
-          aria-label="Open navigation"
-          aria-expanded={navOpen}
-          aria-controls="nav-drawer"
-          onClick={() => setNavOpen(true)}
-        >
-          <i data-icon="menu" data-icon-size="32" />
-        </button>
-        {/* Native composition: `.wordmark` on the `.appbar__brand` flex container.
-            v0.18 makes `.wordmark` inline-block (blockified as a flex item), so its
-            ::after accent period stays an inline box rather than a detached flex
-            item — the #81 workaround (separate inline span) is no longer needed. */}
-        <a className="appbar__brand wordmark whimsy" href="#main" ref={titleRef}>
-          spec-driven development
-        </a>
-        <span className="appbar__spacer" />
-        <div className="appbar__actions">
-          <button className="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />
-        </div>
-      </header>
+      <Appbar
+        brand="spec-driven development"
+        brandHref="#main"
+        brandWhimsy
+        contained
+        menu={{ controls: 'nav-drawer', open: navOpen, onClick: () => setNavOpen((open) => !open) }}
+        actions={<ThemeToggle inline />}
+      />
 
       <section className="intro stack stack--sm">
         <p className="lede t-body-lg">
@@ -127,12 +132,10 @@ export function App() {
         </div>
       </section>
 
-      <div className="app-shell">
-        <aside className="app-sidenav">
-          <ToolNav nav={nav} onSelect={selectNav} />
-        </aside>
+      <AppShell rail="210px" gap="var(--s-lg)">
+        <SideNav groups={navGroups} sticky style={SIDENAV_STICKY_STYLE} />
 
-        <main id="main" className="stack stack--lg">
+        <AppShellContent id="main">
           {showLegend && <Legend />}
 
           {tools.length === 0 ? (
@@ -171,14 +174,12 @@ export function App() {
           ) : (
             <ToolProfile spec={spec} />
           )}
-        </main>
-      </div>
+        </AppShellContent>
+      </AppShell>
 
-      {/* Mobile drawer: scrim + off-canvas sidenav. data-nav-open on .app drives both. */}
-      <div className="nav-scrim" onClick={() => setNavOpen(false)} />
-      <aside id="nav-drawer" className="nav-drawer" aria-hidden={!navOpen} ref={drawerRef}>
-        <ToolNav nav={nav} onSelect={selectNav} footer />
-      </aside>
+      <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} id="nav-drawer">
+        <SideNav groups={navGroups} sections footer={<SideNavFooter />} />
+      </NavDrawer>
 
       {/* Three-zone colophon (Artificer .colophon / .colophon__spine, #97/#324): the
           links open the full About + Disclosure views (the old provenance/affiliation
@@ -206,112 +207,6 @@ export function App() {
         </div>
       </footer>
     </div>
-  )
-}
-
-// Matches --bp-tablet (800px) — the same breakpoint the hamburger/drawer
-// takeover uses (artificer.css .appbar__menu-btn, styles.css .app-sidenav).
-const SIDENAV_BREAKPOINT = '(max-width: 800px)'
-const getViewport = (): Viewport => (typeof window !== 'undefined' && window.matchMedia(SIDENAV_BREAKPOINT).matches ? 'mobile' : 'desktop')
-
-// Per-section open state — the open/touched decision logic itself lives in
-// sidenav-sections.ts as pure, unit-tested functions; this hook is only the
-// React wiring (state + the two effects that drive it) around them.
-//
-// A navigation change that makes this section active force-opens it (a
-// collapsed section can't show aria-current="page") — but only on the
-// false->true transition (the `[isActive]` effect dependency below fires
-// exactly then, never on a plain re-render while already active). So a user
-// who deliberately collapses the section that's ALREADY active keeps it
-// collapsed: isActive hasn't changed, so nothing here re-opens it. That
-// collapse is the user's own act and is never fought.
-//
-// A viewport change (resize/rotate) re-derives the default (desktop: open
-// all; mobile: open only the active section) — but only for a section the
-// user hasn't manually toggled via its <summary>. A manual toggle marks the
-// section "touched" and always outranks a later default recompute.
-function useSectionOpen(nav: string, ids: readonly string[]) {
-  const isActive = ids.includes(nav)
-  const [state, setState] = useState<SectionOpenState>(() => ({ open: defaultSectionOpen(getViewport(), isActive), touched: false }))
-
-  useEffect(() => {
-    if (isActive) setState(onNavigationActivates)
-  }, [isActive])
-
-  useEffect(() => {
-    const mq = window.matchMedia(SIDENAV_BREAKPOINT)
-    const onChange = () => setState((s) => onViewportChange(s, mq.matches ? 'mobile' : 'desktop', isActive))
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [isActive])
-
-  const setOpen = (nextOpen: boolean) => setState(onUserToggle(nextOpen))
-  return [state.open, setOpen] as const
-}
-
-/**
- * The between-surface spine: overview surfaces, then core tools, then emerging tools,
- * then about — each a collapsible `.sidenav__section`. These switch app state rather
- * than navigate, so they're <button>s (upstream `.sidenav a, .sidenav button` grammar
- * covers both). `footer` renders the theme toggle's drawer seat (#17) — only the
- * mobile drawer instance passes it; the persistent desktop sidenav doesn't need it.
- */
-function ToolNav({ nav, onSelect, footer }: { nav: string; onSelect: (id: string) => void; footer?: boolean }) {
-  const overviewIds = OVERVIEW.map((o) => o.id)
-  const coreIds = coreTools.map((t) => t.tool)
-  const emergingIds = emergingTools.map((t) => t.tool)
-  const aboutIds = ABOUT.map((a) => a.id)
-
-  const [overviewOpen, setOverviewOpen] = useSectionOpen(nav, overviewIds)
-  const [coreOpen, setCoreOpen] = useSectionOpen(nav, coreIds)
-  const [emergingOpen, setEmergingOpen] = useSectionOpen(nav, emergingIds)
-  const [aboutOpen, setAboutOpen] = useSectionOpen(nav, aboutIds)
-
-  return (
-    <nav className="sidenav" aria-label="Views and tools">
-      <details className="sidenav__section" open={overviewOpen} onToggle={(e) => setOverviewOpen(e.currentTarget.open)}>
-        <summary>Overview</summary>
-        {OVERVIEW.map((o) => (
-          <button key={o.id} type="button" aria-current={nav === o.id ? 'page' : undefined} onClick={() => onSelect(o.id)}>
-            <span className="label">{o.label}</span>
-          </button>
-        ))}
-      </details>
-
-      <details className="sidenav__section" open={coreOpen} onToggle={(e) => setCoreOpen(e.currentTarget.open)}>
-        <summary>Core tools</summary>
-        {coreTools.map((t) => (
-          <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-            <span className="label">{t.displayName}</span>
-          </button>
-        ))}
-      </details>
-
-      <details className="sidenav__section" open={emergingOpen} onToggle={(e) => setEmergingOpen(e.currentTarget.open)}>
-        <summary>Emerging tools</summary>
-        {emergingTools.map((t) => (
-          <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-            <span className="label">{t.displayName}</span>
-          </button>
-        ))}
-      </details>
-
-      <details className="sidenav__section" open={aboutOpen} onToggle={(e) => setAboutOpen(e.currentTarget.open)}>
-        <summary>About</summary>
-        {ABOUT.map((a) => (
-          <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
-            <span className="label">{a.label}</span>
-          </button>
-        ))}
-      </details>
-
-      {footer && (
-        <div className="sidenav__footer">
-          <span>Theme</span>
-          <button className="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />
-        </div>
-      )}
-    </nav>
   )
 }
 
