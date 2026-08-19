@@ -50,6 +50,10 @@ body {
 .appbar__brand {
   white-space: nowrap;
 }
+/* .appbar__brand > .wordmark (split-element form: an icon + a nested
+   .wordmark span) is kept alongside the combined .appbar__brand.wordmark
+   selector even though this app only uses the combined form — for parity
+   with the upstream fix, which covers both compositions. */
 .appbar__brand.wordmark,
 .appbar__brand > .wordmark {
   display: block;
@@ -57,7 +61,6 @@ body {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  align-content: center;
 }
 .appbar__brand.wordmark {
   flex: 1 1 auto;
@@ -70,10 +73,13 @@ body {
 }
 /* The hamburger keeps the .btn--ghost default (--fg-secondary): at 32px the glyph
    reads clearly without full --fg, which is glaringly bright on the dark bar. */
-/* Toggle into the drawer (#17) — below 640px the topbar collapses to just the
-   hamburger + brand, so the theme toggle moves to the drawer's .sidenav__footer
-   seat instead of crowding the bar. */
-@media (max-width: 640px) {
+/* Toggle into the drawer (#17) — below --bp-tablet (800px) the appbar
+   collapses to the hamburger + drawer takeover (.appbar__menu-btn shows,
+   .app-sidenav hides — see the tablet breakpoint below), so the theme
+   toggle moves to the drawer's .sidenav__footer seat instead of the bar.
+   MUST match the hamburger/drawer breakpoint, or the 641-800px band shows
+   both toggles at once. */
+@media (max-width: 800px) {
   .appbar__actions .theme-toggle {
     display: none;
   }
