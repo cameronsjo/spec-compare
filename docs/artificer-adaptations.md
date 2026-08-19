@@ -16,7 +16,7 @@ isn't owned by the system, so we invented it.
 | 1 | gap | tool | none (no table component) | Built `.matrix-table` / `.heatmap-table` with sticky header + sticky first column + sortable header buttons. The matrix & heatmap need dense, scannable tables. | yes | 3 |
 | 2 | gap | tool | `--success-fill` missing | The fill family has `--steel/-accent/-attention/-urgent/-brand-purple`-`-fill` but **no `--success-fill`**. Used `color-mix(in srgb, var(--success) N%, transparent)` for score-5 cells. | yes | 1 (maybe) |
 | 3 | extension | tool | score encoding | Diverging 1–5 token scale (`urgent → attention → steel → accent → success`) + `color-mix` intensity → `ScorePip` chip + heatmap cell fills. Encodes use-case fitness. | maybe | 3 |
-| 4 | extension | tool | app shell | `.app-shell` + `.app-sidenav` + `.nav-drawer` + `.sidenav button` shim + React `ThemeToggle` + inert/focus-trap drawer — copied **near-verbatim from agentic-harnesses**. SPA nav + mobile drawer. | yes | 3 |
+| 4 | extension | tool | app shell | `.app-shell` + `.app-sidenav` + `.nav-drawer` + `.sidenav button` shim + React `ThemeToggle` + inert/focus-trap drawer — copied **near-verbatim from agentic-harnesses**. SPA nav + mobile drawer. | **RETIRED 2026-08-19 @ 0.24.1** — see § Adopted the compiled React chrome components | 3 |
 | 5 | misfit | tool | `.sidenav a` only | `.sidenav button` shim replicating link grammar (resting/hover/focus/active rail) — nav items switch SPA state, not navigate. **Second consumer to hit this** (agentic-harnesses filed it first). | yes | 3 |
 | 6 | confusion | tool | JS helpers DOMContentLoaded-bound | `artificer-theme.js` binds before the SPA mounts, so its handler never attaches; re-implemented the theme toggle in React driving the same `data-theme` + `artificer.theme` key. Same for relying on `ArtificerFocus`/`Whimsy` post-mount. | maybe | 3 |
 
@@ -332,3 +332,65 @@ Retirement issue: cameronsjo/spec-compare#27, closed by this branch's PR.
 
 Build (`npm run build`) and the vitest suite (46/46) pass clean; no
 test-count change (CSS deletions only, no App.tsx/behavior change).
+
+## 2026-08-19 · Adopted the compiled React chrome components (0.24.1, #4 retired)
+
+Bumped to **0.24.1** (0.24.0 published without `dist/react` — a global-gitignore
+hole at the export's `git add` on the design system's publishing machine,
+caught by a sibling consumer, fixed in `artificer-design-system#405`; confirmed
+0.24.1's tarball actually contains `dist/` before pinning it) and adopted
+`@cameronsjo/artificer/react`'s compiled chrome adapter: `Appbar`, `NavDrawer`,
+`SideNav`, `SideNavFooter`, `ThemeToggle`, `AppShell`, `AppShellContent`. This
+retires **row 4** (the hand-copied app-shell, "near-verbatim from
+agentic-harnesses") — the last of the original app-shell adaptation entries;
+row 5 (`.sidenav button` shim) and row 6 (React `ThemeToggle`) were already
+retired earlier (2026-08-18/19).
+
+### What closed
+
+`App.tsx`: 330 → 224 lines (-105 net). Deleted: the hand-rolled `<header
+class="appbar">` + hamburger button, the `.nav-scrim` + `<aside
+class="nav-drawer">` + the inert/focus-trap `useEffect`, the `ToolNav`
+component (collapsed to building `SideNavGroup[]` data), and
+`site/src/sidenav-sections.ts` + its 7-test file (the open/touched state
+machine now ships compiled inside `SideNav`, driving both the desktop rail
+and the drawer's collapsible sections). Also deleted the hand-copied
+`focus.d.ts`/`icons.d.ts`/`tabs.d.ts`/`whimsy.d.ts` — one
+`src/artificer-modules.d.ts` with type-only side-effect imports
+(`import type {} from '@cameronsjo/artificer/theme.js'`, etc.) now pulls in
+the shipped ambient `Window.*` declarations without bundling a second copy of
+the vanilla modules; the runtime is still the vendored `<script defer>` tags
+(`revendor-artificer.sh`'s `FILES` list is unchanged — the React adapter is a
+real ESM import Vite bundles from `node_modules`, never a vendored script).
+
+**Structural note, not a shim:** the vendored `.app-shell` is designed as a
+whole-page shell (`min-height: 100dvh`, with `.app-shell > .appbar` claiming
+its own grid row) — this app keeps `.appbar` and the `.intro` band *outside*
+the shell, as it always has, so nothing claims that row. Added a scoped
+`.app-shell { min-height: auto }` override in `styles.css`; without it the
+unclaimed `100dvh` floor opened a large blank gap before the footer. This is
+a composition choice (this app's page layout doesn't match the component's
+full-page assumption), not a shim against a missing/broken upstream rule —
+no retirement tracking needed.
+
+**Whimsy ref, not a shim:** `Appbar` is a plain function component (no
+`forwardRef`), so there's no ref prop onto its rendered `.wordmark` span.
+The persistent wordmark shimmer now finds its target via a `querySelector`
+scoped to the app root on mount, instead of a direct React ref.
+
+### What's still app-specific (kept, not shims)
+
+None of these mirror an absent or unreleased upstream primitive — they're
+this app's own compositions and have no upstream rule to retire against:
+
+- `.compare-dot` `min-width`/`min-height` floors (the pager pip)
+- The `.app` safe-area `max(var(--s-lg), env(...))` gutter-clobber fix
+- `viewport-fit=cover` (`index.html`)
+- The `≤800px` topbar-toggle-hide rule (`Appbar` always renders `actions`
+  unconditionally; hiding it on mobile in favor of the drawer's
+  `SideNavFooter` seat is this app's own routing choice)
+- The new `.app-shell { min-height: auto }` override above
+
+Build (`npm run build`) and the vitest suite pass clean: 39/39 (down from
+46 — the 7 `sidenav-sections.ts` tests moved upstream with the file they
+tested; no other coverage lost).
