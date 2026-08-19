@@ -988,17 +988,13 @@ body {
 
 /* ---- tablet breakpoint (Artificer --bp-tablet: 800px) ---- */
 @media (max-width: 800px) {
-  .app-shell {
-    /* minmax(0, 1fr), not a bare 1fr: bare `1fr` = minmax(auto, 1fr), whose auto
-       minimum refuses to shrink below the content's min-content — so a wide child
-       (the compare filmstrip, a matrix/heatmap table) blows the single column past
-       the viewport and the whole page scrolls sideways. minmax(0, …) lets the
-       column shrink and the child's own overflow-x:auto take over. */
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .app-sidenav {
-    display: none;
-  }
+  /* The .app-shell collapse is upstream's job (vendored artificer.css hides the
+     rail and re-templates to [main-start] minmax(0,1fr) [main-end] at this same
+     breakpoint). A local grid-template-columns here — written before the 0.24.x
+     migration, without those named lines — orphaned .app-shell__content's
+     `grid-column: main-start / main-end` onto implicit columns, shoving the
+     content right of an empty 1fr track on phones. Deleted, not fixed: the
+     shim's whole reason (no upstream collapse) no longer exists. */
   .player-body {
     grid-template-columns: 1fr;
   }
