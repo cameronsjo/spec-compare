@@ -107,7 +107,7 @@ export function App() {
         </a>
         <span className="appbar__spacer" />
         <div className="appbar__actions">
-          <ThemeToggle />
+          <button className="theme-toggle theme-toggle--inline" data-theme-toggle aria-label="Toggle theme" />
         </div>
       </header>
 
@@ -244,44 +244,6 @@ function ToolNav({ nav, onSelect }: { nav: string; onSelect: (id: string) => voi
         </button>
       ))}
     </nav>
-  )
-}
-
-const THEME_KEY = 'artificer.theme'
-
-function readTheme(): 'light' | 'dark' {
-  const attr = document.documentElement.getAttribute('data-theme')
-  if (attr === 'light' || attr === 'dark') return attr
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-}
-
-/**
- * Owns the theme toggle in React. The vendored artificer-theme.js binds on
- * DOMContentLoaded — before this SPA mounts — so its click handler never attaches.
- * We drive the same `data-theme` attribute + `artificer.theme` key here.
- */
-function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(readTheme)
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    try {
-      localStorage.setItem(THEME_KEY, theme)
-    } catch {
-      // localStorage unavailable (private mode etc.) — theme still applies for the session.
-    }
-  }, [theme])
-
-  return (
-    <button
-      type="button"
-      className="theme-toggle"
-      aria-label="Toggle light or dark theme"
-      onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-    >
-      <span className="dot" />
-      <span>{theme === 'light' ? 'Light' : 'Dark'}</span>
-    </button>
   )
 }
 
