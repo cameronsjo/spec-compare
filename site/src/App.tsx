@@ -161,7 +161,7 @@ export function App() {
           ) : spec.tier === 'core' ? (
             <>
               <div className="harness-meta">
-                <span className="badge lang-badge">{spec.maturity}</span>
+                <span className="badge badge--steel lang-badge">{spec.maturity}</span>
                 <span className="loop-style">{spec.tagline}</span>
                 {spec.repo && (
                   <a className="repo-link" href={spec.repo} target="_blank" rel="noreferrer">

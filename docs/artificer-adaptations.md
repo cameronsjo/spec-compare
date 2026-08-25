@@ -394,3 +394,29 @@ this app's own compositions and have no upstream rule to retire against:
 Build (`npm run build`) and the vitest suite pass clean: 39/39 (down from
 46 — the 7 `sidenav-sections.ts` tests moved upstream with the file they
 tested; no other coverage lost).
+
+## 2026-08-25 · Mobile redesign — tables onto the primitives, shims until > 0.24.2
+
+The 390px pass (matrix sideways-scrolled ~3–4 screens, tabs grew a phantom
+vertical scrollbar, "Stable" badge at 3.4:1, naked Play button) was fixed
+upstream-first: five Artificer changes landed on the design-system branch
+(filed as #424–#428, plus the contrast-gate gap #429), and this app carries
+them as a fenced **ARTIFICER SHIMS** block at the end of `styles.css` —
+verbatim mirrors, each tagged, retired wholesale at the first release
+> 0.24.2 (**tracked: spec-compare#35**).
+
+### Adoptions (permanent app code, not shims)
+
+| # | type | pattern | what we did + why | upstream? |
+|---|------|---------|-------------------|-----------|
+| 18 | adoption | `.table--responsive` | The feature matrix reflows to one card per tool below 640px: `table--responsive` + `data-label` on every body `<td>`; the `<th scope="row">` tool name becomes the card header (upstream hardening). App-side ≤640px block releases the dense-grid constraints (`white-space: normal`, unframed `.matrix-scroll`). The heatmap deliberately does NOT reflow — the grid gestalt is its point; it stays a table in the scroll treatment. | yes · #426 |
+| 19 | adoption | `.table--sticky-col` | Retired the hand-rolled `.th-tool` pin (adaptation #14's sticky half): the primitive now covers `tbody th:first-child` with correct z layering (upstream #425). The app keeps only the LOOK — `text-align` + raised bg at one specificity step above the primitive (`th.th-tool:first-child`), so the shim block later in the file can't out-cascade it. #14's `text-transform` trap note still stands. | yes · #425 |
+| 20 | adoption | `.scroll-x` + `--fade` | Both table wrappers became `table-scroll scroll-x scroll-x--fade` with `tabIndex={0}` — keyboard-reachable scroll regions (fixes a latent axe `scrollable-region-focusable` failure) + the new edge-fade affordance. | yes · #427 |
+| 21 | fix | `.badge--steel` | `.lang-badge` (maturity) and the emerging tier badge dropped their fg-on-steel-fill colors (3.4:1 and worse — no text clears AA on solid steel, upstream #428) for the new `.badge--steel` tier; markup carries `badge badge--steel`. `.tier-badge--core` text switched `--accent-bright` → `--on-accent` (was 1.7:1 dark / 2.0:1 light; the fill's only rated pair, 5.65:1). | yes · #428 |
+| 22 | fix | `.btn--primary` | The transport's Play button had bare `.btn` — Artificer deliberately styles no bare button, so it rendered UA `ButtonFace` chrome. Now `btn btn--primary` (the transport's single CTA; Reset/Step are `--secondary`). App bug, not an upstream gap. | no |
+
+Verified: `npm run build` + vitest 39/39; real-browser at 390×844 —
+`scrollWidth === innerWidth` on every view and all three heatmap modes, tabs
+`overflow-y: hidden` with zero scrollbar gutter, heatmap tool column pinned
+during wrapper scroll; desktop 1280px — thead visible, sticky col intact,
+raised bg restored, z layering corner 11 > head 10 > body 1.
