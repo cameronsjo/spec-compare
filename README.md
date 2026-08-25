@@ -1,10 +1,8 @@
 # Spec-Driven Development Tools Comparison
 
-A comprehensive research and comparison of spec-driven development (SDD) tools for AI-assisted coding, including analysis of git worktree support, architectural approaches, and practical recommendations.
+Independent research comparing **19 spec-driven development (SDD) tools** for AI-assisted coding — 8 with full workflow treatment, 11 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
 
-## Overview
-
-This repository contains in-depth research comparing spec-driven development tools, agent orchestration, and the emerging execution layer for AI-assisted coding.
+> A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked; where a vendor initiated contact ([Memex](docs/memex-review.md)), the review says so up front.
 
 ## 🔮 Live site
 
@@ -13,7 +11,7 @@ An interactive, Artificer-themed visualizer of this research:
 
 - **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all eight core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
-- **Scoring heatmap** — all eighteen tools across seven use-case dimensions, color-graded 1–5.
+- **Scoring heatmap** — all nineteen tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
 - **Tool profiles** — per-tool metadata, key features, and limitations.
 
@@ -34,7 +32,11 @@ npm run preview    # serve the production build locally
 
 Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
-### Core SDD Tools (Original Comparison)
+## The tracked set
+
+**Core** tools get the full treatment — workflow graphs, per-scenario walkthroughs, heatmap scores. **Emerging** tools get a profile card and heatmap row only. When each entered (and every re-verification since) is dated in the [CHANGELOG](CHANGELOG.md) and the reassessment docs.
+
+### Core (8)
 
 - **GitHub Spec-Kit** - Open-source CLI toolkit for greenfield projects
 - **Spec Kitty** - Community fork with built-in git worktree orchestration
@@ -42,29 +44,24 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **OpenSpec** - Lightweight change-management for brownfield projects
 - **Kiro** - AWS-backed agentic IDE, GA since Nov 2025 (paid tiers + CLI)
 - **Tessl** - Spec-as-source platform; public Framework + Registry ($125M raised)
-
-### Core Additions (May 2026)
-
 - **Superpowers** - MIT skills framework + methodology; brainstorm → plan → subagent TDD (~214K stars)
 - **Traycer** - Commercial VS Code Plan → Execute → Verify layer over your agent (100K+ users)
 
-### Additional SDD Tools (Emerging)
+### Emerging (11)
 
 - **GSD** - Meta-prompting SDD system with wave-based context management (63.8K stars)
 - **Ralph Loop** - Stateless iterative execution pattern by Geoffrey Huntley
 - **Zencoder/Zenflow** - Commercial SDD control plane; free Zenflow desktop app
 - **Kilo Code** - Open-source agentic platform with Memory Bank ($8M seed, 1.5M users)
 - **Conductor** - macOS parallel agent runner using git worktrees
-- **PromptX** - AI agent context platform via MCP (gap entry)
-- **MUSUBI** - Maximally-rigorous SDD framework, marginal (~57 stars, stalled)
-
-### Emerging Additions (July 2026)
-
 - **MoAI-ADK** - Go CLI wrapping Claude Code in a SPEC-First Plan→Run→Sync lifecycle with TDD gates (~1.1K stars)
 - **Frame** - Electron "Agentic Development Environment" orchestrating parallel agents in isolated worktrees
 - **GRACE** - Contract-first Graph-RAG methodology as installable agent skills (XML artifacts, drift detection)
 - **GAAI** - Governed autonomous delivery: Discovery → git-tracked backlog → Delivery daemon (source-available, ELv2)
 - **Smart Ralph** - Claude Code/Codex plugin layering spec phases on the Ralph autonomous loop
+- **Memex** - Fair-code Specify & Verify platform: specs as a typed decision database with CI-verified acceptance criteria and a knowledge graph (Mindset AI; solicited review, see [disclosure](docs/memex-review.md))
+
+Two **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP) and **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled) — see [docs/gaps.md](docs/gaps.md).
 
 ## Key Findings
 
@@ -79,9 +76,13 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 
 See [Iterative Development Analysis](docs/iterative-development.md) and [Use Case Scoring](docs/use-case-scoring.md) for details.
 
+### The Enforcement Gap
+
+**Agents ignore specs.** Writing the spec is the easy half; most tools have nothing that *makes* the implementation honor it. The newest entrants all attack this from different angles — Traycer's Verify phase, MoAI-ADK's TDD gates, GRACE's drift detection, and Memex's per-criterion CI-verified acceptance criteria (the most direct design, and the least proven). See [Critical Analysis](docs/critical-analysis.md) and the [Memex review](docs/memex-review.md).
+
 ### Git Worktree Support
 
-**Spec Kitty pioneered built-in git worktree support among SDD tools** (Superpowers, Conductor, and Zencoder/Zenflow now automate worktrees too), enabling:
+**Spec Kitty pioneered built-in git worktree support among SDD tools** (Superpowers, Conductor, Zencoder/Zenflow, MoAI-ADK, and Frame now automate worktrees too), enabling:
 - Automatic worktree creation per feature
 - Parallel feature isolation without branch switching
 - Automated cleanup on merge
@@ -111,7 +112,7 @@ The research is organized into focused, digestible documents:
 ### Analysis & Recommendations
 
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 18-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 19-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -124,9 +125,12 @@ The research is organized into focused, digestible documents:
 - [Gaps: New Frameworks](docs/gaps.md) - Zencoder, Kilo Code, Conductor, PromptX, MUSUBI (GSD, Ralph Loop, Superpowers & Traycer promoted to full profiles)
 - [May 2026 Reassessment](docs/reassessment-2026-05-31.md) - Version/status re-verification + new-tool findings
 - [July 2026 Reassessment](docs/reassessment-2026-07-23.md) - Five emerging additions + version spot-check
+- [Memex Review](docs/memex-review.md) - August 2026 solicited product review (disclosure inside) — emerging-tier verdict
 - [Beads + OpenSpec Cheatsheet](docs/cheatsheet-beads-openspec.md) - Practical setup and daily workflow
 
-## Quick Comparison
+## Quick Comparison (core tools)
+
+The full 19-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
 
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|
@@ -169,9 +173,11 @@ The research includes analysis of:
 
 ## Market Context
 
-- 25% of Y Combinator Winter 2025 cohort has 95% AI-generated codebases
-- Industry leaders predict developers won't look at code by 2027
-- Specifications becoming "the fundamental unit of programming"
+The early-2025 signals that framed this research, kept for provenance:
+
+- 25% of Y Combinator's Winter 2025 cohort reported 95% AI-generated codebases
+- Industry leaders predicted developers "won't look at code" by 2027
+- Specifications pitched as "the fundamental unit of programming"
 
 ## Contributing
 
@@ -201,4 +207,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-07-23
+**Last Updated:** 2026-08-12
