@@ -20,7 +20,7 @@ export function ToolProfile({ spec }: { spec: ToolSpec }) {
       <header className="profile-head">
         <div className="profile-title">
           <h2 className="profile-name">{spec.displayName}</h2>
-          <span className={`badge tier-badge tier-badge--${spec.tier}`}>{spec.tier}</span>
+          <span className={`badge tier-badge ${spec.tier === 'emerging' ? 'badge--steel' : 'tier-badge--core'}`}>{spec.tier}</span>
         </div>
         <p className="profile-tagline">{spec.tagline}</p>
         <div className="profile-meta cluster">

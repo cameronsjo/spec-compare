@@ -25,7 +25,7 @@ export function TransportBar({ player, playLabel = 'Play', total, counterLabel }
       <button type="button" className="btn btn--secondary" onClick={reset} disabled={step === 0 && !playing}>
         Reset
       </button>
-      <button type="button" className="btn" onClick={toggle}>
+      <button type="button" className="btn btn--primary" onClick={toggle}>
         {playing ? 'Pause' : atEnd ? 'Replay' : playLabel}
       </button>
       <button type="button" className="btn btn--secondary" onClick={stepForward} disabled={atEnd}>

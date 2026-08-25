@@ -94,8 +94,8 @@ export function FeatureMatrix() {
         </span>
       </div>
 
-      <div className="table-scroll">
-        <table className="table table--sticky-head matrix-table">
+      <div className="table-scroll matrix-scroll scroll-x scroll-x--fade" tabIndex={0}>
+        <table className="table table--sticky-head table--sticky-col table--responsive matrix-table">
           <thead>
             <tr>
               <th scope="col" className="th-tool" aria-sort={sortKey === 'name' ? (dir === 1 ? 'ascending' : 'descending') : 'none'}>
@@ -123,7 +123,7 @@ export function FeatureMatrix() {
                   </span>
                 </th>
                 {COLUMNS.map((c) => (
-                  <td key={c.key}>{c.cell(t)}</td>
+                  <td key={c.key} data-label={c.label}>{c.cell(t)}</td>
                 ))}
               </tr>
             ))}

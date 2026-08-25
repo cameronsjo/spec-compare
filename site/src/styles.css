@@ -250,12 +250,12 @@ body {
   gap: var(--s-sm);
   margin-bottom: 4px;
 }
-/* Layered on the .badge primitive (markup: `badge lang-badge`) — keeps only the
-   steel tint + smaller size; padding/radius/inline-flex come from .badge. */
+/* Layered on the .badge--steel primitive (markup: `badge badge--steel
+   lang-badge`) — keeps only the smaller size; color pairing comes from the
+   tier (fg-on-steel-fill measured 3.4:1, below the AA floor — see the
+   badge--steel shim + docs/artificer-adaptations.md). */
 .lang-badge {
   font-size: 0.72rem;
-  background: var(--steel-fill);
-  color: var(--fg);
 }
 .loop-style {
   font-size: 0.75rem;
@@ -436,14 +436,14 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+/* --accent-fill's only rated text color is --on-accent (5.65:1);
+   accent-bright-on-fill measured 1.7:1 dark / 2.0:1 light. */
 .tier-badge--core {
   background: var(--accent-fill);
-  color: var(--accent-bright);
+  color: var(--on-accent);
 }
-.tier-badge--emerging {
-  background: var(--steel-fill);
-  color: var(--fg-secondary);
-}
+/* --emerging drops its colors entirely: markup now carries badge--steel
+   (fg-secondary-on-steel-fill measured below AA — see adaptations log). */
 
 /* ---- tables (matrix + heatmap layer onto the .table primitive) ----
    Markup: `<table class="table table--sticky-head matrix-table">`. The primitive
@@ -485,32 +485,36 @@ body {
   font-size: 0.82rem;
   font-weight: 600;
 }
-/* Sticky-header look. position/top come from .table--sticky-head; we keep the app's
-   raised bg + z layering (the corner .th-tool sits above both — see below). */
+/* Sticky-header look. position/top/z come from .table--sticky-head; we keep only
+   the app's raised bg + secondary ink. */
 .matrix-table thead th,
 .heatmap-table thead th {
   background: var(--bg-raised);
   color: var(--fg-secondary);
-  z-index: 2;
 }
-/* Sticky row-header cell. MUST stay a table cell (no display:flex here) — flexing a
-   <th> drops it out of table-row height sync and the tool names drift off their
+/* Row-header cell. The PIN now comes from the primitive — .table--sticky-col
+   covers tbody th:first-child (shimmed below until the next Artificer release)
+   with the z layering built in (body cells --z-base, header --z-raised,
+   corner +1). MUST stay a table cell (no display:flex here) — flexing a <th>
+   drops it out of table-row height sync and the tool names drift off their
    score cells. The name + tier dot get their own flex wrapper instead. */
 .th-tool {
-  position: sticky;
-  left: 0;
-  background: var(--bg-raised);
   text-align: left !important;
-  z-index: 1;
+}
+/* The app's raised column bg over the primitive's --bg. One specificity step
+   ABOVE the primitive's (0,2,2) — a tie would lose to the shim block at the
+   end of this file (same selectors, later in source), and post-retirement the
+   vendored primitive loads first anyway. */
+.matrix-table tbody th.th-tool:first-child,
+.heatmap-table tbody th.th-tool:first-child,
+.matrix-table thead th.th-tool:first-child,
+.heatmap-table thead th.th-tool:first-child {
+  background: var(--bg-raised);
 }
 .th-tool-inner {
   display: flex;
   align-items: center;
   gap: 8px; /* tier dot now leads the name */
-}
-.matrix-table thead .th-tool,
-.heatmap-table thead .th-tool {
-  z-index: 3;
 }
 .row-tool {
   font-family: var(--font-sans);
@@ -556,6 +560,27 @@ body {
   color: var(--fg-secondary);
   font-family: var(--font-sans);
   font-size: 0.78rem;
+}
+/* ≤ --bp-mobile: the matrix reflows to cards (.table--responsive) — release the
+   dense-grid constraints that fight the card layout. The heatmap stays a grid
+   (its gestalt is the point) and scrolls inside .scroll-x instead. */
+@media (max-width: 640px) {
+  .matrix-table th,
+  .matrix-table td {
+    white-space: normal; /* labels + values wrap inside the card rows */
+  }
+  /* Cards frame themselves — drop the wrapper's frame, scroll padding, and
+     the .scroll-x--fade background layers (nothing scrolls sideways here). */
+  .matrix-scroll {
+    border: none;
+    border-radius: 0;
+    padding-bottom: 0;
+    background: none;
+  }
+  .matrix-legend {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
 }
 
 /* ---- heatmap ---- */
@@ -1011,3 +1036,71 @@ body {
     height: auto;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ARTIFICER SHIMS — verbatim mirrors of upstream rules merged to
+   artificer-design-system but not yet in a release (pin: 0.24.2).
+   Source order beats the vendored artificer.css (this file loads after it).
+   Retire the WHOLE block at the first Artificer release > 0.24.2: bump the
+   pin, grep the installed artificer.css for each selector, read side-by-side,
+   delete. Tracked in spec-compare#35 (see docs/artificer-adaptations.md § 2026-08-25).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* [shim] .tabs phantom vertical scrollbar — overflow-x:auto computes
+   overflow-y to auto and the buttons' -1px underline overhang makes the strip
+   1px "scrollable". Upstream: fix(tabs) in CHANGELOG Unreleased. */
+.tabs { overflow-y: hidden; }
+
+/* [shim] .table--sticky-col covers <th scope="row"> row headers; body cells
+   pin at --z-base so they never paint over the sticky header row. */
+.table--sticky-col tbody td:first-child,
+.table--sticky-col tbody th:first-child {
+  position: sticky; left: 0; z-index: var(--z-base);
+  background: var(--bg);
+}
+.table--sticky-col thead th:first-child {
+  position: sticky; left: 0; z-index: var(--z-raised);
+  background: var(--bg);
+}
+.table--sticky-head.table--sticky-col thead th:first-child { z-index: calc(var(--z-raised) + 1); }
+
+/* [shim] .table--responsive hardening — row-header card titles, missing-label
+   guard, sticky-col conflict guard. NOTE: the vendored 0.24.2 block still
+   applies flex+::before to EVERY tbody td; these later rules re-scope it. */
+@media (max-width: 640px) {
+  .table--responsive tbody td {
+    display: block; border: none; padding: 6px 0; text-align: left;
+  }
+  .table--responsive tbody td::before { content: none; }
+  .table--responsive tbody td[data-label] {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--s-md); text-align: right;
+  }
+  .table--responsive tbody td[data-label]::before {
+    content: attr(data-label); text-align: left;
+    font-family: var(--font-interface); font-size: var(--t-label-sm-size);
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-secondary);
+  }
+  .table--responsive tbody th[scope="row"] {
+    display: block; text-align: left;
+    padding: 6px 0 var(--s-sm); border-bottom: 1px solid var(--border);
+  }
+  .table--responsive.table--sticky-col tbody td:first-child,
+  .table--responsive.table--sticky-col tbody th:first-child { position: static; }
+}
+
+/* [shim] .scroll-x--fade — edge-fade scroll affordance (scrolling shadows:
+   cover gradients travel with the content, edge shadows stay fixed). */
+.scroll-x--fade {
+  background:
+    linear-gradient(to right, var(--bg) 30%, transparent) left / 40px 100%,
+    linear-gradient(to left,  var(--bg) 30%, transparent) right / 40px 100%,
+    linear-gradient(to right, color-mix(in oklch, var(--fg) 14%, transparent), transparent) left / 14px 100%,
+    linear-gradient(to left,  color-mix(in oklch, var(--fg) 14%, transparent), transparent) right / 14px 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
+}
+
+/* [shim] .badge--steel — the meta tier: whisper tint under --steel text
+   (no text color clears AA on solid --steel-fill; measured >=5.9:1 as shipped). */
+.badge--steel { background: color-mix(in oklch, var(--steel-fill) 15%, transparent); color: var(--steel); border: 1px solid var(--steel-fill); }
