@@ -3,7 +3,7 @@
   "displayName": "Superpowers",
   "vendor": "Jesse Vincent / Prime Radiant",
   "repo": "https://github.com/obra/superpowers",
-  "version": "v5.1.0",
+  "version": "v6.3.0",
   "license": "MIT",
   "maturity": "Active Dev",
   "tier": "core",
@@ -51,8 +51,8 @@
     "Subagent-driven development: fresh context per task keeps the window clean",
     "Enforced RED/GREEN/REFACTOR TDD with HARD-GATEs (YAGNI, DRY)",
     "Native git-worktree isolation via the using-git-worktrees skill",
-    "Multi-harness: Claude Code, Codex, Gemini CLI, Cursor, Copilot CLI, OpenCode, Factory Droid",
-    "MIT, ~214K stars; methodology + plugin marketplace ecosystem"
+    "Multi-harness: Claude Code, Codex, Gemini CLI, Cursor, Copilot CLI, OpenCode, Factory Droid, Devin, and more (v6.3 wave)",
+    "MIT, ~279K stars; methodology + plugin marketplace ecosystem"
   ],
   "limitations": [
     "A methodology + skill bundle, not a single installable CLI",

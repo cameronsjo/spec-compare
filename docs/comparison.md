@@ -10,21 +10,21 @@
 <!-- GEN:quick-comparison -->
 | Tool | Tier | License | Worktrees | Best For | Maturity (version) |
 |---|---|---|---|---|---|
-| [BMad Method](tools/bmad-method.md) | Core | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
-| Conductor | Emerging | Proprietary (free) | **Yes** | Parallel worktree execution (macOS) | Active Dev (v0.36.3) |
-| Frame | Emerging | Apache-2.0 | **Yes** | GUI-orchestrated parallel agents | Active Dev (v2.4.0) |
-| GAAI | Emerging | Source-available (Elastic License 2.0) | No | Governed autonomous delivery | Active Dev (v2.49.0) |
-| GRACE | Emerging | MIT | No | Contract-first formal specs | Beta (v4.0.0-rc.3) |
+| [BMad Method](tools/bmad-method.md) | Core | Open Source | No | Enterprise workflows | Stable (v6.11.0) |
+| Conductor | Emerging | Proprietary (free) | **Yes** | Parallel worktree execution (macOS) | Active Dev (v0.83.0) |
+| Frame | Emerging | Apache-2.0 | **Yes** | GUI-orchestrated parallel agents | Active Dev (v2.6.0) |
+| GAAI | Emerging | Source-available (Elastic License 2.0) | No | Governed autonomous delivery | Active Dev (v2.51.0) |
+| GRACE | Emerging | MIT | No | Contract-first formal specs | Beta (v4.0.5) |
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
-| Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.3.16) |
-| [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v0.12.263) |
-| MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.0.0) |
-| [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.3.1) |
+| Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.5.6) |
+| [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v1.0.395) |
+| MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.1.2) |
+| [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.11.0) |
 | [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
 | Smart Ralph | Emerging | MIT | No | Hands-off spec-to-code loops | Active Dev (v4.0.0) |
 | [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
-| [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v0.8.18) |
-| [Superpowers](tools/superpowers.md) | Core | MIT | **Yes** | Disciplined autonomous dev (any agent) | Active Dev (v5.1.0) |
+| [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v1.0.1) |
+| [Superpowers](tools/superpowers.md) | Core | MIT | **Yes** | Disciplined autonomous dev (any agent) | Active Dev (v6.3.0) |
 | [Tessl](tools/tessl.md) | Core | Proprietary | No | Spec-as-source | Active Dev (Framework + Registry (public)) |
 | [Traycer](tools/traycer.md) | Core | Proprietary | No | Plan-first orchestration over your agents | Active Dev (VS Code extension (rolling)) |
 | Zencoder / Zenflow | Emerging | Proprietary | **Yes** | Parallel agents at scale (commercial) | Active Dev (Zenflow — free desktop app (rolling)) |
@@ -69,7 +69,7 @@ How each tool communicates instructions to AI coding agents (tools that declare 
 | [Kiro](tools/kiro.md) | ❌ | ❌ | ❌ | 0 |
 | [OpenSpec](tools/openspec.md) | ⚠️ removed | ⚠️ removed | ✅ | 10 |
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ❌ | 13 |
-| [Spec-Kit](tools/spec-kit.md) | ✅ | ✅ | ❌ | 8 |
+| [Spec-Kit](tools/spec-kit.md) | ✅ | ✅ | ❌ | 10 |
 | [Superpowers](tools/superpowers.md) | ❌ | ❌ | ✅ | 0 |
 | [Tessl](tools/tessl.md) | ❌ | ❌ | ❌ | 0 |
 | [Traycer](tools/traycer.md) | ❌ | ❌ | ❌ | 0 |

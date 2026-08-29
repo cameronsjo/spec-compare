@@ -276,7 +276,7 @@ Numeric scores (1–5) for quick visual comparison across all 18 tracked tools (
 ```text
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
                     ───────  ──────  ─────  ────────  ─────────  ────  ────────────  ───────
-OpenSpec v1.3.1      5        5       3      3         2          4     2             3.4
+OpenSpec v1.11.0     5        5       3      3         2          4     2             3.4
 Spec-Kit             3        4       5      2         1          3     2             2.9
 Spec Kitty v3        2        3       4      5         1          2     2             2.7
 BMad v6              1        2       5      2         1          1     2             2.0
