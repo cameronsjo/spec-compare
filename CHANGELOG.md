@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Artificer 0.25.0 + shim retirement** (`site/`) — Pin bumped `0.24.2 → 0.25.0`; the fenced ARTIFICER SHIMS block in `styles.css` (five verbatim mirrors carried since the mobile redesign) is deleted now that the release ships every rule: tabs phantom-scrollbar fix, `.table--sticky-col` row-header coverage, `.table--responsive` hardening, `.scroll-x--fade`, `.badge--steel`. Each selector verified byte-identical upstream before deletion; app CSS bundle shrank ~1.7 kB; retirement was tracked in #35
+
 - **August 2026 reassessment** (`docs/reassessment-2026-08-28.md`) — Version-refresh sweep closing the issue-#22 drift: 11 of 18 pins bumped (headliners: Kiro IDE `v0.12.263 → v1.0.395` with the 1.0 GA, Spec-Kit `v0.8.18 → v1.0.1`, Superpowers `v5.1.0 → v6.3.0`, OpenSpec `v1.3.1 → v1.11.0`, Conductor `v0.36.3 → v0.83.0`). Deep passes confirmed all three flagged core tools kept their tracked workflow shape — no re-scoring, no tier moves. Spec-Kit's brownfield limitation softened to "new and opt-in" (v0.15.2 constitution-sync preset) and its command count corrected 8 → 10; `ASSESSED_AS_OF` → 2026-08-28. Prose synced to match: README's stale-versions caveat retired (the July sweep's deferral is now resolved), Superpowers traction ~214K → ~279K stars, Spec-Kit's command list expanded to 10, and the BMad/Kiro/OpenSpec version lines in `docs/tools/` and `docs/use-case-scoring.md` brought current. New method ruling: pre-release tags (canary/rc) never displace a stable pin
 
 ### Security

@@ -405,6 +405,12 @@ them as a fenced **ARTIFICER SHIMS** block at the end of `styles.css` —
 verbatim mirrors, each tagged, retired wholesale at the first release
 > 0.24.2 (**tracked: spec-compare#35**).
 
+**RETIRED 2026-08-28 @ 0.25.0** — pin bumped, all five selectors verified
+byte-identical in the installed `artificer.css` (tabs `overflow-y`, sticky-col
+th coverage + z layers, responsive-table hardening incl. the sticky-col
+neutralize guard, `.scroll-x--fade`, `.badge--steel`), fenced block deleted.
+The adoptions table below (#18–#22) is permanent app code and stays.
+
 ### Adoptions (permanent app code, not shims)
 
 | # | type | pattern | what we did + why | upstream? |
