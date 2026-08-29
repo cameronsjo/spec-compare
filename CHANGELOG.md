@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- **Dependency refresh** (`site/package-lock.json`) — Cleared all 7 open dependabot alerts (transitive `esbuild`, `postcss`, `fast-uri`, `nanoid`, `vite`) via an in-range lockfile refresh; no direct dependency changed. Supersedes dependabot #19
+
 ### Fixed
 
 - **Mobile redesign of the data views** (`site/`) — At phone width the feature matrix now reflows to one card per tool (Artificer `.table--responsive` + `data-label`, tool name as card header) instead of ~3–4 screens of sideways scroll; the scoring heatmap stays a grid but scrolls inside a keyboard-reachable `.scroll-x` wrapper with an edge-fade "there's more" cue and the tool column pinned via `.table--sticky-col` (the hand-rolled sticky `.th-tool` pin is retired). The scenario tab strip no longer paints a phantom vertical scrollbar (upstream `.tabs` fix). Badges clear WCAG AA: maturity + emerging-tier badges moved to the new `.badge--steel` (fg-on-steel measured 3.4:1), and the core tier badge's text switched to `--on-accent` (was 1.7:1). The transport's Play button gained its missing `btn--primary` (rendered as native UA chrome). Upstream-first per the uniformity doctrine: five Artificer changes shimmed verbatim in `styles.css` until the first release > 0.24.2 (retirement tracked in #35; upstream artificer-design-system#424–#429)
