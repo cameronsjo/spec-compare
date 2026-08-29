@@ -636,6 +636,25 @@ body {
   white-space: nowrap;
 }
 
+/* Phone width: the sticky tool column is content-sized, and the longest
+   name ("GSD (Get Shit Done)") pushed it to ~310px — nearly the whole
+   viewport, so the score columns started past the fold and even a swipe
+   only peeked them out from under the pinned column. Cap the header's
+   inner spans (a table cell ignores max-width in auto layout; its content
+   doesn't), so ~2 score columns are visible before any swipe. Heatmap
+   only — the matrix reflows to cards at this width and the name is the
+   card title there. */
+@media (max-width: 640px) {
+  .heatmap-table .row-tool,
+  .heatmap-table .row-version {
+    display: block;
+    max-width: 104px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 /* ---- map (x/y scatter of computed fitness axes) ----
    The map SVG is viewBox'd, so its label px are user-space units that scale
    with the chart — immune to the v0.18 re-true (which only moves token/rem-
