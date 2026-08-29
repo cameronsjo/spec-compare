@@ -2,8 +2,8 @@
 approved_in: claude-code
 approved_session_id: 87ad1782-691b-4b2b-8117-a57fcd8dfa83
 date: 2026-08-28
-branch: chore/deps-2026-08
-status: executing
+branch: (multiple — see Deviations)
+status: done
 ---
 
 # spec-compare: issue burn-down + August refresh cycle + wing dependabot sweep
@@ -96,3 +96,14 @@ none declined — all findings folded in (unexecutable esbuild step replaced wit
 ## Provenance
 
 Producer tuple per commit (Session-Name/Session-Id/Model/Harness/Machine trailers) on all owned-repo commits; tuple block in PR bodies (squash-merge repos).
+
+## Deviations
+
+- **C (issue #16) closed with no code change.** Both halves were already fixed upstream in Artificer ≤0.24.2 (touch-hover latch → `@media (hover: hover)`; safe-area on `.nav-drawer > .sidenav`) and verified live post-#38/#39. Repro attempted at 440×956: no phantom highlight. Plan branch `fix/16-mobile-nav-drawer` created and discarded unused.
+- **A2's cameronsjo.github.io#8 escalated.** `@dependabot rebase` regenerated the PR as an astro 6.4.2 → 7.1.1 major (not the titled 6.4.6), a pipe-masked `gh pr checkout` failure let it merge with the build check run against the wrong tree, and main broke. Reverted (`60b9d59`), then fixed forward properly in #16: the root cause was an `overrides.vite: "7.3.3"` pin astro 7 cannot build under; dropping it lands vite 8.2.2, astro 7.2.9, and clears all 12 alerts.
+- **Session-Name correction.** Commits before the astro-7 fix carry `Session-Name: woolly-stroustrup` (guessed from the plan filename); the canon name is `swift-beacon`. `Session-Id` is correct on every commit, so provenance resolves.
+
+## Learnings
+
+- Dependabot cannot modify `package.json` `overrides`, so its framework-major PRs are unbuildable in a repo that pins a transitive via overrides — the fix has to be manual.
+- Pre-release tags (canary/rc) newer than the stable release now have a recorded sweep ruling: they never displace a stable pin (reassessment-2026-08-28 § Method findings).
