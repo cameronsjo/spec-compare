@@ -777,6 +777,8 @@ body {
     transform: none !important;
     border-radius: var(--radius-md) var(--radius-md) 0 0;
     padding: var(--s-md);
+    /* Clear the iPhone home indicator — same treatment as the nav drawer. */
+    padding-bottom: calc(var(--s-md) + env(safe-area-inset-bottom, 0px));
     pointer-events: auto;
   }
   .heat-pop-scrim {
@@ -785,6 +787,11 @@ body {
     inset: 0;
     z-index: 49;
     background: rgb(0 0 0 / 0.32);
+    /* Visual dimming only. An interactive scrim swallowed the pointerdown of
+       every tap while the sheet was open — including taps on other score dots,
+       which dismissed instead of switching. The window-level capture listener
+       owns dismissal in both layouts (it ignores .heat-cell/.heat-pop). */
+    pointer-events: none;
   }
 }
 
