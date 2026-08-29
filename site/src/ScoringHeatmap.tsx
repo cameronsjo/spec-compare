@@ -129,9 +129,13 @@ export function ScoringHeatmap() {
   const clearHover = () => setActive((a) => (a && !a.pinned ? null : a))
 
   // A pinned popover is anchored to a viewport rect, so it would drift on scroll/resize
-  // and linger past intent — dismiss it on Escape, scroll, or resize.
+  // and linger past intent — dismiss it on Escape, scroll, or resize. But ONLY in the
+  // floating layout: the bottom sheet is position:fixed and cannot drift, while on touch
+  // the tap that opens it also nudges a scroll (focus scroll-into-view, momentum), so a
+  // capture-phase scroll listener dismissed the sheet the instant it opened.
   useEffect(() => {
     if (!active) return
+    const sheet = window.matchMedia('(max-width: 640px)').matches
     const close = () => setActive(null)
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
     // Desktop outside-click dismissal: the scrim only covers the bottom-sheet layout,
@@ -142,9 +146,11 @@ export function ScoringHeatmap() {
       close()
     }
     window.addEventListener('keydown', onKey)
-    window.addEventListener('scroll', close, true)
-    window.addEventListener('resize', close)
     window.addEventListener('pointerdown', onPointerDown, true)
+    if (!sheet) {
+      window.addEventListener('scroll', close, true)
+      window.addEventListener('resize', close)
+    }
     return () => {
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('scroll', close, true)
@@ -263,8 +269,9 @@ export function ScoringHeatmap() {
 
       {active && activeTool && activeDim && activeScore != null && (
         <>
-          {/* Scrim catches outside taps to dismiss; CSS shows it only at bottom-sheet widths. */}
-          <div className="heat-pop-scrim" onClick={() => setActive(null)} />
+          {/* Visual-only dimming at bottom-sheet widths (pointer-events: none) —
+              dismissal is the window pointerdown capture listener in both layouts. */}
+          <div className="heat-pop-scrim" />
           <div
             className="heat-pop card"
             role="tooltip"
