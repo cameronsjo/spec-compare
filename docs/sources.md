@@ -169,7 +169,7 @@ All research is compiled from publicly available sources. Full citations are pro
 
 ### Superpowers
 
-- [GitHub: obra/superpowers](https://github.com/obra/superpowers) (~214K★, MIT)
+- [GitHub: obra/superpowers](https://github.com/obra/superpowers) (~279K★, MIT)
 - [Superpowers for Claude Code: Complete Guide 2026](https://pasqualepillitteri.it/en/news/215/superpowers-claude-code-complete-guide)
 
 ### Traycer

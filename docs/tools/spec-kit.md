@@ -14,7 +14,7 @@ The philosophy is that Product Requirements Documents (PRDs) aren't guides for i
 
 ## Key Features
 
-### 8 Slash Commands
+### 10 Slash Commands
 
 - `/speckit.constitution` - Establish project governing principles
 - `/speckit.specify` - Define requirements and user stories
@@ -24,6 +24,8 @@ The philosophy is that Product Requirements Documents (PRDs) aren't guides for i
 - `/speckit.clarify` - Resolve underspecified areas
 - `/speckit.analyze` - Validate consistency across artifacts
 - `/speckit.checklist` - Generate quality validation checklists
+- `/speckit.converge` - Reconcile drift between artifacts
+- `/speckit.taskstoissues` - Push the task breakdown out as tracker issues
 
 ### Additional Features
 
