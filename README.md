@@ -130,13 +130,13 @@ The research is organized into focused, digestible documents:
 
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|
-| **Spec-Kit** | Open Source | No | Greenfield projects | Production (v0.8.18) |
+| **Spec-Kit** | Open Source | No | Greenfield projects | Production (v1.0.1) |
 | **Spec Kitty** | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | **BMad Method** | Open Source | No | Enterprise workflows | Stable (v6.8.0) |
-| **OpenSpec** | MIT | No | Brownfield changes | Production (v1.3.1) |
+| **OpenSpec** | MIT | No | Brownfield changes | Production (v1.11.0) |
 | **Kiro** | Proprietary | No | IDE experience | GA (v0.12.x) |
 | **Tessl** | Proprietary | No | Spec-as-source | Active Dev (public) |
-| **Superpowers** | MIT | **Yes** | Disciplined autonomous dev | Active Dev (v5.1.0) |
+| **Superpowers** | MIT | **Yes** | Disciplined autonomous dev | Active Dev (v6.3.0) |
 | **Traycer** | Proprietary | No | Plan-first orchestration | Active Dev |
 
 > **Known stale versions:** the July 2026 sweep found Kiro at 1.0, Spec-Kit at v0.14.1, and Superpowers at v6.1.1. Each moved by more than a version string, so they are tracked in a follow-up rather than bumped in place — see [the sweep doc](docs/reassessment-2026-07-23.md#part-a--version-drift-tracked-tools).
@@ -201,4 +201,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-07-23
+**Last Updated:** 2026-08-28

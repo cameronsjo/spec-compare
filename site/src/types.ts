@@ -1,7 +1,7 @@
 // When the scores, feature flags, and tool versions were last swept against the
 // research docs. Single source of truth for the "pinned as of" stamp shown across
 // the site; mirrors README's "Last Updated". Bump this whenever the docs are re-swept.
-export const ASSESSED_AS_OF = '2026-07-23'
+export const ASSESSED_AS_OF = '2026-08-28'
 
 // Phase-kind vocabulary for spec-driven-development workflows. Fixed + colorable,
 // so phases are comparable across tools the way agentic-harnesses compared node kinds.
