@@ -59,3 +59,8 @@ approved_session_id: "6672ceaa-4ae4-4eae-a6cc-8c6690c3cd52"
 ## Panel
 
 Panel: none — PR validation with mechanical fixes only (lockfile revert, version pin, regenerated tables); no design decisions or security posture change.
+
+## Deviations
+
+- The PR head is on `littletuna4`'s fork, not on origin — the plan's step-1 claim (`headRepo: spec-compare`, push access confirmed) was wrong. `gh pr view 46 --json headRepositoryOwner` returns `littletuna4`.
+- The fix commit (`400bc9d`) is pushed to `cameronsjo/spec-compare` branch `update/reqlan` instead. A direct push to the fork was blocked by the guard-push-remote guardrail (unowned remote); landing path is Cameron's call: merge #46 then the fix branch, replace #46 with a PR from the fix branch (contributor authorship preserved on `ae0da5f`), or authorize the fork push.
