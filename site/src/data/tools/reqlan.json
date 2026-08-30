@@ -1,0 +1,42 @@
+{
+  "tool": "reqlan",
+  "displayName": "reqlan",
+  "vendor": "littletuna4",
+  "repo": "https://github.com/littletuna4/reqlan",
+  "website": "https://reqlan.com/",
+  "version": "v0.7.0",
+  "license": "AGPL-3.0-only",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Token-efficient requirements graph with PKM-style linking.",
+  "bestFor": "Semantic requirement traceability",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": false,
+    "dashboard": "No",
+    "mcp": true,
+    "ideIntegration": true,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 2, "medium": 3, "large": 3, "parallel": 2, "emergency": 1, "solo": 4, "contextMgmt": 4, "overall": 2.7 },
+  "keyFeatures": [
+    "Token-efficient .rq files: a name, short body, links to ideas/code/tests",
+    "PKM-style naming, wikilink-style idea linking, and tagging for requirement graphs",
+    "VS Code/Cursor extension with Langium-based language server",
+    "CLI and MCP server both use the same requirement graph index",
+    "Rust core for index and CLI performance",
+    "Static analysis for specifications: link validation, reference tracking, graph traversal"
+  ],
+  "limitations": [
+    "Very early stage project (~3 GitHub stars, first releases Aug 2026)",
+    "Solo maintainer with no proven track record or established user base",
+    "Requires learning a custom DSL (.rq syntax) separate from code",
+    "AGPL-3.0 license may be restrictive for commercial use",
+    "No orchestration layer — a requirements language, not a full SDD workflow"
+  ]
+}

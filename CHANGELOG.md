@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **reqlan tool profile** (`site/src/data/tools/reqlan.json`) — New **emerging** tool: token-efficient requirements graph language with PKM-style linking, wikilink references, and tagging. VS Code/Cursor extension with Langium-based language server, CLI, and MCP server all share the same requirement graph index. AGPL-3.0, Rust core for index/CLI. Very early stage (~3 stars, first releases Aug 2026, v0.7.0). *Note: This addition was contributed by an affiliated party (Tony Cerqui / littletuna4, author of reqlan). Assessment follows the same evidence-based standards applied to all tools.*
+
 ### Changed
 
 - **Artificer 0.25.0 + shim retirement** (`site/`) — Pin bumped `0.24.2 → 0.25.0`; the fenced ARTIFICER SHIMS block in `styles.css` (five verbatim mirrors carried since the mobile redesign) is deleted now that the release ships every rule: tabs phantom-scrollbar fix, `.table--sticky-col` row-header coverage, `.table--responsive` hardening, `.scroll-x--fade`, `.badge--steel`. Each selector verified byte-identical upstream before deletion; app CSS bundle shrank ~1.7 kB; retirement was tracked in #35

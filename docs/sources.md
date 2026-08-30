@@ -181,6 +181,16 @@ All research is compiled from publicly available sources. Full citations are pro
 
 - [GitHub: nahisaho/MUSUBI](https://github.com/nahisaho/MUSUBI) (~57★, no commits since Jan 2026)
 
+### reqlan
+
+- [reqlan Website](https://reqlan.com/)
+- [GitHub: littletuna4/reqlan](https://github.com/littletuna4/reqlan)
+- [reqlan VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=reqlan.reqlan-extension)
+- [reqlan Open VSX](https://open-vsx.org/extension/reqlan/reqlan-extension)
+- [reqlan MCP Server](https://mcpservers.org/servers/littletuna4/reqlan)
+- [@reqlan/analytical npm package](https://libraries.io/npm/@reqlan%2Fanalytical)
+- [Tony Cerqui LinkedIn — reqlan announcement](https://www.linkedin.com/posts/anthonycerqui_softwareengineering-ai-llm-activity-7492935948331143168--CqZ)
+
 ### 2026 Landscape Roundups
 
 - [9 Best AI Tools for Spec-Driven Development in 2026 — MarkTechPost](https://www.marktechpost.com/2026/05/08/9-best-ai-tools-for-spec-driven-development-in-2026-kiro-bmad-gsd-and-more-compare/)

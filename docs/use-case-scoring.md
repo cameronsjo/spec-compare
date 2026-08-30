@@ -271,7 +271,7 @@ This document grades each spec-driven development tool against real-world scenar
 
 ### Expanded Heatmap (Including New Tools)
 
-Numeric scores (1–5) for quick visual comparison across all 18 tracked tools (re-verified 2026-07-23; see [reassessment](reassessment-2026-07-23.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
+Numeric scores (1–5) for quick visual comparison across all 19 tracked tools (re-verified 2026-07-23; reqlan added 2026-08-30; see [reassessment](reassessment-2026-07-23.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
 
 ```text
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
@@ -294,6 +294,7 @@ Frame                3        3       3      4         2          3     3       
 GRACE                1        3       4      2         1          2     3             2.3
 GAAI                 2        3       4      3         1          2     4             2.7
 Smart Ralph          2        3       4      3         1          3     4             2.9
+reqlan v0.7.0        2        3       3      2         1          4     4             2.7
 ```
 
 **Reading the heatmap:**

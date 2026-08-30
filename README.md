@@ -65,6 +65,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **GRACE** - Contract-first Graph-RAG methodology as installable agent skills (XML artifacts, drift detection)
 - **GAAI** - Governed autonomous delivery: Discovery → git-tracked backlog → Delivery daemon (source-available, ELv2)
 - **Smart Ralph** - Claude Code/Codex plugin layering spec phases on the Ralph autonomous loop
+- **reqlan** - Token-efficient requirements graph with PKM-style linking, VS Code extension, CLI, and MCP server
 
 ## Key Findings
 

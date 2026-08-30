@@ -21,6 +21,7 @@
 | MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.1.2) |
 | [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.11.0) |
 | [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
+| reqlan | Emerging | AGPL-3.0-only | No | Semantic requirement traceability | Active Dev (v0.7.0) |
 | Smart Ralph | Emerging | MIT | No | Hands-off spec-to-code loops | Active Dev (v4.0.0) |
 | [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v1.0.1) |
@@ -49,6 +50,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
 | [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
+| reqlan | ❌ | ❌ | ❌ | No | ✅ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
 | Smart Ralph | ❌ | ⚠️ | ❌ | No | ✅ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ✅ | Kanban | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [Spec-Kit](tools/spec-kit.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
