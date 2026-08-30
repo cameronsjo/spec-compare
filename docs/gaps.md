@@ -151,6 +151,21 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### reqlan (marginal)
+
+**What it is:** A token-efficient requirements-graph DSL with PKM-style linking (`littletuna4/reqlan`, AGPL-3.0-only) for semantic requirement traceability. A multi-package monorepo: VS Code extension (v1.14.0), CLI (v0.10.0), MCP server (v0.4.0), plus language and analytical packages — all verified AGPL-3.0-only in their `package.json` (no root LICENSE file yet, so GitHub reports the repo license as unknown).
+
+**Why it's interesting:** It stakes out the requirement-*graph* corner none of the profiled tools cover — the closest neighbors (OpenSpec, Spec-Kit) are spec-*document* tools. Linked, queryable requirements with semantic traceability is a real shape in the space worth watching.
+
+**Gap assessment:** Noted here rather than profiled. Adoption is near zero (**~3★**, repo created 2026-06-21, solo maintainer) — the same side of the bar as archiet. Unlike archiet, the verifiable claims held up on inspection: license, package versions, and schema-shaped facts all checked clean in the author-submitted inclusion PR (affiliation honestly disclosed in body, commit, and changelog). The submitted heatmap scores were the author's own self-assessment, which the scoring policy doesn't accept regardless of plausibility. Revisit for an emerging-tier profile when adoption clears the bar.
+
+**Sources:**
+- [GitHub: littletuna4/reqlan](https://github.com/littletuna4/reqlan)
+- [reqlan.com](https://reqlan.com/)
+- [Inclusion PR #46](https://github.com/cameronsjo/spec-compare/pull/46)
+
+---
+
 ## Updates to Existing Tools
 
 ### July 2026 sweep

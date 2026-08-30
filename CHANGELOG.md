@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **reqlan watch entry** (`docs/gaps.md`) — Marginal watch-list entry for reqlan, a requirements-graph DSL with PKM-style linking (author-submitted inclusion PR #46, closed below the adoption bar per the PR #12 precedent). Claims verified clean — license, package versions, schema shape — unlike archiet's; revisit for an emerging-tier profile when adoption clears the bar
+
 ### Changed
 
 - **Artificer 0.25.0 + shim retirement** (`site/`) — Pin bumped `0.24.2 → 0.25.0`; the fenced ARTIFICER SHIMS block in `styles.css` (five verbatim mirrors carried since the mobile redesign) is deleted now that the release ships every rule: tabs phantom-scrollbar fix, `.table--sticky-col` row-header coverage, `.table--responsive` hardening, `.scroll-x--fade`, `.badge--steel`. Each selector verified byte-identical upstream before deletion; app CSS bundle shrank ~1.7 kB; retirement was tracked in #35
