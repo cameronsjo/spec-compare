@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Smaller initial download** (`site/scripts/minify-artificer.mjs`) — Production builds now minify Artificer CSS and classic scripts copied through Vite's public directory. Their combined gzip size drops from 62.4 KB to 22.0 KB; development sources and the existing design stay intact.
+
 - **Artificer 0.25.0 + shim retirement** (`site/`) — Pin bumped `0.24.2 → 0.25.0`; the fenced ARTIFICER SHIMS block in `styles.css` (five verbatim mirrors carried since the mobile redesign) is deleted now that the release ships every rule: tabs phantom-scrollbar fix, `.table--sticky-col` row-header coverage, `.table--responsive` hardening, `.scroll-x--fade`, `.badge--steel`. Each selector verified byte-identical upstream before deletion; app CSS bundle shrank ~1.7 kB; retirement was tracked in #35
 
 - **August 2026 reassessment** (`docs/reassessment-2026-08-28.md`) — Version-refresh sweep closing the issue-#22 drift: 11 of 18 pins bumped (headliners: Kiro IDE `v0.12.263 → v1.0.395` with the 1.0 GA, Spec-Kit `v0.8.18 → v1.0.1`, Superpowers `v5.1.0 → v6.3.0`, OpenSpec `v1.3.1 → v1.11.0`, Conductor `v0.36.3 → v0.83.0`). Deep passes confirmed all three flagged core tools kept their tracked workflow shape — no re-scoring, no tier moves. Spec-Kit's brownfield limitation softened to "new and opt-in" (v0.15.2 constitution-sync preset) and its command count corrected 8 → 10; `ASSESSED_AS_OF` → 2026-08-28. Prose synced to match: README's stale-versions caveat retired (the July sweep's deferral is now resolved), Superpowers traction ~214K → ~279K stars, Spec-Kit's command list expanded to 10, and the BMad/Kiro/OpenSpec version lines in `docs/tools/` and `docs/use-case-scoring.md` brought current. New method ruling: pre-release tags (canary/rc) never displace a stable pin
@@ -22,6 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Dependency refresh** (`site/package-lock.json`) — Cleared all 7 open dependabot alerts (transitive `esbuild`, `postcss`, `fast-uri`, `nanoid`, `vite`) via an in-range lockfile refresh; no direct dependency changed. Supersedes dependabot #19
 
 ### Fixed
+
+- **Mobile workflow carousel** (`site/src/WorkflowCompare.tsx`, `site/src/styles.css`) — The carousel follows the selected card's height, removing the large blank gap caused by taller off-screen diagrams. Pager buttons have separate touch targets, fixing taps that selected the neighboring tool; reduced-motion preferences are respected when jumping between cards.
 
 - **Heatmap detail sheet on touch** (`site/src/ScoringHeatmap.tsx`, `site/src/styles.css`) — The tap-detail bottom sheet was effectively unusable on phones, for two stacked reasons: a capture-phase scroll listener dismissed it the instant it opened (on iOS the opening tap itself nudges a scroll), and the full-screen scrim swallowed every subsequent tap, so tapping another dot dismissed instead of switching. Scroll/resize dismissal is now desktop-float-only (the sheet is `position: fixed` and cannot drift), the scrim is visual-only (`pointer-events: none`; the window capture listener owns dismissal in both layouts), and the sheet gained home-indicator safe-area padding
 

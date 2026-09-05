@@ -15,7 +15,7 @@ Goal: Codex will improve slower first visits and repair confirmed mobile renderi
 
 - [x] Review production loading and responsive rendering; record baseline.
 - [x] Minify the production design-system assets while retaining readable development copies. `npm run build && npm test` passes (39 tests); the postbuild step emits all eight minified CSS/JS files.
-- [ ] Fix mobile carousel height and any reproduced pager defects.
+- [x] Fix mobile carousel height and any reproduced pager defects. Real touchscreen taps reproduced overlapping pager targets (dots 0–6 selected the next tool). Each dot now has its own 24 × 44 px target; browser assertions verify all eight jumps, centered cards, and fitted heights at 320/390/800 px, plus desktop layout at 1440 px.
 - [ ] Run build, unit tests, and independent browser verification; record results.
 - [ ] Review final diff, update changelog, commit and push the branch.
 

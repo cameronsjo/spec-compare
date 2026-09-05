@@ -87,23 +87,34 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
     const el = gridRef.current
     if (!el) return
     const update = () => {
-      const center = el.scrollLeft + el.clientWidth / 2
+      const grid = el.getBoundingClientRect()
+      const center = grid.left + el.clientWidth / 2
       let active = 0
       let best = Infinity
       Array.from(el.children).forEach((c, i) => {
         const card = c as HTMLElement
-        const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center)
+        const rect = card.getBoundingClientRect()
+        const dist = Math.abs(rect.left + rect.width / 2 - center)
         if (dist < best) {
           best = dist
           active = i
         }
       })
-      setScroll({ overflowing: el.scrollWidth > el.clientWidth + 1, active })
+      const card = el.children[active] as HTMLElement | undefined
+      if (card) el.style.setProperty('--active-card-height', `${card.getBoundingClientRect().height}px`)
+      const overflowing = el.scrollWidth > el.clientWidth + 1
+      setScroll((previous) => previous.active === active && previous.overflowing === overflowing
+        ? previous : { overflowing, active })
     }
     update()
+    // Fonts, scenario captions, and viewport changes can resize a card without
+    // a scroll event. The mobile strip must follow its visible card each time.
+    const observer = new ResizeObserver(update)
+    Array.from(el.children).forEach((card) => observer.observe(card))
     el.addEventListener('scroll', update, { passive: true })
     window.addEventListener('resize', update)
     return () => {
+      observer.disconnect()
       el.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
     }
@@ -112,7 +123,12 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
     const el = gridRef.current
     const card = el?.children[i] as HTMLElement | undefined
     if (!el || !card) return
-    el.scrollTo({ left: card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' })
+    const grid = el.getBoundingClientRect()
+    const rect = card.getBoundingClientRect()
+    el.scrollTo({
+      left: el.scrollLeft + rect.left - grid.left - (el.clientWidth - rect.width) / 2,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+    })
   }
 
   return (
