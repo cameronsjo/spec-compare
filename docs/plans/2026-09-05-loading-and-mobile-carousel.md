@@ -14,7 +14,7 @@ Goal: Codex will improve slower first visits and repair confirmed mobile renderi
 ## Checklist
 
 - [x] Review production loading and responsive rendering; record baseline.
-- [ ] Minify the production design-system assets while retaining readable development copies.
+- [x] Minify the production design-system assets while retaining readable development copies. `npm run build && npm test` passes (39 tests); the postbuild step emits all eight minified CSS/JS files.
 - [ ] Fix mobile carousel height and any reproduced pager defects.
 - [ ] Run build, unit tests, and independent browser verification; record results.
 - [ ] Review final diff, update changelog, commit and push the branch.

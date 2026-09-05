@@ -13,6 +13,7 @@
     "dev": "vite",
     "prebuild": "npm run vendor:artificer",
     "build": "npm run validate && npm run gen:check && tsc && vite build",
+    "postbuild": "node scripts/minify-artificer.mjs",
     "preview": "vite preview",
     "test": "vitest run"
   },
@@ -27,6 +28,7 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "ajv": "^8.17.1",
+    "esbuild": "0.25.12",
     "typescript": "^5.6.3",
     "vite": "^6.4.2",
     "vitest": "^4.1.8"
