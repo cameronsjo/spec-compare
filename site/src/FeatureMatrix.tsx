@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { tools } from './data'
 import type { ToolSpec } from './types'
 
@@ -51,6 +51,13 @@ export function FeatureMatrix() {
   const [tier, setTier] = useState<Tier>('all')
   const [sortKey, setSortKey] = useState<string>('name')
   const [dir, setDir] = useState<1 | -1>(1)
+  const [cardLayout, setCardLayout] = useState(() => window.matchMedia('(max-width: 640px)').matches)
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 640px)')
+    const update = () => setCardLayout(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
 
   const rows = useMemo(() => {
     const filtered = tools.filter((t) => tier === 'all' || t.tier === tier)
@@ -94,18 +101,31 @@ export function FeatureMatrix() {
         </span>
       </div>
 
-      <div className="table-scroll matrix-scroll scroll-x scroll-x--fade" tabIndex={0}>
+      <div className="matrix-sort cluster">
+        <label className="sort-field">
+          Sort by
+          <select value={sortKey} onChange={(e) => { setSortKey(e.target.value); setDir(1) }}>
+            <option value="name">Tool name</option>
+            {COLUMNS.map((c) => <option key={c.key} value={c.key}>{c.label}</option>)}
+          </select>
+        </label>
+        <button type="button" className="btn btn--secondary" onClick={() => setDir((d) => d === 1 ? -1 : 1)}>
+          {dir === 1 ? 'Ascending ↑' : 'Descending ↓'}
+        </button>
+      </div>
+
+      <div className="table-scroll matrix-scroll scroll-x scroll-x--fade" tabIndex={cardLayout ? undefined : 0}>
         <table className="table table--sticky-head table--sticky-col table--responsive matrix-table">
           <thead>
             <tr>
               <th scope="col" className="th-tool" aria-sort={sortKey === 'name' ? (dir === 1 ? 'ascending' : 'descending') : 'none'}>
-                <button type="button" className="th-btn" onClick={() => sortBy('name')}>
+                <button type="button" className="th-btn" tabIndex={cardLayout ? -1 : 0} onClick={() => sortBy('name')}>
                   Tool{arrow('name')}
                 </button>
               </th>
               {COLUMNS.map((c) => (
                 <th key={c.key} scope="col" aria-sort={sortKey === c.key ? (dir === 1 ? 'ascending' : 'descending') : 'none'}>
-                  <button type="button" className="th-btn" onClick={() => sortBy(c.key)}>
+                  <button type="button" className="th-btn" tabIndex={cardLayout ? -1 : 0} onClick={() => sortBy(c.key)}>
                     {c.label}
                     {arrow(c.key)}
                   </button>

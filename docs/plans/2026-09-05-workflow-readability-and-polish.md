@@ -16,8 +16,8 @@ Cameron flagged the tiny Superpowers graph after the performance patch and asked
 
 - [x] Reproduce graph sizing across all eight core tools and five viewport widths.
 - [x] Fix single-tool graph layout, playback placement, profile identity, and phase-color consistency. Browser measurements pass all 40 tool/viewport cases at native SVG scale with natural height and no document overflow.
-- [ ] Fix mobile matrix sorting and invisible keyboard stops.
-- [ ] Complete the interaction audit and disposition its findings.
+- [x] Fix mobile matrix sorting and invisible keyboard stops. Browser checks verify the visible sort field and direction button, correct row ordering, and removal of hidden header/wrapper tab stops.
+- [x] Complete the interaction audit and disposition its findings. Map labels and coincident points are handled by the visible Inspect tool selector and existing score detail; GSD and Superpowers can be selected independently. Navigation and theme controls passed without changes.
 - [ ] Run build/tests and browser checks, including regression checks for the shipped carousel.
 - [ ] Review the full diff, update changelog, commit and push a reviewable PR.
 
