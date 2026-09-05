@@ -9,12 +9,13 @@ Cameron flagged the tiny Superpowers graph after the performance patch and asked
 - Core-tool profiles should show their name and pinned version, consistent with the emerging profiles. Inspector phase colors should use the existing shared phase palette instead of a separate partial mapping.
 - An independent Codex browser audit found that the mobile matrix visually hides 15 sortable header buttons but leaves them in the keyboard tab sequence. Provide visible mobile sorting controls and remove hidden controls from the tab sequence.
 - Continue the bounded interaction audit for reproduced defects; record any additions before fixing them.
+- Map followup: the mobile plot renders tool labels at roughly 6 px, and GSD/Superpowers share identical coordinates, making GSD unreachable by tapping the point. Add a visible tool selector that opens the existing score detail for any tool; hide unreadable tool labels on phones. Keep the plotted coordinates honest. Navigation, view switching, and mobile theme toggling passed the independent audit.
 - Declined: shrinking diagrams to force two columns, adding a charting dependency, redesigning the theme, or reopening the shipped LCP work.
 
 ## Checklist
 
 - [x] Reproduce graph sizing across all eight core tools and five viewport widths.
-- [ ] Fix single-tool graph layout, playback placement, profile identity, and phase-color consistency.
+- [x] Fix single-tool graph layout, playback placement, profile identity, and phase-color consistency. Browser measurements pass all 40 tool/viewport cases at native SVG scale with natural height and no document overflow.
 - [ ] Fix mobile matrix sorting and invisible keyboard stops.
 - [ ] Complete the interaction audit and disposition its findings.
 - [ ] Run build/tests and browser checks, including regression checks for the shipped carousel.

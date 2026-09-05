@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import type { ToolSpec } from './types'
-import { KIND_LABEL, SCENARIO_META } from './types'
+import { KIND_COLOR, KIND_LABEL, SCENARIO_META } from './types'
 import { scenario } from './data'
 import { Anchored } from './Anchored'
 import { LoopGraph } from './LoopGraph'
@@ -56,27 +56,25 @@ export function WorkflowPlayer({ spec, scenarioId, onScenarioChange }: Props) {
       </p>
       {meta?.description && <p className="scenario-desc">{meta.description}</p>}
 
+      <div className="player-transport">
+        <TransportBar player={player} playLabel="Play" total={sc.steps.length} counterLabel="step" />
+        {atEnd && (
+          <span className="turn-complete" ref={captionRef}>
+            workflow complete
+          </span>
+        )}
+      </div>
+
       <div className="player-body">
-        <div className="card graph-pane">
+        <div className="card graph-pane" role="region" aria-label={`${spec.displayName} workflow diagram`} tabIndex={0}>
           <LoopGraph spec={spec} activeNodeId={activeNodeId} activeEdge={activeEdge} />
         </div>
 
         <aside className="inspector">
-          <TransportBar player={player} playLabel="Play" />
-
-          <div className="step-counter">
-            step <b>{step + 1}</b> / {sc.steps.length}
-            {atEnd && (
-              <span className="turn-complete" ref={captionRef}>
-                workflow complete
-              </span>
-            )}
-          </div>
-
           {node && (
             <div className="card card--active node-card">
               <div className="node-card-head">
-                <span className={`dot dot--${dotFor(node.kind)}`} />
+                <span className="dot" style={{ background: KIND_COLOR[node.kind] }} />
                 <b>{node.label}</b>
               </div>
               <div className="node-kind">{KIND_LABEL[node.kind]}</div>
@@ -104,18 +102,4 @@ export function WorkflowPlayer({ spec, scenarioId, onScenarioChange }: Props) {
       </div>
     </div>
   )
-}
-
-// Map phase kinds onto the Artificer status-dot variants that exist in the CSS.
-function dotFor(kind: string): string {
-  switch (kind) {
-    case 'decision':
-      return 'urgent'
-    case 'tasks':
-      return 'attention'
-    case 'implement':
-      return 'success'
-    default:
-      return 'accent'
-  }
 }
