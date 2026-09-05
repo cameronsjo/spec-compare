@@ -19,7 +19,7 @@ Cameron flagged the tiny Superpowers graph after the performance patch and asked
 - [x] Fix mobile matrix sorting and invisible keyboard stops. Browser checks verify the visible sort field and direction button, correct row ordering, and removal of hidden header/wrapper tab stops.
 - [x] Complete the interaction audit and disposition its findings. Map labels and coincident points are handled by the visible Inspect tool selector and existing score detail; GSD and Superpowers can be selected independently. Navigation and theme controls passed without changes.
 - [x] Run build/tests and browser checks, including regression checks for the shipped carousel. `npm run build && npm test` passes all 39 tests. Chromium and WebKit each pass 40 graph sizing cases; dark/light interaction checks pass at 390/820/1440 px. The prior carousel assertions still pass at 320/390/800/1440 px.
-- [ ] Review the full diff, update changelog, commit and push a reviewable PR.
+- [x] Review the full diff, update changelog, commit and push a reviewable PR. Correctness and simplification reviews are complete; [draft PR #49](https://github.com/cameronsjo/spec-compare/pull/49) contains the verified changes. Deployment awaits merge.
 
 The previous performance/carousel patch is live as PR #48, merge commit `a3f5acd`.
 
