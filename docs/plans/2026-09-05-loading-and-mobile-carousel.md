@@ -16,7 +16,15 @@ Goal: Codex will improve slower first visits and repair confirmed mobile renderi
 - [x] Review production loading and responsive rendering; record baseline.
 - [x] Minify the production design-system assets while retaining readable development copies. `npm run build && npm test` passes (39 tests); the postbuild step emits all eight minified CSS/JS files.
 - [x] Fix mobile carousel height and any reproduced pager defects. Real touchscreen taps reproduced overlapping pager targets (dots 0–6 selected the next tool). Each dot now has its own 24 × 44 px target; browser assertions verify all eight jumps, centered cards, and fitted heights at 320/390/800 px, plus desktop layout at 1440 px.
-- [ ] Run build, unit tests, and independent browser verification; record results.
-- [ ] Review final diff, update changelog, commit and push the branch.
+- [x] Run build, unit tests, and independent browser verification; record results. `npm run build && npm test` passes (39 tests). `node /private/tmp/spec-compare-perf/check-render.cjs` passes at 320/390/800/1440 px, asserting real touchscreen targets, centered cards, correct height, no document overflow, no page exceptions, and preserved classic-script APIs.
+- [x] Review final diff, update changelog, commit and push the branch. Correctness/simplification review found no remaining blocker; an independent Codex browser review reconfirmed all pager targets, fitted heights, desktop behavior, and responsive resizing. The implementation commits are pushed on `fix/loading-and-mobile-carousel`; production remains unchanged pending PR review and merge.
 
 Font-swap movement remains a separate finding: the throttled cold-mobile test measured 0.267 cumulative shift, despite green field CLS. Revisit with more field samples before changing font strategy.
+
+## Final measurement
+
+`node /private/tmp/spec-compare-perf/measure.cjs http://127.0.0.1:4178/fixed/ final` measured the complete production patch with the same settings and gzip server as the control. Mobile LCP: 1,024 / 1,004 / 1,008 ms; median **1,008 ms versus 1,200 ms** for the unchanged build (16% faster). The introductory paragraph remains the LCP element. No field improvement is claimed before deployment and collection of more visits.
+
+The independent renderer also checked light-mode 320 px matrix, heatmap, and decision views: intentional internal scrolling stays contained, without document overflow. The baseline browser assertion failed on the overlapping pager target before the fix, so its passing result exercises the reproduced defect.
+
+Dependency review found one existing build-only Browserslist audit entry in the pinned tree (`npm audit --json`); no dependency versions were upgraded in this loading/rendering patch. esbuild is declared directly at the version already present transitively.
