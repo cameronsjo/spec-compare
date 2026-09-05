@@ -142,7 +142,7 @@ export function ScoringHeatmap() {
     // so a floating popover needs a capture listener that ignores clicks on a cell/point
     // or inside the popover itself (so pin-on-click and in-popover taps survive).
     const onPointerDown = (e: PointerEvent) => {
-      if ((e.target as Element | null)?.closest('.heat-pop, .heat-cell, .map-pt')) return
+      if ((e.target as Element | null)?.closest('.heat-pop, .heat-cell, .map-pt, .map-inspect')) return
       close()
     }
     window.addEventListener('keydown', onKey)
@@ -206,7 +206,19 @@ export function ScoringHeatmap() {
       </div>
 
       {mode === 'map' ? (
-        <ScatterMap active={active} handlers={cellHandlers} />
+        <>
+          <label className="sort-field map-inspect">
+            Inspect tool
+            <select
+              value={active?.tool ?? ''}
+              onChange={(e) => e.target.value ? show(e.target.value, 'overall', e.currentTarget, true) : setActive(null)}
+            >
+              <option value="">Choose a tool…</option>
+              {tools.map((tool) => <option key={tool.tool} value={tool.tool}>{tool.displayName}</option>)}
+            </select>
+          </label>
+          <ScatterMap active={active} handlers={cellHandlers} />
+        </>
       ) : (
         <div className="table-scroll scroll-x scroll-x--fade" tabIndex={0}>
           <table className={`table table--sticky-head table--sticky-col heatmap-table heatmap-table--${mode}`}>
@@ -305,7 +317,8 @@ export function ScoringHeatmap() {
         {mode === 'map' ? (
           <>
             Axes are computed from the scores — <b>quick-change</b> = trivial + emergency + solo; <b>large-scale</b> =
-            large + parallel + medium. Top-right = strong on both.
+            large + parallel + medium. Top-right = strong on both. Tools with matching scores share a point;
+            use Inspect tool to select either one.
           </>
         ) : (
           <>

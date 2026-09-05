@@ -161,6 +161,10 @@ export function App() {
           ) : spec.tier === 'core' ? (
             <>
               <div className="harness-meta">
+                <div className="harness-heading">
+                  <h2 className="profile-name">{spec.displayName}</h2>
+                  <span className="badge badge--ghost">{spec.version}</span>
+                </div>
                 <span className="badge badge--steel lang-badge">{spec.maturity}</span>
                 <span className="loop-style">{spec.tagline}</span>
                 {spec.repo && (

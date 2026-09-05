@@ -295,6 +295,13 @@ body {
   min-height: 0;
   margin-bottom: 0;
 }
+.harness-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s-sm);
+  flex-basis: 100%;
+}
 .repo-link {
   color: var(--accent);
   font-size: 0.85rem;
@@ -308,23 +315,51 @@ body {
 .repo-link .anchor {
   color: inherit;
 }
+.player {
+  container: workflow-player / inline-size;
+}
+.player-transport {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-sm);
+  margin-bottom: var(--s-md);
+}
 .player-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-lg);
   align-items: start;
 }
 .graph-pane {
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
+  padding: var(--s-md);
   overflow-x: auto;
 }
+.graph-pane svg {
+  /* Never flex-shrink the width while preserving the SVG's full height: that
+     turns a readable diagram into a tiny drawing inside a tall blank box. */
+  flex: none;
+  max-width: none;
+  height: auto;
+  margin-inline: auto;
+}
 .inspector {
-  position: sticky;
-  top: var(--s-md);
   display: flex;
   flex-direction: column;
   gap: var(--s-md);
+}
+/* Room for the widest diagram, card padding, gap, and inspector. The sidebar
+   consumes viewport space too, so the player's own width governs the split. */
+@container workflow-player (min-width: 700px) {
+  .player-body {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+  .inspector {
+    position: sticky;
+    top: calc(56px + var(--s-md));
+  }
 }
 .node-card-head {
   display: flex;
@@ -380,6 +415,31 @@ body {
 }
 
 /* ---- shared bits ---- */
+.sort-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-sm);
+  font-size: 0.85rem;
+}
+.sort-field select {
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--s-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-raised);
+  color: var(--fg);
+  font: inherit;
+}
+.matrix-sort {
+  display: none;
+}
+@media (max-width: 640px) {
+  .matrix-sort {
+    display: flex;
+  }
+}
 .source-ref {
   font-family: var(--font-mono);
   font-size: 0.74rem;
@@ -731,6 +791,14 @@ body {
   fill: var(--fg);
   font-weight: 700;
 }
+@media (max-width: 640px) {
+  /* The overview can shrink, but its tool names become illegible. The visible
+     Inspect tool control and detail sheet provide full names and exact scores. */
+  .map-label,
+  .map-leader {
+    display: none;
+  }
+}
 
 /* ---- heatmap detail popover (hover/focus on desktop, tap on touch) ---- */
 .heat-pop {
@@ -1051,19 +1119,7 @@ body {
      `grid-column: main-start / main-end` onto implicit columns, shoving the
      content right of an empty 1fr track on phones. Deleted, not fixed: the
      shim's whole reason (no upstream collapse) no longer exists. */
-  .player-body {
-    grid-template-columns: 1fr;
-  }
-  .inspector {
-    position: static;
-  }
   .flow-opts {
     grid-template-columns: 1fr;
-  }
-  /* Shrink the single-tool loop diagram to the viewport (the LoopGraph SVG carries
-     an explicit px width); desktop keeps full size + .graph-pane's overflow scroll. */
-  .graph-pane svg {
-    max-width: 100%;
-    height: auto;
   }
 }
