@@ -166,6 +166,22 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### SpecBuddy (marginal)
+
+**What it is:** An IDE-native spec → plan → step-execution → review loop shipped as editor plugins rather than a CLI: a JetBrains plugin (`dev.specbuddy.intellijplugin`, v0.11.0, 2026-09-03) and a VS Code / Open VSX extension (`AleksandrShustanov.spec-buddy-vscode`, v0.9.8, 2026-09-04). You write a plain Markdown spec in the editor, approve a generated step-by-step plan, and Claude Code or Codex executes it one step at a time in a dedicated git worktree; each step yields a diff you accept, refine with inline comments, or roll back to its pre-step snapshot. A chat mode wraps ordinary agent sessions in the same accept/rollback engine with no spec at all. Closed source under a custom EULA (`specbuddy.dev/eula`), free during public beta, no billing.
+
+**Why it's interesting:** It puts the *review surface* at the center rather than the spec format — per-step diffs, pre/post snapshots, one-click rollback, and worktree isolation so the working tree stays clean until a step is accepted. That is roughly Traycer's Plan → Execute → Verify shape, but landed inside the IDE's own diff and VCS tooling and gated per step instead of per phase. The two tracked tools that also ship JetBrains plugins (Zencoder, Kilo Code) are agent platforms where SDD is one mode among many; here the plan-and-step loop *is* the IDE surface. Specs and plans stay plain Markdown files in the repository, so it composes with a document-first flow rather than replacing it.
+
+**Gap assessment:** Noted here rather than profiled — adoption is well below the bar. As of 2026-09-08: 323 JetBrains Marketplace downloads across 4 reviews, 812 Open VSX downloads, 3 VS Code Marketplace installs; public beta opened July 2026, no paid tier yet. Closed source with no public product repository — the Open VSX listing's `repository` field points at a private repo and 404s, and only the docs and agent-skill repos under the `SpecBuddy` org are public — so the feature claims above trace to the marketplace listings, not to inspectable source. Author-submitted: affiliation is disclosed in the inclusion PR body, the commit trailer, and this paragraph. No heatmap scores are proposed, per the scoring policy stated in the PR #46 ruling. Revisit for an emerging-tier profile if adoption clears the bar.
+
+**Sources:**
+- [JetBrains Marketplace: SpecBuddy](https://plugins.jetbrains.com/plugin/32645-specbuddy)
+- [Open VSX: AleksandrShustanov/spec-buddy-vscode](https://open-vsx.org/extension/AleksandrShustanov/spec-buddy-vscode)
+- [specbuddy.dev](https://specbuddy.dev/)
+- [Inclusion PR #50](https://github.com/cameronsjo/spec-compare/pull/50)
+
+---
+
 ## Updates to Existing Tools
 
 ### July 2026 sweep
