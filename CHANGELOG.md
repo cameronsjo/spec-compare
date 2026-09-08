@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **SpecBuddy watch entry** (`docs/gaps.md`) — Marginal watch-list entry for SpecBuddy, a JetBrains/VS Code plugin pair that gates agent execution step by step: Markdown spec → approved plan → one step at a time in an isolated git worktree, with a per-step diff to accept, refine, or roll back (author-submitted inclusion PR, below the adoption bar per the #46 / #12 precedent). Closed source, so the claims trace to the marketplace listings rather than to inspectable source; revisit for an emerging-tier profile if adoption clears the bar
+
 - **reqlan watch entry** (`docs/gaps.md`) — Marginal watch-list entry for reqlan, a requirements-graph DSL with PKM-style linking (author-submitted inclusion PR #46, closed below the adoption bar per the PR #12 precedent). Claims verified clean — license, package versions, schema shape — unlike archiet's; revisit for an emerging-tier profile when adoption clears the bar
 
 ### Changed
