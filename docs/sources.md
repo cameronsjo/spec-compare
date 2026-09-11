@@ -199,6 +199,14 @@ All research is compiled from publicly available sources. Full citations are pro
 ### Academic
 - [Spec-Driven Development: From Code to Contract — ArXiv](https://arxiv.org/abs/2602.00180) (Deepak Babu Piskala, January 2026)
 
+### Memex (Mindset AI) — August 2026 review
+- [Memex product site](https://www.memex.ai)
+- [mindset-ai/memex-ai — full source](https://github.com/mindset-ai/memex-ai) (README, SDD.md, docs/local-mcp-client.md; verified 2026-08-12)
+- [Memex docs — Mindset AI Documentation](https://docs.mindset.ai/memex/introduction/overview)
+- [Mindset AI raises £4.3M — Tech.eu](https://tech.eu/2025/04/15/uk-based-mindset-ai-raises-ps43m-to-enhance-saas-companies-with-ai-features/)
+- [Mindset AI funding — FinSMEs](https://www.finsmes.com/2025/04/mindset-ai-raises-4-3m-in-funding.html)
+- Vendor outreach via LinkedIn (July 2026) — claims quoted and checked in [memex-review.md](memex-review.md); review conducted independently
+
 ## Research Methodology
 
 This comparison was compiled through:

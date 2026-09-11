@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Memex review** (`docs/memex-review.md`, `site/src/data/tools/memex.json`) — **Solicited** review (Mindset AI reached out via LinkedIn; disclosure in the doc, conducted independently from public sources) of the fair-code Specify & Verify platform: specs as a typed Postgres-backed decision database with per-criterion CI-verified acceptance criteria, Standards drift detection, and a knowledge graph, edited concurrently via web UI and MCP. Enters at **emerging tier** (2.9 overall) as the earliest-stage commercial entrant tracked — no tagged releases, 29★/0 forks — with promotion triggers attached. Heatmap and matrices now span **19 tools, 8 core**; `data.test.ts` count invariant updated
+
 - **reqlan watch entry** (`docs/gaps.md`) — Marginal watch-list entry for reqlan, a requirements-graph DSL with PKM-style linking (author-submitted inclusion PR #46, closed below the adoption bar per the PR #12 precedent). Claims verified clean — license, package versions, schema shape — unlike archiet's; revisit for an emerging-tier profile when adoption clears the bar
 
 ### Changed
@@ -62,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **README restructured for the 19-tool set** — The dated tool sections (Original / May 2026 / July 2026 / August 2026 additions) collapse into a single roster: Core (8) and Emerging (11) plus the two unscored gap entries, with entry dates delegated to this changelog and the reassessment docs. Adds "The Enforcement Gap" as a headline finding (Traycer / MoAI-ADK / GRACE / Memex attack it from different angles), extends the worktree-automation list with MoAI-ADK and Frame, scopes the Quick Comparison table as core-only with a pointer to the generated 19-tool table, date-stamps the Market Context claims as early-2025 signals, and rewrites the intro as an independence-first summary. The GitHub repo description ("…comparing 6 spec-driven development tools…") is superseded by matching About text proposed alongside this change
 - **July 2026 sweep** — Re-verified the five new candidates and Spec Kitty against source repos on 2026-07-23; bumped `ASSESSED_AS_OF` → 2026-07-23:
   - **Spec Kitty** v3.1.9 → **v3.2.5**: charter consolidation (a single `charter.yaml` replaces four governance files), append-only event log for work-package state, coordination-topology/split-brain fixes, new CLI surfaces (`review --check-residual`, `orchestrator-api resolve-workspace`, `doctor shim-registry`); limitations now flag the breaking-change cadence. Scores/phases/scenarios unchanged — no hands-on re-eval this pass
   - Heatmap and feature matrix now span **18 tools, 8 core** (was 13/8); `data.test.ts` count invariant updated
