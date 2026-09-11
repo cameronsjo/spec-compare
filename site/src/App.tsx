@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { AppShell, AppShellContent, Appbar, NavDrawer, SideNav, SideNavFooter, ThemeToggle, type SideNavGroup } from '@cameronsjo/artificer/react'
 import { tools, coreTools, toolBySlug } from './data'
 import { KIND_COLOR, KIND_LABEL, ASSESSED_AS_OF, type PhaseKind } from './types'
 import { WorkflowCompare } from './WorkflowCompare'
@@ -32,6 +33,10 @@ const emergingTools = tools.filter((t) => t.tier === 'emerging')
 
 const KINDS: PhaseKind[] = ['govern', 'specify', 'design', 'tasks', 'implement', 'review', 'archive', 'decision']
 
+// Matches --bp-tablet (800px), which the Appbar/SideNav chrome components key
+// their own hamburger/drawer takeover off of internally.
+const SIDENAV_STICKY_STYLE = { '--sidenav-sticky-top': 'calc(56px + var(--s-md))' } as CSSProperties
+
 export function App() {
   const [nav, setNav] = useState<string>('compare') // overview id, about-view id, OR tool slug
   const [scenarioId, setScenarioId] = useState('trivial-mod') // lifted — persists across switches
@@ -45,17 +50,47 @@ export function App() {
     setNavOpen(false)
   }
 
+  // The between-surface spine: overview surfaces, then core tools, then emerging tools,
+  // then about. SideNav owns the flat (desktop rail) / collapsible-sections (drawer)
+  // rendering and, in `sections` mode, the whole open-state machine — this is only the
+  // group/item DATA, shared by both SideNav instances below.
+  const navGroups: SideNavGroup[] = [
+    {
+      key: 'overview',
+      label: 'Overview',
+      items: OVERVIEW.map((o) => ({ key: o.id, label: o.label, active: nav === o.id, onSelect: () => selectNav(o.id) })),
+    },
+    {
+      key: 'core',
+      label: 'Core tools',
+      items: coreTools.map((t) => ({ key: t.tool, label: t.displayName, active: nav === t.tool, onSelect: () => selectNav(t.tool) })),
+    },
+    {
+      key: 'emerging',
+      label: 'Emerging tools',
+      items: emergingTools.map((t) => ({ key: t.tool, label: t.displayName, active: nav === t.tool, onSelect: () => selectNav(t.tool) })),
+    },
+    {
+      key: 'about',
+      label: 'About',
+      items: ABOUT.map((a) => ({ key: a.id, label: a.label, active: nav === a.id, onSelect: () => selectNav(a.id) })),
+    },
+  ]
+
   // The persistent whimsy: the wordmark breathes the ultrathink shimmer for three
-  // hue-cycles on load, then drifts glacially. React mounts after DOMContentLoaded.
-  const titleRef = useRef<HTMLAnchorElement>(null)
+  // hue-cycles on load, then drifts glacially. Appbar is a plain function component
+  // (no forwardRef), so there's no ref prop to reach its rendered `.wordmark` span —
+  // query it by selector, scoped to the app root, once after mount.
+  const appRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const cancel = window.Whimsy?.run(titleRef.current, { loops: 3, settle: 'glacial' })
+    const el = appRef.current?.querySelector<HTMLElement>('.appbar__brand .wordmark') ?? null
+    const cancel = window.Whimsy?.run(el, { loops: 3, settle: 'glacial' })
     return () => cancel?.()
   }, [])
 
   // The icon script only hydrates `<i data-icon>` once on DOMContentLoaded, which
-  // misses anything React mounts later (the hamburger, the drawer). observe()
-  // re-hydrates and watches for inserted nodes so those icons aren't blank.
+  // misses anything React mounts later (the hamburger, the drawer, sidenav rows).
+  // observe() re-hydrates and watches for inserted nodes so those icons aren't blank.
   useEffect(() => window.ArtificerIcons?.observe(), [])
 
   // Same DOMContentLoaded miss as the icons above: Whimsy scans for
@@ -67,49 +102,20 @@ export function App() {
     window.Whimsy?.greeting()
   }, [])
 
-  // Mobile drawer focus management — inert when closed, focus-trapped when open.
-  const drawerRef = useRef<HTMLElement>(null)
-  useEffect(() => {
-    const el = drawerRef.current
-    if (!el) return
-    if (!navOpen) {
-      el.setAttribute('inert', '')
-      return
-    }
-    el.removeAttribute('inert')
-    const handle = window.ArtificerFocus?.trap(el, { onEscape: () => setNavOpen(false) })
-    return () => handle?.release()
-  }, [navOpen])
-
   return (
-    <div className="app container container--lg surface-tool" data-nav-open={navOpen ? '' : undefined}>
+    <div className="app container container--lg surface-tool" ref={appRef}>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
 
-      <header className="appbar">
-        <button
-          type="button"
-          className="btn btn--ghost btn--icon appbar__menu-btn"
-          aria-label="Open navigation"
-          aria-expanded={navOpen}
-          aria-controls="nav-drawer"
-          onClick={() => setNavOpen(true)}
-        >
-          <i data-icon="menu" data-icon-size="32" />
-        </button>
-        {/* Native composition: `.wordmark` on the `.appbar__brand` flex container.
-            v0.18 makes `.wordmark` inline-block (blockified as a flex item), so its
-            ::after accent period stays an inline box rather than a detached flex
-            item — the #81 workaround (separate inline span) is no longer needed. */}
-        <a className="appbar__brand wordmark whimsy" href="#main" ref={titleRef}>
-          spec-driven development
-        </a>
-        <span className="appbar__spacer" />
-        <div className="appbar__actions">
-          <ThemeToggle />
-        </div>
-      </header>
+      <Appbar
+        brand="spec-driven development"
+        brandHref="#main"
+        brandWhimsy
+        contained
+        menu={{ controls: 'nav-drawer', open: navOpen, onClick: () => setNavOpen((open) => !open) }}
+        actions={<ThemeToggle inline />}
+      />
 
       <section className="intro stack stack--sm">
         <p className="lede t-body-lg">
@@ -126,12 +132,10 @@ export function App() {
         </div>
       </section>
 
-      <div className="app-shell">
-        <aside className="app-sidenav">
-          <ToolNav nav={nav} onSelect={selectNav} />
-        </aside>
+      <AppShell rail="210px" gap="var(--s-lg)">
+        <SideNav groups={navGroups} sticky style={SIDENAV_STICKY_STYLE} />
 
-        <main id="main" className="stack stack--lg">
+        <AppShellContent id="main">
           {showLegend && <Legend />}
 
           {tools.length === 0 ? (
@@ -157,7 +161,11 @@ export function App() {
           ) : spec.tier === 'core' ? (
             <>
               <div className="harness-meta">
-                <span className="badge lang-badge">{spec.maturity}</span>
+                <div className="harness-heading">
+                  <h2 className="profile-name">{spec.displayName}</h2>
+                  <span className="badge badge--ghost">{spec.version}</span>
+                </div>
+                <span className="badge badge--steel lang-badge">{spec.maturity}</span>
                 <span className="loop-style">{spec.tagline}</span>
                 {spec.repo && (
                   <a className="repo-link" href={spec.repo} target="_blank" rel="noreferrer">
@@ -170,14 +178,12 @@ export function App() {
           ) : (
             <ToolProfile spec={spec} />
           )}
-        </main>
-      </div>
+        </AppShellContent>
+      </AppShell>
 
-      {/* Mobile drawer: scrim + off-canvas sidenav. data-nav-open on .app drives both. */}
-      <div className="nav-scrim" onClick={() => setNavOpen(false)} />
-      <aside id="nav-drawer" className="nav-drawer" aria-hidden={!navOpen} ref={drawerRef}>
-        <ToolNav nav={nav} onSelect={selectNav} />
-      </aside>
+      <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} id="nav-drawer">
+        <SideNav groups={navGroups} sections footer={<SideNavFooter />} />
+      </NavDrawer>
 
       {/* Three-zone colophon (Artificer .colophon / .colophon__spine, #97/#324): the
           links open the full About + Disclosure views (the old provenance/affiliation
@@ -205,83 +211,6 @@ export function App() {
         </div>
       </footer>
     </div>
-  )
-}
-
-/**
- * The between-surface spine: overview surfaces, then core tools, then emerging tools.
- * These switch app state rather than navigate, so they're <button>s — styles.css
- * carries a `.sidenav button` shim matching Artificer's `.sidenav a` grammar.
- */
-function ToolNav({ nav, onSelect }: { nav: string; onSelect: (id: string) => void }) {
-  return (
-    <nav className="sidenav" aria-label="Views and tools">
-      <div className="sidenav__group">Overview</div>
-      {OVERVIEW.map((o) => (
-        <button key={o.id} type="button" aria-current={nav === o.id ? 'page' : undefined} onClick={() => onSelect(o.id)}>
-          <span className="label">{o.label}</span>
-        </button>
-      ))}
-
-      <div className="sidenav__group">Core tools</div>
-      {coreTools.map((t) => (
-        <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-          <span className="label">{t.displayName}</span>
-        </button>
-      ))}
-
-      <div className="sidenav__group">Emerging tools</div>
-      {emergingTools.map((t) => (
-        <button key={t.tool} type="button" aria-current={nav === t.tool ? 'page' : undefined} onClick={() => onSelect(t.tool)}>
-          <span className="label">{t.displayName}</span>
-        </button>
-      ))}
-
-      <div className="sidenav__group">About</div>
-      {ABOUT.map((a) => (
-        <button key={a.id} type="button" aria-current={nav === a.id ? 'page' : undefined} onClick={() => onSelect(a.id)}>
-          <span className="label">{a.label}</span>
-        </button>
-      ))}
-    </nav>
-  )
-}
-
-const THEME_KEY = 'artificer.theme'
-
-function readTheme(): 'light' | 'dark' {
-  const attr = document.documentElement.getAttribute('data-theme')
-  if (attr === 'light' || attr === 'dark') return attr
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
-}
-
-/**
- * Owns the theme toggle in React. The vendored artificer-theme.js binds on
- * DOMContentLoaded — before this SPA mounts — so its click handler never attaches.
- * We drive the same `data-theme` attribute + `artificer.theme` key here.
- */
-function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(readTheme)
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    try {
-      localStorage.setItem(THEME_KEY, theme)
-    } catch {
-      // localStorage unavailable (private mode etc.) — theme still applies for the session.
-    }
-  }, [theme])
-
-  return (
-    <button
-      type="button"
-      className="theme-toggle"
-      aria-label="Toggle light or dark theme"
-      onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-    >
-      <span className="dot" />
-      <span>{theme === 'light' ? 'Light' : 'Dark'}</span>
-    </button>
   )
 }
 

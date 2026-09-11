@@ -5,7 +5,7 @@
 **Website:** https://openspec.dev/
 **Status:** Production-ready
 **License:** MIT
-**Current Version:** v1.3.1 (April 21, 2026)
+**Current Version:** v1.11.0 (Aug 2026)
 
 ## Core Approach
 

@@ -4,8 +4,8 @@
 **Repository:** https://github.com/obra/superpowers
 **Status:** Active development
 **License:** MIT
-**Current Version:** v5.1.0 (May 4, 2026)
-**Traction:** ~214K GitHub stars — the largest project in the spec-driven-development category. Created by Jesse Vincent (obra) and the team at Prime Radiant.
+**Current Version:** v6.3.0 (Aug 12, 2026)
+**Traction:** ~279K GitHub stars — the largest project in the spec-driven-development category. Created by Jesse Vincent (obra) and the team at Prime Radiant.
 
 > **Disclosure:** This project's author keeps a personal, unreleased SDD rig — **cadence** — filed down from Superpowers after it felt too rigid in daily use. Read the scores and the "discipline overhead" limitations below with that grain of salt: they lean toward lighter-weight gating.
 

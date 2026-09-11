@@ -4,7 +4,7 @@
   "vendor": "AWS",
   "repo": "https://github.com/kirodotdev/Kiro",
   "website": "https://kiro.dev",
-  "version": "v0.12.263",
+  "version": "v1.0.395",
   "license": "Proprietary (paid tiers + free tier)",
   "maturity": "Production",
   "tier": "core",
@@ -47,7 +47,7 @@
   "keyFeatures": [
     "VS Code-based agentic IDE; EARS-notation acceptance criteria",
     "Three-step workflow: Requirements → Design → Tasks",
-    "GA since Nov 2025: team support (IAM Identity Center) + Kiro CLI",
+    "GA since Nov 2025; IDE 1.0 (Jul 2026) added parallel task execution + OpenAI GPT-5.6 models",
     "v0.12 adds Parallel Task Execution, Quick Plan, Requirements Analysis",
     "Checkpointing (rewind agent edits) + property-based spec tests",
     "Agent hooks: background automation on file save / custom events",

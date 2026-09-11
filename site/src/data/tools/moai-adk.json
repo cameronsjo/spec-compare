@@ -3,7 +3,7 @@
   "displayName": "MoAI-ADK",
   "vendor": "modu-ai",
   "repo": "https://github.com/modu-ai/moai-adk",
-  "version": "v3.0.0",
+  "version": "v3.1.2",
   "license": "Apache-2.0",
   "maturity": "Active Dev",
   "tier": "emerging",

@@ -129,22 +129,28 @@ export function ScoringHeatmap() {
   const clearHover = () => setActive((a) => (a && !a.pinned ? null : a))
 
   // A pinned popover is anchored to a viewport rect, so it would drift on scroll/resize
-  // and linger past intent — dismiss it on Escape, scroll, or resize.
+  // and linger past intent — dismiss it on Escape, scroll, or resize. But ONLY in the
+  // floating layout: the bottom sheet is position:fixed and cannot drift, while on touch
+  // the tap that opens it also nudges a scroll (focus scroll-into-view, momentum), so a
+  // capture-phase scroll listener dismissed the sheet the instant it opened.
   useEffect(() => {
     if (!active) return
+    const sheet = window.matchMedia('(max-width: 640px)').matches
     const close = () => setActive(null)
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
     // Desktop outside-click dismissal: the scrim only covers the bottom-sheet layout,
     // so a floating popover needs a capture listener that ignores clicks on a cell/point
     // or inside the popover itself (so pin-on-click and in-popover taps survive).
     const onPointerDown = (e: PointerEvent) => {
-      if ((e.target as Element | null)?.closest('.heat-pop, .heat-cell, .map-pt')) return
+      if ((e.target as Element | null)?.closest('.heat-pop, .heat-cell, .map-pt, .map-inspect')) return
       close()
     }
     window.addEventListener('keydown', onKey)
-    window.addEventListener('scroll', close, true)
-    window.addEventListener('resize', close)
     window.addEventListener('pointerdown', onPointerDown, true)
+    if (!sheet) {
+      window.addEventListener('scroll', close, true)
+      window.addEventListener('resize', close)
+    }
     return () => {
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('scroll', close, true)
@@ -200,10 +206,22 @@ export function ScoringHeatmap() {
       </div>
 
       {mode === 'map' ? (
-        <ScatterMap active={active} handlers={cellHandlers} />
+        <>
+          <label className="sort-field map-inspect">
+            Inspect tool
+            <select
+              value={active?.tool ?? ''}
+              onChange={(e) => e.target.value ? show(e.target.value, 'overall', e.currentTarget, true) : setActive(null)}
+            >
+              <option value="">Choose a tool…</option>
+              {tools.map((tool) => <option key={tool.tool} value={tool.tool}>{tool.displayName}</option>)}
+            </select>
+          </label>
+          <ScatterMap active={active} handlers={cellHandlers} />
+        </>
       ) : (
-        <div className="table-scroll">
-          <table className={`table table--sticky-head heatmap-table heatmap-table--${mode}`}>
+        <div className="table-scroll scroll-x scroll-x--fade" tabIndex={0}>
+          <table className={`table table--sticky-head table--sticky-col heatmap-table heatmap-table--${mode}`}>
             <thead>
               <tr>
                 <th scope="col" className="th-tool">Tool</th>
@@ -263,8 +281,9 @@ export function ScoringHeatmap() {
 
       {active && activeTool && activeDim && activeScore != null && (
         <>
-          {/* Scrim catches outside taps to dismiss; CSS shows it only at bottom-sheet widths. */}
-          <div className="heat-pop-scrim" onClick={() => setActive(null)} />
+          {/* Visual-only dimming at bottom-sheet widths (pointer-events: none) —
+              dismissal is the window pointerdown capture listener in both layouts. */}
+          <div className="heat-pop-scrim" />
           <div
             className="heat-pop card"
             role="tooltip"
@@ -298,7 +317,8 @@ export function ScoringHeatmap() {
         {mode === 'map' ? (
           <>
             Axes are computed from the scores — <b>quick-change</b> = trivial + emergency + solo; <b>large-scale</b> =
-            large + parallel + medium. Top-right = strong on both.
+            large + parallel + medium. Top-right = strong on both. Tools with matching scores share a point;
+            use Inspect tool to select either one.
           </>
         ) : (
           <>

@@ -3,7 +3,7 @@
   "displayName": "Spec-Kit",
   "vendor": "GitHub",
   "repo": "https://github.com/github/spec-kit",
-  "version": "v0.8.18",
+  "version": "v1.0.1",
   "license": "Open Source",
   "maturity": "Production",
   "tier": "core",
@@ -22,7 +22,7 @@
     "openSource": true,
     "parallel": false
   },
-  "agentConfig": { "agentsMd": "yes", "claudeMd": "yes", "skillMd": "no", "slashCommands": 8 },
+  "agentConfig": { "agentsMd": "yes", "claudeMd": "yes", "skillMd": "no", "slashCommands": 10 },
   "phases": [
     { "id": "constitution", "label": "Constitution", "kind": "govern", "command": "/speckit.constitution", "note": "Establish immutable architectural principles that guide all development." },
     { "id": "specify", "label": "Specify", "kind": "specify", "command": "/speckit.specify", "note": "Define requirements and user stories — intent as the source of truth." },
@@ -46,7 +46,7 @@
   ],
   "scores": { "trivial": 3, "medium": 4, "large": 5, "parallel": 2, "emergency": 1, "solo": 3, "contextMgmt": 2, "overall": 2.9 },
   "keyFeatures": [
-    "8 slash commands — constitution → specify → plan → tasks → implement (+ clarify, analyze, checklist)",
+    "10 slash commands — constitution → specify → plan → tasks → implement (+ clarify, analyze, checklist, converge, taskstoissues)",
     "Constitution framework: immutable architectural principles",
     "Agent-agnostic — works with 30+ agents (Claude Code, Copilot, Cursor, Gemini, Amazon Q, …)",
     "Progressive refinement: intent defined before implementation"
@@ -54,7 +54,7 @@
   "limitations": [
     "Verbose markdown artifacts requiring extensive review",
     "Can feel rigid — 'sledgehammer to crack a nut' for small changes",
-    "Designed for new projects, not brownfield refactoring",
+    "Brownfield support is new and opt-in (v0.15.2 constitution-sync preset) — greenfield remains the sweet spot",
     "No built-in git worktree management; branch-based workflow assumes linear development"
   ]
 }

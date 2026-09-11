@@ -5,7 +5,7 @@
 **Repository:** https://github.com/kirodotdev/Kiro
 **Status:** Generally available (AWS-backed; paid tiers + free tier)
 **License:** Proprietary (paid tiers + free tier)
-**Current Version:** IDE v0.12.263 (May 28, 2026); GA since Nov 17, 2025
+**Current Version:** IDE v1.0.395 (Aug 27, 2026); 1.0 GA Jul 2026; product GA since Nov 17, 2025
 
 ## Core Approach
 

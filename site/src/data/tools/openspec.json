@@ -4,7 +4,7 @@
   "vendor": "Fission-AI",
   "repo": "https://github.com/Fission-AI/OpenSpec",
   "website": "https://openspec.dev/",
-  "version": "v1.3.1",
+  "version": "v1.11.0",
   "license": "MIT",
   "maturity": "Production",
   "tier": "core",
