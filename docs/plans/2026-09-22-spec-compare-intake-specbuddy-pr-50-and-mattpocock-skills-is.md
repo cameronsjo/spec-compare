@@ -9,7 +9,7 @@ machine: "cf6e768835c7"
 approved_session_id: "44bce271-2ee4-473e-a468-2db10eb4be76"
 status: in-progress
 tier: T1
-next: Step A4 — open SpecBuddy PR; then B2 (Pocock profile JSON)
+next: Cameron sets #54 scores and approves #53 merge; then close #50 (Step A5)
 ---
 
 # spec-compare intake: SpecBuddy (PR #50) and mattpocock/skills (issue #51)
@@ -75,5 +75,8 @@ Panel: none — T1 docs/data-only triage (one gaps entry, one emerging JSON prof
 
 - A1: cherry-pick of `8e2c9d2` conflicted on `CHANGELOG.md` because the Memex review (#26) landed on main after planning; kept both `[Unreleased]` lines, author preserved.
 - A2: the JetBrains comments API shows 8 written reviews (four posted 2026-09-08–09), not the planned "rating null" wording; the entry states the review count and that no aggregate rating is published.
+- B2: emerging profiles carry no `phases`/`edges` in this repo (only core tools do), so the grill → spec → tickets → implement flow is in `keyFeatures`, not a phase graph.
+- B4: consistency required more files than planned: `README.md` roster and counts, the `docs/use-case-scoring.md` heatmap row, `docs/sources.md`, and the `data.test.ts` count invariant (19 → 20).
+- C1: the worktree guard blocks edits in the primary checkout; `CLAUDE.local.md` is untracked and gitignored, so it was edited under a 10-minute logged dismiss.
 
 ## Learnings
