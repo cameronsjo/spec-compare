@@ -38,6 +38,7 @@
     "Specs are consumed through tickets — no maintained living spec in the repo",
     "No worktree isolation or parallel multi-agent orchestration",
     "Depends on an issue tracker for specs, tickets, and wayfinder maps (local Markdown is the fallback)",
-    "Single-maintainer project; skill contents change often between releases"
+    "Single-maintainer project; skill contents change often between releases",
+    "Scores assessed from the repository on 2026-09-22, not from hands-on use"
   ]
 }
