@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Memex review** (`docs/memex-review.md`, `site/src/data/tools/memex.json`) — **Solicited** review (Mindset AI reached out via LinkedIn; disclosure in the doc, conducted independently from public sources) of the fair-code Specify & Verify platform: specs as a typed Postgres-backed decision database with per-criterion CI-verified acceptance criteria, Standards drift detection, and a knowledge graph, edited concurrently via web UI and MCP. Enters at **emerging tier** (2.9 overall) as the earliest-stage commercial entrant tracked — no tagged releases, 29★/0 forks — with promotion triggers attached. Heatmap and matrices now span **19 tools, 8 core**; `data.test.ts` count invariant updated
 
+- **Matt Pocock's Skills profile** (`site/src/data/tools/mattpocock-skills.json`, `docs/gaps.md`) — Emerging-tier profile for `mattpocock/skills` (v1.2.3, MIT, ~268K stars), requested in #51: a composable skill collection (grill → spec → tickets → TDD, plus `/wayfinder` for multi-session work) that positions itself against process-owning frameworks. Scores come from reading the repository; core waits on a hands-on evaluation. Heatmap and matrices now span **20 tools, 8 core**; `data.test.ts` count invariant updated
+
 - **reqlan watch entry** (`docs/gaps.md`) — Marginal watch-list entry for reqlan, a requirements-graph DSL with PKM-style linking (author-submitted inclusion PR #46, closed below the adoption bar per the PR #12 precedent). Claims verified clean — license, package versions, schema shape — unlike archiet's; revisit for an emerging-tier profile when adoption clears the bar
 
 ### Changed

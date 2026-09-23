@@ -1,0 +1,43 @@
+{
+  "tool": "mattpocock-skills",
+  "displayName": "Matt Pocock's Skills",
+  "vendor": "Matt Pocock (AI Hero)",
+  "repo": "https://github.com/mattpocock/skills",
+  "website": "https://aihero.dev/skills",
+  "version": "v1.2.3",
+  "license": "MIT",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "Small composable skills: grill → spec → tickets → TDD, no framework.",
+  "bestFor": "Engineers who want discipline without a framework",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 4, "medium": 4, "large": 4, "parallel": 2, "emergency": 3, "solo": 5, "contextMgmt": 4, "overall": 3.7 },
+  "keyFeatures": [
+    "User-invoked flow: /grill-with-docs (interview) → /to-spec → /to-tickets (tracer-bullet slices with blocking edges) → /implement (drives /tdd, closes with /code-review)",
+    "Shared domain language: grilling maintains a CONTEXT.md glossary and ADRs inline, so specs, tickets, and code use the same terms",
+    "Specs and tickets publish to the project's issue tracker (GitHub, Linear, or local Markdown), configured once per repo by /setup-matt-pocock-skills",
+    "/wayfinder charts work larger than one session as a map issue of decision tickets, resolved one at a time",
+    "Two-axis /code-review (repo standards + spec fidelity) run as parallel sub-agents",
+    "Claude Code plugin in the official marketplace; `npx skills` installs editable copies for Codex and other agents",
+    "MIT, ~268K stars; explicitly positioned against process-owning frameworks (GSD, BMAD, Spec-Kit)"
+  ],
+  "limitations": [
+    "A skill collection, not a framework: nothing enforces the flow, and each step is invoked by hand",
+    "Specs are consumed through tickets — no maintained living spec in the repo",
+    "No worktree isolation or parallel multi-agent orchestration",
+    "Depends on an issue tracker for specs, tickets, and wayfinder maps (local Markdown is the fallback)",
+    "Single-maintainer project; skill contents change often between releases"
+  ]
+}
