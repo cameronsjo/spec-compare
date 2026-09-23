@@ -207,6 +207,11 @@ All research is compiled from publicly available sources. Full citations are pro
 - [Mindset AI funding — FinSMEs](https://www.finsmes.com/2025/04/mindset-ai-raises-4-3m-in-funding.html)
 - Vendor outreach via LinkedIn (July 2026) — claims quoted and checked in [memex-review.md](memex-review.md); review conducted independently
 
+### Matt Pocock's Skills — September 2026 profile
+- [mattpocock/skills](https://github.com/mattpocock/skills) (README, CHANGELOG, `.claude-plugin/plugin.json`, engineering `SKILL.md` files; verified 2026-09-22)
+- [aihero.dev/skills](https://aihero.dev/skills)
+- User request: [issue #51](https://github.com/cameronsjo/spec-compare/issues/51)
+
 ## Research Methodology
 
 This comparison was compiled through:

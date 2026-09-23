@@ -134,6 +134,27 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### Matt Pocock's Skills (mattpocock/skills)
+
+**What it is:** An MIT-licensed collection of small agent skills (`mattpocock/skills`, v1.2.3, 2026-08-06) that Matt Pocock uses for day-to-day engineering. It ships as a Claude Code plugin in the official marketplace, and `npx skills` copies editable versions into a repo for Codex and other agents.
+
+**Why it matters:** ~268K stars and ~22.6K forks make it one of the most-adopted skill sets in the space. Its README positions it against the tools this repo profiles: "Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process," while these skills stay "small, easy to adapt, and composable." Requested for inclusion in issue #51.
+
+**Key differentiators:**
+- **Grill first:** `/grill-with-docs` interviews you before any spec exists and maintains a `CONTEXT.md` glossary and ADRs as it goes
+- **Spec to tickets:** `/to-spec` writes a spec to the issue tracker; `/to-tickets` splits it into tracer-bullet slices with blocking edges; `/implement` drives `/tdd` and closes with `/code-review`
+- **Multi-session planning:** `/wayfinder` keeps a map issue of decision tickets for work larger than one session
+- **Tracker-backed:** GitHub, Linear, or local Markdown, chosen once per repo by `/setup-matt-pocock-skills`
+
+**Gap assessment:** Profiled at **emerging tier**. Adoption is far past the bar, but the scores come from reading the skills, not from using them. It sits closest to Superpowers: both are skill bundles that run spec → plan → TDD. The difference is enforcement. Superpowers gates each step; Pocock's skills leave the sequence to the user. Promote to core after a hands-on evaluation, as with #21.
+
+**Sources:**
+- [GitHub: mattpocock/skills](https://github.com/mattpocock/skills)
+- [aihero.dev/skills](https://aihero.dev/skills)
+- [Inclusion request #51](https://github.com/cameronsjo/spec-compare/issues/51)
+
+---
+
 ### archiet-microcodegen (marginal)
 
 **What it is:** A single-file, MIT-licensed deterministic code generator (`Anioko/microcodegen`) that compiles a regex-parsed PRD into a bootable Flask app ZIP via `string.Template` rendering — no LLM in the open-source generation path, pure stdlib, zero dependencies. It is the open-source reference component of **archiet.com**, a commercial spec-driven platform (REQARCHITECT LTD). Companion per-stack packages exist on npm (NestJS), PyPI (Flask/Django), Packagist (Laravel), NuGet (.NET), and the Go proxy.

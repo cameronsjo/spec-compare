@@ -18,6 +18,7 @@
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
 | Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.5.6) |
 | [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v1.0.395) |
+| Matt Pocock's Skills | Emerging | MIT | No | Engineers who want discipline without a framework | Active Dev (v1.2.3) |
 | Memex | Emerging | Fair-code (Sustainable Use License + Enterprise) | No | Team decision + verification layer | Active Dev (Rolling, no tagged releases — assessed 2026-08-12) |
 | MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.1.2) |
 | [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.11.0) |
@@ -47,6 +48,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | [GSD (Get Shit Done)](tools/gsd.md) | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | Kilo Code | ❌ | ✅ | ✅ | IDE | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
 | [Kiro](tools/kiro.md) | ❌ | ⚠️ | ✅ | IDE | ✅ | ✅ | ❌ | Medium | Moderate | Spec-First |
+| Matt Pocock's Skills | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | Spec-First |
 | Memex | ❌ | ⚠️ | ❌ | Web UI | ✅ | ❌ | ❌ | Medium | Moderate | Spec-Anchored |
 | MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
