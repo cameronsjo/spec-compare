@@ -78,8 +78,9 @@ Panel: none — T1 docs/data-only triage (one gaps entry, one emerging JSON prof
 - B2: emerging profiles carry no `phases`/`edges` in this repo (only core tools do), so the grill → spec → tickets → implement flow is in `keyFeatures`, not a phase graph.
 - B4: consistency required more files than planned: `README.md` roster and counts, the `docs/use-case-scoring.md` heatmap row, `docs/sources.md`, and the `data.test.ts` count invariant (19 → 20).
 - C1: the worktree guard blocks edits in the primary checkout; `CLAUDE.local.md` is untracked and gitignored, so it was edited under a 10-minute logged dismiss.
+- B (post-merge): Cameron decided against a hands-on evaluation for mattpocock/skills, so the Context line "Core waits for a hands-on eval" no longer holds; the profile stays emerging on repository-read scores.
 
 ## Learnings
 
-- Scores for #54 were settled by comparing each dimension to Superpowers, the nearest core tool, because Cameron delegated the scoring; Trivial and Large are the least certain until a hands-on evaluation.
+- Scores for #54 were settled by comparing each dimension to Superpowers, the nearest core tool, because Cameron delegated the scoring; Trivial and Large are the least certain. No hands-on evaluation is planned.
 - Merge an author-preserving intake PR with a merge commit, not squash; a squash merge replaces the contributor as commit author.

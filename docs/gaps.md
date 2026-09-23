@@ -146,7 +146,7 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 - **Multi-session planning:** `/wayfinder` keeps a map issue of decision tickets for work larger than one session
 - **Tracker-backed:** GitHub, Linear, or local Markdown, chosen once per repo by `/setup-matt-pocock-skills`
 
-**Gap assessment:** Profiled at **emerging tier**. Adoption is far past the bar, but the scores come from reading the skills, not from using them. It sits closest to Superpowers: both are skill bundles that run spec → plan → TDD. The difference is enforcement. Superpowers gates each step; Pocock's skills leave the sequence to the user. Promote to core after a hands-on evaluation, as with #21.
+**Gap assessment:** Profiled at **emerging tier**. Adoption is far past the bar, but the scores come from reading the skills, not from using them. It sits closest to Superpowers: both are skill bundles that run spec → plan → TDD. The difference is enforcement. Superpowers gates each step; Pocock's skills leave the sequence to the user. It stays at emerging tier: no hands-on evaluation is planned, so the scores rest on reading the repository.
 
 **Sources:**
 - [GitHub: mattpocock/skills](https://github.com/mattpocock/skills)
