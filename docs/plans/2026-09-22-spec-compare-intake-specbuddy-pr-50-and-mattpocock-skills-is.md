@@ -7,9 +7,9 @@ model: "claude-opus-5-5"
 harness: "claude-code 2.1.280"
 machine: "cf6e768835c7"
 approved_session_id: "44bce271-2ee4-473e-a468-2db10eb4be76"
-status: in-progress
+status: done
 tier: T1
-next: Cameron sets #54 scores and approves #53 merge; then close #50 (Step A5)
+next: none — closes when #54 merges (SpecBuddy #53 merged, #50 closed, runbook updated)
 ---
 
 # spec-compare intake: SpecBuddy (PR #50) and mattpocock/skills (issue #51)
@@ -80,3 +80,6 @@ Panel: none — T1 docs/data-only triage (one gaps entry, one emerging JSON prof
 - C1: the worktree guard blocks edits in the primary checkout; `CLAUDE.local.md` is untracked and gitignored, so it was edited under a 10-minute logged dismiss.
 
 ## Learnings
+
+- Scores for #54 were settled by comparing each dimension to Superpowers, the nearest core tool, because Cameron delegated the scoring; Trivial and Large are the least certain until a hands-on evaluation.
+- Merge an author-preserving intake PR with a merge commit, not squash; a squash merge replaces the contributor as commit author.
