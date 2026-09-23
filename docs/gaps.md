@@ -187,6 +187,22 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### SpecBuddy (marginal)
+
+**What it is:** An IDE-native spec → plan → step-execution → review loop, shipped as editor plugins rather than a CLI: a JetBrains plugin (`dev.specbuddy.intellijplugin`, v0.13.0, 2026-09-13) and a VS Code extension (`AleksandrShustanov.spec-buddy-vscode`, v0.9.9, 2026-09-09). You write a Markdown spec in the editor and approve a generated step-by-step plan. Claude Code or Codex then runs it one step at a time in a dedicated git worktree, and each step yields a diff you accept, refine with inline comments, or roll back to its pre-step snapshot. A chat mode wraps ordinary agent sessions in the same accept/rollback engine without a spec. Closed source under a custom EULA (`specbuddy.dev/eula`); free during public beta.
+
+**Why it's interesting:** The center of the tool is the *review surface*, not the spec format: per-step diffs, pre/post snapshots, one-click rollback, and a worktree that keeps the main tree clean until a step is accepted. That is close to Traycer's Plan → Execute → Verify shape, but it lives inside the IDE's own diff and VCS tooling and gates **per step** instead of per phase. The two tracked tools that also ship JetBrains plugins (Zencoder, Kilo Code) are agent platforms where SDD is one mode among many; here the plan-and-step loop is the product. Specs and plans stay plain Markdown in the repository, so it composes with a document-first flow.
+
+**Gap assessment:** Noted here rather than profiled — adoption is well below the bar. As of 2026-09-22: **448 JetBrains downloads** with 8 written reviews (four posted 2026-09-08–09) and no aggregate rating published, and **16 VS Code installs** (125 downloads, 2 ratings); public beta opened July 2026. The Open VSX listing cited at submission (v0.9.8, 812 downloads on 2026-09-08) **no longer resolves** — the API returns `Extension not found` and search finds no SpecBuddy extension. There is no public product repository: the `SpecBuddy` GitHub org holds only docs, an agent skill, a website, and `.github`, so the feature claims above trace to the marketplace listings, not to inspectable source. Author-submitted, with affiliation disclosed in the inclusion PR. No heatmap scores, per the scoring policy in the PR #46 ruling. Revisit for an emerging-tier profile when adoption clears the bar.
+
+**Sources:**
+- [JetBrains Marketplace: SpecBuddy](https://plugins.jetbrains.com/plugin/32645-specbuddy)
+- [VS Code Marketplace: AleksandrShustanov.spec-buddy-vscode](https://marketplace.visualstudio.com/items?itemName=AleksandrShustanov.spec-buddy-vscode)
+- [specbuddy.dev](https://specbuddy.dev/)
+- [Inclusion PR #50](https://github.com/cameronsjo/spec-compare/pull/50)
+
+---
+
 ## Updates to Existing Tools
 
 ### July 2026 sweep
