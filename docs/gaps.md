@@ -166,13 +166,13 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 - **Standardized 4-file bundle:** Separates principles (`constitution.md`), user needs (`requirements.md`), technical architecture (`solution.md`), and atomic execution steps (`tasks.md`)
 - **Direct MCP integration:** Serves spec bundles directly into Cursor, Claude Desktop, Claude Code, and Windsurf via `@myspec/mcp-server`
 - **Visual diagrams:** Generates Mermaid.js architecture and workflow diagrams rendered directly inside the spec
-- **Accessible free tier:** Free forever plan for individual developers with unlimited spec creation and no credit card required
+- **Accessible free tier:** Free tier for individual developers includes 20 projects and 100 spec files with no credit card required
 
 **Gap assessment:** Profiled at **emerging tier** (`site/src/data/tools/myspec.json`). It stakes out a distinctive position in the SDD taxonomy by bridging human-facing spec discovery interviews with agent-facing MCP context injection.
 
 **Sources:**
 - [MySpec Website](https://myspec.dev)
-- [MySpec MCP Server](https://github.com/myspecs/mcp-server)
+- [MySpec MCP Server Documentation](https://myspec.dev/mcp-server/)
 - [Glama MCP Connector](https://glama.ai/mcp/connectors/dev.myspec.mcp/my-spec)
 
 ---

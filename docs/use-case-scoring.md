@@ -309,7 +309,7 @@ MySpec               3        5       5      3         2          5     5       
 **Context Mgmt** = how well the tool handles agent memory, context window management, and multi-session persistence. GSD (wave-based context management), Ralph Loop (stateless fresh context per iteration), and Kilo Code (Memory Bank) score highest.
 
 **Key shifts from original rankings:**
-- **Superpowers** leads overall (4.0), excelling at solo use and context management
+- **Superpowers** and **MySpec** lead overall (4.0), excelling at solo use and context management
 - GSD follows closely (3.9), balancing across categories
 - **Traycer** (3.6) lands as a strong generalist planning layer, above Ralph Loop and OpenSpec
 - Ralph Loop ties OpenSpec (3.4) by excelling at context management and solo use

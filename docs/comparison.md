@@ -52,7 +52,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | Matt Pocock's Skills | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | Spec-First |
 | Memex | ❌ | ⚠️ | ❌ | Web UI | ✅ | ❌ | ❌ | Medium | Moderate | Spec-Anchored |
 | MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
-| MySpec | ❌ | ⚠️ | ❌ | Web UI | ✅ | ✅ | ❌ | Low | Gentle | Spec-Anchored |
+| MySpec | ❌ | ⚠️ | ❌ | Web UI | ✅ | ❌ | ❌ | Low | Gentle | Spec-Anchored |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
 | [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
 | Smart Ralph | ❌ | ⚠️ | ❌ | No | ✅ | ❌ | ✅ | Medium | Moderate | Spec-First |
