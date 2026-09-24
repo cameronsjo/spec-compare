@@ -1,0 +1,39 @@
+{
+  "tool": "myspec",
+  "displayName": "MySpec",
+  "vendor": "MySpec (myspec.dev)",
+  "website": "https://myspec.dev",
+  "version": "SaaS + MCP — rolling release",
+  "license": "Freemium (free forever tier + MCP)",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "constitution",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Interactive AI spec discovery interviews compiling deterministic 4-file bundles with MCP integration.",
+  "bestFor": "Spec discovery interviews & MCP-anchored AI agent workflows",
+  "complexity": "Low",
+  "learningCurve": "Gentle",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "Web UI",
+    "mcp": true,
+    "ideIntegration": false,
+    "openSource": false,
+    "parallel": false
+  },
+  "scores": { "trivial": 3, "medium": 5, "large": 5, "parallel": 3, "emergency": 2, "solo": 5, "contextMgmt": 5, "overall": 4.0 },
+  "keyFeatures": [
+    "Interactive AI architect discovery interview asking targeted clarifying questions to extract full functional and non-functional requirements",
+    "Compiles deterministic 4-file specification bundles: constitution.md, requirements.md, solution.md, and tasks.md",
+    "Visual architecture diagram generation (Mermaid.js) rendered directly in the spec",
+    "Model Context Protocol (MCP) server (@myspec/mcp-server) serving structured spec context to Cursor, Claude Desktop, Claude Code, and Windsurf",
+    "Free tier includes 20 projects and 100 spec files with no credit card required"
+  ],
+  "limitations": [
+    "Hosted web studio required for initial interactive discovery interview before exporting bundles or connecting MCP",
+    "Core platform is proprietary SaaS rather than fully local open source",
+    "No built-in git worktree orchestration (leaves git branch and worktree management to IDE/developer)",
+    "Spec modifications primarily driven through web studio re-interview rather than in-terminal CLI patch deltas"
+  ]
+}
