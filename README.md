@@ -1,6 +1,6 @@
 # Spec-Driven Development Tools Comparison
 
-Independent research comparing **20 spec-driven development (SDD) tools** for AI-assisted coding — 8 with full workflow treatment, 12 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
+Independent research comparing **21 spec-driven development (SDD) tools** for AI-assisted coding — 8 with full workflow treatment, 13 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
 
 > A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked; where a vendor initiated contact ([Memex](docs/memex-review.md)), the review says so up front.
 
@@ -47,7 +47,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Superpowers** - MIT skills framework + methodology; brainstorm → plan → subagent TDD (~214K stars)
 - **Traycer** - Commercial VS Code Plan → Execute → Verify layer over your agent (100K+ users)
 
-### Emerging (12)
+### Emerging (13)
 
 - **GSD** - Meta-prompting SDD system with wave-based context management (63.8K stars)
 - **Ralph Loop** - Stateless iterative execution pattern by Geoffrey Huntley
@@ -61,6 +61,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Smart Ralph** - Claude Code/Codex plugin layering spec phases on the Ralph autonomous loop
 - **Memex** - Fair-code Specify & Verify platform: specs as a typed decision database with CI-verified acceptance criteria and a knowledge graph (Mindset AI; solicited review, see [disclosure](docs/memex-review.md))
 - **Matt Pocock's Skills** - MIT skill collection: grill → spec → tickets → TDD, composable and deliberately not a framework (~268K stars)
+- **MySpec** - Interactive AI spec discovery interviews compiling deterministic 4-file bundles with MCP integration
 
 Two **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP) and **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled) — see [docs/gaps.md](docs/gaps.md).
 

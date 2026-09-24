@@ -155,6 +155,28 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### MySpec (myspec.dev)
+
+**What it is:** An interactive AI spec discovery platform (`https://myspec.dev`) that conducts guided developer interviews to produce deterministic 4-file specification bundles (`constitution.md`, `requirements.md`, `solution.md`, `tasks.md`) with Mermaid architecture diagrams, and serves them via an official Model Context Protocol (MCP) server (`@myspec/mcp-server` / `https://mcp.myspec.dev/mcp`).
+
+**Why it matters:** Most SDD tools assume developers already know how to articulate complete technical specifications, or require complex local CLI environments. MySpec acts as an interactive AI architect that probes edge cases, non-functional constraints, and scope boundaries before coding begins, anchoring downstream coding agents (Cursor, Claude Code, Windsurf) through MCP to prevent hallucination and architectural drift.
+
+**Key differentiators:**
+- **Interactive discovery interview:** Socratic clarifying questions extract requirements, constraints, and edge cases before generating specs
+- **Standardized 4-file bundle:** Separates principles (`constitution.md`), user needs (`requirements.md`), technical architecture (`solution.md`), and atomic execution steps (`tasks.md`)
+- **Direct MCP integration:** Serves spec bundles directly into Cursor, Claude Desktop, Claude Code, and Windsurf via `@myspec/mcp-server`
+- **Visual diagrams:** Generates Mermaid.js architecture and workflow diagrams rendered directly inside the spec
+- **Accessible free tier:** Free forever plan for individual developers with unlimited spec creation and no credit card required
+
+**Gap assessment:** Profiled at **emerging tier** (`site/src/data/tools/myspec.json`). It stakes out a distinctive position in the SDD taxonomy by bridging human-facing spec discovery interviews with agent-facing MCP context injection.
+
+**Sources:**
+- [MySpec Website](https://myspec.dev)
+- [MySpec MCP Server](https://github.com/myspecs/mcp-server)
+- [Glama MCP Connector](https://glama.ai/mcp/connectors/dev.myspec.mcp/my-spec)
+
+---
+
 ### archiet-microcodegen (marginal)
 
 **What it is:** A single-file, MIT-licensed deterministic code generator (`Anioko/microcodegen`) that compiles a regex-parsed PRD into a bootable Flask app ZIP via `string.Template` rendering — no LLM in the open-source generation path, pure stdlib, zero dependencies. It is the open-source reference component of **archiet.com**, a commercial spec-driven platform (REQARCHITECT LTD). Companion per-stack packages exist on npm (NestJS), PyPI (Flask/Django), Packagist (Laravel), NuGet (.NET), and the Go proxy.

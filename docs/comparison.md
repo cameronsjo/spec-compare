@@ -21,6 +21,7 @@
 | Matt Pocock's Skills | Emerging | MIT | No | Engineers who want discipline without a framework | Active Dev (v1.2.3) |
 | Memex | Emerging | Fair-code (Sustainable Use License + Enterprise) | No | Team decision + verification layer | Active Dev (Rolling, no tagged releases — assessed 2026-08-12) |
 | MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.1.2) |
+| MySpec | Emerging | Freemium (free forever tier + MCP) | No | Spec discovery interviews & MCP-anchored AI agent workflows | Active Dev (SaaS + MCP — rolling release) |
 | [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.11.0) |
 | [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
 | Smart Ralph | Emerging | MIT | No | Hands-off spec-to-code loops | Active Dev (v4.0.0) |
@@ -51,6 +52,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | Matt Pocock's Skills | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | Spec-First |
 | Memex | ❌ | ⚠️ | ❌ | Web UI | ✅ | ❌ | ❌ | Medium | Moderate | Spec-Anchored |
 | MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
+| MySpec | ❌ | ⚠️ | ❌ | Web UI | ✅ | ✅ | ❌ | Low | Gentle | Spec-Anchored |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
 | [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
 | Smart Ralph | ❌ | ⚠️ | ❌ | No | ✅ | ❌ | ✅ | Medium | Moderate | Spec-First |

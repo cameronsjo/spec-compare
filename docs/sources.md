@@ -212,6 +212,11 @@ All research is compiled from publicly available sources. Full citations are pro
 - [aihero.dev/skills](https://aihero.dev/skills)
 - User request: [issue #51](https://github.com/cameronsjo/spec-compare/issues/51)
 
+### MySpec — September 2026 profile
+- [MySpec](https://myspec.dev) (Product documentation, interactive spec interview engine, and bundle architecture)
+- [MySpec MCP Server](https://github.com/myspecs/mcp-server) (Official Model Context Protocol server for Cursor, Claude Code, and Windsurf)
+- [Glama MCP Connector: MySpec](https://glama.ai/mcp/connectors/dev.myspec.mcp/my-spec) (MCP definition and endpoint verification)
+
 ## Research Methodology
 
 This comparison was compiled through:
