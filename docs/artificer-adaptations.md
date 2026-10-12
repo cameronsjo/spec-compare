@@ -426,3 +426,15 @@ Verified: `npm run build` + vitest 39/39; real-browser at 390×844 —
 `overflow-y: hidden` with zero scrollbar gutter, heatmap tool column pinned
 during wrapper scroll; desktop 1280px — thead visible, sticky col intact,
 raised bg restored, z layering corner 11 > head 10 > body 1.
+
+## 2026-10-12 · Face-lift at 0.27.0 — the content gutter, the filmstrip, the bootstrap
+
+Pin `0.25.0 → 0.27.0`. `primitives.json` records no versions (so no breaking events) between them.
+
+| # | type | pattern | what we did + why | upstream? |
+|---|------|---------|-------------------|-----------|
+| 23 | misfit | `.app-shell__content` bleed-grid gutter | The vendored content pane is a bleed-grid with an `--s-lg` gutter on both sides, sized for a flush shell. Inside `.app.container` (which already supplies the gutter) the content sat indented twice: x=48 on a 390px phone under a lede at x=24, and 24px short of the appbar's right edge on desktop. `styles.css` zeroes the inner gutter and keeps the `[bleed-*]` lines, so the mobile filmstrip's `-var(--s-lg)` break-out now reaches the viewport edge as written. | yes |
+| 24 | fix | compare filmstrip | Cards size to their own diagram (`align-items: flex-start`), and the strip's height follows the tallest card in view (`--visible-cards-height-total`, set beside the existing `--active-card-height`). Before, every card stretched to the tallest of eight diagrams. The dot pager shows at every width, since desktop overlay scrollbars gave no sign of the five off-screen tools. The strip is a labelled `role="region"` with `tabIndex={0}` and `.scroll-x` (axe `scrollable-region-focusable`). | no |
+| 25 | fix | page `h1` | The page had no `h1`, `h2` or `h3` on the default view. Added an `.sr-only` `h1`; views already start at `h2`. | no |
+| 26 | fix | colophon | Dropped the inner `.container` in the footer: a second gutter inside `.app`. Same fix as the root site and blog. | no |
+| 27 | fix | theme bootstrap | `index.html` wrote `saved || OS` straight into `data-theme`, so a stored `auto` painted `data-theme="auto"` until `theme.js` corrected it. Now the root site's bootstrap: first visit dark with the key written, `auto` resolved against the OS, unknown values read as `auto` like `theme.js`. | no |
