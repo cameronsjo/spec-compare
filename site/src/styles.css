@@ -64,6 +64,24 @@ body {
 .app-shell {
   min-height: auto;
 }
+/* The vendored .app-shell__content is a bleed-grid with its own --s-lg gutter
+   on both sides, sized for a flush shell. Here .app (a .container) already
+   supplies the inline gutter, so the content sat indented twice: 48px from the
+   viewport on phones while the lede sat at 24px, and 24px short of the appbar's
+   right edge on desktop. Zero the inner gutter; the [bleed-*] lines stay. */
+.app-shell__content {
+  grid-template-columns:
+    [bleed-start] 0
+    [content-start] minmax(0, 1fr) [content-end]
+    0 [bleed-end];
+  /* With the gutter gone, the content's own edge is also the edge of
+     artificer's `overflow-x: clip`, which cut the outer half of focus rings
+     on the leftmost controls. Widen the clip box (the padding box) by one ring
+     and pull it back with an equal negative margin: content stays put. */
+  --ring-room: calc(var(--focus-width) + var(--focus-offset));
+  padding-inline: var(--ring-room);
+  margin-inline: calc(-1 * var(--ring-room));
+}
 
 /* The Artificer 0.22.1 `.sidenav a, .sidenav button` grammar (flex, hover,
    focus-visible, aria-current) now covers SPA nav buttons natively — the
@@ -159,11 +177,21 @@ body {
   justify-content: space-between;
   gap: var(--s-md);
 }
+/* Each card is as tall as its own diagram. Stretching every card to the
+   tallest of eight diagrams left most cards with a block of dead space under
+   the caption, which never lined up across cards anyway. */
 .compare-grid {
   display: flex;
+  align-items: flex-start;
   gap: var(--s-md);
   overflow-x: auto;
   padding-bottom: var(--s-md);
+  /* Height follows the tallest card in view (WorkflowCompare sets the var),
+     or the strip keeps the tallest off-screen diagram's height and the dot
+     pager floats far below the visible cards. Before the first measurement
+     the fallback is the natural height. */
+  height: var(--visible-cards-height-total, auto);
+  overflow-y: hidden;
 }
 .compare-col {
   flex: 0 0 290px;
@@ -177,20 +205,16 @@ body {
   max-width: 100%;
   height: auto;
 }
-/* Mobile: full-bleed, one card per screen with snap. The desktop multi-card
-   filmstrip (290px columns above) is wrong on a phone, so each tool fills the
-   viewport and swipes settle card-to-card. The negative margin breaks .compare-grid
-   out of .container's inline gutter (cards span edge-to-edge); their own padding
-   insets the content. MUST come after `.compare-col { flex: 0 0 290px }` — equal
+/* Mobile: one card per screen with snap. The desktop multi-card filmstrip
+   (290px columns above) is wrong on a phone, so each tool fills the column and
+   swipes settle card-to-card. No negative-margin break-out: .app-shell__content
+   clips overflow-x at its own edge, which is now the column edge (see the
+   gutter override above), so a break-out would clip the cards' own padding.
+   MUST come after `.compare-col { flex: 0 0 290px }` — equal
    specificity, so source order decides and the desktop shorthand re-sets flex-basis. */
 @media (max-width: 800px) {
   .compare-grid {
-    margin-inline: calc(-1 * var(--s-lg));
     scroll-snap-type: x mandatory;
-    /* One card per screen — drop the default stretch so each card is only as tall
-       as its own diagram. (Desktop keeps stretch so the side-by-side columns align;
-       in a carousel that just pads short diagrams with dead space.) */
-    align-items: flex-start;
     /* Off-screen diagrams can be much taller. Follow the selected card so
        those diagrams don't leave a blank gap above the pager. */
     height: calc(var(--active-card-height) + var(--s-md));
@@ -201,18 +225,16 @@ body {
     scroll-snap-align: center;
   }
 }
-/* Dot pager — mobile carousel position indicator. Hidden on the desktop filmstrip. */
+/* Dot pager — position indicator and jump control. Shown at every width while
+   the strip overflows (WorkflowCompare renders it only then): desktop overlay
+   scrollbars stay hidden until you scroll, so the filmstrip otherwise gives no
+   sign that five more tools sit past the right edge. */
 .compare-dots {
-  display: none;
-}
-@media (max-width: 800px) {
-  .compare-dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    margin-top: var(--s-sm);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-top: var(--s-sm);
 }
 .compare-dot {
   display: grid;

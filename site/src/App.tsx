@@ -118,6 +118,9 @@ export function App() {
       />
 
       <section className="intro stack stack--sm">
+        {/* The page's one h1. The Appbar brand is a link, not a heading, and every
+            view below starts at h2 (profile names, About, Disclosure). */}
+        <h1 className="sr-only">Spec-Driven Development Tools</h1>
         <p className="lede t-body-lg">
           {tools.length} spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
           <b className="anchor">runs a change</b>, <b className="anchor">scores across use cases</b>, and{' '}
@@ -189,25 +192,25 @@ export function App() {
           links open the full About + Disclosure views (the old provenance/affiliation
           copy lives there now). No zone-1 label grid and no zone-3 fine print here —
           this site moved its disclosure prose into the Disclosure view on purpose. */}
+      {/* No inner .container: .app already sets the column and its gutter, and a
+          second .container indented the footer past the content above it. */}
       <footer className="colophon">
-        <div className="container">
-          <div className="colophon__spine">
-            <b className="anchor">Independent &amp; unofficial</b>
-            {/* Seasonal sign-off. The inline text IS the off-season line — Whimsy reads it
-                as the fallback and swaps in "happy pride" (full latched rainbow) for June,
-                so the markup still renders honestly with JS disabled. */}
-            <span data-whimsy-greeting="" data-whimsy-greeting-class="whimsy--glacial">
-              kindness is a choice.
-            </span>
-            <nav className="cluster">
-              <button type="button" className="btn btn--link" onClick={() => selectNav('about')}>
-                About
-              </button>
-              <button type="button" className="btn btn--link" onClick={() => selectNav('disclosure')}>
-                Disclosure
-              </button>
-            </nav>
-          </div>
+        <div className="colophon__spine">
+          <b className="anchor">Independent &amp; unofficial</b>
+          {/* Seasonal sign-off. The inline text IS the off-season line — Whimsy reads it
+              as the fallback and swaps in "happy pride" (full latched rainbow) for June,
+              so the markup still renders honestly with JS disabled. */}
+          <span data-whimsy-greeting="" data-whimsy-greeting-class="whimsy--glacial">
+            kindness is a choice.
+          </span>
+          <nav className="cluster">
+            <button type="button" className="btn btn--link" onClick={() => selectNav('about')}>
+              About
+            </button>
+            <button type="button" className="btn btn--link" onClick={() => selectNav('disclosure')}>
+              Disclosure
+            </button>
+          </nav>
         </div>
       </footer>
     </div>

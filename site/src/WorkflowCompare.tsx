@@ -78,19 +78,25 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
 
   const meta = SCENARIO_META[scenarioId]
 
-  // Mobile carousel: below 800px the filmstrip becomes one full-bleed card per
-  // screen (CSS scroll-snap). `active` tracks the card nearest the viewport center
-  // and drives the dot pager. Width-agnostic, so it's harmless on the desktop grid.
+  // Filmstrip measurement, at every width. `active` tracks the card nearest the
+  // strip's center and drives the dot pager. The strip's height follows the
+  // tallest card in view (desktop) or the active card (below 800px, one card
+  // per screen with CSS scroll-snap). All layout reads happen before any write,
+  // and a write is skipped when the value is unchanged, so scrolling doesn't
+  // force a reflow per frame.
   const gridRef = useRef<HTMLDivElement>(null)
   const [scroll, setScroll] = useState({ overflowing: false, active: 0 })
   useEffect(() => {
     const el = gridRef.current
     if (!el) return
+    let lastVisible = ''
+    let lastActive = ''
     const update = () => {
       const grid = el.getBoundingClientRect()
       const center = grid.left + el.clientWidth / 2
       let active = 0
       let best = Infinity
+      let visibleHeight = 0
       Array.from(el.children).forEach((c, i) => {
         const card = c as HTMLElement
         const rect = card.getBoundingClientRect()
@@ -99,10 +105,27 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
           best = dist
           active = i
         }
+        // Tallest card with any part inside the strip's visible box.
+        if (rect.right > grid.left && rect.left < grid.left + el.clientWidth) {
+          visibleHeight = Math.max(visibleHeight, rect.height)
+        }
       })
+      // Desktop: the strip is as tall as the cards in view, not the tallest of
+      // all eight, so the dot pager sits under what the reader sees.
+      // border-box: the height includes the strip's bottom padding.
+      const padBottom = parseFloat(getComputedStyle(el).paddingBottom) || 0
       const card = el.children[active] as HTMLElement | undefined
-      if (card) el.style.setProperty('--active-card-height', `${card.getBoundingClientRect().height}px`)
+      const activeHeight = card ? `${card.getBoundingClientRect().height}px` : ''
       const overflowing = el.scrollWidth > el.clientWidth + 1
+      const visible = `${visibleHeight + padBottom}px`
+      if (visible !== lastVisible) {
+        el.style.setProperty('--visible-cards-height-total', visible)
+        lastVisible = visible
+      }
+      if (activeHeight && activeHeight !== lastActive) {
+        el.style.setProperty('--active-card-height', activeHeight)
+        lastActive = activeHeight
+      }
       setScroll((previous) => previous.active === active && previous.overflowing === overflowing
         ? previous : { overflowing, active })
     }
@@ -161,7 +184,15 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
       </p>
       {meta?.description && <p className="scenario-desc">{meta.description}</p>}
 
-      <div className="compare-grid" ref={gridRef}>
+      {/* A scroll region must be keyboard-reachable (axe scrollable-region-focusable);
+          .scroll-x supplies the focus ring. */}
+      <div
+        className="compare-grid scroll-x"
+        ref={gridRef}
+        tabIndex={0}
+        role="region"
+        aria-label="Tool workflows for this scenario"
+      >
         {columns.map(({ spec, sc }) => {
           // Each tool clamps the global step to its own path length, then holds at its terminal.
           const local = Math.min(step, sc.steps.length - 1)
@@ -195,7 +226,7 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
         })}
       </div>
 
-      {/* Mobile carousel position indicator (CSS hides it on the desktop filmstrip).
+      {/* Position indicator, shown whenever the strip overflows.
           One dot per tool; tap to jump. */}
       {scroll.overflowing && (
         <div className="compare-dots" role="group" aria-label="Jump to tool">
