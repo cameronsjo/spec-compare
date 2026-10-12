@@ -78,14 +78,19 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
 
   const meta = SCENARIO_META[scenarioId]
 
-  // Mobile carousel: below 800px the filmstrip becomes one full-bleed card per
-  // screen (CSS scroll-snap). `active` tracks the card nearest the viewport center
-  // and drives the dot pager. Width-agnostic, so it's harmless on the desktop grid.
+  // Filmstrip measurement, at every width. `active` tracks the card nearest the
+  // strip's center and drives the dot pager. The strip's height follows the
+  // tallest card in view (desktop) or the active card (below 800px, one card
+  // per screen with CSS scroll-snap). All layout reads happen before any write,
+  // and a write is skipped when the value is unchanged, so scrolling doesn't
+  // force a reflow per frame.
   const gridRef = useRef<HTMLDivElement>(null)
   const [scroll, setScroll] = useState({ overflowing: false, active: 0 })
   useEffect(() => {
     const el = gridRef.current
     if (!el) return
+    let lastVisible = ''
+    let lastActive = ''
     const update = () => {
       const grid = el.getBoundingClientRect()
       const center = grid.left + el.clientWidth / 2
@@ -109,10 +114,18 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
       // all eight, so the dot pager sits under what the reader sees.
       // border-box: the height includes the strip's bottom padding.
       const padBottom = parseFloat(getComputedStyle(el).paddingBottom) || 0
-      el.style.setProperty('--visible-cards-height-total', `${visibleHeight + padBottom}px`)
       const card = el.children[active] as HTMLElement | undefined
-      if (card) el.style.setProperty('--active-card-height', `${card.getBoundingClientRect().height}px`)
+      const activeHeight = card ? `${card.getBoundingClientRect().height}px` : ''
       const overflowing = el.scrollWidth > el.clientWidth + 1
+      const visible = `${visibleHeight + padBottom}px`
+      if (visible !== lastVisible) {
+        el.style.setProperty('--visible-cards-height-total', visible)
+        lastVisible = visible
+      }
+      if (activeHeight && activeHeight !== lastActive) {
+        el.style.setProperty('--active-card-height', activeHeight)
+        lastActive = activeHeight
+      }
       setScroll((previous) => previous.active === active && previous.overflowing === overflowing
         ? previous : { overflowing, active })
     }
