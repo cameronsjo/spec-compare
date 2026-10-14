@@ -33,6 +33,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Scenario tabs retain their full focus ring at either horizontal scroll edge on desktop and phones.
+
 - **Workflow readability and interaction polish** (`site/src/`) — Single-tool diagrams retain readable label sizes and stack above their inspectors when the content area is narrow, instead of shrinking into tall empty cards. Playback controls sit above the graph; profiles show the tool name/version and inspector dots use the shared phase colors. Mobile feature cards gain visible sorting controls without invisible keyboard stops. The scoring map adds an Inspect tool selector so tools sharing a point remain individually accessible, and hides unreadable tool labels on phones.
 
 - **Mobile workflow carousel** (`site/src/WorkflowCompare.tsx`, `site/src/styles.css`) — The carousel follows the selected card's height, removing the large blank gap caused by taller off-screen diagrams. Pager buttons have separate touch targets, fixing taps that selected the neighboring tool; reduced-motion preferences are respected when jumping between cards.

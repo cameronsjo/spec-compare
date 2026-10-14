@@ -94,6 +94,7 @@ export function TabPicker({ items, active, onSelect, ariaLabel, className = '' }
           role="tab"
           aria-selected={it.id === active}
           tabIndex={i === rovingIndex ? 0 : -1}
+          onFocus={(e) => e.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest' })}
           onClick={() => onSelect(it.id)}
         >
           {it.label}
