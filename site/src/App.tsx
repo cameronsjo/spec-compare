@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { AppShell, AppShellContent, Appbar, NavDrawer, SideNav, SideNavFooter, ThemeToggle, type SideNavGroup } from '@cameronsjo/artificer/react'
 import { tools, coreTools, toolBySlug } from './data'
+import { DesktopNav } from './DesktopNav'
 import { KIND_COLOR, KIND_LABEL, ASSESSED_AS_OF, type PhaseKind } from './types'
 import { WorkflowCompare } from './WorkflowCompare'
 import { WorkflowPlayer } from './WorkflowPlayer'
@@ -51,9 +52,8 @@ export function App() {
   }
 
   // The between-surface spine: overview surfaces, then core tools, then emerging tools,
-  // then about. SideNav owns the flat (desktop rail) / collapsible-sections (drawer)
-  // rendering and, in `sections` mode, the whole open-state machine — this is only the
-  // group/item DATA, shared by both SideNav instances below.
+  // then about. DesktopNav collapses long groups; the drawer uses SideNav's
+  // section mode. Both render the same group/item data.
   const navGroups: SideNavGroup[] = [
     {
       key: 'overview',
@@ -136,7 +136,7 @@ export function App() {
       </section>
 
       <AppShell rail="210px" gap="var(--s-lg)">
-        <SideNav groups={navGroups} sticky style={SIDENAV_STICKY_STYLE} />
+        <DesktopNav groups={navGroups} style={SIDENAV_STICKY_STYLE} />
 
         <AppShellContent id="main">
           {showLegend && <Legend />}
