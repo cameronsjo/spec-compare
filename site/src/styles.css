@@ -88,6 +88,12 @@ body {
    hand-rolled shim that used to replicate it is retired (upstream since
    0.18.1; docs/artificer-adaptations.md #5). */
 
+/* Keep every group reachable even after several disclosures are opened. */
+.desktop-nav {
+  max-height: calc(100dvh - var(--sidenav-sticky-top) - var(--s-md));
+  overflow-y: auto;
+}
+
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----
    These are aria-pressed button groups, NOT view tabs — view-switching now uses
    the Artificer `.tabs` primitive (see controls.tsx TabPicker). Kept as pills
