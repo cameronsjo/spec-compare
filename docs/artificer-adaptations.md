@@ -3,6 +3,27 @@
 How this project bends the Artificer design system, and why. Each entry mirrors a
 feedback issue filed upstream.
 
+## 2026-10-14 · Compact desktop sections with one navigation landmark
+
+`DesktopNav` renders one `<nav aria-label="Tools">` using Artificer's native
+`.sidenav`, `.sidenav__section`, `.label` and `.count` row grammar. Overview stays
+visible; the other groups use native disclosures, initially open only when
+active. Navigation into a closed group opens it; deliberately collapsing the
+already-active group is respected until it is activated again. Open groups do
+not auto-close: that preserves the reader's disclosure choices.
+
+Artificer 0.27's public `SideNav sections` API is not a fit: it always initializes
+all desktop sections open and has no collapsed-default option. Its row renderer
+is not exported, so this small adapter mirrors that markup and reuses the public
+`safeHref` helper rather than nesting `SideNav` landmarks. Revisit when the
+library exposes collapsed desktop defaults or a public row component.
+
+The only desktop-specific CSS adaptation caps rail height at the viewport minus
+the sticky top and `--s-md`, with vertical scrolling so multiple open groups stay
+reachable. The former nested-nav padding/border/background resets and duplicate
+group-label hiding rule were retired with the nested navs; no library CSS is
+patched. The mobile drawer still uses the native library section behavior.
+
 ## 2026-05-31 · Building a data-dense comparison surface
 
 `spec-compare`'s `site/` is a comparison tool: two of its four views are dense

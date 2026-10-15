@@ -88,15 +88,10 @@ body {
    hand-rolled shim that used to replicate it is retired (upstream since
    0.18.1; docs/artificer-adaptations.md #5). */
 
-/* The desktop disclosure summary owns the group label. */
-.desktop-nav .sidenav {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
-}
-.desktop-nav .sidenav__section .sidenav__group {
-  display: none; /* The disclosure summary already names this group. */
+/* Keep every group reachable even after several disclosures are opened. */
+.desktop-nav {
+  max-height: calc(100dvh - var(--sidenav-sticky-top) - var(--s-md));
+  overflow-y: auto;
 }
 
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----
