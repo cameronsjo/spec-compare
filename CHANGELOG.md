@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Marked the February Conductor snapshot in `docs/gaps.md` as superseded by the August reassessment and tracked profile.
+
 - **Visualizer face-lift** (`site/`) — Artificer `0.25.0 → 0.27.0`. Content no longer sits double-indented: `.app-shell__content`'s own bleed-grid gutter stacked on `.app`'s, so phones showed content at 48px under a 24px lede and desktop content stopped 24px short of the appbar. The compare filmstrip sizes cards and the strip to the diagrams in view (no dead space), shows its dot pager at every width as the "more tools" cue, and is a keyboard-reachable labelled scroll region. The page gains its one `h1`. The footer drops a second `.container` that indented it. The theme bootstrap matches the root site and blog: first visit dark, and a stored `auto` resolves against the OS instead of being written raw into `data-theme`
 
 - **Smaller initial download** (`site/scripts/minify-artificer.mjs`) — Production builds now minify Artificer CSS and classic scripts copied through Vite's public directory. Their combined gzip size drops from 62.4 KB to 22.0 KB; development sources and the existing design stay intact.
