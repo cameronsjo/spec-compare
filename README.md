@@ -38,6 +38,10 @@ first/last scenario tab and the full inset ring at 1280px and 390px; no manually
 started server or `NODE_PATH` is needed. Set `PREVIEW_URL` only to check an
 already-running production preview instead.
 
+`KNOWN_BAD_NAVIGATION=1 PLAYWRIGHT_CHROMIUM_CHANNEL=chrome npm run check:tab-focus`
+is a negative control: it disables the tab keyboard helper and must fail the
+Home/End target assertion, not pass by measuring a still-focused first tab.
+
 Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
 ## The tracked set

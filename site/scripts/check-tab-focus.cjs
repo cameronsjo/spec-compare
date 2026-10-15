@@ -16,10 +16,14 @@ const assert = require('node:assert/strict');
       const tabs = page.getByRole('tablist', { name: 'Scenario', exact: true });
       await tabs.getByRole('tab').first().focus();
       await page.evaluate(() => document.fonts.ready);
+      // A visible first tab must not hide broken Home/End navigation.
+      if (process.env.KNOWN_BAD_NAVIGATION) await page.evaluate(() => { window.ArtificerTabs = undefined; });
       for (const key of ['End', 'Home']) {
         await page.keyboard.press(key);
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         assert.equal(await tabs.locator(':focus').count(), 1, 'Keyboard navigation must keep focus on a scenario tab');
+        const expected = key === 'End' ? tabs.getByRole('tab').last() : tabs.getByRole('tab').first();
+        assert(await expected.evaluate(el => el === document.activeElement), `${key} must focus the ${key === 'End' ? 'last' : 'first'} scenario tab`);
         const result = await tabs.evaluate(el => {
           const tab = el.querySelector(':focus');
           const r = tab.getBoundingClientRect();
