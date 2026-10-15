@@ -118,13 +118,6 @@ body {
 }
 
 /* ---- transport / scenario ---- */
-.tabs {
-  --tab-ring-room: calc(var(--focus-width) + var(--focus-offset));
-  padding-inline: var(--tab-ring-room);
-  margin-inline: calc(-1 * var(--tab-ring-room));
-  scroll-padding-inline: var(--tab-ring-room);
-}
-
 .transport {
   gap: var(--s-xs);
   align-items: center;

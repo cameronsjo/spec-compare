@@ -43,6 +43,14 @@ To update or expand the comparison:
 
 ## Research Standards
 
+### Browser regression checks
+
+From `site/`, run `npm ci`, then `npx playwright install chromium` once and
+`npm run check:tab-focus`. The command builds the production app, owns a
+temporary local preview, and checks first/last scenario-tab focus visibility at
+desktop/mobile widths. To reuse installed Chrome instead of downloading a
+browser, use `PLAYWRIGHT_CHROMIUM_CHANNEL=chrome npm run check:tab-focus`.
+
 ### Source Quality
 
 All information must be:
