@@ -91,6 +91,8 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ### Conductor
 
+**Snapshot superseded:** The February 2026 assessment below is preserved for context. See the [August reassessment](reassessment-2026-08-28.md) and [tracked Conductor profile](../site/src/data/tools/conductor.json) for the later version assessment.
+
 **What it is:** A macOS desktop app by Melty Labs for running multiple Claude Code and Codex agents in parallel using git worktrees.
 
 **Why it matters:** Conductor solves the "agent runner" problem — how to actually execute multiple agents in parallel with proper isolation.
