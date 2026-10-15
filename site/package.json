@@ -15,7 +15,8 @@
     "build": "npm run validate && npm run gen:check && tsc && vite build",
     "postbuild": "node scripts/minify-artificer.mjs",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:tab-focus": "npm run build && node scripts/check-tab-focus.cjs"
   },
   "dependencies": {
     "@cameronsjo/artificer": "0.27.0",
@@ -30,6 +31,7 @@
     "ajv": "^8.17.1",
     "esbuild": "0.25.12",
     "jsdom": "^27.0.0",
+    "playwright": "^1.64.1",
     "typescript": "^5.6.3",
     "vite": "^6.4.2",
     "vitest": "^5.0.3"

@@ -28,7 +28,19 @@ npm run dev        # local dev server
 npm run validate   # AJV-validate every tool JSON + cross-tool invariants
 npm run build      # validate → tsc → vite build (outputs site/dist/)
 npm run preview    # serve the production build locally
+npm run check:tab-focus # build, start a temporary preview, check tab focus, stop preview
 ```
+
+The browser check uses the declared Playwright dependency. Install its browser
+once with `npx playwright install chromium`, or reuse system Chrome with
+`PLAYWRIGHT_CHROMIUM_CHANNEL=chrome npm run check:tab-focus`. It checks the
+first/last scenario tab and the full inset ring at 1280px and 390px; no manually
+started server or `NODE_PATH` is needed. Set `PREVIEW_URL` only to check an
+already-running production preview instead.
+
+`KNOWN_BAD_NAVIGATION=1 PLAYWRIGHT_CHROMIUM_CHANNEL=chrome npm run check:tab-focus`
+is a negative control: it disables the tab keyboard helper and must fail the
+Home/End target assertion, not pass by measuring a still-focused first tab.
 
 Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
