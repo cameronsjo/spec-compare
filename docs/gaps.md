@@ -157,6 +157,29 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### SpecDD (specdd/specdd)
+
+**What it is:** An Apache-2.0 spec-driven framework (`specdd/specdd`, 1.6, 2026-09-27) built around small `.sdd` spec files that sit beside the code they govern. A CLI (`specdd init`, `update`, `check-update`) installs a bootstrap that agents read through `AGENTS.md`. Requested for inclusion in issue #59.
+
+**Why it matters:** How it finds the specs that apply to a file is distinctive. For a target file, the agent reads the chain of specs from the project root down to that file (plus explicit `References`), so context is scoped by path instead of loaded from one large document. Child specs may narrow parent rules but must not silently loosen them, and `Owns` / `Can modify` bound which files an agent may edit.
+
+**Key differentiators:**
+- **Specs next to the code:** a spec file sits beside the code it covers; parent specs apply automatically, sibling specs only when referenced
+- **Write authority:** the framework README says the agent should stop and ask when no applicable or owning spec exists for a project file, or when a change would break `Must not` / `Forbids` (README wording; the generated bootstrap was not read)
+- **Path for existing codebases:** the docs cover greenfield and existing projects; for existing code they recommend starting with one high-change module, draft its spec from the current code, mark uncertain assumptions, and review before implementing
+- **Local tasks:** `Tasks` inside a spec carry open, done, skipped, blocked, and needs-decision states, small local to-do items for an agent, not a replacement for a tracker
+- **Agent reach (project's claim, not tested here):** documented as agent-agnostic through an `AGENTS.md` entrypoint; agents that do not pick up the bootstrap must be told to read it. Codex, Claude Code, Copilot, Antigravity, Junie, and Cline have dedicated plugins; other agents use Agent Skills or read the bootstrap directly
+
+**Gap assessment:** Profiled at **emerging tier**. The framework is distinct and its docs are detailed, but adoption is small: 40 stars and 3 forks on the framework repo, 1 star on the CLI, and a project about six months old (repository created 2026-04-25; first GitHub Release, 1.1, 2026-05-14; the changelog lists a 1.0 on 2026-04-26 with no Release). Scores come from reading the repository and docs, not from using the tool. Two things stay unverified: the project's own figures for fewer correction loops and faster delivery come from private internal tests, and whether agents follow the bootstrap reliably is untested here. The sources describe no worktree isolation, parallel orchestration, dashboard, or MCP server, and the README describes the loop as agent guidance (CLI source and generated bootstrap not checked, so enforcement is unknown). Revisit for promotion after a hands-on trial on an existing codebase.
+
+**Sources:**
+- [GitHub: specdd/specdd](https://github.com/specdd/specdd) (README, TOOLS.md, PLUGINS.md, SECURITY.md, LANGUAGE.md, CHANGELOG.md at `9ad00e7`; verified 2026-10-17)
+- [specdd.ai](https://specdd.ai/)
+- [GitHub: specdd/cli](https://github.com/specdd/cli)
+- [Inclusion request #59](https://github.com/cameronsjo/spec-compare/issues/59)
+
+---
+
 ### archiet-microcodegen (marginal)
 
 **What it is:** A single-file, MIT-licensed deterministic code generator (`Anioko/microcodegen`) that compiles a regex-parsed PRD into a bootable Flask app ZIP via `string.Template` rendering — no LLM in the open-source generation path, pure stdlib, zero dependencies. It is the open-source reference component of **archiet.com**, a commercial spec-driven platform (REQARCHITECT LTD). Companion per-stack packages exist on npm (NestJS), PyPI (Flask/Django), Packagist (Laravel), NuGet (.NET), and the Go proxy.
