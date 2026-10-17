@@ -213,7 +213,7 @@ All research is compiled from publicly available sources. Full citations are pro
 - User request: [issue #51](https://github.com/cameronsjo/spec-compare/issues/51)
 
 ### SpecDD — October 2026 profile
-- [specdd/specdd](https://github.com/specdd/specdd) (README, TOOLS.md, PLUGINS.md, SECURITY.md, CHANGELOG.md; commit `9ad00e7`; verified 2026-10-17)
+- [specdd/specdd](https://github.com/specdd/specdd) (README, TOOLS.md, PLUGINS.md, SECURITY.md, LANGUAGE.md, CHANGELOG.md; commit `9ad00e7`; star, fork, and release figures as of 2026-10-17)
 - [specdd/cli](https://github.com/specdd/cli) (release 1.2.0, Apache-2.0)
 - [specdd.ai](https://specdd.ai/)
 - User request: [issue #59](https://github.com/cameronsjo/spec-compare/issues/59)

@@ -27,18 +27,18 @@
   "keyFeatures": [
     "Specs next to the code: a `.sdd` file sits beside the code it governs, and a same-basename file (`itinerary.sdd` for `itinerary.js`) binds to that file",
     "Path-based resolution: for a target, the agent reads the chain from the project root down to the target, plus explicit `References`; parent specs apply automatically, sibling specs only when referenced",
-    "Child specs may add or narrow parent constraints but not loosen them; conflicting active rules are reported as unresolved, not silently picked",
+    "Child specs may add or narrow parent constraints but must not silently loosen them; conflicting active rules are reported as unresolved, not silently picked",
     "Write authority: `Owns` and `Can modify` bound which files an agent may edit, and `Must not` / `Forbids` set local boundaries",
     "Sections cover intent and verification (`Purpose`, `Must`, `Done when`, `Scenario`) and carry local `Tasks` with open, done, skipped, blocked, and needs-decision states",
     "Existing code: the docs cover greenfield and existing projects, and for existing code recommend starting with one high-change area and drafting a spec from current code, marking uncertain assumptions for review",
-    "Agent-agnostic through an `AGENTS.md` entrypoint and `.specdd/bootstrap.md`; dedicated plugins for Codex, Claude Code, Copilot, Antigravity, Junie, and Cline, plus universal Agent Skills",
-    "CLI (`specdd init`, `update`, `check-update`) verifies GPG signatures on framework releases; JetBrains and VS Code editor support for `.sdd` files; framework plugins (DSD, SSG, Zen) extend the bootstrap"
+    "Documented as agent-agnostic (project's claim, not tested here): an `AGENTS.md` entrypoint points agents at `.specdd/bootstrap.md`, and agents that do not pick it up must be told to read it; dedicated plugins for Codex, Claude Code, Copilot, Antigravity, Junie, and Cline, plus universal Agent Skills",
+    "CLI (`specdd init`, `update`, `check-update`) verifies GPG signatures on framework releases; JetBrains and VS Code editor support for `.sdd` files; framework plugins DSD and SSG (Zen added on main after 1.6) extend the bootstrap"
   ],
   "limitations": [
-    "Very early: repository created 2026-04-25, first GitHub Release 2026-05-14, 40 stars and 3 forks on the framework repo, 1 star on the CLI",
-    "No orchestration layer: no worktree isolation, parallel agents, dashboard, or MCP server; the agent follows the bootstrap as instructions, so the bootstrap asks the agent to follow the loop and the sources describe no enforcement",
-    "The docs advise implementing one to three specs at a time, which may slow large cross-cutting changes (our inference)",
-    "Heavier than a prompt for trivial edits: the bootstrap tells the agent to stop and ask when no applicable or owning spec exists for a project file",
+    "Very early: repository created 2026-04-25, first GitHub Release (1.1) 2026-05-14 with a 1.0 in the changelog dated 2026-04-26, 40 stars and 3 forks on the framework repo, 1 star on the CLI",
+    "No orchestration layer: no worktree isolation, parallel agents, dashboard, or MCP server; the README describes the loop as agent guidance, and the sources read describe no enforcement (CLI source and generated bootstrap not checked)",
+    "The docs advise at most one to three specs at a time, preferring one, which may slow large cross-cutting changes (our inference)",
+    "Heavier than a prompt for trivial edits (our inference): the README says the agent should stop and ask when no applicable or owning spec exists for a project file",
     "The project's reported gains (fewer correction loops, faster delivery) are its own private internal tests and are not independently checked here",
     "Scores assessed from the repository and its docs on 2026-10-17, not from hands-on use"
   ]
