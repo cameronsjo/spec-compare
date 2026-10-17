@@ -1,0 +1,45 @@
+{
+  "tool": "specdd",
+  "displayName": "SpecDD",
+  "vendor": "SpecDD (specdd.ai)",
+  "repo": "https://github.com/specdd/specdd",
+  "website": "https://specdd.ai/",
+  "version": "1.6",
+  "license": "Apache-2.0",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "Small .sdd specs beside the code, resolved by path.",
+  "bestFor": "Teams adding specs gradually to existing code, module by module",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "CLI",
+    "mcp": false,
+    "ideIntegration": true,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 3, "medium": 4, "large": 4, "parallel": 2, "emergency": 2, "solo": 4, "contextMgmt": 4, "overall": 3.3 },
+  "keyFeatures": [
+    "Specs next to the code: a `.sdd` file sits beside the code it governs, and a same-basename file (`itinerary.sdd` for `itinerary.js`) binds to that file",
+    "Path-based resolution: for a target, the agent reads the chain from the project root down to the target, plus explicit `References`; parent specs apply automatically, sibling specs only when referenced",
+    "Child specs may add or narrow parent constraints but not loosen them; conflicting active rules are reported as unresolved, not silently picked",
+    "Write authority: `Owns` and `Can modify` bound which files an agent may edit, and `Must not` / `Forbids` set local boundaries",
+    "Sections cover intent and verification (`Purpose`, `Must`, `Done when`, `Scenario`) and carry local `Tasks` with open, done, skipped, blocked, and needs-decision states",
+    "Existing code: the docs cover greenfield and existing projects, and for existing code recommend starting with one high-change area and drafting a spec from current code, marking uncertain assumptions for review",
+    "Agent-agnostic through an `AGENTS.md` entrypoint and `.specdd/bootstrap.md`; dedicated plugins for Codex, Claude Code, Copilot, Antigravity, Junie, and Cline, plus universal Agent Skills",
+    "CLI (`specdd init`, `update`, `check-update`) verifies GPG signatures on framework releases; JetBrains and VS Code editor support for `.sdd` files; framework plugins (DSD, SSG, Zen) extend the bootstrap"
+  ],
+  "limitations": [
+    "Very early: repository created 2026-04-25, first GitHub Release 2026-05-14, 40 stars and 3 forks on the framework repo, 1 star on the CLI",
+    "No orchestration layer: no worktree isolation, parallel agents, dashboard, or MCP server; the agent follows the bootstrap as instructions, so the bootstrap asks the agent to follow the loop and the sources describe no enforcement",
+    "The docs advise implementing one to three specs at a time, which may slow large cross-cutting changes (our inference)",
+    "Heavier than a prompt for trivial edits: the bootstrap tells the agent to stop and ask when no applicable or owning spec exists for a project file",
+    "The project's reported gains (fewer correction loops, faster delivery) are its own private internal tests and are not independently checked here",
+    "Scores assessed from the repository and its docs on 2026-10-17, not from hands-on use"
+  ]
+}

@@ -1,6 +1,6 @@
 # Spec-Driven Development Tools Comparison
 
-Independent research comparing **20 spec-driven development (SDD) tools** for AI-assisted coding — 8 with full workflow treatment, 12 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
+Independent research comparing **21 spec-driven development (SDD) tools** for AI-assisted coding — 8 with full workflow treatment, 13 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
 
 > A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked; where a vendor initiated contact ([Memex](docs/memex-review.md)), the review says so up front.
 
@@ -73,6 +73,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Smart Ralph** - Claude Code/Codex plugin layering spec phases on the Ralph autonomous loop
 - **Memex** - Fair-code Specify & Verify platform: specs as a typed decision database with CI-verified acceptance criteria and a knowledge graph (Mindset AI; solicited review, see [disclosure](docs/memex-review.md))
 - **Matt Pocock's Skills** - MIT skill collection: grill → spec → tickets → TDD, composable and deliberately not a framework (~268K stars)
+- **SpecDD** - Apache-2.0 framework of colocated `.sdd` specs resolved by path, with write-authority boundaries and a gradual adoption path for existing code (40 stars, v1.6; assessed from its docs)
 
 Two **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP) and **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled) — see [docs/gaps.md](docs/gaps.md).
 
@@ -125,7 +126,7 @@ The research is organized into focused, digestible documents:
 ### Analysis & Recommendations
 
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 20-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 21-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -144,7 +145,7 @@ The research is organized into focused, digestible documents:
 
 ## Quick Comparison (core tools)
 
-The full 20-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
+The full 21-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
 
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|

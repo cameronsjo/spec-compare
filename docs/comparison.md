@@ -26,6 +26,7 @@
 | Smart Ralph | Emerging | MIT | No | Hands-off spec-to-code loops | Active Dev (v4.0.0) |
 | [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v1.0.1) |
+| SpecDD | Emerging | Apache-2.0 | No | Teams adding specs gradually to existing code, module by module | Active Dev (1.6) |
 | [Superpowers](tools/superpowers.md) | Core | MIT | **Yes** | Disciplined autonomous dev (any agent) | Active Dev (v6.3.0) |
 | [Tessl](tools/tessl.md) | Core | Proprietary | No | Spec-as-source | Active Dev (Framework + Registry (public)) |
 | [Traycer](tools/traycer.md) | Core | Proprietary | No | Plan-first orchestration over your agents | Active Dev (VS Code extension (rolling)) |
@@ -56,6 +57,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | Smart Ralph | ❌ | ⚠️ | ❌ | No | ✅ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ✅ | Kanban | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [Spec-Kit](tools/spec-kit.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
+| SpecDD | ❌ | ⚠️ | ❌ | CLI | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
 | [Superpowers](tools/superpowers.md) | ✅ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Medium | Gentle | Spec-First |
 | [Tessl](tools/tessl.md) | ❌ | ❌ | ❌ | No | ✅ | ❌ | ❌ | High | Moderate | Spec-as-Source |
 | [Traycer](tools/traycer.md) | ❌ | ⚠️ | ❌ | IDE | ❌ | ✅ | ❌ | Low | Gentle | Spec-First |
