@@ -38,11 +38,11 @@
     { "from": "act", "to": "consolidate" }
   ],
   "scenarios": [
-    { "id": "trivial-mod", "steps": ["act", "consolidate"], "score": 4, "note": "The toolkit says trivial, well-defined tasks **may skip phases**, and nothing enforces the flow, so a one-liner goes straight to Act." },
+    { "id": "trivial-mod", "steps": ["refine", "plan", "act", "consolidate"], "score": 4, "note": "This shows all four phases, but the toolkit says trivial, well-defined tasks **may skip phases** and nothing enforces the flow, so a one-liner can go straight to Act." },
     { "id": "greenfield", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 4, "note": "The full path suits a large feature: **requirements checked against the code and a self-contained plan**, each produced in its own session. Optional skills can harden both and split the plan into PR-sized groups." },
     { "id": "refactor", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 4, "note": "Refine checks claims against the real code and the plan is settled before any code changes, which suits **multi-file changes in existing code**." },
-    { "id": "bug-fix", "steps": ["refine", "plan", "act"], "score": 2, "note": "**No hotfix path.** The interview and fresh-session handoffs are slow when production is down, and skipping them gives up what the pattern adds." },
-    { "id": "parallel-dev", "steps": ["ticket", "refine", "plan", "act"], "score": 2, "note": "**No worktree isolation or orchestration.** Each team runs its own flow and coordinates by hand." },
+    { "id": "bug-fix", "steps": ["refine", "plan", "act", "consolidate"], "score": 2, "note": "**No hotfix path.** The interview and fresh-session handoffs are slow when production is down, and skipping them gives up what the pattern adds." },
+    { "id": "parallel-dev", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 2, "note": "**No worktree isolation or orchestration.** Each team runs its own flow and coordinates by hand." },
     { "id": "cross-cutting", "steps": ["refine", "plan", "act", "consolidate"], "score": 3, "note": "The plan can list every form up front, but a long sweep in one session gets **no review until the end** unless you add the optional task split." }
   ],
   "scores": { "trivial": 4, "medium": 4, "large": 4, "parallel": 2, "emergency": 2, "solo": 4, "contextMgmt": 5, "overall": 3.6 },
