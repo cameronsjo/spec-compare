@@ -27,35 +27,23 @@
   "phases": [
     { "id": "ticket", "label": "Ticket", "kind": "specify", "command": "/fetch-ticket", "note": "Downloads the ticket from a tracker (Jira, GitHub, Azure DevOps…) into a self-contained TICKET.md, with attachments and linked tickets. No tracker: write the file by hand, or start Refine from a raw idea." },
     { "id": "refine", "label": "Refine", "kind": "specify", "command": "/refine-ticket", "note": "**The what.** Checks the ticket against the codebase and interviews you one question at a time, each with a recommended answer. Output: a validated REQUIREMENTS.md." },
-    { "id": "harden-requirements", "label": "Harden reqs (optional)", "kind": "review", "command": "/harden-artifact", "note": "Optional, in a fresh session. A clean-context sub-agent reviews REQUIREMENTS.md against the ticket, code, and related tickets; your session tries to disprove each finding, and you decide on the survivors: fix, dismiss, or defer." },
     { "id": "plan", "label": "Plan", "kind": "design", "command": "/create-implementation-plan", "note": "**The how.** Studies the code, settles technical decisions with you, and writes a self-contained PLAN.md for a fresh session to execute." },
-    { "id": "harden-plan", "label": "Harden plan (optional)", "kind": "review", "command": "/harden-artifact", "note": "Optional, in a fresh session. The same adversarial review as for requirements, applied to PLAN.md." },
-    { "id": "split", "label": "Split tasks (optional)", "kind": "tasks", "command": "/split-plan-tasks", "note": "Optional. Breaks PLAN.md into small tasks, each leaving the project building with passing tests, grouped into PR-sized batches. After you approve, it appends the list to the plan, with a done check and a suggested commit subject per task." },
-    { "id": "act", "label": "Act", "kind": "implement", "command": "/execute-plan-tasks", "note": "**One task per fresh session.** Implements only that task, runs its done check and the project's checks, ticks it off in PLAN.md, and logs deviations in DECISIONS.md. It never commits or pushes. A second failed attempt, or a task that needs reshaping, stops the run to re-plan. An unsplit plan needs no skill: ask a fresh session to execute PLAN.md." },
-    { "id": "review-task", "label": "Review task", "kind": "review", "note": "**The review between tasks is the point.** You check the result and commit it, then start the next task in a fresh session. A finished PR-sized group moves on to Consolidate." },
-    { "id": "consolidate-review", "label": "Consolidate: review", "kind": "review", "command": "/fresh-eyes-review", "note": "**Consolidate, step one.** A clean-context sub-agent reviews the changeset and reports its findings back to your session. /self-review builds on it for a merge-ready pass, with a compact report for the PR." },
-    { "id": "handover", "label": "Consolidate: handover", "kind": "archive", "command": "/handover", "note": "**Consolidate, step two.** Writes HANDOVER.md, a paste-ready PR description covering key decisions, where to look, and open items. If the repo has a PR template, it fills that in instead." }
+    { "id": "act", "label": "Act", "kind": "implement", "note": "**No skill needed.** Open a fresh session and ask the agent to execute PLAN.md, including running the project's checks. This is the only phase that touches source code." },
+    { "id": "consolidate", "label": "Consolidate", "kind": "archive", "command": "/handover", "note": "Writes HANDOVER.md, a paste-ready PR description covering key decisions, where to look, and open items. If the repo has a PR template, it fills that in instead." }
   ],
   "edges": [
     { "from": "ticket", "to": "refine" },
-    { "from": "refine", "to": "harden-requirements" },
-    { "from": "harden-requirements", "to": "plan" },
-    { "from": "plan", "to": "harden-plan" },
-    { "from": "harden-plan", "to": "split" },
-    { "from": "split", "to": "act" },
-    { "from": "act", "to": "review-task" },
-    { "from": "review-task", "to": "act", "on": "next task" },
-    { "from": "act", "to": "plan", "on": "re-plan" },
-    { "from": "review-task", "to": "consolidate-review" },
-    { "from": "consolidate-review", "to": "handover" }
+    { "from": "refine", "to": "plan" },
+    { "from": "plan", "to": "act" },
+    { "from": "act", "to": "consolidate" }
   ],
   "scenarios": [
-    { "id": "trivial-mod", "steps": ["act", "review-task"], "score": 4, "note": "The toolkit says trivial, well-defined tasks **may skip phases**, and nothing enforces the flow, so a one-liner goes straight to Act." },
-    { "id": "greenfield", "steps": ["ticket", "refine", "harden-requirements", "plan", "harden-plan", "split", "act", "review-task", "act", "review-task", "consolidate-review", "handover"], "score": 4, "note": "The full path suits a large feature: **code-checked requirements, a hardened plan, and PR-sized groups**. The cost is that each task is a separate manual run." },
-    { "id": "refactor", "steps": ["ticket", "refine", "plan", "split", "act", "review-task", "consolidate-review", "handover"], "score": 4, "note": "Refine checks claims against the real code and split keeps the project building after every task, which suits **multi-file changes in small reviewable steps**." },
-    { "id": "bug-fix", "steps": ["refine", "plan", "act", "review-task"], "score": 2, "note": "**No hotfix path.** The interview and fresh-session handoffs are slow when production is down, and skipping them gives up what the pattern adds." },
-    { "id": "parallel-dev", "steps": ["ticket", "refine", "plan", "split", "act", "review-task"], "score": 2, "note": "Groups are independently mergeable, but there is **no worktree isolation or orchestration**. Each team runs its own flow and coordinates by hand." },
-    { "id": "cross-cutting", "steps": ["refine", "plan", "split", "act", "review-task", "act", "review-task", "consolidate-review", "handover"], "score": 3, "note": "The plan can list every form and split tracks each one, but **one task per run** means many manual runs unless forms are batched into a task." }
+    { "id": "trivial-mod", "steps": ["act", "consolidate"], "score": 4, "note": "The toolkit says trivial, well-defined tasks **may skip phases**, and nothing enforces the flow, so a one-liner goes straight to Act." },
+    { "id": "greenfield", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 4, "note": "The full path suits a large feature: **requirements checked against the code and a self-contained plan**, each produced in its own session. Optional skills can harden both and split the plan into PR-sized groups." },
+    { "id": "refactor", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 4, "note": "Refine checks claims against the real code and the plan is settled before any code changes, which suits **multi-file changes in existing code**." },
+    { "id": "bug-fix", "steps": ["refine", "plan", "act"], "score": 2, "note": "**No hotfix path.** The interview and fresh-session handoffs are slow when production is down, and skipping them gives up what the pattern adds." },
+    { "id": "parallel-dev", "steps": ["ticket", "refine", "plan", "act"], "score": 2, "note": "**No worktree isolation or orchestration.** Each team runs its own flow and coordinates by hand." },
+    { "id": "cross-cutting", "steps": ["refine", "plan", "act", "consolidate"], "score": 3, "note": "The plan can list every form up front, but a long sweep in one session gets **no review until the end** unless you add the optional task split." }
   ],
   "scores": { "trivial": 4, "medium": 4, "large": 4, "parallel": 2, "emergency": 2, "solo": 4, "contextMgmt": 5, "overall": 3.6 },
   "keyFeatures": [

@@ -26,7 +26,9 @@ The toolkit treats these files as tools rather than ceremony: its philosophy doc
 6. **Act:** `execute-plan-tasks` runs one task per fresh session, ticks it off in `PLAN.md`, logs deviations in `DECISIONS.md`, and stops for your review. It never commits or pushes. An unsplit plan needs no skill: ask a fresh session to execute it.
 7. **Consolidate:** `fresh-eyes-review` has a clean-context sub-agent review the changeset (`self-review` builds on it and adds a report for the PR), then `handover` writes `HANDOVER.md`, a paste-ready PR description.
 
-The slash-command count in the comparison tables (10) counts these skills, which are all invoked by name. The toolkit ships no separate command files.
+The site's diagram is compact and shows only the main path: Ticket, Refine, Plan, Act (an unsplit plan, no skill needed), and Consolidate (`handover`).
+
+The slash-command count in the comparison tables (10) counts the skills above, which are all invoked by name. The toolkit ships no separate command files.
 
 ## Installation
 
