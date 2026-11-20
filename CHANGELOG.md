@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Dropped the MoAI-ADK core-promotion trigger (#21). No hands-on evaluation is planned, so it stays at emerging tier on scores read from its repository, the same call made for Matt Pocock's Skills in #55.
+
 - Marked the February Conductor snapshot in `docs/gaps.md` as superseded by the August reassessment and tracked profile.
 
 - **Visualizer face-lift** (`site/`) — Artificer `0.25.0 → 0.27.0`. Content no longer sits double-indented: `.app-shell__content`'s own bleed-grid gutter stacked on `.app`'s, so phones showed content at 48px under a 24px lede and desktop content stopped 24px short of the appbar. The compare filmstrip sizes cards and the strip to the diagrams in view (no dead space), shows its dot pager at every width as the "more tools" cue, and is a keyboard-reachable labelled scroll region. The page gains its one `h1`. The footer drops a second `.container` that indented it. The theme bootstrap matches the root site and blog: first visit dark, and a stored `auto` resolves against the OS instead of being written raw into `data-theme`
