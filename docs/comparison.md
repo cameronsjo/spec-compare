@@ -16,6 +16,7 @@
 | GAAI | Emerging | Source-available (Elastic License 2.0) | No | Governed autonomous delivery | Active Dev (v2.51.0) |
 | GRACE | Emerging | MIT | No | Contract-first formal specs | Beta (v4.0.5) |
 | [GSD (Get Shit Done)](tools/gsd.md) | Emerging | Open Source | No | Solo devs, context management | Production (v1.42.3) |
+| gstack | Emerging | MIT | No | Solo builders who want review, QA, and release discipline around Claude Code | Active Dev (v1.102.0.0) |
 | Kilo Code | Emerging | Open Source | No | Mode-based engineering, durable memory | Active Dev (v7.5.6) |
 | [Kiro](tools/kiro.md) | Core | Proprietary (paid tiers + free tier) | No | IDE experience | Production (v1.0.395) |
 | Matt Pocock's Skills | Emerging | MIT | No | Engineers who want discipline without a framework | Active Dev (v1.2.3) |
@@ -27,6 +28,7 @@
 | [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v1.0.1) |
 | SpecDD | Emerging | Apache-2.0 | No | Teams adding specs gradually to existing code, module by module | Active Dev (1.6) |
+| SpecWeave | Emerging | MIT | No | Work that outlives one session and may move between agents, machines, or accounts | Active Dev (3.2.2) |
 | [Superpowers](tools/superpowers.md) | Core | MIT | **Yes** | Disciplined autonomous dev (any agent) | Active Dev (v6.3.0) |
 | [Tessl](tools/tessl.md) | Core | Proprietary | No | Spec-as-source | Active Dev (Framework + Registry (public)) |
 | [Traycer](tools/traycer.md) | Core | Proprietary | No | Plan-first orchestration over your agents | Active Dev (VS Code extension (rolling)) |
@@ -47,6 +49,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | GAAI | ❌ | ✅ | ✅ | Terminal | ❌ | ❌ | ❌ | Medium | Moderate | Spec-First |
 | GRACE | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [GSD (Get Shit Done)](tools/gsd.md) | ❌ | ✅ | ✅ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
+| gstack | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | High | Moderate | Spec-First |
 | Kilo Code | ❌ | ✅ | ✅ | IDE | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
 | [Kiro](tools/kiro.md) | ❌ | ⚠️ | ✅ | IDE | ✅ | ✅ | ❌ | Medium | Moderate | Spec-First |
 | Matt Pocock's Skills | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | Spec-First |
@@ -58,6 +61,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ✅ | Kanban | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [Spec-Kit](tools/spec-kit.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | SpecDD | ❌ | ⚠️ | ❌ | CLI | ❌ | ✅ | ✅ | Medium | Moderate | Spec-Anchored |
+| SpecWeave | ❌ | ⚠️ | ✅ | Web | ❌ | ❌ | ✅ | Medium | Moderate | Spec-Anchored |
 | [Superpowers](tools/superpowers.md) | ✅ | ✅ | ❌ | No | ❌ | ❌ | ✅ | Medium | Gentle | Spec-First |
 | [Tessl](tools/tessl.md) | ❌ | ❌ | ❌ | No | ✅ | ❌ | ❌ | High | Moderate | Spec-as-Source |
 | [Traycer](tools/traycer.md) | ❌ | ⚠️ | ❌ | IDE | ❌ | ✅ | ❌ | Low | Gentle | Spec-First |
@@ -85,7 +89,7 @@ How each tool communicates instructions to AI coding agents (tools that declare 
 
 ## Capability Matrix
 
-> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 18-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
+> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 23-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
 
 | Aspect | Spec-Kit | Spec Kitty | BMad | OpenSpec | Kiro | Tessl |
 |--------|----------|------------|------|----------|------|-------|
@@ -257,7 +261,7 @@ Includes practical grades for:
 
 ## Related
 
-- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 18-tool heatmap
+- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 23-tool heatmap
 - [Iterative Development](iterative-development.md) — Deep dive on spec modifications
 - [Orchestration Landscape](landscape.md) — Agent Teams and 30+ multi-agent tools
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide

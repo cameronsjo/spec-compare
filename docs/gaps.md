@@ -180,6 +180,48 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### gstack (garrytan/gstack)
+
+**What it is:** An MIT-licensed set of Markdown skills (`garrytan/gstack`, v1.102.0.0, 2026-11-19) that gives Claude Code, and experimentally other agents, role-based slash commands for a sprint: `/office-hours`, plan reviews, `/review`, `/qa`, `/ship`. `./setup` installs it, compiles some local binaries, and registers hooks. Requested for inclusion in issue #60.
+
+**Why it matters:** ~142K stars and ~21K forks (2026-11-20) make it one of the most-adopted agent workflows in the space. The request calls it "a very popular spec driven framework". The popularity holds (about 1.9 times OpenSpec's 75K stars on the same day); the spec-driven label does not. The README describes "a virtual engineering team" and "a process" (Think, Plan, Build, Review, Test, Ship, Reflect), never uses the term spec-driven, and the repository keeps no living spec or task list.
+
+**Key differentiators:**
+- **Role-based plan reviews:** CEO, eng, design, and DX reviews, with `/autoplan` chaining them and a review-readiness table before `/ship`
+- **Review, QA, and release depth:** `/review` dispatches specialist subagents, `/qa` drives a real browser or tests CLIs and APIs, and `/ship` runs a coverage audit and opens the PR
+- **Optional spec step:** `/spec` interviews you, gates the result on a quality score, and files it as a GitHub issue; `--execute` can spawn `claude -p` in a fresh worktree
+- **Agent reach (project's claim, not tested here):** Claude Code is the only full-support host; Codex, Cursor, Gemini CLI, Copilot CLI, and others are listed experimental, and the safety hooks block only on Claude Code and, once trusted, Codex
+
+**Gap assessment:** Profiled at **emerging tier** as a workflow bundle that sits beside the SDD tools rather than a spec tool, the same way Superpowers and Pocock's skills are read. Adoption is far past the bar; the scores come from reading the repository and its docs, not from using it. Its weight is on review, QA, and release, and it leaves implementation to Claude Code's plan mode. Its design doc and test plan live under `~/.gstack`, not in the repository. Parallel work depends on Conductor rather than gstack, and outside reviews send code to Codex or Claude Code by default. The author's productivity figures are not checked here. Revisit for a hands-on trial if the project adds an in-repo spec or task step.
+
+**Sources:**
+- [GitHub: garrytan/gstack](https://github.com/garrytan/gstack) (README, docs/skills.md, docs/why-gstack.md, ARCHITECTURE.md, AGENTS.md, CHANGELOG.md, LICENSE, `spec/SKILL.md` at `92c6c8a`; verified 2026-11-20)
+- [Inclusion request #60](https://github.com/cameronsjo/spec-compare/issues/60)
+
+---
+
+### SpecWeave (anton-abyzov/specweave)
+
+**What it is:** An MIT-licensed spec-driven CLI (`specweave` on npm, 3.2.2, 2026-11-18) that keeps each piece of AI-coding work in git as one `spec.md` (Problem, Scope, numbered acceptance criteria, Approach, Tasks), an append-only `ledger.jsonl` of task claims and evidence, and a handoff another agent can pick up. Requested for inclusion in issue #57 by the project's maintainer, with the conflict of interest disclosed.
+
+**Why it matters:** It targets switching tools mid-task. `specweave handoff` releases the agent's claims, writes a handoff note, and pushes the branch plus a snapshot of uncommitted edits; `specweave pickup` in another tool or account applies it and prints the next task with its acceptance criteria. `specweave auto-handoff on` reads plan usage from the Claude Code status line and Codex session logs. None of the profiled tools documents that path.
+
+**Key differentiators:**
+- **Evidence ledger:** `specweave task done` requires `--run "<cmd>"` (stores the exit code and log, refuses a failing command) or free-text `--evidence`; `specweave verify` runs the configured or detected test, lint, and build commands and gates `specweave complete`
+- **Handoff across tools and accounts:** state travels in git; it cannot read another tool's session transcript
+- **Usage-limit handoff (source read, not run):** the default suggests a handoff at 95% of a usage window and keeps working; `--mode enforce` stops and hands off. Cloud sessions have no usage meter, so handoff there is manual
+- **Edit gate:** a hook blocks edits made without an increment unless `specweave small-fix "<why>"` is run, and each exemption is logged
+
+**Gap assessment:** Profiled at **emerging tier**. Adoption is small but past SpecDD's: 173 stars and 20 forks, repository created 2025-10-25, 153 GitHub releases, and about 15.7K npm downloads in the 30 days to 2026-11-19. One author wrote about 95% of the 3,856 commits. The request's descriptions of `spec.md`, `ledger.jsonl`, `verify`, `handoff`, and `pickup` held against the CLI source at `826e51d`. Two details did not: the auto-handoff default is 95% in suggest mode, not 90% (the project's README and pricing page still say 90%), and the "about 760 tokens" `AGENTS.md` figure describes the 3.0 template, which has since shrunk to 550 bytes. The CLI sits under a commercial layer, SpecWithCode (a desktop app with a hosted relay and a $20/month Pro tier on a waitlist), though the CLI works without it. Scores are this repository's, not the maintainer's, and come from reading the source, package, and docs. Revisit for promotion after a hands-on trial of a Claude Code to Codex handoff on an existing repository.
+
+**Sources:**
+- [GitHub: anton-abyzov/specweave](https://github.com/anton-abyzov/specweave) (README, AGENTS.md, CHANGELOG.md, CLI source, `src/templates/AGENTS.md.template` at `826e51d`; verified 2026-11-20)
+- [npm: specweave](https://www.npmjs.com/package/specweave)
+- [spec-weave.com](https://spec-weave.com/) (pricing, handoff and auto-handoff guides)
+- [Inclusion request #57](https://github.com/cameronsjo/spec-compare/issues/57)
+
+---
+
 ### archiet-microcodegen (marginal)
 
 **What it is:** A single-file, MIT-licensed deterministic code generator (`Anioko/microcodegen`) that compiles a regex-parsed PRD into a bootable Flask app ZIP via `string.Template` rendering — no LLM in the open-source generation path, pure stdlib, zero dependencies. It is the open-source reference component of **archiet.com**, a commercial spec-driven platform (REQARCHITECT LTD). Companion per-stack packages exist on npm (NestJS), PyPI (Flask/Django), Packagist (Laravel), NuGet (.NET), and the Go proxy.
@@ -330,7 +372,7 @@ This paper provides practitioners with a comprehensive guide to SDD, covering pr
 
 ## Related
 
-- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 18-tool scoring matrix including these frameworks
+- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 23-tool scoring matrix including these frameworks
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow combining OpenSpec with Beads
 - [Beads](beads.md) — Agent memory layer
 - [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools
