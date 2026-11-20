@@ -11,9 +11,11 @@
 # version can still change which fonts the CSS loads (0.28.0 swapped iA
 # Writer Quattro for Bricolage Grotesque + Recursive), so after copying, the
 # script fails if any url() asset the vendored CSS names is missing from
-# public/artificer/, and prints the cp that fixes it. Ported from agentic-harnesses/scripts/revendor-artificer.sh;
-# the only structural change is sourcing from node_modules instead of a gh
-# pull, plus this app's site/scripts/ layout and the +artificer-tabs.js entry.
+# public/artificer/, and prints the cp that fixes it.
+#
+# Ported from agentic-harnesses/scripts/revendor-artificer.sh; the only
+# structural change is sourcing from node_modules instead of a gh pull, plus
+# this app's site/scripts/ layout and the +artificer-tabs.js entry.
 #
 # Usage: scripts/revendor-artificer.sh   (wired to predev + prebuild)
 set -euo pipefail
@@ -63,6 +65,21 @@ done
 # Every relative url() asset the vendored CSS names must exist in DEST; the
 # tracked binaries are not copied, so a version that changes them would
 # otherwise fall back to system fonts with no error.
+# Fails closed: `perl -n` only warns on a file it cannot open, so the BEGIN
+# block dies instead, the capture (not a process substitution) carries that
+# exit through -e/pipefail, and an empty list fails too, since artificer.css
+# always declares its @font-face files. Skips data:, any other scheme,
+# protocol-relative and absolute URLs.
+assets=$(perl -ne 'BEGIN { for (@ARGV) { -r $_ or die "cannot read $_\n" } }
+while (/url\(\s*["\x27]?([^"\x27)?#]*)/g) {
+  my $u = $1; $u =~ s/^\s+|\s+$//g;
+  next if $u eq "" || $u =~ m{^(?:[a-z][a-z0-9+.-]*:|/)}i;
+  print "$u\n";
+}' "${DEST}"/*.css | sort -u)
+if [ -z "$assets" ]; then
+  echo "error: found no url() assets in ${DEST}/*.css; the asset check cannot run" >&2
+  exit 1
+fi
 missing=0
 while IFS= read -r asset; do
   [ -n "$asset" ] || continue
@@ -70,7 +87,7 @@ while IFS= read -r asset; do
     echo "  ! missing ${asset}, referenced by the vendored CSS — fix: cp '${SRC}/${asset}' '${DEST}/${asset}' && git add it" >&2
     missing=1
   fi
-done < <(perl -ne 'while (/url\(\s*["\x27]?(?!data:|https?:|\/)([^"\x27)?#]+)/g) { print "$1\n" }' "${DEST}"/*.css | sort -u)
+done <<< "$assets"
 if (( missing )); then
   echo "error: vendored CSS references assets not in ${DEST}" >&2
   exit 1
