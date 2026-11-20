@@ -459,3 +459,12 @@ Pin `0.25.0 → 0.27.0`. `primitives.json` records no versions (so no breaking e
 | 25 | fix | page `h1` | The page had no `h1`, `h2` or `h3` on the default view. Added an `.sr-only` `h1`; views already start at `h2`. | no |
 | 26 | fix | colophon | Dropped the inner `.container` in the footer: a second gutter inside `.app`. Same fix as the root site and blog. | no |
 | 27 | fix | theme bootstrap | `index.html` wrote `saved || OS` straight into `data-theme`, so a stored `auto` painted `data-theme="auto"` until `theme.js` corrected it. Now the root site's bootstrap: first visit dark with the key written, `auto` resolved against the OS, unknown values read as `auto` like `theme.js`. | no |
+
+## 2026-11-20 · Upgrade to 0.28.0 — the font swap
+
+Pin `0.27.0 → 0.28.0`. The 0.28.0 `primitives.json` has no `versions` entries after `0.24.0`, so it records no breaking events for this step. The upstream repository's history is a single export commit, and its changelog has one entry. The changes below come from diffing the two packages: no class or custom property was removed, `dist/react` is byte-identical, and the additions are `.sploot*` and `.whimsy--signature`, neither of which this site hand-rolls.
+
+| # | type | pattern | what we did + why | upstream? |
+|---|------|---------|-------------------|-----------|
+| 28 | fix | tracked font assets | `--font-body` and `--font-interface` moved from iA Writer Quattro V/S to Bricolage Grotesque and Recursive, and the CSS adds a `jetbrains-mono-blocks` face. `revendor-artificer.sh` copies only text files, so the new `@font-face` URLs would have 404'd and the page fallen back to system fonts with no error. The three new `.woff2` files are now tracked, and the ten Quattro files are removed. The script now fails when any relative `url()` in the vendored CSS is missing from `public/artificer/`. Verified in Chromium against `vite preview`: Bricolage Grotesque and Recursive load, with no failed requests. | yes: the ledger records no font swap, cameronsjo/artificer-design-system#576 |
+| 29 | keep | favicon, social card | Both changed upstream. The new `og-image.svg` reads "Cameron's design system", which is wrong for this site's link previews, so the tracked copies stay. | no |
