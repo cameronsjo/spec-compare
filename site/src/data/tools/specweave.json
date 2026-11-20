@@ -1,0 +1,46 @@
+{
+  "tool": "specweave",
+  "displayName": "SpecWeave",
+  "vendor": "Anton Abyzov (spec-weave.com)",
+  "repo": "https://github.com/anton-abyzov/specweave",
+  "website": "https://spec-weave.com/",
+  "version": "3.2.2",
+  "license": "MIT",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "context",
+  "specMaturity": "Spec-Anchored",
+  "tagline": "One spec.md per task, an append-only ledger, and a handoff another agent can pick up.",
+  "bestFor": "Work that outlives one session and may move between agents, machines, or accounts",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "Web",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": true
+  },
+  "scores": { "trivial": 3, "medium": 4, "large": 4, "parallel": 3, "emergency": 2, "solo": 4, "contextMgmt": 4, "overall": 3.4 },
+  "keyFeatures": [
+    "One `spec.md` per unit of work with Problem, Scope, numbered acceptance criteria (`AC-01`), Approach, and Tasks; each task names its AC, files, and a test command",
+    "Append-only `ledger.jsonl` of task claims, completions, blocks, notes, handoffs, and pickups; lines are never edited, and state is derived by folding the log",
+    "`specweave task done` requires evidence: `--run \"<cmd>\"` stores the exit code and a log and refuses a failing command, while `--evidence` accepts free text",
+    "`specweave verify` runs configured test commands, or the project's detected `test`, `lint`, and `build` scripts (or `cargo test`, `pytest`, `go test`), and `specweave complete` reads its report as the closure gate",
+    "`specweave handoff` releases the agent's claims, writes a handoff note, pushes the branch, and pushes a snapshot of uncommitted work to a `specweave-handoff` ref; `specweave pickup` in another tool or account applies it and prints the next task with its ACs",
+    "`specweave auto-handoff on` reads plan usage from the Claude Code status line and Codex session logs; the default suggests a handoff at 95% of a window, and `--mode enforce` stops and hands off",
+    "One short `AGENTS.md` shared by Codex, Grok Build, Cursor, Copilot, Gemini CLI, and OpenCode, with `CLAUDE.md` importing it (project's claim for the agent list, not tested here)",
+    "A hook blocks edits made without an increment unless `specweave small-fix \"<why>\"` is run, and each exemption is logged; `specweave dashboard` serves a local web dashboard"
+  ],
+  "limitations": [
+    "One author wrote about 95% of 3,856 commits; 173 stars and 20 forks on 2026-11-20, repository created 2025-10-25",
+    "The CLI sits under a commercial layer: SpecWithCode, a desktop app with a hosted relay, a $20/month Pro tier on a waitlist, team contracts, and a paid pilot; the pricing page says the CLI and app stay free (project's claim, not tested here)",
+    "Handoff cannot carry another tool's session transcript; continuity depends on files kept in git, and tracker sync (GitHub, Jira, Azure DevOps) runs only on demand",
+    "No worktree creation, no MCP server in the CLI, and no first-party IDE extension found; parallel lanes share one checkout and are guided by a skill (our inference from the source)",
+    "Evidence is weaker than the wording suggests: `--evidence` takes free text and a ticked AC checkbox counts as met (our inference from the source)",
+    "The project's docs disagree on defaults: the README and pricing page say auto-handoff at 90%, while the code and guide say 95% in suggest mode; the \"about 760 tokens\" AGENTS.md figure describes the 3.0 template",
+    "Requested by the maintainer (conflict disclosed in issue #57); scores are this repo's, assessed from the source, the 3.2.2 package, and docs on 2026-11-20, not from hands-on use"
+  ]
+}

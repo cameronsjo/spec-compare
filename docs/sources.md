@@ -218,6 +218,17 @@ All research is compiled from publicly available sources. Full citations are pro
 - [specdd.ai](https://specdd.ai/)
 - User request: [issue #59](https://github.com/cameronsjo/spec-compare/issues/59)
 
+### gstack — November 2026 profile
+- [garrytan/gstack](https://github.com/garrytan/gstack) (README, docs/skills.md, docs/why-gstack.md, ARCHITECTURE.md, AGENTS.md, CHANGELOG.md, LICENSE, `spec/SKILL.md`; commit `92c6c8a`; star, fork, and release figures as of 2026-11-20)
+- User request: [issue #60](https://github.com/cameronsjo/spec-compare/issues/60)
+
+### SpecWeave — November 2026 profile
+- [anton-abyzov/specweave](https://github.com/anton-abyzov/specweave) (README, AGENTS.md, CHANGELOG.md, CLI source under `src/cli/commands/` and `src/core/`, `src/templates/AGENTS.md.template`; commit `826e51d`; star, fork, and release figures as of 2026-11-20)
+- [npm: specweave](https://www.npmjs.com/package/specweave) (3.2.2; registry and downloads checked 2026-11-20)
+- [spec-weave.com](https://spec-weave.com/) (pricing page, handoff and auto-handoff guides)
+- [anton-abyzov/specwithcode](https://github.com/anton-abyzov/specwithcode)
+- User request: [issue #57](https://github.com/cameronsjo/spec-compare/issues/57) (filed by the maintainer, conflict disclosed)
+
 ## Research Methodology
 
 This comparison was compiled through:
