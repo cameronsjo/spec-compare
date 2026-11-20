@@ -270,6 +270,50 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### Consort (marginal)
+
+**What it is:** A spec-first, test-driven agent framework from Databricks Solutions (`databricks-solutions/consort`, v0.4.50, 2026-11-12) that builds transactional application backends on Lakebase, Databricks' serverless Postgres-compatible OLTP database. A deterministic state-machine conductor drives `/plan → /design → /build → /deploy` through role agents (spec author, architect reviewer, DBA, test strategist, navigator/driver). Human-approval gates fail closed, the design spec and test list freeze at a gate, and, per the README, each git branch is paired with its own Lakebase branch, so every "green" is a run against a real, isolated database. It installs as a Claude Code plugin, with Cursor and Genie Code skill installs and Codex or Claude Desktop through an MCP server (`lakebase-mcp-server`), and ships a dashboard app.
+
+**Why it's interesting:** None of the tracked tools puts a live branched database inside the TDD loop. Consort also puts the controls (phase routing, gates, test-list immutability) in code the agent does not edit rather than in prompts. The immutability check is real: `consort/test-list/mutate-test-list.ts` refuses test-list edits while the `test_list` gate is closed. Most tracked tools rely on the model following instructions.
+
+**Gap assessment:** Noted here rather than profiled. It is not open source in the OSI sense: `LICENSE.md` is a Databricks license that permits use "solely for the purposes of using the Licensed Materials within or connecting to the Databricks Services" and lets Databricks terminate it on notice, which is why GitHub reports `NOASSERTION` (the issue and README say "open source"). It also runs only against a Lakebase-enabled Databricks workspace ("no mock mode", per the README), so it is a platform-specific tool rather than a general SDD method. Adoption is modest: **38★, 12 forks** on 2026-11-20, repository created 2026-05-23, and about 1,710 of roughly 1,720 commits from one author, though releases ship every few days. The arXiv paper ([2609.09671](https://arxiv.org/abs/2609.09671)) is by the same author and frames its main claims as a pre-registered hypothesis, not results. The branch pairing was not exercised here, since it needs a Databricks workspace. Author-submitted, with the affiliation disclosed in the issue. No heatmap scores, per the scoring policy. Revisit for an emerging-tier profile when both hold: (a) it runs outside Databricks or moves to an OSI license, and (b) it has more than one active maintainer. Independent results from the paper's pre-registered experiment would also prompt a re-look.
+
+**Sources:**
+- [GitHub: databricks-solutions/consort](https://github.com/databricks-solutions/consort) (README, LICENSE.md, NOTICE.md, docs/positioning.md, source at `5ad34ea`; verified 2026-11-20)
+- [arXiv 2609.09671](https://arxiv.org/abs/2609.09671)
+- [Inclusion request #58](https://github.com/cameronsjo/spec-compare/issues/58)
+
+---
+
+### Enso Method (marginal)
+
+**What it is:** An MIT-licensed set of 27 agent skills (`EnsoDynamics/enso-method`, no tagged releases) installed as a Claude Code or Codex plugin, or through the `skills` CLI for other agents. It runs PRD → technical design → refinement rounds → phase split → phased build → delivery and test audits. Requirements, design, assumptions, and phase files live together in `docs/prds/<name>/` and stay in the repository as the source of truth for later changes.
+
+**Why it's interesting:** Its distinct piece is a stakeholder loop for when the person who makes the business decisions is not the person running the agent. Open business questions become entries in an assumptions register, each with a proposed answer, evidence, and a confidence level. Entries below 95% confidence go to stakeholders in a review package while the build continues; a rare "Blocking Open Question" stops and asks. Stakeholder answers are folded back into the requirements. The tracked tools mostly assume one operator approving their own spec.
+
+**Gap assessment:** Noted here rather than profiled. Adoption is near zero: **8★, 0 forks**, one contributor, repository created 2026-09-29, no releases or tags (checked 2026-11-20). The shape claims in the inclusion request hold against the repository (plugin install, 27 skills, the assumptions register and its confidence rule). No behavior was run, so quality claims remain the author's. Author-submitted, with the affiliation disclosed in the issue. No heatmap scores, per the scoring policy. Revisit for an emerging-tier profile when it has tagged releases and outside contributors, and adoption clears the bar (SpecDD entered at 40★).
+
+**Sources:**
+- [GitHub: EnsoDynamics/enso-method](https://github.com/EnsoDynamics/enso-method) (README, `docs/how-the-enso-method-works.md`, `skills/assumptions-document-writing/SKILL.md` at `989da4d`; verified 2026-11-20)
+- [ensomethod.org](https://ensomethod.org)
+- [Inclusion request #70](https://github.com/cameronsjo/spec-compare/issues/70)
+
+---
+
+### Speclr (marginal)
+
+**What it is:** A closed-source hosted service (`speclr.dev`) that runs an AI-led discovery interview with a team and turns a vague product idea into BDD specs. It works in four phases in the browser: Discovery (vision statement), Exploration (user-story map), Planning (milestones and risks), and Refinement (rules, data, and Given/When/Then scenarios per story). Output is one Gherkin `.feature` file or Markdown story spec per story, downloadable or synced to GitHub, GitLab, Jira, Notion, Confluence, or Azure DevOps. Plans run $29, $79, and $199 per month billed annually, each with a 14-day trial.
+
+**Why it's interesting:** It works before the point where the tracked tools begin. They start from a spec someone wrote or an agent drafted; Speclr is about how the spec comes to exist while requirements are still vague, by interviewing several stakeholders in one shared workspace. That points at a comparison axis the matrix does not have: how the spec is produced (author-written, agent-drafted, or elicited through structured discovery).
+
+**Gap assessment:** Noted here rather than profiled. It is not a coding-workflow tool: the public site describes no plan, task, implementation, or code-versus-spec verification step, and the founder's own request says the same. It is closed source and hosted only, so every claim above traces to the vendor's site (pricing, help center, and comparisons pages, fetched 2026-11-20) and none could be inspected. No adoption numbers are published, and the "1.1 release on 2026-11-08" in the request could not be confirmed: the site has no release notes, only help pages dated 2026-11-09 and 2026-11-11. Founder-submitted, with the affiliation disclosed in the issue. No heatmap scores, per the scoring policy. Revisit if the matrix gains a spec-elicitation axis, or if the vendor publishes a changelog and independent usage evidence.
+
+**Sources:**
+- [speclr.dev](https://speclr.dev) ([pricing](https://speclr.dev/pricing), [help](https://speclr.dev/help), [comparisons](https://speclr.dev/comparisons); fetched 2026-11-20)
+- [Inclusion request #73](https://github.com/cameronsjo/spec-compare/issues/73)
+
+---
+
 ## Updates to Existing Tools
 
 ### July 2026 sweep
