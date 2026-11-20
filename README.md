@@ -77,7 +77,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **gstack** - MIT role-based skill bundle for Claude Code: office hours → plan reviews → review, QA, ship; adjacent to SDD, with no in-repo spec (~142K stars; assessed from its docs)
 - **SpecWeave** - MIT CLI: one `spec.md` per task, an append-only evidence ledger, and handoff between agents and accounts (173 stars, v3.2.2; assessed from its source)
 
-Two **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP) and **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled) — see [docs/gaps.md](docs/gaps.md).
+Several **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP), **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled), and a watch list of early or closed-source tools marked *(marginal)*, each with a revisit trigger — see [docs/gaps.md](docs/gaps.md).
 
 ## Key Findings
 
@@ -224,4 +224,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-08-28
+**Last Updated:** 2026-11-20

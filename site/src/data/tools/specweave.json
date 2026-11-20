@@ -38,7 +38,7 @@
     "One author wrote about 95% of 3,856 commits; 173 stars and 20 forks on 2026-11-20, repository created 2025-10-25",
     "The CLI sits under a commercial layer: SpecWithCode, a desktop app with a hosted relay, a $20/month Pro tier on a waitlist, team contracts, and a paid pilot; the pricing page says the CLI and app stay free (project's claim, not tested here)",
     "Handoff cannot carry another tool's session transcript; continuity depends on files kept in git, and tracker sync (GitHub, Jira, Azure DevOps) runs only on demand",
-    "No worktree creation, no MCP server in the CLI, and no first-party IDE extension found; parallel lanes share one checkout and are guided by a skill (our inference from the source)",
+    "No worktree creation, no MCP server in the CLI, and no first-party IDE extension found (our inference from the source); parallel work (`specweave team` tmux panes, or 2-5 lanes guided by the `sw-do` skill) shares one checkout and relies on ledger claims and disjoint file lists, not isolation",
     "Evidence is weaker than the wording suggests: `--evidence` takes free text and a ticked AC checkbox counts as met (our inference from the source)",
     "The project's docs disagree on defaults: the README and pricing page say auto-handoff at 90%, while the code and guide say 95% in suggest mode; the \"about 760 tokens\" AGENTS.md figure describes the 3.0 template",
     "Requested by the maintainer (conflict disclosed in issue #57); scores are this repo's, assessed from the source, the 3.2.2 package, and docs on 2026-11-20, not from hands-on use"
