@@ -271,7 +271,7 @@ This document grades each spec-driven development tool against real-world scenar
 
 ### Expanded Heatmap (Including New Tools)
 
-Numeric scores (1–5) for quick visual comparison across all 23 tracked tools (re-verified 2026-07-23, see [reassessment](reassessment-2026-07-23.md); Memex assessed 2026-08-12, see [its review](memex-review.md); Matt Pocock's Skills assessed 2026-09-22 and SpecDD assessed 2026-10-17, gstack and SpecWeave assessed 2026-11-20, all from their repositories, see [gaps](gaps.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
+Numeric scores (1–5) for quick visual comparison across all 24 tracked tools (re-verified 2026-07-23, see [reassessment](reassessment-2026-07-23.md); Memex assessed 2026-08-12, see [its review](memex-review.md); Matt Pocock's Skills assessed 2026-09-22 and SpecDD assessed 2026-10-17, gstack and SpecWeave assessed 2026-11-20, all from their repositories, see [gaps](gaps.md); RPAC assessed 2026-11-04 from its repository by an agent-toolkit contributor, see [its profile](tools/rpac.md)). Includes the additional frameworks from the [gaps analysis](gaps.md).
 
 ```text
                     Trivial  Medium  Large  Parallel  Emergency  Solo  Context Mgmt  Overall
@@ -299,6 +299,7 @@ Pocock Skills        4        4       4      2         3          5     4       
 SpecDD               3        4       4      2         2          4     4             3.3
 gstack               3        4       4      2         2          4     3             3.1
 SpecWeave            3        4       4      3         2          4     4             3.4
+RPAC                 4        4       4      2         2          4     5             3.6
 ```
 
 **Reading the heatmap:**

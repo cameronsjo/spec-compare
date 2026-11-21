@@ -1,17 +1,17 @@
 # Spec-Driven Development Tools Comparison
 
-Independent research comparing **23 spec-driven development (SDD) tools** for AI-assisted coding — 8 with full workflow treatment, 15 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
+Independent research comparing **24 spec-driven development (SDD) tools** for AI-assisted coding — 9 with full workflow treatment, 15 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
 
-> A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked; where a vendor initiated contact ([Memex](docs/memex-review.md)), the review says so up front.
+> A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked, except that the [RPAC](docs/tools/rpac.md) entry was added by an agent-toolkit contributor; where a vendor initiated contact ([Memex](docs/memex-review.md)), the review says so up front.
 
 ## 🔮 Live site
 
 An interactive, Artificer-themed visualizer of this research:
-**[cameronsjo.github.io/spec-compare](https://cameronsjo.github.io/spec-compare/)**
+**[stefanoborzi.dev/spec-compare](https://stefanoborzi.dev/spec-compare/)**
 
-- **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all eight core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
+- **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all nine core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
-- **Scoring heatmap** — all twenty-three tools across seven use-case dimensions, color-graded 1–5.
+- **Scoring heatmap** — all twenty-four tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
 - **Tool profiles** — per-tool metadata, key features, and limitations.
 
@@ -48,7 +48,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 
 **Core** tools get the full treatment — workflow graphs, per-scenario walkthroughs, heatmap scores. **Emerging** tools get a profile card and heatmap row only. When each entered (and every re-verification since) is dated in the [CHANGELOG](CHANGELOG.md) and the reassessment docs.
 
-### Core (8)
+### Core (9)
 
 - **GitHub Spec-Kit** - Open-source CLI toolkit for greenfield projects
 - **Spec Kitty** - Community fork with built-in git worktree orchestration
@@ -58,6 +58,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Tessl** - Spec-as-source platform; public Framework + Registry ($125M raised)
 - **Superpowers** - MIT skills framework + methodology; brainstorm → plan → subagent TDD (~214K stars)
 - **Traycer** - Commercial VS Code Plan → Execute → Verify layer over your agent (100K+ users)
+- **RPAC (agent-toolkit)** - MIT skill collection: Refine → Plan → Act → Consolidate, with a fresh session and a file handoff per phase (~80 stars; see [disclosure](docs/tools/rpac.md))
 
 ### Emerging (15)
 
@@ -122,13 +123,14 @@ The research is organized into focused, digestible documents:
 - [Tessl](docs/tools/tessl.md) - Spec-as-source platform (public Framework + Registry)
 - [Superpowers](docs/tools/superpowers.md) - Auto-triggered skills + methodology, any harness
 - [Traycer](docs/tools/traycer.md) - Spec-driven Plan → Execute → Verify layer (VS Code)
+- [RPAC (agent-toolkit)](docs/tools/rpac.md) - Refine → Plan → Act → Consolidate as user-invoked skills
 - [GSD (Get Shit Done)](docs/tools/gsd.md) - Context-engineered SDD for solo developers
 - [Ralph Loop](docs/tools/ralph-loop.md) - Stateless iterative execution pattern
 
 ### Analysis & Recommendations
 
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 23-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 24-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -147,7 +149,7 @@ The research is organized into focused, digestible documents:
 
 ## Quick Comparison (core tools)
 
-The full 23-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
+The full 24-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
 
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|
@@ -159,6 +161,7 @@ The full 23-tool version of this table is generated from the tool data in [docs/
 | **Tessl** | Proprietary | No | Spec-as-source | Active Dev (public) |
 | **Superpowers** | MIT | **Yes** | Disciplined autonomous dev | Active Dev (v6.3.0) |
 | **Traycer** | Proprietary | No | Plan-first orchestration | Active Dev |
+| **RPAC (agent-toolkit)** | MIT | No | Ticket-driven work with human review | Active Dev (unversioned) |
 
 > **Versions current as of 2026-08-28.** The August sweep resolved the drift the July sweep had deferred — Kiro, Spec-Kit, and Superpowers are all bumped in place, with their workflow shapes re-confirmed rather than assumed — see [the sweep doc](docs/reassessment-2026-08-28.md#part-a--version-drift-tracked-tools).
 

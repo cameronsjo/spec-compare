@@ -229,6 +229,10 @@ All research is compiled from publicly available sources. Full citations are pro
 - [anton-abyzov/specwithcode](https://github.com/anton-abyzov/specwithcode)
 - User request: [issue #57](https://github.com/cameronsjo/spec-compare/issues/57) (filed by the maintainer, conflict disclosed)
 
+### RPAC (agent-toolkit) — November 2026 profile
+- [eai-org/agent-toolkit](https://github.com/eai-org/agent-toolkit) (README, `docs/core-philosophy.md`, `skills/*/SKILL.md`; commit `bc5e2cd`; star and fork figures as of 2026-11-04)
+- [Task workflow docs](https://eai-org.github.io/agent-toolkit-docs/task-workflow/)
+
 ## Research Methodology
 
 This comparison was compiled through:

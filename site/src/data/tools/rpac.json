@@ -1,0 +1,66 @@
+{
+  "tool": "rpac",
+  "displayName": "RPAC (agent-toolkit)",
+  "vendor": "Engineering in the Age of AI (eai-org)",
+  "repo": "https://github.com/eai-org/agent-toolkit",
+  "website": "https://eai-org.github.io/agent-toolkit-docs/task-workflow/",
+  "version": "Unversioned — main @ bc5e2cd",
+  "license": "MIT",
+  "maturity": "Active Dev",
+  "tier": "core",
+  "philosophy": "context",
+  "specMaturity": "Spec-First",
+  "tagline": "Refine → Plan → Act → Consolidate: a fresh session per phase, handing over a file.",
+  "bestFor": "Ticket-driven work with a human reviewing each step",
+  "complexity": "Medium",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "agentConfig": { "agentsMd": "no", "claudeMd": "no", "skillMd": "yes", "slashCommands": 10 },
+  "phases": [
+    { "id": "ticket", "label": "Ticket", "kind": "specify", "command": "/fetch-ticket", "note": "Downloads the ticket from a tracker (Jira, GitHub, Azure DevOps…) into a self-contained TICKET.md, with attachments and linked tickets. No tracker: write the file by hand, or start Refine from a raw idea." },
+    { "id": "refine", "label": "Refine", "kind": "specify", "command": "/refine-ticket", "note": "**The what.** Checks the ticket against the codebase and interviews you one question at a time, each with a recommended answer. Output: a validated REQUIREMENTS.md." },
+    { "id": "plan", "label": "Plan", "kind": "design", "command": "/create-implementation-plan", "note": "**The how.** Studies the code, settles technical decisions with you, and writes a self-contained PLAN.md for a fresh session to execute." },
+    { "id": "act", "label": "Act", "kind": "implement", "note": "**No skill needed.** Open a fresh session and ask the agent to execute PLAN.md, including running the project's checks. This is the only phase that touches source code." },
+    { "id": "consolidate", "label": "Consolidate", "kind": "archive", "command": "/handover", "note": "Writes HANDOVER.md, a paste-ready PR description covering key decisions, where to look, and open items. If the repo has a PR template, it fills that in instead." }
+  ],
+  "edges": [
+    { "from": "ticket", "to": "refine" },
+    { "from": "refine", "to": "plan" },
+    { "from": "plan", "to": "act" },
+    { "from": "act", "to": "consolidate" }
+  ],
+  "scenarios": [
+    { "id": "trivial-mod", "steps": ["refine", "plan", "act", "consolidate"], "score": 4, "note": "This shows all four phases, but the toolkit says trivial, well-defined tasks **may skip phases** and nothing enforces the flow, so a one-liner can go straight to Act." },
+    { "id": "greenfield", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 4, "note": "The full path suits a large feature: **requirements checked against the code and a self-contained plan**, each produced in its own session. Optional skills can harden both and split the plan into PR-sized groups." },
+    { "id": "refactor", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 4, "note": "Refine checks claims against the real code and the plan is settled before any code changes, which suits **multi-file changes in existing code**." },
+    { "id": "bug-fix", "steps": ["refine", "plan", "act", "consolidate"], "score": 2, "note": "**No hotfix path.** The interview and fresh-session handoffs are slow when production is down, and skipping them gives up what the pattern adds." },
+    { "id": "parallel-dev", "steps": ["ticket", "refine", "plan", "act", "consolidate"], "score": 2, "note": "**No worktree isolation or orchestration.** Each team runs its own flow and coordinates by hand." },
+    { "id": "cross-cutting", "steps": ["refine", "plan", "act", "consolidate"], "score": 3, "note": "The plan can list every form up front, but a long sweep in one session gets **no review until the end** unless you add the optional task split." }
+  ],
+  "scores": { "trivial": 4, "medium": 4, "large": 4, "parallel": 2, "emergency": 2, "solo": 4, "contextMgmt": 5, "overall": 3.6 },
+  "keyFeatures": [
+    "Each phase runs in a fresh session and hands over a file, not chat history: TICKET.md → REQUIREMENTS.md → PLAN.md → HANDOVER.md",
+    "Refine interviews you one question at a time; in both Refine and Plan, anything the code can answer is settled by reading the code",
+    "Optional /harden-artifact: a clean-context reviewer tests a requirements doc or plan, then your session tries to disprove each finding",
+    "/split-plan-tasks and /execute-plan-tasks run one small task per session and stop for your review; the agent never commits or pushes",
+    "Consolidate: /fresh-eyes-review by a clean-context sub-agent, then /handover writes a paste-ready PR description",
+    "Starts from a tracker ticket or a raw idea; works with Claude Code, GitHub Copilot, Codex, OpenCode, and others",
+    "MIT, ~80 stars; take the whole toolkit or only the skills you want"
+  ],
+  "limitations": [
+    "A skill collection, not a framework: nothing enforces the flow, and each phase is invoked by hand",
+    "One task per run: long plans need many manual invocations",
+    "Requirements and plans are per-task working files — no maintained living spec",
+    "No worktree isolation or parallel multi-agent orchestration",
+    "Young project with no tagged releases; skills change often",
+    "Scores assessed from the repository and docs on 2026-11-04 by an agent-toolkit contributor, so not an independent review"
+  ]
+}

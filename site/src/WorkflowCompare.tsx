@@ -111,7 +111,7 @@ export function WorkflowCompare({ scenarioId, onScenarioChange }: Props) {
         }
       })
       // Desktop: the strip is as tall as the cards in view, not the tallest of
-      // all eight, so the dot pager sits under what the reader sees.
+      // all of them, so the dot pager sits under what the reader sees.
       // border-box: the height includes the strip's bottom padding.
       const padBottom = parseFloat(getComputedStyle(el).paddingBottom) || 0
       const card = el.children[active] as HTMLElement | undefined
