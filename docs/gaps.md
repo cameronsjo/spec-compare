@@ -170,13 +170,55 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 - **Local tasks:** `Tasks` inside a spec carry open, done, skipped, blocked, and needs-decision states, small local to-do items for an agent, not a replacement for a tracker
 - **Agent reach (project's claim, not tested here):** documented as agent-agnostic through an `AGENTS.md` entrypoint; agents that do not pick up the bootstrap must be told to read it. Codex, Claude Code, Copilot, Antigravity, Junie, and Cline have dedicated plugins; other agents use Agent Skills or read the bootstrap directly
 
-**Gap assessment:** Profiled at **emerging tier**. The framework is distinct and its docs are detailed, but adoption is small: 40 stars and 3 forks on the framework repo, 1 star on the CLI, and a project about six months old (repository created 2026-04-25; first GitHub Release, 1.1, 2026-05-14; the changelog lists a 1.0 on 2026-04-26 with no Release). Scores come from reading the repository and docs, not from using the tool. Two things stay unverified: the project's own figures for fewer correction loops and faster delivery come from private internal tests, and whether agents follow the bootstrap reliably is untested here. The sources describe no worktree isolation, parallel orchestration, dashboard, or MCP server, and the README describes the loop as agent guidance (CLI source and generated bootstrap not checked, so enforcement is unknown). Revisit for promotion after a hands-on trial on an existing codebase.
+**Gap assessment:** Profiled at **emerging tier**. The framework is distinct and its docs are detailed, but adoption is small: 40 stars and 3 forks on the framework repo, 1 star on the CLI, and a project about six months old (repository created 2026-04-25; first GitHub Release, 1.1, 2026-05-14; the changelog lists a 1.0 on 2026-04-26 with no Release). Scores come from reading the repository and docs, not from using the tool. Two things stay unverified: the project's own figures for fewer correction loops and faster delivery come from private internal tests, and whether agents follow the bootstrap reliably is untested here. The sources describe no worktree isolation, parallel orchestration, dashboard, or MCP server, and the README describes the loop as agent guidance (CLI source and generated bootstrap not checked, so enforcement is unknown). Revisit for promotion when adoption clears the bar, or when the CLI source and generated bootstrap show the loop is enforced rather than advised.
 
 **Sources:**
 - [GitHub: specdd/specdd](https://github.com/specdd/specdd) (README, TOOLS.md, PLUGINS.md, SECURITY.md, LANGUAGE.md, CHANGELOG.md at `9ad00e7`; verified 2026-10-17)
 - [specdd.ai](https://specdd.ai/)
 - [GitHub: specdd/cli](https://github.com/specdd/cli)
 - [Inclusion request #59](https://github.com/cameronsjo/spec-compare/issues/59)
+
+---
+
+### gstack (garrytan/gstack)
+
+**What it is:** An MIT-licensed set of Markdown skills (`garrytan/gstack`, v1.102.0.0, 2026-11-19) that gives Claude Code, and experimentally other agents, role-based slash commands for a sprint: `/office-hours`, plan reviews, `/review`, `/qa`, `/ship`. `./setup` installs it, compiles some local binaries, and registers hooks. Requested for inclusion in issue #60.
+
+**Why it matters:** ~142K stars and ~21K forks (2026-11-20) make it one of the most-adopted agent workflows in the space. The request calls it "a very popular spec driven framework". The popularity holds (about 1.9 times OpenSpec's 75K stars on the same day); the spec-driven label does not. The README describes "a virtual engineering team" and "a process" (Think, Plan, Build, Review, Test, Ship, Reflect), never uses the term spec-driven, and the repository keeps no living spec or task list.
+
+**Key differentiators:**
+- **Role-based plan reviews:** CEO, eng, design, and DX reviews, with `/autoplan` chaining them and a review-readiness table before `/ship`
+- **Review, QA, and release depth:** `/review` dispatches specialist subagents, `/qa` drives a real browser or tests CLIs and APIs, and `/ship` runs a coverage audit and opens the PR
+- **Optional spec step:** `/spec` interviews you, gates the result on a quality score, and files it as a GitHub issue; `--execute` can spawn `claude -p` in a fresh worktree
+- **Agent reach (project's claim, not tested here):** Claude Code is the only full-support host; Codex, Cursor, Gemini CLI, Copilot CLI, and others are listed experimental, and the safety hooks block only on Claude Code and, once trusted, Codex
+
+**Gap assessment:** Profiled at **emerging tier** as a workflow bundle that sits beside the SDD tools rather than a spec tool, the same way Superpowers and Pocock's skills are read. Adoption is far past the bar; the scores come from reading the repository and its docs, not from using it. Its weight is on review, QA, and release, and it leaves implementation to Claude Code's plan mode. Its design doc and test plan live under `~/.gstack`, not in the repository. Parallel work depends on Conductor rather than gstack, and outside reviews send code to Codex or Claude Code by default. The author's productivity figures are not checked here. Revisit if the project adds an in-repo spec or task step.
+
+**Sources:**
+- [GitHub: garrytan/gstack](https://github.com/garrytan/gstack) (README, docs/skills.md, docs/why-gstack.md, ARCHITECTURE.md, AGENTS.md, CHANGELOG.md, LICENSE, `spec/SKILL.md` at `92c6c8a`; verified 2026-11-20)
+- [Inclusion request #60](https://github.com/cameronsjo/spec-compare/issues/60)
+
+---
+
+### SpecWeave (anton-abyzov/specweave)
+
+**What it is:** An MIT-licensed spec-driven CLI (`specweave` on npm, 3.2.2, 2026-11-18) that keeps each piece of AI-coding work in git as one `spec.md` (Problem, Scope, numbered acceptance criteria, Approach, Tasks), an append-only `ledger.jsonl` of task claims and evidence, and a handoff another agent can pick up. Requested for inclusion in issue #57 by the project's maintainer, with the conflict of interest disclosed.
+
+**Why it matters:** It targets switching tools mid-task. `specweave handoff` releases the agent's claims, writes a handoff note, and pushes the branch plus a snapshot of uncommitted edits; `specweave pickup` in another tool or account applies it and prints the next task with its acceptance criteria. `specweave auto-handoff on` reads plan usage from the Claude Code status line and Codex session logs. None of the profiled tools documents that path.
+
+**Key differentiators:**
+- **Evidence ledger:** `specweave task done` requires `--run "<cmd>"` (stores the exit code and log, refuses a failing command) or free-text `--evidence`; `specweave verify` runs the configured or detected test, lint, and build commands and gates `specweave complete`
+- **Handoff across tools and accounts:** state travels in git; it cannot read another tool's session transcript
+- **Usage-limit handoff (source read, not run):** the default suggests a handoff at 95% of a usage window and keeps working; `--mode enforce` stops and hands off. Cloud sessions have no usage meter, so handoff there is manual
+- **Edit gate:** a hook blocks edits made without an increment unless `specweave small-fix "<why>"` is run, and each exemption is logged
+
+**Gap assessment:** Profiled at **emerging tier**. Adoption is small but past SpecDD's: 173 stars and 20 forks, repository created 2025-10-25, 153 GitHub releases, and about 15.7K npm downloads in the 30 days to 2026-11-19. One author wrote about 95% of the 3,856 commits. The request's descriptions of `spec.md`, `ledger.jsonl`, `verify`, `handoff`, and `pickup` held against the CLI source at `826e51d`. Two details did not: the auto-handoff default is 95% in suggest mode, not 90% (the project's README and pricing page still say 90%), and the "about 760 tokens" `AGENTS.md` figure describes the 3.0 template, which has since shrunk to 550 bytes. The CLI sits under a commercial layer, SpecWithCode (a desktop app with a hosted relay and a $20/month Pro tier on a waitlist), though the CLI works without it. Scores are this repository's, not the maintainer's, and come from reading the source, package, and docs. Revisit for promotion when contributors beyond the original author carry a meaningful share of commits.
+
+**Sources:**
+- [GitHub: anton-abyzov/specweave](https://github.com/anton-abyzov/specweave) (README, AGENTS.md, CHANGELOG.md, CLI source, `src/templates/AGENTS.md.template` at `826e51d`; verified 2026-11-20)
+- [npm: specweave](https://www.npmjs.com/package/specweave)
+- [spec-weave.com](https://spec-weave.com/) (pricing, handoff and auto-handoff guides)
+- [Inclusion request #57](https://github.com/cameronsjo/spec-compare/issues/57)
 
 ---
 
@@ -228,13 +270,57 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ---
 
+### Consort (marginal)
+
+**What it is:** A spec-first, test-driven agent framework from Databricks Solutions (`databricks-solutions/consort`, v0.4.50, 2026-11-12) that builds transactional application backends on Lakebase, Databricks' serverless Postgres-compatible OLTP database. A deterministic state-machine conductor drives `/plan → /design → /build → /deploy` through role agents (spec author, architect reviewer, DBA, test strategist, navigator/driver). Human-approval gates fail closed, the design spec and test list freeze at a gate, and, per the README, each git branch is paired with its own Lakebase branch, so every "green" is a run against a real, isolated database. It installs as a Claude Code plugin, with Cursor and Genie Code skill installs and Codex or Claude Desktop through an MCP server (`lakebase-mcp-server`), and ships a dashboard app.
+
+**Why it's interesting:** None of the tracked tools puts a live branched database inside the TDD loop. Consort also puts the controls (phase routing, gates, test-list immutability) in code the agent does not edit rather than in prompts. The immutability check is real: `consort/test-list/mutate-test-list.ts` refuses test-list edits while the `test_list` gate is closed. Most tracked tools rely on the model following instructions.
+
+**Gap assessment:** Noted here rather than profiled. It is not open source in the OSI sense: `LICENSE.md` is a Databricks license that permits use "solely for the purposes of using the Licensed Materials within or connecting to the Databricks Services" and lets Databricks terminate it on notice, which is why GitHub reports `NOASSERTION` (the issue and README say "open source"). It also runs only against a Lakebase-enabled Databricks workspace ("no mock mode", per the README), so it is a platform-specific tool rather than a general SDD method. Adoption is modest: **38★, 12 forks** on 2026-11-20, repository created 2026-05-23, and about 1,710 of roughly 1,720 commits from one author, though releases ship every few days. The arXiv paper ([2609.09671](https://arxiv.org/abs/2609.09671)) is by the same author and frames its main claims as a pre-registered hypothesis, not results. The branch pairing was not exercised here, since it needs a Databricks workspace. Author-submitted, with the affiliation disclosed in the issue. No heatmap scores, per the scoring policy. Revisit for an emerging-tier profile when both hold: (a) it runs outside Databricks or moves to an OSI license, and (b) it has more than one active maintainer. Independent results from the paper's pre-registered experiment would also prompt a re-look.
+
+**Sources:**
+- [GitHub: databricks-solutions/consort](https://github.com/databricks-solutions/consort) (README, LICENSE.md, NOTICE.md, docs/positioning.md, source at `5ad34ea`; verified 2026-11-20)
+- [arXiv 2609.09671](https://arxiv.org/abs/2609.09671)
+- [Inclusion request #58](https://github.com/cameronsjo/spec-compare/issues/58)
+
+---
+
+### Enso Method (marginal)
+
+**What it is:** An MIT-licensed set of 27 agent skills (`EnsoDynamics/enso-method`, no tagged releases) installed as a Claude Code or Codex plugin, or through the `skills` CLI for other agents. It runs PRD → technical design → refinement rounds → phase split → phased build → delivery and test audits. Requirements, design, assumptions, and phase files live together in `docs/prds/<name>/` and stay in the repository as the source of truth for later changes.
+
+**Why it's interesting:** Its distinct piece is a stakeholder loop for when the person who makes the business decisions is not the person running the agent. Open business questions become entries in an assumptions register, each with a proposed answer, evidence, and a confidence level. Entries below 95% confidence go to stakeholders in a review package while the build continues; a rare "Blocking Open Question" stops and asks. Stakeholder answers are folded back into the requirements. The tracked tools mostly assume one operator approving their own spec.
+
+**Gap assessment:** Noted here rather than profiled. Adoption is near zero: **8★, 0 forks**, one contributor, repository created 2026-09-29, no releases or tags (checked 2026-11-20). The shape claims in the inclusion request hold against the repository (plugin install, 27 skills, the assumptions register and its confidence rule). No behavior was run, so quality claims remain the author's. Author-submitted, with the affiliation disclosed in the issue. No heatmap scores, per the scoring policy. Revisit for an emerging-tier profile when it has tagged releases and outside contributors, and adoption clears the bar (SpecDD entered at 40★).
+
+**Sources:**
+- [GitHub: EnsoDynamics/enso-method](https://github.com/EnsoDynamics/enso-method) (README, `docs/how-the-enso-method-works.md`, `skills/assumptions-document-writing/SKILL.md` at `989da4d`; verified 2026-11-20)
+- [ensomethod.org](https://ensomethod.org)
+- [Inclusion request #70](https://github.com/cameronsjo/spec-compare/issues/70)
+
+---
+
+### Speclr (marginal)
+
+**What it is:** A closed-source hosted service (`speclr.dev`) that runs an AI-led discovery interview with a team and turns a vague product idea into BDD specs. It works in four phases in the browser: Discovery (vision statement), Exploration (user-story map), Planning (milestones and risks), and Refinement (rules, data, and Given/When/Then scenarios per story). Output is one Gherkin `.feature` file or Markdown story spec per story, downloadable or synced to GitHub, GitLab, Jira, Notion, Confluence, or Azure DevOps. Plans run $29, $79, and $199 per month billed annually, each with a 14-day trial.
+
+**Why it's interesting:** It works before the point where the tracked tools begin. They start from a spec someone wrote or an agent drafted; Speclr is about how the spec comes to exist while requirements are still vague, by interviewing several stakeholders in one shared workspace. That points at a comparison axis the matrix does not have: how the spec is produced (author-written, agent-drafted, or elicited through structured discovery).
+
+**Gap assessment:** Noted here rather than profiled. It is not a coding-workflow tool: the public site describes no plan, task, implementation, or code-versus-spec verification step, and the founder's own request says the same. It is closed source and hosted only, so every claim above traces to the vendor's site (pricing, help center, and comparisons pages, fetched 2026-11-20) and none could be inspected. No adoption numbers are published, and the "1.1 release on 2026-11-08" in the request could not be confirmed: the site has no release notes, only help pages dated 2026-11-09 and 2026-11-11. Founder-submitted, with the affiliation disclosed in the issue. No heatmap scores, per the scoring policy. Revisit if the matrix gains a spec-elicitation axis, or if the vendor publishes a changelog and independent usage evidence.
+
+**Sources:**
+- [speclr.dev](https://speclr.dev) ([pricing](https://speclr.dev/pricing), [help](https://speclr.dev/help), [comparisons](https://speclr.dev/comparisons); fetched 2026-11-20)
+- [Inclusion request #73](https://github.com/cameronsjo/spec-compare/issues/73)
+
+---
+
 ## Updates to Existing Tools
 
 ### July 2026 sweep
 
 Verified against source repos on 2026-07-23 (full detail in [reassessment-2026-07-23.md](reassessment-2026-07-23.md)):
 
-- **Five new emerging-tier entries** added directly to the tracked set (heatmap + feature matrix, no full workflow treatment): **MoAI-ADK** (`modu-ai/moai-adk`, SPEC-First Plan→Run→Sync over Claude Code, with a stated core-promotion trigger), **Frame** (`kaanozhan/Frame`, Electron agentic development environment), **GRACE** (`osovv/grace-marketplace`, contract-first Graph-RAG methodology), **GAAI** (`Fr-e-d/GAAI-framework`, governed autonomous delivery), and **Smart Ralph** (`tzachbon/smart-ralph`, spec phases over the Ralph loop).
+- **Five new emerging-tier entries** added directly to the tracked set (heatmap + feature matrix, no full workflow treatment): **MoAI-ADK** (`modu-ai/moai-adk`, SPEC-First Plan→Run→Sync over Claude Code; it stays emerging, scored from its repository with no hands-on evaluation planned), **Frame** (`kaanozhan/Frame`, Electron agentic development environment), **GRACE** (`osovv/grace-marketplace`, contract-first Graph-RAG methodology), **GAAI** (`Fr-e-d/GAAI-framework`, governed autonomous delivery), and **Smart Ralph** (`tzachbon/smart-ralph`, spec phases over the Ralph loop).
 - **GAAI identification caveat:** the request named it phonetically ("gaii"); `Fr-e-d/GAAI-framework` was confirmed as the intended project. It is source-available under Elastic License 2.0 — not OSI open source — and ships versions as git tags only (no GitHub Releases).
 - **Spec Kitty** v3.1.9 → **v3.2.5** (charter consolidation, event-log work-package state, split-brain fixes; breaking-change cadence noted).
 - No demotions this pass — Smart Ralph's stall gate did not fire (fresh commit 2026-07-23).
@@ -286,7 +372,7 @@ This paper provides practitioners with a comprehensive guide to SDD, covering pr
 
 ## Related
 
-- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 18-tool scoring matrix including these frameworks
+- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 24-tool scoring matrix including these frameworks
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow combining OpenSpec with Beads
 - [Beads](beads.md) — Agent memory layer
 - [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools

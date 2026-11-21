@@ -1,0 +1,47 @@
+{
+  "tool": "gstack",
+  "displayName": "gstack",
+  "vendor": "Garry Tan",
+  "repo": "https://github.com/garrytan/gstack",
+  "version": "v1.102.0.0",
+  "license": "MIT",
+  "maturity": "Active Dev",
+  "tier": "emerging",
+  "philosophy": "agent",
+  "specMaturity": "Spec-First",
+  "tagline": "Role-based slash commands for a sprint: office hours, plan reviews, QA, ship.",
+  "bestFor": "Solo builders who want review, QA, and release discipline around Claude Code",
+  "complexity": "High",
+  "learningCurve": "Moderate",
+  "features": {
+    "gitWorktrees": false,
+    "multiAgent": "limited",
+    "dashboard": "No",
+    "mcp": false,
+    "ideIntegration": false,
+    "openSource": true,
+    "parallel": false
+  },
+  "scores": { "trivial": 3, "medium": 4, "large": 4, "parallel": 2, "emergency": 2, "solo": 4, "contextMgmt": 3, "overall": 3.1 },
+  "keyFeatures": [
+    "A sprint of user-invoked roles: `/office-hours` writes a design doc to `~/.gstack/projects/`, then `/plan-ceo-review`, `/plan-eng-review`, `/plan-design-review`, and `/plan-devex-review` (or `/autoplan` to chain them); implementation happens in Claude Code's own plan mode; then `/review`, `/qa`, `/ship`, and `/retro`",
+    "Adjacent to SDD rather than spec-driven: the README calls it \"a process\" for \"a virtual engineering team\", and no maintained spec or task list lives in the repository (our inference from the README, docs/skills.md, and the skill list)",
+    "Optional `/spec` skill interviews you in five phases, blocks below a 7/10 quality score, and files the result as a GitHub issue; `--execute` can spawn `claude -p` in a fresh git worktree",
+    "Plan reviews hand artifacts forward: the `/office-hours` design doc feeds the plan reviews, and `/plan-eng-review` writes a test plan that `/qa` picks up",
+    "A review-readiness table prints in the session before `/ship`; Eng Review is the only required gate and `gstack-config set skip_eng_review true` disables it",
+    "`/review` dispatches specialist reviewers as subagents; `/autoplan` adds an outside review from Codex",
+    "`/qa` drives a real browser or tests CLIs and APIs and writes regression tests; `/ship` runs a coverage audit and opens the PR; `/land-and-deploy` and `/canary` cover merge and post-deploy checks",
+    "Safety skills (`/careful`, `/freeze`, `/guard`): the destructive-command check blocks through hooks on Claude Code and is advisory on most other hosts",
+    "Claude Code is the only full-support host; Codex, OpenCode, Cursor, Factory Droid, Kiro, Copilot CLI, Gemini CLI, Antigravity, and others are listed experimental through `./setup --host <name>`"
+  ],
+  "limitations": [
+    "Not spec-driven in the sense this comparison uses: no in-repo living spec, no task breakdown, and no spec-to-code check; the build step is left to Claude Code's plan mode (our inference)",
+    "Large install surface: Bun 1.4.2+, binaries compiled on the machine, hooks written to the agent config, and 62 skill directories (the README says 23 tools)",
+    "The design doc, test plan, and `/spec` archive live under `~/.gstack`, outside the repository, so they are not shared through git",
+    "No worktree or parallel orchestration of its own: the \"10-15 parallel sprints\" in docs/why-gstack.md rely on Conductor, a separate product",
+    "Outside reviews send code to Codex or Claude Code under the user's own login and are on by default (README privacy section); telemetry is off by default",
+    "The author's productivity figures (about 810 times a 2013 pace in logical lines per day) are not independently checked here (project's claim, not tested here)",
+    "One high-profile author and 18 contributors; repository created 2026-03-11 and changing almost daily (~142K stars, ~21K forks on 2026-11-20)",
+    "Scores assessed from the repository and its docs on 2026-11-20 (commit 92c6c8a), not from hands-on use"
+  ]
+}

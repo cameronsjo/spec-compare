@@ -1,6 +1,6 @@
 # Spec-Driven Development Tools Comparison
 
-Independent research comparing **22 spec-driven development (SDD) tools** for AI-assisted coding — 9 with full workflow treatment, 13 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
+Independent research comparing **24 spec-driven development (SDD) tools** for AI-assisted coding — 9 with full workflow treatment, 15 emerging — plus the surrounding agent-orchestration and execution layer. Feature matrices, use-case scoring, git-worktree analysis, decision frameworks, and an interactive comparison site, all derived from the research docs in this repo.
 
 > A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked, except that the [RPAC](docs/tools/rpac.md) entry was added by an agent-toolkit contributor; where a vendor initiated contact ([Memex](docs/memex-review.md)), the review says so up front.
 
@@ -11,7 +11,7 @@ An interactive, Artificer-themed visualizer of this research:
 
 - **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all nine core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
-- **Scoring heatmap** — all nineteen tools across seven use-case dimensions, color-graded 1–5.
+- **Scoring heatmap** — all twenty-four tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
 - **Tool profiles** — per-tool metadata, key features, and limitations.
 
@@ -60,7 +60,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Traycer** - Commercial VS Code Plan → Execute → Verify layer over your agent (100K+ users)
 - **RPAC (agent-toolkit)** - MIT skill collection: Refine → Plan → Act → Consolidate, with a fresh session and a file handoff per phase (~80 stars; see [disclosure](docs/tools/rpac.md))
 
-### Emerging (12)
+### Emerging (15)
 
 - **GSD** - Meta-prompting SDD system with wave-based context management (63.8K stars)
 - **Ralph Loop** - Stateless iterative execution pattern by Geoffrey Huntley
@@ -75,8 +75,10 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **Memex** - Fair-code Specify & Verify platform: specs as a typed decision database with CI-verified acceptance criteria and a knowledge graph (Mindset AI; solicited review, see [disclosure](docs/memex-review.md))
 - **Matt Pocock's Skills** - MIT skill collection: grill → spec → tickets → TDD, composable and deliberately not a framework (~268K stars)
 - **SpecDD** - Apache-2.0 framework of colocated `.sdd` specs resolved by path, with write-authority boundaries and a gradual adoption path for existing code (40 stars, v1.6; assessed from its docs)
+- **gstack** - MIT role-based skill bundle for Claude Code: office hours → plan reviews → review, QA, ship; adjacent to SDD, with no in-repo spec (~142K stars; assessed from its docs)
+- **SpecWeave** - MIT CLI: one `spec.md` per task, an append-only evidence ledger, and handoff between agents and accounts (173 stars, v3.2.2; assessed from its source)
 
-Two **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP) and **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled) — see [docs/gaps.md](docs/gaps.md).
+Several **gap entries** are tracked in prose but not scored: **PromptX** (AI agent context platform via MCP), **MUSUBI** (maximally-rigorous SDD framework, ~57 stars, stalled), and a watch list of early or closed-source tools marked *(marginal)*, each with a revisit trigger — see [docs/gaps.md](docs/gaps.md).
 
 ## Key Findings
 
@@ -128,7 +130,7 @@ The research is organized into focused, digestible documents:
 ### Analysis & Recommendations
 
 - [Comparison Matrices](docs/comparison.md) - Side-by-side feature comparisons (incl. AGENTS.md support)
-- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 22-tool heatmap
+- [Use Case Scoring](docs/use-case-scoring.md) - 12 real-world scenarios graded + expanded 24-tool heatmap
 - [Iterative Development](docs/iterative-development.md) - Spec modification workflows
 - [Git Worktree Support](docs/git-worktree-support.md) - Detailed worktree analysis (updated with Beads, Conductor)
 - [Recommendations](docs/recommendations.md) - Decision frameworks by use case
@@ -147,7 +149,7 @@ The research is organized into focused, digestible documents:
 
 ## Quick Comparison (core tools)
 
-The full 22-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
+The full 24-tool version of this table is generated from the tool data in [docs/comparison.md](docs/comparison.md).
 
 | Tool | License | Git Worktrees | Best For | Maturity |
 |------|---------|---------------|----------|----------|
@@ -225,4 +227,4 @@ For questions, issues, or suggestions, please open an issue on GitHub.
 
 ---
 
-**Last Updated:** 2026-08-28
+**Last Updated:** 2026-11-20

@@ -104,7 +104,7 @@ PR diff, offline access, plain-text review, no infrastructure dependency.
 "Grounded in code" here means *linked to* code, not *versioned with* code.
 The spec ↔ repo boundary is a brand-new sync surface, and drift across it is
 exactly the failure mode SDD exists to prevent. This is the single biggest
-architectural bet to probe in a hands-on eval.
+architectural bet, and the first thing a re-assessment should check.
 
 **3. "Everything feeds an Obsidian-like knowledge graph, so it scales as
 codebase and team grow."** — The graph model (specs/decisions/standards as
@@ -196,8 +196,8 @@ Re-assess for core treatment when **any two** of:
    pricing.
 2. External traction: meaningful stars/forks/contributors outside Mindset AI,
    or named production users.
-3. A hands-on eval of the CI verification loop confirms ACs actually gate on
-   test evidence end-to-end (and measures the spec ↔ repo sync friction).
+3. Public source or docs show the CI verification loop gating ACs on test
+   evidence end-to-end, and describe how the spec ↔ repo sync handles drift.
 4. Documented non-Claude agent support (Cursor, Codex, Copilot, or Gemini via
    MCP).
 
