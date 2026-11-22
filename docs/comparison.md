@@ -24,7 +24,7 @@
 | MoAI-ADK | Emerging | Apache-2.0 | **Yes** | Disciplined TDD with Claude Code | Active Dev (v3.1.2) |
 | [OpenSpec](tools/openspec.md) | Core | MIT | No | Brownfield changes | Production (v1.11.0) |
 | [Ralph Loop](tools/ralph-loop.md) | Emerging | Various (open source) | No | Autonomous hands-off execution | Production (Technique — unversioned) |
-| [RPAC (agent-toolkit)](tools/rpac.md) | Core | MIT | No | Ticket-driven work with a human reviewing each step | Active Dev (Unversioned — main @ bc5e2cd) |
+| RPAC (agent-toolkit) | Emerging | MIT | No | Ticket-driven work with a human reviewing each step | Active Dev (Unversioned — main @ a0719f6) |
 | Smart Ralph | Emerging | MIT | No | Hands-off spec-to-code loops | Active Dev (v4.0.0) |
 | [Spec Kitty](tools/spec-kitty.md) | Core | Open Source | **Yes** | Parallel development | Active Dev (v3.2.5) |
 | [Spec-Kit](tools/spec-kit.md) | Core | Open Source | No | Greenfield projects | Production (v1.0.1) |
@@ -58,7 +58,7 @@ nuance (agent counts, documentation weight, cost) lives in each tool's profile.
 | MoAI-ADK | ✅ | ✅ | ✅ | Web | ❌ | ❌ | ✅ | High | Steep | Spec-First |
 | [OpenSpec](tools/openspec.md) | ❌ | ❌ | ❌ | CLI | ❌ | ❌ | ✅ | Low | Gentle | Spec-Anchored |
 | [Ralph Loop](tools/ralph-loop.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Low | Gentle | — |
-| [RPAC (agent-toolkit)](tools/rpac.md) | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
+| RPAC (agent-toolkit) | ❌ | ⚠️ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | Smart Ralph | ❌ | ⚠️ | ❌ | No | ✅ | ❌ | ✅ | Medium | Moderate | Spec-First |
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ✅ | Kanban | ❌ | ❌ | ✅ | High | Steep | Spec-Anchored |
 | [Spec-Kit](tools/spec-kit.md) | ❌ | ❌ | ❌ | No | ❌ | ❌ | ✅ | Medium | Moderate | Spec-First |
@@ -80,7 +80,7 @@ How each tool communicates instructions to AI coding agents (tools that declare 
 | [BMad Method](tools/bmad-method.md) | ✅ | ✅ | ❌ | 50 |
 | [Kiro](tools/kiro.md) | ❌ | ❌ | ❌ | 0 |
 | [OpenSpec](tools/openspec.md) | ⚠️ removed | ⚠️ removed | ✅ | 10 |
-| [RPAC (agent-toolkit)](tools/rpac.md) | ❌ | ❌ | ✅ | 10 |
+| RPAC (agent-toolkit) | ❌ | ❌ | ✅ | 10 |
 | [Spec Kitty](tools/spec-kitty.md) | ✅ | ✅ | ❌ | 13 |
 | [Spec-Kit](tools/spec-kit.md) | ✅ | ✅ | ❌ | 10 |
 | [Superpowers](tools/superpowers.md) | ❌ | ❌ | ✅ | 0 |
