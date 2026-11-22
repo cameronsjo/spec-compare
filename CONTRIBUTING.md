@@ -16,21 +16,32 @@ If you find errors, outdated information, or missing tools:
 
 ### Suggesting New Tools
 
-To suggest a new spec-driven development tool for inclusion, open an issue with the tool name, its repository or website, and what it does that the tracked tools don't. Authors and maintainers are welcome to suggest their own tools; say so in the issue. A pull request works too, but an issue is usually faster, because the entry is written to this project's conventions either way.
+To suggest a tool, open an issue with its name, its repository or website, and what it does that the tracked tools don't. Authors, maintainers, and contributors are welcome to suggest their own tools (see Disclosure below). An issue is usually the better route: the entry is written to this project's conventions either way, and most tool pull requests so far have been re-landed on a maintainer branch rather than merged as they were.
 
 #### How a suggestion is assessed
 
 Every suggestion, from anyone, goes through the same steps:
 
-1. **Disclosure.** If you build, maintain, or contribute to the tool, say so. Disclosure is expected, and the entry records it; it does not affect the verdict either way.
-2. **Adoption.** A full profile needs demonstrated traction: stars, downloads, releases, and contributors beyond the original author. A tool that is early but fills a distinct niche goes on the watch list in [docs/gaps.md](docs/gaps.md) instead, with credit for what is new about it.
-3. **Verification.** Every claim that ships is checked against the tool's own repository and packages: license, published versions, that packages resolve, and architecture claims against the code. Claims from the tool's authors are treated as hypotheses until checked.
-4. **Tier and scores.** Tier (core or emerging), maturity, and heatmap scores are set by this project for every tool, so rows stay comparable. Scores or tiers proposed in a suggestion are read as input, not adopted.
-5. **Outcome.** The issue or pull request gets a reply that says what was added and where, what verification found, and what was changed from the suggestion and why. Watch-list entries and declined suggestions name a return trigger: the change, such as a release, an adoption level, or a feature, that would bring the tool back for another look.
+1. **Disclosure.** If you build, maintain, or contribute to the tool, say so. The entry records it, and the README and the site's Disclosure section list it. It does not change the verdict either way.
+2. **Scope.** The tool has to be spec-driven development for AI coding, or adjacent to it and read as such (a skill collection or workflow bundle that coding agents run). A tool upstream of the coding loop, such as requirements elicitation on its own, gets a watch-list entry at most.
+3. **Openness.** A license or platform that limits who can run the tool (one vendor's services, one hosted database) keeps it on the watch list, however good it is.
+4. **Adoption.** An emerging-tier profile needs demonstrated traction: stars, downloads, releases, and active use. A tool that is early but fills a distinct niche goes on the watch list in [docs/gaps.md](docs/gaps.md) instead, with credit for what is new about it.
+5. **Core tier.** Core tools get the full treatment: a workflow graph and a walkthrough of every scenario. Core is for established tools with tagged releases and contributors beyond the original author carrying a meaningful share of the work. A new suggestion enters at emerging tier at most.
+6. **Verification.** Every claim that ships is checked against the tool's own repository and packages: license, published versions, that packages resolve, and architecture claims against the code. Claims from the tool's authors are treated as hypotheses until checked.
+7. **Scores.** Tier, maturity, and heatmap scores are set by this project for every tool, so rows stay comparable. Scores proposed in a suggestion are read as input, not adopted.
+8. **Outcome.** The suggestion gets a reply that says what was added and where, what verification found, and what changed from the suggestion and why. Watch-list entries and declined suggestions name a return trigger: the change, such as a release, an adoption level, or a feature, that would bring the tool back for another look. When it happens, comment on the original thread or open a new issue with current numbers.
 
-Closed-source tools can go on the watch list. Their claims trace only to public listings or vendor pages, and the entry says so. A profile needs something to inspect.
+Closed-source tools are watch-list only. Their claims trace only to public listings or vendor pages, and the entry says so. A profile needs source to inspect, or hands-on use by this project.
 
-A pull request that adds a tool should contain only that tool's files and the count updates that go with it. Changes for hosting your own copy of the site (analytics, preview images, links, attribution) can't merge here.
+Suggestions are handled in batches, with no fixed turnaround.
+
+#### If you open a pull request anyway
+
+- Branch from a topic branch, not your fork's `main`. The PR should contain only the tool's files and the count updates that go with it. Changes for hosting your own copy of the site (analytics, preview images, links, attribution) can't merge here.
+- Leave `site/package-lock.json` alone unless the change needs a dependency.
+- `site/src/data/tools/<tool>.json` needs scores to validate. Fill them in as your best estimate; they will be re-scored.
+- From `site/`, run `npm ci`, `npm run gen:tables`, `npm run build`, and `npm test` before pushing.
+- Expect the work to land on a maintainer branch with your commits and authorship kept, or to be closed with a watch-list entry and a return trigger.
 
 ### Updating Research
 
@@ -103,9 +114,9 @@ Follow the existing document structure:
 1. **Update Documentation**: Ensure README and comparison docs reflect your changes
 2. **Add Sources**: Include citations for all new information
 3. **Update Changelog**: Add entry to CHANGELOG.md
-4. **Review Process**: Maintainers will review within 7 days
+4. **Review Process**: PRs are reviewed in batches, with no fixed turnaround
 5. **Addressing Feedback**: Make requested changes promptly
-6. **Merge**: PRs will be merged once approved
+6. **Merge**: PRs that correct or update existing research are merged once approved; tool suggestions follow [Suggesting New Tools](#suggesting-new-tools)
 
 ## Commit Message Format
 
