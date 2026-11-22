@@ -37,6 +37,6 @@
     "Fair-code, not OSI open source; enterprise `.ee.` features separately licensed; pricing not publicly verifiable at review time",
     "Claude-centric: only Claude Code/Desktop documented as MCP clients",
     "Requires server + PostgreSQL 16 (or SaaS) — heaviest infrastructure footprint in the tracked set for solo use",
-    "Solicited review: the vendor reached out and asked for feedback (disclosed in docs/memex-review.md); assessed independently from public sources, with no vendor access, briefing, or draft review"
+    "Solicited review: the vendor reached out and asked for feedback (disclosed in docs/memex-review.md); assessed independently from public sources, with no vendor access, no briefing beyond the outreach, and no draft review"
   ]
 }
