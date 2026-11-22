@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `CONTRIBUTING.md` now publishes how a tool suggestion is assessed: disclosure, the adoption bar for a profile versus a watch-list entry, verification of every claim against the tool's own source, tier and scores set by this project, and a reply that names a return trigger. The policy was previously applied case by case in issue and PR replies (#12, #46, #50, #80).
+
 - Dropped the MoAI-ADK core-promotion trigger (#21). No hands-on evaluation is planned, so it stays at emerging tier on scores read from its repository, the same call made for Matt Pocock's Skills in #55.
 - The SpecDD, gstack, and SpecWeave entries in `docs/gaps.md` and the Memex promotion triggers in `docs/memex-review.md` no longer name a hands-on trial or eval; each now names an adoption, source, or feature signal instead. The `docs/landscape.md` link to the gaps analysis drops its stale "Five additional" count (#76).
 

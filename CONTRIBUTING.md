@@ -16,14 +16,21 @@ If you find errors, outdated information, or missing tools:
 
 ### Suggesting New Tools
 
-To suggest a new spec-driven development tool for inclusion:
+To suggest a new spec-driven development tool for inclusion, open an issue with the tool name, its repository or website, and what it does that the tracked tools don't. Authors and maintainers are welcome to suggest their own tools; say so in the issue. A pull request works too, but an issue is usually faster, because the entry is written to this project's conventions either way.
 
-1. Open an issue with the tool name and repository/website
-2. Provide evidence the tool is:
-   - Actively maintained
-   - Publicly available
-   - Relevant to spec-driven development for AI coding
-3. Include key differentiators from existing tools
+#### How a suggestion is assessed
+
+Every suggestion, from anyone, goes through the same steps:
+
+1. **Disclosure.** If you build, maintain, or contribute to the tool, say so. Disclosure is expected, and the entry records it; it does not affect the verdict either way.
+2. **Adoption.** A full profile needs demonstrated traction: stars, downloads, releases, and contributors beyond the original author. A tool that is early but fills a distinct niche goes on the watch list in [docs/gaps.md](docs/gaps.md) instead, with credit for what is new about it.
+3. **Verification.** Every claim that ships is checked against the tool's own repository and packages: license, published versions, that packages resolve, and architecture claims against the code. Claims from the tool's authors are treated as hypotheses until checked.
+4. **Tier and scores.** Tier (core or emerging), maturity, and heatmap scores are set by this project for every tool, so rows stay comparable. Scores or tiers proposed in a suggestion are read as input, not adopted.
+5. **Outcome.** The issue or pull request gets a reply that says what was added and where, what verification found, and what was changed from the suggestion and why. Watch-list entries and declined suggestions name a return trigger: the change, such as a release, an adoption level, or a feature, that would bring the tool back for another look.
+
+Closed-source tools can go on the watch list. Their claims trace only to public listings or vendor pages, and the entry says so. A profile needs something to inspect.
+
+A pull request that adds a tool should contain only that tool's files and the count updates that go with it. Changes for hosting your own copy of the site (analytics, preview images, links, attribution) can't merge here.
 
 ### Updating Research
 
