@@ -224,7 +224,7 @@ Promoted to full core profile (May 2026). See [Traycer Tool Profile](tools/trayc
 
 ### RPAC (eai-org/agent-toolkit)
 
-**What it is:** Refine → Plan → Act → Consolidate, a task workflow delivered as ten user-invoked skills inside `eai-org/agent-toolkit`, an MIT-licensed, unversioned collection of 31 agent skills (assessed at `a0719f6`, 2026-11-21). `install.sh` symlinks the skills into `~/.agents/skills` and the agent's own directory. Submitted for inclusion in PR #80 by an agent-toolkit contributor, with the connection disclosed.
+**What it is:** Refine → Plan → Act → Consolidate, a task workflow delivered as ten user-invoked skills (`fetch-ticket`, `attach-to-ticket`, `refine-ticket`, `create-implementation-plan`, `harden-artifact`, `split-plan-tasks`, `execute-plan-tasks`, `fresh-eyes-review`, `self-review`, `handover`) inside `eai-org/agent-toolkit`, an MIT-licensed, unversioned collection of 30 agent skills (assessed at `a0719f6`, 2026-11-21). `install.sh` symlinks the skills into `~/.agents/skills` and the agent's own directory. Submitted for inclusion in PR #80 by an agent-toolkit contributor, with the connection disclosed.
 
 **Why it matters:** It treats the session boundary as the main design tool. Each phase runs in a fresh session and hands the next one a file, not chat history: `/fetch-ticket` writes `TICKET.md`, `/refine-ticket` checks it against the code and interviews you into `REQUIREMENTS.md`, `/create-implementation-plan` writes a self-contained `PLAN.md`, and `/handover` writes a paste-ready PR description. Superpowers gets fresh context by dispatching subagents automatically; RPAC leaves every boundary to the developer.
 
@@ -392,7 +392,7 @@ This paper provides practitioners with a comprehensive guide to SDD, covering pr
 
 ## Related
 
-- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 23-tool scoring matrix including these frameworks
+- [Use Case Scoring — Expanded Heatmap](use-case-scoring.md#expanded-heatmap-including-new-tools) — 24-tool scoring matrix including these frameworks
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow combining OpenSpec with Beads
 - [Beads](beads.md) — Agent memory layer
 - [Orchestration Landscape](landscape.md) — Agent Teams, multi-agent tools

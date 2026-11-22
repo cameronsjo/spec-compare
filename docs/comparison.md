@@ -92,7 +92,7 @@ How each tool communicates instructions to AI coding agents (tools that declare 
 
 ## Capability Matrix
 
-> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 23-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
+> Hand-curated qualitative view of the **original six core tools**. For the complete, always-current 24-tool capability flags see the generated [Detailed Feature Matrix](#detailed-feature-matrix) above; for the newer core tools see [Superpowers](tools/superpowers.md) and [Traycer](tools/traycer.md).
 
 | Aspect | Spec-Kit | Spec Kitty | BMad | OpenSpec | Kiro | Tessl |
 |--------|----------|------------|------|----------|------|-------|
@@ -264,7 +264,7 @@ Includes practical grades for:
 
 ## Related
 
-- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 23-tool heatmap
+- [Use Case Scoring](use-case-scoring.md) — Practical scenario-based grades + expanded 24-tool heatmap
 - [Iterative Development](iterative-development.md) — Deep dive on spec modifications
 - [Orchestration Landscape](landscape.md) — Agent Teams and 30+ multi-agent tools
 - [Beads + OpenSpec Cheatsheet](cheatsheet-beads-openspec.md) — Practical workflow guide
