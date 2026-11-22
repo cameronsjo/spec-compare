@@ -16,22 +16,22 @@ If you find errors, outdated information, or missing tools:
 
 ### Suggesting New Tools
 
-To suggest a tool, open an issue with its name, its repository or website, and what it does that the tracked tools don't. Authors, maintainers, and contributors are welcome to suggest their own tools (see Disclosure below). An issue is usually the better route: the entry is written to this project's conventions either way, and most tool pull requests so far have been re-landed on a maintainer branch rather than merged as they were.
+To suggest a tool, open an issue with its name, its repository or website, and what it does that the tracked tools don't. Authors, maintainers, and contributors are welcome to suggest their own tools (see step 1 below). An issue is usually the better route: the entry is written to this project's conventions either way, and most tool pull requests so far have been re-landed on a maintainer branch rather than merged as they were.
 
 #### How a suggestion is assessed
 
 Every suggestion, from anyone, goes through the same steps:
 
-1. **Disclosure.** If you build, maintain, or contribute to the tool, say so. The entry records it, and the README and the site's Disclosure section list it. It does not change the verdict either way.
+1. **Disclosure.** If you build, maintain, or contribute to the tool, say so. The entry records it, and the README's independence note lists it. It does not change the verdict either way.
 2. **Scope.** The tool has to be spec-driven development for AI coding, or adjacent to it and read as such (a skill collection or workflow bundle that coding agents run). A tool upstream of the coding loop, such as requirements elicitation on its own, gets a watch-list entry at most.
-3. **Openness.** A license or platform that limits who can run the tool (one vendor's services, one hosted database) keeps it on the watch list, however good it is.
-4. **Adoption.** An emerging-tier profile needs demonstrated traction: stars, downloads, releases, and active use. A tool that is early but fills a distinct niche goes on the watch list in [docs/gaps.md](docs/gaps.md) instead, with credit for what is new about it.
-5. **Core tier.** Core tools get the full treatment: a workflow graph and a walkthrough of every scenario. Core is for established tools with tagged releases and contributors beyond the original author carrying a meaningful share of the work. A new suggestion enters at emerging tier at most.
+3. **Openness.** A tool whose license restricts use to one vendor's services, with no way to run it outside them, gets a watch-list entry, however good it is. Source-available, fair-code, and proprietary licenses are not disqualifying on their own; the entry records the license.
+4. **Adoption.** An emerging-tier profile needs demonstrated traction, such as stars, downloads, releases, or active use. A tool that is early but fills a distinct niche goes on the watch list in [docs/gaps.md](docs/gaps.md) instead, with credit for what is new about it.
+5. **Core tier.** Core tools get the full treatment: a workflow graph and a walkthrough of every scenario. So far core has gone to established tools. A new suggestion enters at emerging tier at most; for an open-source tool, the promotion triggers so far have been tagged releases and contributors beyond the lead author carrying a meaningful share of the work.
 6. **Verification.** Every claim that ships is checked against the tool's own repository and packages: license, published versions, that packages resolve, and architecture claims against the code. Claims from the tool's authors are treated as hypotheses until checked.
 7. **Scores.** Tier, maturity, and heatmap scores are set by this project for every tool, so rows stay comparable. Scores proposed in a suggestion are read as input, not adopted.
 8. **Outcome.** The suggestion gets a reply that says what was added and where, what verification found, and what changed from the suggestion and why. Watch-list entries and declined suggestions name a return trigger: the change, such as a release, an adoption level, or a feature, that would bring the tool back for another look. When it happens, comment on the original thread or open a new issue with current numbers.
 
-Closed-source tools are watch-list only. Their claims trace only to public listings or vendor pages, and the entry says so. A profile needs source to inspect, or hands-on use by this project.
+Closed-source tools can be profiled when there is enough public material to assess them; their claims trace to vendor docs and listings, and the entry says so. An early closed-source tool without that material or traction goes on the watch list.
 
 Suggestions are handled in batches, with no fixed turnaround.
 
@@ -41,7 +41,7 @@ Suggestions are handled in batches, with no fixed turnaround.
 - Leave `site/package-lock.json` alone unless the change needs a dependency.
 - `site/src/data/tools/<tool>.json` needs scores to validate. Fill them in as your best estimate; they will be re-scored.
 - From `site/`, run `npm ci`, `npm run gen:tables`, `npm run build`, and `npm test` before pushing.
-- Expect the work to land on a maintainer branch with your commits and authorship kept, or to be closed with a watch-list entry and a return trigger.
+- Expect the work to land on a maintainer branch, with your commits and authorship kept where possible, or to be closed with a watch-list entry and a return trigger.
 
 ### Updating Research
 
