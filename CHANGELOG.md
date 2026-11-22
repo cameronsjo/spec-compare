@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The README's independence note lists each entry where a tool's own people were involved, as bullets: Memex (vendor-initiated review), SpecWeave (requested by its maintainer, #57), and RPAC (first draft by an agent-toolkit contributor, #80). The site's Disclosure fine print names the same three instead of RPAC alone.
+
 - Dropped the MoAI-ADK core-promotion trigger (#21). No hands-on evaluation is planned, so it stays at emerging tier on scores read from its repository, the same call made for Matt Pocock's Skills in #55.
 - The SpecDD, gstack, and SpecWeave entries in `docs/gaps.md` and the Memex promotion triggers in `docs/memex-review.md` no longer name a hands-on trial or eval; each now names an adoption, source, or feature signal instead. The `docs/landscape.md` link to the gaps analysis drops its stale "Five additional" count (#76).
 
