@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Visualizer layout refresh** (`site/`) — The masthead (lede and badges) now opens the Compare view only; it used to repeat above every view and pushed each table and profile about 170px down. Feature matrix, Scoring heatmap, and Decision guide gain an `h2` title, and the first two a one-line purpose. Core tool pages use the same profile as emerging ones, with the workflow player between the header and the facts, so they now show the fact grid, use-case scores, key features, and limitations that only emerging pages had. The fact grid settles into even rows (4 + 4 beside the rail) instead of 5 + 3. The footer sits at the bottom of the window on short views. `index.html` descriptions no longer say "Eleven" tools. README gains a screenshot and the Superpowers star count now matches its profile (~279K).
+
 - Dropped the MoAI-ADK core-promotion trigger (#21). No hands-on evaluation is planned, so it stays at emerging tier on scores read from its repository, the same call made for Matt Pocock's Skills in #55.
 - The SpecDD, gstack, and SpecWeave entries in `docs/gaps.md` and the Memex promotion triggers in `docs/memex-review.md` no longer name a hands-on trial or eval; each now names an adoption, source, or feature signal instead. The `docs/landscape.md` link to the gaps analysis drops its stale "Five additional" count (#76).
 

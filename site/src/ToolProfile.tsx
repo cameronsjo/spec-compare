@@ -1,10 +1,15 @@
+import type { ReactNode } from 'react'
 import type { ToolSpec } from './types'
 import { SCORE_DIMS } from './types'
 import { Anchored } from './Anchored'
 import { ScorePip } from './ScorePip'
 
-/** Per-tool profile: metadata badges, score row, key features, limitations, links. */
-export function ToolProfile({ spec }: { spec: ToolSpec }) {
+/**
+ * Per-tool profile: header, then metadata badges, score row, key features and
+ * limitations. `children` render between the header and the facts; core tools
+ * pass their workflow player there.
+ */
+export function ToolProfile({ spec, children }: { spec: ToolSpec; children?: ReactNode }) {
   const badges: { label: string; value?: string }[] = [
     { label: 'Maturity', value: spec.maturity },
     { label: 'License', value: spec.license },
@@ -37,6 +42,8 @@ export function ToolProfile({ spec }: { spec: ToolSpec }) {
           )}
         </div>
       </header>
+
+      {children}
 
       <div className="badge-grid">
         {badges
