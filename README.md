@@ -5,8 +5,9 @@ Independent research comparing **24 spec-driven development (SDD) tools** for AI
 > A considered opinion, not a benchmark. This project is independent and unaffiliated with every vendor tracked. Where a tool's own people were involved, the entry says so up front:
 >
 > - **[Memex](docs/memex-review.md):** the vendor initiated contact and asked for a review.
-> - **[SpecWeave](docs/gaps.md#specweave-anton-abyzovspecweave):** its maintainer requested the profile (#57).
-> - **[RPAC](docs/gaps.md#rpac-eai-orgagent-toolkit):** an agent-toolkit contributor wrote the first draft (#80). Tier and scores are this project's.
+> - **[SpecWeave](docs/gaps.md#specweave-anton-abyzovspecweave):** its maintainer requested the profile ([#57](https://github.com/cameronsjo/spec-compare/issues/57)).
+> - **[RPAC](docs/gaps.md#rpac-eai-orgagent-toolkit):** an agent-toolkit contributor wrote the first draft ([#80](https://github.com/cameronsjo/spec-compare/pull/80)). Tier and scores are this project's.
+> - **Watch-list entries** in [docs/gaps.md](docs/gaps.md) that their own authors submitted (archiet-microcodegen, reqlan, SpecBuddy, Consort, Enso Method, Speclr) say so in the entry. They carry no scores.
 
 ## 🔮 Live site
 

@@ -40,8 +40,8 @@ export function Disclosure() {
       </p>
       <p className="footer-fine">
         No affiliation with, sponsorship by, or endorsement from any tool shown. Where a tool&apos;s own people were
-        involved in its entry (Memex, SpecWeave, RPAC), the entry says so. Project names and marks belong to their
-        respective owners.
+        involved in its entry (Memex, SpecWeave, RPAC, and author-submitted watch-list entries), the entry says so.
+        Project names and marks belong to their respective owners.
       </p>
     </section>
   )
