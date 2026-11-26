@@ -21,6 +21,15 @@ export const OVERVIEW = [
   { id: 'decision', label: 'Decision guide' },
 ] as const
 
+// Title and one-line purpose for the overview views that open on a control row.
+// Compare carries the masthead instead; About and Disclosure have their own h2.
+export const VIEW_HEAD: Record<string, { title: string; blurb?: string }> = {
+  matrix: { title: 'Feature matrix', blurb: 'Every tool against the same capability columns.' },
+  heatmap: { title: 'Scoring heatmap', blurb: 'Fit for seven kinds of work, scored 1 to 5. Read down a column to find the best tool for a job.' },
+  // The guide opens with its own instructions, so it takes a title only.
+  decision: { title: 'Decision guide' },
+}
+
 // Provenance + disclosure, split out of the old footer into their own sidenav views.
 export const ABOUT = [
   { id: 'about', label: 'About' },
@@ -44,7 +53,7 @@ export function App() {
   const [navOpen, setNavOpen] = useState(false) // mobile drawer
 
   const spec = isViewId(nav) ? undefined : toolBySlug(nav)
-  const showLegend = nav === 'compare' || (spec?.tier === 'core')
+  const viewHead = VIEW_HEAD[nav]
 
   const selectNav = (id: string) => {
     setNav(id)
@@ -117,29 +126,40 @@ export function App() {
         actions={<ThemeToggle inline />}
       />
 
-      <section className="intro stack stack--sm">
-        {/* The page's one h1. The Appbar brand is a link, not a heading, and every
-            view below starts at h2 (profile names, About, Disclosure). */}
-        <h1 className="sr-only">Spec-Driven Development Tools</h1>
-        <p className="lede t-body-lg">
-          {tools.length} spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
-          <b className="anchor">runs a change</b>, <b className="anchor">scores across use cases</b>, and{' '}
-          <b className="anchor">stacks up feature-for-feature</b> — all{' '}
-          <b className="anchor">extracted from deep research</b>.
-        </p>
-        <div className="masthead-meta cluster" aria-label="About this build">
-          <span className="badge badge--ghost">{tools.length} tools</span>
-          <span className="badge badge--ghost">{coreTools.length} full workflows</span>
-          <span className="badge badge--ghost">7-dimension scoring</span>
-          <span className="badge badge--ghost">assessed {ASSESSED_AS_OF}</span>
-        </div>
-      </section>
+      {/* The page's one h1. The Appbar brand is a link, not a heading, and every
+          view below starts at h2 (view titles, profile names, About, Disclosure). */}
+      <h1 className="sr-only">Spec-Driven Development Tools</h1>
 
-      <AppShell rail="210px" gap="var(--s-lg)">
+      {/* The masthead opens the landing view only. Repeated above every view it
+          pushed each table and profile ~170px down the page. */}
+      {nav === 'compare' && (
+        <section className="intro stack stack--sm">
+          <p className="lede t-body-lg">
+            {tools.length} spec-driven-development tools, one <b className="anchor">workflow</b> apiece. See how each tool{' '}
+            <b className="anchor">runs a change</b>, <b className="anchor">scores across use cases</b>, and{' '}
+            <b className="anchor">stacks up feature-for-feature</b> — all{' '}
+            <b className="anchor">extracted from deep research</b>.
+          </p>
+          <div className="masthead-meta cluster" aria-label="About this build">
+            <span className="badge badge--ghost">{tools.length} tools</span>
+            <span className="badge badge--ghost">{coreTools.length} full workflows</span>
+            <span className="badge badge--ghost">7-dimension scoring</span>
+            <span className="badge badge--ghost">latest assessment {ASSESSED_AS_OF}</span>
+          </div>
+        </section>
+      )}
+
+      <AppShell rail="210px" gap="var(--s-lg)" className={nav === 'compare' ? undefined : 'app-shell--flush'}>
         <DesktopNav groups={navGroups} style={SIDENAV_STICKY_STYLE} />
 
         <AppShellContent id="main">
-          {showLegend && <Legend />}
+          {nav === 'compare' && <Legend />}
+          {viewHead && (
+            <header className="view-head">
+              <h2 className="profile-name">{viewHead.title}</h2>
+              {viewHead.blurb && <p className="profile-tagline">{viewHead.blurb}</p>}
+            </header>
+          )}
 
           {tools.length === 0 ? (
             <p className="empty">
@@ -162,22 +182,12 @@ export function App() {
               <b className="anchor">Tool not found.</b>
             </p>
           ) : spec.tier === 'core' ? (
-            <>
-              <div className="harness-meta">
-                <div className="harness-heading">
-                  <h2 className="profile-name">{spec.displayName}</h2>
-                  <span className="badge badge--ghost">{spec.version}</span>
-                </div>
-                <span className="badge badge--steel lang-badge">{spec.maturity}</span>
-                <span className="loop-style">{spec.tagline}</span>
-                {spec.repo && (
-                  <a className="repo-link" href={spec.repo} target="_blank" rel="noreferrer">
-                    {spec.repo.replace('https://github.com/', '')}
-                  </a>
-                )}
-              </div>
+            // Core tools get the same profile as emerging ones, with the workflow
+            // player between the header and the facts.
+            <ToolProfile spec={spec}>
+              <Legend />
               <WorkflowPlayer spec={spec} scenarioId={scenarioId} onScenarioChange={setScenarioId} />
-            </>
+            </ToolProfile>
           ) : (
             <ToolProfile spec={spec} />
           )}

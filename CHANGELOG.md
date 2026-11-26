@@ -27,7 +27,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Visualizer layout refresh** (`site/`) — The masthead (lede and badges) now opens the Compare view only; it used to repeat above every view and pushed each table and profile about 170px down. Feature matrix, Scoring heatmap, and Decision guide gain an `h2` title, and the first two a one-line purpose. Core tool pages use the same profile as emerging ones, with the workflow player between the header and the facts, so they now show the fact grid, use-case scores, key features, and limitations that only emerging pages had. The fact grid settles into even rows (4 + 4 beside the rail) instead of 5 + 3. The footer sits at the bottom of the window on short views. `index.html` descriptions no longer say "Eleven" tools. README gains a screenshot and the Superpowers star count now matches its profile (~279K).
+
+- **Assessed date** (`site/src/types.ts`) — `ASSESSED_AS_OF` moves `2026-08-28 → 2026-11-21`, the date of the newest profile (RPAC). It now means the most recent assessment, not the last full sweep; the August sweep is still the last time every version pin was checked. Labels now read "latest assessment", About and the heatmap footer also give the sweep date (`SWEPT_AS_OF`), and the heatmap detail sheet no longer stamps each tool with the set-wide date.
+
 - **Tool-suggestion policy** (`CONTRIBUTING.md`) — Publishes how a suggestion is assessed: disclosure, scope, openness, the adoption bar for an emerging profile versus a watch-list entry, what core tier takes, verification of every claim against the tool's own source, scores set by this project, and a reply that names a return trigger. It adds what a tool pull request should contain, and drops the "review within 7 days" promise, which the record did not meet. The policy was previously applied case by case in issue and PR replies (#12, #46, #50, #80)
+
 - Dropped the MoAI-ADK core-promotion trigger (#21). No hands-on evaluation is planned, so it stays at emerging tier on scores read from its repository, the same call made for Matt Pocock's Skills in #55.
 - The SpecDD, gstack, and SpecWeave entries in `docs/gaps.md` and the Memex promotion triggers in `docs/memex-review.md` no longer name a hands-on trial or eval; each now names an adoption, source, or feature signal instead. The `docs/landscape.md` link to the gaps analysis drops its stale "Five additional" count (#76).
 

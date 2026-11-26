@@ -8,7 +8,7 @@ import {
   type MouseEvent as RMouseEvent,
 } from 'react'
 import { tools } from './data'
-import { SCORE_DIMS, ASSESSED_AS_OF, type Scores } from './types'
+import { SCORE_DIMS, ASSESSED_AS_OF, SWEPT_AS_OF, type Scores } from './types'
 import { scoreFill, scoreBorder, SCORE_WORD, bucket, formatScore } from './score'
 import { ScorePip } from './ScorePip'
 
@@ -307,7 +307,7 @@ export function ScoringHeatmap() {
               </p>
             )}
             <p className="heat-pop-foot">
-              Pinned to <b>{activeTool.version}</b> · assessed {ASSESSED_AS_OF}
+              Pinned to <b>{activeTool.version}</b>
             </p>
           </div>
         </>
@@ -326,7 +326,7 @@ export function ScoringHeatmap() {
             <b className="anchor">1</b> = avoid. <b>Context</b> = memory, context-window and multi-session handling.
           </>
         )}{' '}
-        Scores assessed <b>{ASSESSED_AS_OF}</b> — a considered opinion, not a benchmark.
+        Latest assessment <b>{ASSESSED_AS_OF}</b>, last version sweep <b>{SWEPT_AS_OF}</b> — a considered opinion, not a benchmark.
       </p>
     </section>
   )

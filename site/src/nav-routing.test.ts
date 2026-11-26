@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { OVERVIEW, ABOUT, isViewId } from './App'
+import { OVERVIEW, ABOUT, VIEW_HEAD, isViewId } from './App'
 import { tools } from './data'
 
 // App routes a nav id by asking isViewId() first: a "view" id renders an overview /
@@ -31,5 +31,13 @@ describe('nav view-id routing', () => {
 
   it('has unique view ids across the overview and about groups', () => {
     expect(new Set(viewIds).size).toBe(viewIds.length)
+  })
+
+  // A VIEW_HEAD key that names no overview view would never render, and an
+  // overview view without one would open with no heading. Compare is the
+  // exception: it opens with the masthead.
+  it('gives every overview view except compare a heading, and no other id', () => {
+    const expected = OVERVIEW.map((o) => o.id).filter((id) => id !== 'compare')
+    expect(Object.keys(VIEW_HEAD).sort()).toEqual([...expected].sort())
   })
 })

@@ -8,6 +8,11 @@ body {
 }
 
 .app {
+  /* Full-height column so the colophon sits at the foot of the window on short
+     views (Decision guide, About) instead of floating mid-screen. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
   padding-block: var(--s-lg) var(--s-2xl);
   /* viewport-fit=cover (index.html) lets content run under the notch in
      landscape; clear the left/right safe areas on the app root so the
@@ -43,6 +48,16 @@ body {
 }
 .intro {
   margin-block: var(--s-lg) var(--s-xl);
+}
+/* Views without the masthead: the shell supplies the gap under the appbar. */
+.app-shell--flush {
+  margin-top: var(--s-lg);
+}
+/* Title + one-line purpose above a view that opens on a control row. */
+.view-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .lede {
   margin: 0;
@@ -92,6 +107,10 @@ body {
 .desktop-nav {
   max-height: calc(100dvh - var(--sidenav-sticky-top) - var(--s-md));
   overflow-y: auto;
+}
+
+.app > .colophon {
+  margin-top: auto;
 }
 
 /* ---- pill toggles (matrix tier filter · heatmap mode) ----
@@ -312,24 +331,6 @@ body {
 }
 
 /* ---- single tool player ---- */
-.harness-meta {
-  display: flex;
-  align-items: baseline;
-  gap: var(--s-md);
-  margin: var(--s-sm) 0 var(--s-md);
-  flex-wrap: wrap;
-}
-.harness-meta .loop-style {
-  min-height: 0;
-  margin-bottom: 0;
-}
-.harness-heading {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--s-sm);
-  flex-basis: 100%;
-}
 .repo-link {
   color: var(--accent);
   font-size: 0.85rem;
@@ -929,8 +930,17 @@ body {
 }
 .badge-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  /* 180px floor: the eight facts settle into even rows (4 + 4 beside the
+     rail); a 140px floor left a stray row of three. */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: var(--s-sm);
+}
+/* A phone column is narrower than two 180px tracks, which stacked all eight
+   facts in one long column. Two even tracks keep the grid short. */
+@media (max-width: 640px) {
+  .badge-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 /* Layered on the .stat primitive (markup: `stat badge-cell`) — the container
    (flex column, bg-raised, border, radius) comes from .stat; we only tighten the
