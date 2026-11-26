@@ -1,9 +1,9 @@
 // Date of the most recent assessment in the tracked set. Single source of truth
-// for the "assessed" stamp shown across the site. Bump it when a profile is added
-// or re-scored, and on every sweep. The last full version sweep was 2026-08-28
-// (docs/reassessment-2026-08-28.md); README's "Versions current as of" carries that.
+// for the "latest assessment" stamp shown across the site. Bump it only when a
+// profile is added or re-scored. A version-only sweep moves SWEPT_AS_OF instead.
 export const ASSESSED_AS_OF = '2026-11-21'
 // The last time every tool's version pin was re-checked (docs/reassessment-2026-08-28.md).
+// README's "Versions current as of" carries the same date; dates.test.ts pins the two.
 // No scores changed in that sweep; only Kiro, Spec-Kit, and Superpowers got a deep pass.
 export const SWEPT_AS_OF = '2026-08-28'
 
