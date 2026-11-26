@@ -25,7 +25,7 @@ export function About() {
       <h3 className="profile-list-head">How the scores are derived</h3>
       <p className="prose">
         <b className="anchor">Independent &amp; unofficial.</b> Profiles, feature matrices and use-case scores are
-        extracted from the spec-compare research docs — no fabricated attributes — pinned to each tool's version. The newest profile was assessed {ASSESSED_AS_OF}; the last full sweep of every tool was {SWEPT_AS_OF}. They can be incomplete, simplified, or out of date, and may not match current
+        extracted from the spec-compare research docs — no fabricated attributes — pinned to each tool's version. The most recent assessment was {ASSESSED_AS_OF}; the last full sweep of every tool was {SWEPT_AS_OF}. They can be incomplete, simplified, or out of date, and may not match current
         behaviour.
       </p>
     </section>
