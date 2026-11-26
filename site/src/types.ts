@@ -3,7 +3,8 @@
 // or re-scored, and on every sweep. The last full version sweep was 2026-08-28
 // (docs/reassessment-2026-08-28.md); README's "Versions current as of" carries that.
 export const ASSESSED_AS_OF = '2026-11-21'
-// The last time every tool's version pin and scores were re-checked together.
+// The last time every tool's version pin was re-checked (docs/reassessment-2026-08-28.md).
+// No scores changed in that sweep; only Kiro, Spec-Kit, and Superpowers got a deep pass.
 export const SWEPT_AS_OF = '2026-08-28'
 
 // Phase-kind vocabulary for spec-driven-development workflows. Fixed + colorable,

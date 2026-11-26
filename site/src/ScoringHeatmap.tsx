@@ -326,7 +326,7 @@ export function ScoringHeatmap() {
             <b className="anchor">1</b> = avoid. <b>Context</b> = memory, context-window and multi-session handling.
           </>
         )}{' '}
-        Latest assessment <b>{ASSESSED_AS_OF}</b>, last full sweep <b>{SWEPT_AS_OF}</b> — a considered opinion, not a benchmark.
+        Latest assessment <b>{ASSESSED_AS_OF}</b>, last version sweep <b>{SWEPT_AS_OF}</b> — a considered opinion, not a benchmark.
       </p>
     </section>
   )
