@@ -144,7 +144,7 @@ export function DecisionGuide({ onSelectTool }: { onSelectTool: (slug: string) =
 
       <p className="view-foot">
         A heuristic distilled from the research docs — recommendations are a considered opinion (Cameron + Claude),
-        assessed <b>{ASSESSED_AS_OF}</b>, not a guarantee of fit.
+        latest assessment <b>{ASSESSED_AS_OF}</b>, not a guarantee of fit.
       </p>
     </section>
   )

@@ -144,7 +144,7 @@ export function App() {
             <span className="badge badge--ghost">{tools.length} tools</span>
             <span className="badge badge--ghost">{coreTools.length} full workflows</span>
             <span className="badge badge--ghost">7-dimension scoring</span>
-            <span className="badge badge--ghost">assessed {ASSESSED_AS_OF}</span>
+            <span className="badge badge--ghost">latest assessment {ASSESSED_AS_OF}</span>
           </div>
         </section>
       )}
