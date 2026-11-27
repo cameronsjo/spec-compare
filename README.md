@@ -9,16 +9,18 @@ Independent research comparing **24 spec-driven development (SDD) tools** for AI
 > - **[RPAC](docs/gaps.md#rpac-eai-orgagent-toolkit):** an agent-toolkit contributor wrote the first draft ([#80](https://github.com/cameronsjo/spec-compare/pull/80)). Tier and scores are this project's.
 > - **Watch-list entries** in [docs/gaps.md](docs/gaps.md) that their own authors submitted (archiet-microcodegen, reqlan, SpecBuddy, Consort, Enso Method, Speclr) say so in the entry. They carry no scores.
 
-## 🔮 Live site
+## Live site
 
 An interactive, Artificer-themed visualizer of this research:
 **[cameronsjo.github.io/spec-compare](https://cameronsjo.github.io/spec-compare/)**
+
+[![The compare view: one scenario stepped through every core tool side by side](docs/assets/compare-workflows.png)](https://cameronsjo.github.io/spec-compare/)
 
 - **Compare workflows** — step the same scenario (trivial change, greenfield, refactor, bug fix, parallel dev, cross-cutting) through all eight core tools in lockstep and watch OpenSpec's short path contrast with BMad's long one.
 - **Feature matrix** — sortable, filterable capability table aggregated live from the data.
 - **Scoring heatmap** — all twenty-four tools across seven use-case dimensions, color-graded 1–5.
 - **Decision guide** — an interactive flowchart that walks you to a recommended tool.
-- **Tool profiles** — per-tool metadata, key features, and limitations.
+- **Tool profiles** — per-tool metadata, scores, key features, and limitations. Core tools add a workflow player you can step through.
 
 Every value is extracted from the research docs below — no fabricated attributes.
 
@@ -61,7 +63,7 @@ Pushing to `main` builds and publishes `site/dist/` to GitHub Pages via [`.githu
 - **OpenSpec** - Lightweight change-management for brownfield projects
 - **Kiro** - AWS-backed agentic IDE, GA since Nov 2025 (paid tiers + CLI)
 - **Tessl** - Spec-as-source platform; public Framework + Registry ($125M raised)
-- **Superpowers** - MIT skills framework + methodology; brainstorm → plan → subagent TDD (~214K stars)
+- **Superpowers** - MIT skills framework + methodology; brainstorm → plan → subagent TDD (~279K stars)
 - **Traycer** - Commercial VS Code Plan → Execute → Verify layer over your agent (100K+ users)
 
 ### Emerging (16)

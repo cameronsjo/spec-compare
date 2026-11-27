@@ -1,7 +1,11 @@
-// When the scores, feature flags, and tool versions were last swept against the
-// research docs. Single source of truth for the "pinned as of" stamp shown across
-// the site; mirrors README's "Last Updated". Bump this whenever the docs are re-swept.
-export const ASSESSED_AS_OF = '2026-08-28'
+// Date of the most recent assessment in the tracked set. Single source of truth
+// for the "latest assessment" stamp shown across the site. Bump it only when a
+// profile is added or re-scored. A version-only sweep moves SWEPT_AS_OF instead.
+export const ASSESSED_AS_OF = '2026-11-21'
+// The last time every tool's version pin was re-checked (docs/reassessment-2026-08-28.md).
+// README's "Versions current as of" carries the same date; dates.test.ts pins the two.
+// No scores changed in that sweep; only Kiro, Spec-Kit, and Superpowers got a deep pass.
+export const SWEPT_AS_OF = '2026-08-28'
 
 // Phase-kind vocabulary for spec-driven-development workflows. Fixed + colorable,
 // so phases are comparable across tools the way agentic-harnesses compared node kinds.
