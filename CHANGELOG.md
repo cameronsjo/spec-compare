@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- The README's independence note lists each entry where a tool's own people were involved, as bullets: Memex (vendor-initiated review), SpecWeave (requested by its maintainer, #57), RPAC (first draft by an agent-toolkit contributor, #80), and the author-submitted watch-list entries in `docs/gaps.md`. The site's Disclosure fine print names the same set instead of RPAC alone.
+
 - **Visualizer layout refresh** (`site/`) — The masthead (lede and badges) now opens the Compare view only; it used to repeat above every view and pushed each table and profile about 170px down. Feature matrix, Scoring heatmap, and Decision guide gain an `h2` title, and the first two a one-line purpose. Core tool pages use the same profile as emerging ones, with the workflow player between the header and the facts, so they now show the fact grid, use-case scores, key features, and limitations that only emerging pages had. The fact grid settles into even rows (4 + 4 beside the rail) instead of 5 + 3. The footer sits at the bottom of the window on short views. `index.html` descriptions no longer say "Eleven" tools. README gains a screenshot and the Superpowers star count now matches its profile (~279K).
 
 - **Assessed date** (`site/src/types.ts`) — `ASSESSED_AS_OF` moves `2026-08-28 → 2026-11-21`, the date of the newest profile (RPAC). It now means the most recent assessment, not the last full sweep; the August sweep is still the last time every version pin was checked. Labels now read "latest assessment", About and the heatmap footer also give the sweep date (`SWEPT_AS_OF`), and the heatmap detail sheet no longer stamps each tool with the set-wide date.
